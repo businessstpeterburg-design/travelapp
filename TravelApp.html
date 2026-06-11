@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelApp Nha Trang — Ваш премиальный гид по Нячангу</title>
+    <style>
+        :root {
+            --bg-color: #0c0f14;
+            --card-bg: #161b22;
+            --accent-gold: #f5b041;
+            --accent-cyan: #45f3ff;
+            --text-main: #f0f3f4;
+            --text-muted: #8b949e;
+        }
+
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-main); 
+            margin: 0; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container { 
+            max-width: 550px; 
+            width: 100%; 
+            text-align: center; 
+            margin-top: 50px; 
+            flex: 1; /* Чтобы футер всегда был внизу */
+        }
+
+        .logo-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        h1 { 
+            color: var(--accent-gold); 
+            font-size: 3rem; 
+            margin: 0;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(245, 176, 65, 0.2);
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #f5b041, #f39c12);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 20px;
+            position: absolute;
+            top: -10px;
+            right: -45px;
+            text-transform: uppercase;
+        }
+
+        .subtitle { 
+            font-size: 1.15rem; 
+            line-height: 1.6; 
+            color: var(--text-muted); 
+            margin-bottom: 40px;
+            padding: 0 10px;
+        }
+
+        .subtitle strong {
+            color: var(--text-main);
+        }
+
+        .tariffs { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 18px; 
+            margin-bottom: 40px;
+        }
+
+        .tariff-card { 
+            background: var(--card-bg); 
+            border: 1px solid rgba(69, 243, 255, 0.15); 
+            border-radius: 16px; 
+            padding: 22px 28px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5); 
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tariff-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 12px 30px rgba(65, 243, 255, 0.15);
+        }
+
+        /* Выделение тарифа "Навсегда" как самого сочного */
+        .tariff-card.premium {
+            border: 1px solid rgba(245, 176, 65, 0.4);
+        }
+        .tariff-card.premium:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 12px 30px rgba(245, 176, 65, 0.2);
+        }
+
+        .tariff-info {
+            text-align: left;
+        }
+
+        .tariff-name { 
+            font-weight: 700; 
+            font-size: 1.25rem; 
+            color: #fff; 
+            margin-bottom: 4px;
+        }
+
+        .tariff-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .tariff-price { 
+            font-size: 1.4rem; 
+            color: var(--accent-gold); 
+            font-weight: 800; 
+            background: rgba(245, 176, 65, 0.1);
+            padding: 6px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(245, 176, 65, 0.2);
+        }
+
+        .tariff-card.premium .tariff-price {
+            background: rgba(245, 176, 65, 0.2);
+            border-color: var(--accent-gold);
+        }
+
+        .notice-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 15px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            margin-bottom: 50px;
+        }
+
+        footer { 
+            margin-top: auto;
+            border-top: 1px solid #21262d; 
+            padding-top: 25px; 
+            width: 100%; 
+            max-width: 600px;
+            text-align: center; 
+            font-size: 0.85rem; 
+            color: var(--text-muted);
+            padding-bottom: 20px;
+        }
+
+        .footer-links {
+            margin-bottom: 15px;
+        }
+
+        footer a { 
+            color: var(--accent-cyan); 
+            text-decoration: none; 
+            margin: 0 12px; 
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        footer a:hover { 
+            color: var(--accent-gold);
+            text-decoration: underline; 
+        }
+
+        .legal-info {
+            font-size: 0.75rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo-wrapper">
+            <h1>TravelApp</h1>
+            <span class="badge">Nha Trang</span>
+        </div>
+        <p class="subtitle">Ваш персональный мобильный путеводитель по Нячангу. <strong>Секретные локации, SOS-контакты, готовые маршруты</strong> и инсайды от местных жителей прямо в вашем смартфоне.</p>
+        
+        <div class="tariffs">
+            <div class="tariff-card">
+                <div class="tariff-info">
+                    <div class="tariff-name">Тест-драйв</div>
+                    <div class="tariff-desc">Фиксированный доступ на 3 дня</div>
+                </div>
+                <span class="tariff-price">399 ₽</span>
+            </div>
+
+            <div class="tariff-card">
+                <div class="tariff-info">
+                    <div class="tariff-name">Стандартный отпуск</div>
+                    <div class="tariff-desc">Фиксированный доступ на 6 дней</div>
+                </div>
+                <span class="tariff-price">599 ₽</span>
+            </div>
+
+            <div class="tariff-card">
+                <div class="tariff-info">
+                    <div class="tariff-name">Максимальный трип</div>
+                    <div class="tariff-desc">Фиксированный доступ на 10 дней</div>
+                </div>
+                <span class="tariff-price">899 ₽</span>
+            </div>
+
+            <div class="tariff-card">
+                <div class="tariff-info">
+                    <div class="tariff-name">Зимовка</div>
+                    <div class="tariff-desc">Фиксированный доступ на 30 дней</div>
+                </div>
+                <span class="tariff-price">1499 ₽</span>
+            </div>
+
+            <div class="tariff-card premium">
+                <div class="tariff-info">
+                    <div class="tariff-name">🔥 Навсегда</div>
+                    <div class="tariff-desc">Полный доступ + все будущие обновления и новые страны</div>
+                </div>
+                <span class="tariff-price">6999 ₽</span>
+            </div>
+        </div>
+
+        <div class="notice-box">
+            💡 <strong>Порядок предоставления доступа:</strong> Все оплаты являются разовыми и фиксированными. Автоматические списания и подписки отсутствуют. После успешного подтверждения транзакции выбранный период доступа мгновенно активируется внутри мобильного приложения.
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <!-- ВНИМАНИЕ: Замени "ССЫЛКА_НА_..." на свои реальные ссылки с Google Диска -->
+            <a href="ССЫЛКА_НА_ОФЕРТУ" target="_blank">Публичная оферта</a>
+            <a href="ССЫЛКА_НА_ПОЛИТИКУ" target="_blank">Политика конфиденциальности</a>
+        </div>
+        <div class="legal-info">
+            © 2026 TravelApp Nha Trang. Все права защищены.<br>
+            Самозанятый: Баева Мария Сергеевна | ИНН: 732901387845<br>
+            По вопросам поддержки: bankbaev@bk.ru
+        </div>
+    </footer>
+
+</body>
+</html>

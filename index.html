@@ -1,19 +1,717 @@
-<script>
-  async function pay(tariff, amount, days) {
-    const userId = localStorage.getItem('tgid') || '';
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    const response = await fetch('https://ТВОЯ_CLOUD_FUNCTION/createYooKassaPayment', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ tariff, amount, days, userId })
-    });
+  <title>Как Местный — доступ к маршруту по Нячангу</title>
 
-    const data = await response.json();
-
-    if (data.confirmation_url) {
-      window.location.href = data.confirmation_url;
-    } else {
-      alert('Ошибка создания платежа');
+  <style>
+    :root {
+      --bg: #030303;
+      --gold: #d6a13b;
+      --gold-light: #ffe08a;
+      --gold-dark: #8a5b16;
+      --white: #f8f4ea;
+      --muted: #aaa49a;
+      --line: rgba(255, 224, 138, 0.28);
     }
-  }
-</script>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 14px;
+      color: var(--white);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 50% -10%, rgba(255, 224, 138, 0.22), transparent 34%),
+        radial-gradient(circle at 100% 20%, rgba(214, 161, 59, 0.16), transparent 30%),
+        radial-gradient(circle at 0% 75%, rgba(255, 224, 138, 0.08), transparent 30%),
+        #030303;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.07) 22%, transparent 38%),
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,0.022) 0,
+          rgba(255,255,255,0.022) 1px,
+          transparent 1px,
+          transparent 70px
+        );
+      opacity: 0.34;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 430px;
+      margin: 0 auto;
+      padding-bottom: 32px;
+    }
+
+    .route-hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+      border-radius: 32px;
+      padding: 24px 20px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.84)),
+        url("https://images.unsplash.com/photo-1542259009477-d625272157b7?auto=format&fit=crop&w=1200&q=80");
+      background-size: cover;
+      background-position: center;
+      border: 1px solid rgba(255, 224, 138, 0.32);
+      box-shadow:
+        0 32px 85px rgba(0,0,0,0.9),
+        0 0 48px rgba(214,161,59,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.16);
+    }
+
+    .route-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 70% 15%, rgba(255, 224, 138, 0.34), transparent 28%),
+        linear-gradient(145deg, rgba(0,0,0,0.18), rgba(0,0,0,0.84));
+      z-index: 0;
+    }
+
+    .route-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.08) 42%, transparent 62%);
+      transform: translateX(-120%);
+      animation: shine 5s infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-120%); }
+      45% { transform: translateX(120%); }
+      100% { transform: translateX(120%); }
+    }
+
+    .route-content {
+      position: relative;
+      z-index: 2;
+      min-height: 372px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 42px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 224, 138, 0.75);
+      color: var(--gold-light);
+      font-size: 22px;
+      background: rgba(0,0,0,0.36);
+      box-shadow: 0 0 26px rgba(255,224,138,0.22);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand-text {
+      font-size: 17px;
+      font-weight: 950;
+      letter-spacing: 0.8px;
+      line-height: 0.95;
+    }
+
+    .city {
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 224, 138, 0.44);
+      background: rgba(0,0,0,0.38);
+      color: var(--gold-light);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      backdrop-filter: blur(14px);
+    }
+
+    .route-badge {
+      display: inline-block;
+      width: fit-content;
+      padding: 8px 15px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #fff2bc, #d6a13b, #9b6718);
+      color: #050505;
+      font-size: 12px;
+      font-weight: 1000;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      box-shadow: 0 0 24px rgba(255,224,138,0.28);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.04;
+      font-weight: 1000;
+      letter-spacing: -1.1px;
+      text-transform: uppercase;
+    }
+
+    h1 span {
+      display: block;
+      color: var(--gold-light);
+      text-shadow: 0 0 34px rgba(255,224,138,0.24);
+    }
+
+    .route-text {
+      margin: 16px 0 0;
+      color: rgba(248,244,234,0.88);
+      font-size: 15.5px;
+      line-height: 1.55;
+    }
+
+    .route-text strong {
+      color: #fff;
+    }
+
+    .hero-points {
+      margin-top: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding-top: 32px;
+    }
+
+    .hero-point {
+      border-radius: 18px;
+      padding: 13px 11px;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(255, 224, 138, 0.20);
+      backdrop-filter: blur(14px);
+      color: rgba(248,244,234,0.83);
+      font-size: 12.5px;
+      line-height: 1.25;
+    }
+
+    .hero-point b {
+      display: block;
+      color: var(--gold-light);
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .numbers {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 10px;
+      margin: 18px 0 24px;
+    }
+
+    .number {
+      text-align: center;
+      padding: 16px 8px;
+      border-radius: 21px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,224,138,0.16);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    .number b {
+      display: block;
+      font-size: 25px;
+      color: var(--gold-light);
+      margin-bottom: 5px;
+      font-weight: 1000;
+    }
+
+    .number span {
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.2;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 26px 0 16px;
+    }
+
+    .section-title div {
+      font-size: 12px;
+      color: var(--gold-light);
+      letter-spacing: 2.4px;
+      text-transform: uppercase;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 25px;
+      line-height: 1.1;
+      font-weight: 950;
+    }
+
+    .tariffs {
+      display: grid;
+      gap: 14px;
+    }
+
+    .tariff {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      padding: 20px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.025)),
+        rgba(8,8,8,0.86);
+      border: 1px solid var(--line);
+      box-shadow:
+        0 22px 58px rgba(0,0,0,0.66),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+      backdrop-filter: blur(18px);
+      transition: 0.35s ease;
+    }
+
+    .tariff::before {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -60px;
+      top: -65px;
+      background: radial-gradient(circle, rgba(255,224,138,0.20), transparent 70%);
+    }
+
+    .tariff::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.09) 45%, transparent 62%);
+      transform: translateX(-110%);
+      transition: 0.9s;
+    }
+
+    .tariff:hover::after {
+      transform: translateX(110%);
+    }
+
+    .tariff.featured {
+      border-color: rgba(255, 224, 138, 0.9);
+      box-shadow:
+        0 0 0 1px rgba(255,224,138,0.18),
+        0 0 48px rgba(255,224,138,0.20),
+        0 28px 68px rgba(0,0,0,0.78);
+    }
+
+    .tariff-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .top-seller {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #fff2bc, #d6a13b);
+      color: #000;
+      font-size: 10.5px;
+      font-weight: 1000;
+      box-shadow: 0 0 20px rgba(255,224,138,.35);
+      z-index: 2;
+      text-transform: uppercase;
+    }
+
+    .tariff-name {
+      font-size: 25px;
+      font-weight: 1000;
+      text-transform: uppercase;
+      letter-spacing: -0.6px;
+      margin-bottom: 6px;
+      padding-right: 110px;
+    }
+
+    .tariff-days {
+      color: var(--gold-light);
+      font-size: 16px;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 36px;
+      font-weight: 1000;
+      color: #fff;
+      letter-spacing: -1px;
+    }
+
+    .currency {
+      color: var(--gold-light);
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .desc {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .button {
+      position: relative;
+      width: 100%;
+      margin-top: 16px;
+      border: none;
+      border-radius: 18px;
+      padding: 16px 18px;
+      background: linear-gradient(135deg, #fff3bf 0%, #e3b24d 42%, #8e5c14 100%);
+      color: #050505;
+      font-size: 16px;
+      font-weight: 1000;
+      cursor: pointer;
+      box-shadow:
+        0 15px 30px rgba(214,161,59,.35),
+        inset 0 1px 0 rgba(255,255,255,0.55);
+      transition: 0.3s ease;
+    }
+
+    .button:active {
+      transform: scale(0.98);
+    }
+
+    .all-access {
+      margin-top: 20px;
+      padding: 20px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 850;
+      line-height: 1.45;
+      color: var(--gold-light);
+      border-radius: 24px;
+      background: rgba(214,161,59,.08);
+      border: 1px solid rgba(255,224,138,.25);
+    }
+
+    .same-access {
+      margin-top: 20px;
+      padding: 22px;
+      border-radius: 28px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.025)),
+        rgba(8,8,8,0.88);
+      border: 1px solid rgba(255,224,138,0.28);
+      box-shadow: 0 22px 58px rgba(0,0,0,0.55);
+    }
+
+    .same-access h3 {
+      margin: 0 0 10px;
+      color: var(--gold-light);
+      font-size: 21px;
+      font-weight: 950;
+    }
+
+    .same-access p {
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0 0 15px;
+      font-size: 14.5px;
+    }
+
+    .access-grid {
+      display: grid;
+      gap: 9px;
+    }
+
+    .access-item {
+      padding: 13px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,224,138,0.13);
+      color: #eee;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .access-item::before {
+      content: "✓";
+      color: var(--gold-light);
+      font-weight: 1000;
+      margin-right: 8px;
+    }
+
+    .note {
+      margin-top: 16px;
+      color: var(--gold-light);
+      background: rgba(214,161,59,0.08);
+      border: 1px dashed rgba(255,224,138,0.36);
+      border-radius: 18px;
+      padding: 15px;
+      font-size: 13.5px;
+      line-height: 1.45;
+      font-weight: 800;
+    }
+
+    footer {
+      text-align: center;
+      color: #8f8a80;
+      margin-top: 30px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,224,138,0.18);
+      font-size: 12.5px;
+      line-height: 1.65;
+    }
+
+    footer a {
+      color: var(--gold-light);
+      text-decoration: none;
+      font-weight: 850;
+      margin: 0 7px;
+    }
+
+    @media (min-width: 800px) {
+      body {
+        padding: 22px;
+      }
+
+      .page {
+        max-width: 760px;
+      }
+
+      .route-hero {
+        min-height: 460px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <section class="route-hero">
+      <div class="route-content">
+
+        <div class="brand-row">
+          <div class="brand">
+            <div class="brand-mark">⌖</div>
+            <div class="brand-text">КАК<br>МЕСТНЫЙ</div>
+          </div>
+
+          <div class="city">Нячанг</div>
+        </div>
+
+        <div class="route-badge">Маршрут готов</div>
+
+        <h1>
+          Ваш отпуск
+          <span>уже собран</span>
+        </h1>
+
+        <p class="route-text">
+          Мы подготовили для вас <strong>авторский маршрут по Нячангу</strong>:
+          куда ехать, во сколько приезжать, где не переплатить,
+          что взять с собой и какие места выбирать под ваш формат отдыха.
+        </p>
+
+        <div class="hero-points">
+          <div class="hero-point">
+            <b>★</b>
+            Проверенные места без туристических ловушек
+          </div>
+
+          <div class="hero-point">
+            <b>₽</b>
+            Локации и советы под ваш бюджет
+          </div>
+
+          <div class="hero-point">
+            <b>⌁</b>
+            Секретные точки, тайминги и лайфхаки
+          </div>
+
+          <div class="hero-point">
+            <b>SOS</b>
+            Важные контакты на случай проблем
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="numbers">
+      <div class="number">
+        <b>100+</b>
+        <span>локаций</span>
+      </div>
+
+      <div class="number">
+        <b>20+</b>
+        <span>разделов</span>
+      </div>
+
+      <div class="number">
+        <b>SOS</b>
+        <span>контакты</span>
+      </div>
+    </section>
+
+    <section class="section-title">
+      <div>Доступ к приложению</div>
+      <h2>Выберите срок</h2>
+    </section>
+
+    <section class="tariffs">
+
+      <div class="tariff">
+        <div class="tariff-inner">
+          <div class="tariff-name">Тест-драйв</div>
+          <div class="tariff-days">3 дня доступа</div>
+
+          <div class="price-row">
+            <div class="price">599</div>
+            <div class="currency">₽</div>
+          </div>
+
+          <div class="desc">
+            Для короткой поездки и быстрого знакомства с городом.
+          </div>
+
+          <button class="button">Получить доступ</button>
+        </div>
+      </div>
+
+      <div class="tariff">
+        <div class="tariff-inner">
+          <div class="tariff-name">Стандарт</div>
+          <div class="tariff-days">6 дней доступа</div>
+
+          <div class="price-row">
+            <div class="price">899</div>
+            <div class="currency">₽</div>
+          </div>
+
+          <div class="desc">
+            Оптимально для классического отпуска в Нячанге.
+          </div>
+
+          <button class="button">Получить доступ</button>
+        </div>
+      </div>
+
+      <div class="tariff featured">
+        <div class="top-seller">Выбор туристов</div>
+
+        <div class="tariff-inner">
+          <div class="tariff-name">Комфорт</div>
+          <div class="tariff-days">10 дней доступа</div>
+
+          <div class="price-row">
+            <div class="price">1200</div>
+            <div class="currency">₽</div>
+          </div>
+
+          <div class="desc">
+            Больше дней доступа за небольшую доплату.
+          </div>
+
+          <button class="button">Получить доступ</button>
+        </div>
+      </div>
+
+      <div class="tariff">
+        <div class="tariff-inner">
+          <div class="tariff-name">Разгул</div>
+          <div class="tariff-days">30 дней доступа</div>
+
+          <div class="price-row">
+            <div class="price">2500</div>
+            <div class="currency">₽</div>
+          </div>
+
+          <div class="desc">
+            Для долгого отдыха, зимовки и максимального погружения.
+          </div>
+
+          <button class="button">Получить доступ</button>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="all-access">
+      Все тарифы включают полный доступ ко всем материалам приложения.<br>
+      Разница только в количестве дней доступа.
+    </div>
+
+    <section class="same-access">
+      <h3>Что входит в любой тариф</h3>
+
+      <p>
+        Все материалы открываются одинаково в любом тарифе:
+        вы выбираете только срок доступа.
+      </p>
+
+      <div class="access-grid">
+        <div class="access-item">Авторские маршруты по Нячангу</div>
+        <div class="access-item">Пляжи, кафе, рестораны, смотровые и развлечения</div>
+        <div class="access-item">Секретные локации и лайфхаки местных</div>
+        <div class="access-item">SOS-контакты, госпитали, врачи и переводчики</div>
+        <div class="access-item">Скидки и рекомендации от проекта «Как Местный»</div>
+      </div>
+
+      <div class="note">
+        Все оплаты разовые. Подписок и автоматических списаний нет.
+        После оплаты доступ активируется внутри приложения.
+      </div>
+    </section>
+
+    <footer>
+      <a href="https://drive.google.com/file/d/1mTvKGMDsva9Nxhdaql0T_WFDvgmcd--s/view?usp=sharing" target="_blank">Публичная оферта</a>
+      <a href="https://drive.google.com/file/d/1EXisDY_L9_W7NxI5CGAJtLyiAxZVugs5/view?usp=sharing" target="_blank">Политика конфиденциальности</a>
+
+      <br><br>
+
+      © 2026 TravelApp Nha Trang. Все права защищены.<br>
+      Самозанятый: Баева Мария Сергеевна | ИНН: 732901387845<br>
+      Поддержка: travel.app@bk.ru
+    </footer>
+
+  </main>
+</body>
+</html>

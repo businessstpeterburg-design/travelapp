@@ -539,14 +539,25 @@
 
     <section class="tariffs">
 
-      <div class="tariff">
-        <div class="tariff-inner">
-          <div class="tariff-name">Тест-драйв</div>
-          <div class="tariff-days">3 дня доступа</div>
-          <div class="price-row"><div class="price">599</div><div class="currency">₽</div></div>
-          <div class="desc">Для короткой поездки и быстрого знакомства с городом.</div>
-          <a class="button" href="https://yookassa.ru/my/i/ajnhLotElBV8/l" target="_blank" rel="noopener noreferrer">Получить доступ</a>
-        </div>
+    <div class="tariff">
+  <div class="tariff-inner">
+    <div class="tariff-name">Тест-драйв</div>
+    <div class="tariff-days">3 дня доступа</div>
+
+    <div class="price-row">
+      <div class="price">599</div>
+      <div class="currency">₽</div>
+    </div>
+
+    <div class="desc">
+      Для короткой поездки и быстрого знакомства с городом.
+    </div>
+
+    <a class="button" href="#" onclick="buyTariff('test'); return false;">
+      Получить доступ
+    </a>
+  </div>
+</div>
       </div>
 
       <div class="tariff">
@@ -615,5 +626,42 @@
     </footer>
 
   </main>
+<script>
+async function buyTariff(tariff) {
+  try {
+
+    const response = await fetch(
+      'https://europe-west1-kak-mestniy.cloudfunctions.net/createYookassaPayment',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          tariff: tariff,
+          userId: 'guest'
+        })
+      }
+    );
+
+    const result = await response.text();
+
+    if (
+      result.includes('error') ||
+      result.includes('INVALID_ARGUMENT') ||
+      result.includes('Bad Request')
+    ) {
+      alert(result);
+      return;
+    }
+
+    window.location.href = result;
+
+  } catch (e) {
+    console.error(e);
+    alert('Ошибка оплаты');
+  }
+}
+</script>
 </body>
 </html>

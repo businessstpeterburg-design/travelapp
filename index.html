@@ -1,258 +1,712 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelApp Nha Trang — Ваш премиальный гид по Нячангу</title>
-    <style>
-        :root {
-            --bg-color: #0c0f14;
-            --card-bg: #161b22;
-            --accent-gold: #f5b041;
-            --accent-cyan: #45f3ff;
-            --text-main: #f0f3f4;
-            --text-muted: #8b949e;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Как Местный — доступ к гиду по Нячангу</title>
 
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background-color: var(--bg-color); 
-            color: var(--text-main); 
-            margin: 0; 
-            padding: 20px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
-            min-height: 100vh;
-        }
+  <style>
+    :root {
+      --bg: #030303;
+      --gold: #d6a13b;
+      --gold-light: #ffe08a;
+      --gold-dark: #8a5b16;
+      --white: #f8f4ea;
+      --muted: #aaa49a;
+      --glass: rgba(255, 255, 255, 0.06);
+      --line: rgba(255, 224, 138, 0.28);
+    }
 
-        .container { 
-            max-width: 550px; 
-            width: 100%; 
-            text-align: center; 
-            margin-top: 50px; 
-            flex: 1;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        .logo-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 18px;
+      color: var(--white);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 50% -10%, rgba(255, 224, 138, 0.22), transparent 34%),
+        radial-gradient(circle at 100% 20%, rgba(214, 161, 59, 0.16), transparent 30%),
+        radial-gradient(circle at 0% 75%, rgba(255, 224, 138, 0.08), transparent 30%),
+        #030303;
+      overflow-x: hidden;
+    }
 
-        h1 { 
-            color: var(--accent-gold); 
-            font-size: 3rem; 
-            margin: 0;
-            font-weight: 900;
-            letter-spacing: 1px;
-            text-shadow: 0 0 20px rgba(245, 176, 65, 0.2);
-        }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.08) 22%, transparent 38%),
+        repeating-linear-gradient(
+          90deg,
+          rgba(255,255,255,0.025) 0,
+          rgba(255,255,255,0.025) 1px,
+          transparent 1px,
+          transparent 80px
+        );
+      opacity: 0.35;
+      z-index: 0;
+    }
 
-        .badge {
-            background: linear-gradient(135deg, #f5b041, #f39c12);
-            color: #000;
-            font-size: 0.75rem;
-            font-weight: bold;
-            padding: 3px 8px;
-            border-radius: 20px;
-            position: absolute;
-            top: -10px;
-            right: -45px;
-            text-transform: uppercase;
-        }
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 520px;
+      margin: 0 auto;
+      padding-bottom: 40px;
+    }
 
-        .subtitle { 
-            font-size: 1.15rem; 
-            line-height: 1.6; 
-            color: var(--text-muted); 
-            margin-bottom: 40px;
-            padding: 0 10px;
-        }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      min-height: 520px;
+      padding: 26px 22px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.78)),
+        url("https://images.unsplash.com/photo-1542259009477-d625272157b7?auto=format&fit=crop&w=1200&q=80");
+      background-size: cover;
+      background-position: center;
+      border: 1px solid rgba(255, 224, 138, 0.32);
+      box-shadow:
+        0 35px 90px rgba(0,0,0,0.9),
+        0 0 55px rgba(214,161,59,0.16),
+        inset 0 1px 0 rgba(255,255,255,0.16);
+    }
 
-        .subtitle strong {
-            color: var(--text-main);
-        }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 70% 20%, rgba(255, 224, 138, 0.34), transparent 26%),
+        linear-gradient(135deg, rgba(0,0,0,0.15), rgba(0,0,0,0.82));
+      z-index: 0;
+    }
 
-        .tariffs { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 18px; 
-            margin-bottom: 40px;
-        }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      min-height: 468px;
+      display: flex;
+      flex-direction: column;
+    }
 
-        .tariff-card { 
-            background: var(--card-bg); 
-            border: 1px solid rgba(69, 243, 255, 0.15); 
-            border-radius: 16px; 
-            padding: 22px 28px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5); 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 70px;
+    }
 
-        .tariff-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-cyan);
-            box-shadow: 0 12px 30px rgba(65, 243, 255, 0.15);
-        }
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 224, 138, 0.75);
+      color: var(--gold-light);
+      font-size: 26px;
+      background: rgba(0,0,0,0.35);
+      box-shadow: 0 0 30px rgba(255,224,138,0.22);
+      backdrop-filter: blur(12px);
+    }
 
-        .tariff-card.premium {
-            border: 1px solid rgba(245, 176, 65, 0.4);
-        }
-        .tariff-card.premium:hover {
-            border-color: var(--accent-gold);
-            box-shadow: 0 12px 30px rgba(245, 176, 65, 0.2);
-        }
+    .brand-text {
+      font-size: 21px;
+      font-weight: 950;
+      letter-spacing: 1px;
+      line-height: 0.95;
+    }
 
-        .tariff-info {
-            text-align: left;
-        }
+    .pill {
+      display: inline-block;
+      width: fit-content;
+      padding: 8px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 224, 138, 0.45);
+      color: var(--gold-light);
+      background: rgba(0,0,0,0.38);
+      backdrop-filter: blur(14px);
+      font-size: 12px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      margin-bottom: 16px;
+    }
 
-        .tariff-name { 
-            font-weight: 700; 
-            font-size: 1.25rem; 
-            color: #fff; 
-            margin-bottom: 4px;
-        }
+    h1 {
+      margin: 0;
+      font-size: 43px;
+      line-height: 0.98;
+      font-weight: 1000;
+      letter-spacing: -1.6px;
+      text-transform: uppercase;
+    }
 
-        .tariff-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
+    h1 span {
+      display: block;
+      color: var(--gold-light);
+      text-shadow: 0 0 34px rgba(255,224,138,0.24);
+    }
 
-        .tariff-price { 
-            font-size: 1.4rem; 
-            color: var(--accent-gold); 
-            font-weight: 800; 
-            background: rgba(245, 176, 65, 0.1);
-            padding: 6px 14px;
-            border-radius: 10px;
-            border: 1px solid rgba(245, 176, 65, 0.2);
-        }
+    .hero-text {
+      color: rgba(248,244,234,0.86);
+      margin: 18px 0 0;
+      font-size: 16px;
+      line-height: 1.55;
+      max-width: 430px;
+    }
 
-        .tariff-card.premium .tariff-price {
-            background: rgba(245, 176, 65, 0.2);
-            border-color: var(--accent-gold);
-        }
+    .stats {
+      margin-top: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding-top: 42px;
+    }
 
-        .notice-box {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 15px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-            border: 1px dashed rgba(255, 255, 255, 0.1);
-            margin-bottom: 50px;
-        }
+    .stat {
+      border-radius: 18px;
+      padding: 13px 10px;
+      text-align: center;
+      background: rgba(0,0,0,0.42);
+      border: 1px solid rgba(255, 224, 138, 0.22);
+      backdrop-filter: blur(14px);
+    }
 
-        footer { 
-            margin-top: auto;
-            border-top: 1px solid #21262d; 
-            padding-top: 25px; 
-            width: 100%; 
-            max-width: 600px;
-            text-align: center; 
-            font-size: 0.85rem; 
-            color: var(--text-muted);
-            padding-bottom: 20px;
-        }
+    .stat b {
+      display: block;
+      color: var(--gold-light);
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
 
-        .footer-links {
-            margin-bottom: 15px;
-        }
+    .stat span {
+      color: rgba(248,244,234,0.72);
+      font-size: 11px;
+      line-height: 1.2;
+    }
 
-        footer a { 
-            color: var(--accent-cyan); 
-            text-decoration: none; 
-            margin: 0 12px; 
-            transition: color 0.2s;
-            font-weight: 500;
-        }
+    .route-ready {
+      margin: 30px 0;
+      padding: 28px;
+      border-radius: 30px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
+        rgba(8,8,8,0.82);
+      border: 1px solid rgba(255,224,138,0.26);
+      text-align: center;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 24px 65px rgba(0,0,0,0.55);
+    }
 
-        footer a:hover { 
-            color: var(--accent-gold);
-            text-decoration: underline; 
-        }
+    .route-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg,#fff2bc,#d6a13b,#9b6718);
+      color: #050505;
+      font-size: 12px;
+      font-weight: 1000;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      box-shadow: 0 0 24px rgba(255,224,138,0.28);
+    }
 
-        .legal-info {
-            font-size: 0.75rem;
-            line-height: 1.6;
-        }
-    </style>
+    .route-ready h2 {
+      margin: 0 0 12px;
+      font-size: 28px;
+      line-height: 1.12;
+      font-weight: 1000;
+    }
+
+    .route-ready p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .numbers {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 12px;
+      margin: 28px 0;
+    }
+
+    .number {
+      text-align: center;
+      padding: 18px 10px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,224,138,0.16);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    .number b {
+      display: block;
+      font-size: 27px;
+      color: var(--gold-light);
+      margin-bottom: 6px;
+      font-weight: 1000;
+    }
+
+    .number span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.2;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 34px 0 18px;
+    }
+
+    .section-title div {
+      font-size: 13px;
+      color: var(--gold-light);
+      letter-spacing: 2.8px;
+      text-transform: uppercase;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.1;
+      font-weight: 950;
+    }
+
+    .tariffs {
+      display: grid;
+      gap: 16px;
+    }
+
+    .tariff {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      padding: 22px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.025)),
+        rgba(8,8,8,0.86);
+      border: 1px solid var(--line);
+      box-shadow:
+        0 25px 65px rgba(0,0,0,0.66),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+      backdrop-filter: blur(18px);
+      transition: 0.35s ease;
+    }
+
+    .tariff:hover {
+      transform: translateY(-7px);
+      border-color: rgba(255,224,138,0.62);
+      box-shadow:
+        0 0 46px rgba(255,224,138,0.18),
+        0 30px 75px rgba(0,0,0,0.78);
+    }
+
+    .tariff::before {
+      content: "";
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      right: -65px;
+      top: -70px;
+      background: radial-gradient(circle, rgba(255,224,138,0.20), transparent 70%);
+    }
+
+    .tariff::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.09) 45%, transparent 62%);
+      transform: translateX(-110%);
+      transition: 0.9s;
+    }
+
+    .tariff:hover::after {
+      transform: translateX(110%);
+    }
+
+    .tariff.featured {
+      border-color: rgba(255, 224, 138, 0.9);
+      box-shadow:
+        0 0 0 1px rgba(255,224,138,0.18),
+        0 0 50px rgba(255,224,138,0.22),
+        0 32px 75px rgba(0,0,0,0.8);
+    }
+
+    .tariff-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .top-seller {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #fff2bc, #d6a13b);
+      color: #000;
+      font-size: 11px;
+      font-weight: 1000;
+      box-shadow: 0 0 20px rgba(255,224,138,.35);
+      z-index: 2;
+      text-transform: uppercase;
+    }
+
+    .tariff-name {
+      font-size: 27px;
+      font-weight: 1000;
+      text-transform: uppercase;
+      letter-spacing: -0.7px;
+      margin-bottom: 6px;
+    }
+
+    .tariff-days {
+      color: var(--gold-light);
+      font-size: 17px;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .price {
+      font-size: 38px;
+      font-weight: 1000;
+      color: #fff;
+      letter-spacing: -1px;
+    }
+
+    .currency {
+      color: var(--gold-light);
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .desc {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+      min-height: 40px;
+    }
+
+    .button {
+      position: relative;
+      width: 100%;
+      margin-top: 18px;
+      border: none;
+      border-radius: 18px;
+      padding: 16px 18px;
+      background: linear-gradient(135deg, #fff3bf 0%, #e3b24d 42%, #8e5c14 100%);
+      color: #050505;
+      font-size: 16px;
+      font-weight: 1000;
+      cursor: pointer;
+      box-shadow:
+        0 15px 30px rgba(214,161,59,.35),
+        inset 0 1px 0 rgba(255,255,255,0.55);
+      transition: 0.3s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(214,161,59,.45);
+    }
+
+    .all-access {
+      margin-top: 24px;
+      padding: 22px;
+      text-align: center;
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.45;
+      color: var(--gold-light);
+      border-radius: 24px;
+      background: rgba(214,161,59,.08);
+      border: 1px solid rgba(255,224,138,.25);
+    }
+
+    .same-access {
+      margin-top: 24px;
+      padding: 24px;
+      border-radius: 30px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.025)),
+        rgba(8,8,8,0.88);
+      border: 1px solid rgba(255,224,138,0.28);
+      box-shadow: 0 24px 65px rgba(0,0,0,0.55);
+    }
+
+    .same-access h3 {
+      margin: 0 0 10px;
+      color: var(--gold-light);
+      font-size: 22px;
+      font-weight: 950;
+    }
+
+    .same-access p {
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0 0 16px;
+    }
+
+    .access-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .access-item {
+      padding: 13px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,224,138,0.13);
+      color: #eee;
+      font-size: 14px;
+    }
+
+    .access-item::before {
+      content: "✓";
+      color: var(--gold-light);
+      font-weight: 1000;
+      margin-right: 8px;
+    }
+
+    .note {
+      margin-top: 16px;
+      color: var(--gold-light);
+      background: rgba(214,161,59,0.08);
+      border: 1px dashed rgba(255,224,138,0.36);
+      border-radius: 18px;
+      padding: 15px;
+      font-size: 14px;
+      line-height: 1.45;
+      font-weight: 800;
+    }
+
+    footer {
+      text-align: center;
+      color: #8f8a80;
+      margin-top: 34px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,224,138,0.18);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    footer a {
+      color: var(--gold-light);
+      text-decoration: none;
+      font-weight: 850;
+      margin: 0 8px;
+    }
+
+    @media (min-width: 800px) {
+      .page {
+        max-width: 1120px;
+      }
+
+      .hero {
+        min-height: 560px;
+        padding: 34px;
+      }
+
+      .hero-content {
+        min-height: 492px;
+      }
+
+      .tariffs {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .tariff {
+        min-height: 335px;
+      }
+
+      .price {
+        font-size: 34px;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <main class="page">
 
-    <div class="container">
-        <div class="logo-wrapper">
-            <h1>TravelApp</h1>
-            <span class="badge">Nha Trang</span>
-        </div>
-        <p class="subtitle">Ваш персональный мобильный путеводитель по Нячангу. <strong>Секретные локации, SOS-контакты, готовые маршруты</strong> и инсайды от местных жителей прямо в вашем смартфоне.</p>
-        
-        <div class="tariffs">
-            <div class="tariff-card">
-                <div class="tariff-info">
-                    <div class="tariff-name">Тест-драйв</div>
-                    <div class="tariff-desc">Фиксированный доступ на 3 дня</div>
-                </div>
-                <span class="tariff-price">399 ₽</span>
-            </div>
-
-            <div class="tariff-card">
-                <div class="tariff-info">
-                    <div class="tariff-name">Стандартный отпуск</div>
-                    <div class="tariff-desc">Фиксированный доступ на 6 дней</div>
-                </div>
-                <span class="tariff-price">599 ₽</span>
-            </div>
-
-            <div class="tariff-card">
-                <div class="tariff-info">
-                    <div class="tariff-name">Максимальный трип</div>
-                    <div class="tariff-desc">Фиксированный доступ на 10 дней</div>
-                </div>
-                <span class="tariff-price">899 ₽</span>
-            </div>
-
-            <div class="tariff-card">
-                <div class="tariff-info">
-                    <div class="tariff-name">Зимовка</div>
-                    <div class="tariff-desc">Фиксированный доступ на 30 дней</div>
-                </div>
-                <span class="tariff-price">1499 ₽</span>
-            </div>
-
-            <div class="tariff-card premium">
-                <div class="tariff-info">
-                    <div class="tariff-name">🔥 Навсегда</div>
-                    <div class="tariff-desc">Полный доступ + все будущие обновления и новые страны</div>
-                </div>
-                <span class="tariff-price">6999 ₽</span>
-            </div>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="brand">
+          <div class="brand-mark">⌖</div>
+          <div class="brand-text">КАК<br>МЕСТНЫЙ</div>
         </div>
 
-        <div class="notice-box">
-            💡 <strong>Порядок предоставления доступа:</strong> Все оплаты являются разовыми и фиксированными. Автоматические списания и подписки отсутствуют. После успешного подтверждения транзакции выбранный период доступа мгновенно активируется внутри мобильного приложения.
+        <div class="pill">Нячанг · Вьетнам</div>
+
+        <h1>
+          Путешествуй
+          <span>как местный</span>
+        </h1>
+
+        <p class="hero-text">
+          Авторские маршруты, проверенные места, секретные локации,
+          важные контакты и лайфхаки от людей, которые живут в Нячанге.
+        </p>
+
+        <div class="stats">
+          <div class="stat">
+            <b>100+</b>
+            <span>локаций<br>и мест</span>
+          </div>
+          <div class="stat">
+            <b>SOS</b>
+            <span>важные<br>контакты</span>
+          </div>
+          <div class="stat">
+            <b>₽</b>
+            <span>экономия<br>на отдыхе</span>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <section class="route-ready">
+      <div class="route-badge">Маршрут готов</div>
+      <h2>Ваш персональный маршрут отдыха уже сформирован</h2>
+      <p>
+        На основе ваших ответов мы подготовили подборку мест,
+        маршрутов и рекомендаций именно под ваш отдых.
+        Осталось выбрать срок доступа.
+      </p>
+    </section>
+
+    <section class="numbers">
+      <div class="number">
+        <b>100+</b>
+        <span>локаций</span>
+      </div>
+      <div class="number">
+        <b>20+</b>
+        <span>разделов</span>
+      </div>
+      <div class="number">
+        <b>SOS</b>
+        <span>контакты</span>
+      </div>
+    </section>
+
+    <section class="section-title">
+      <div>Доступ к приложению</div>
+      <h2>Выберите срок</h2>
+    </section>
+
+    <section class="tariffs">
+
+      <div class="tariff">
+        <div class="tariff-inner">
+          <div class="tariff-name">Тест-драйв</div>
+          <div class="tariff-days">3 дня доступа</div>
+          <div class="price-row">
+            <div class="price">599</div>
+            <div class="currency">₽</div>
+          </div>
+          <div class="desc">Для короткой поездки и первого знакомства с Нячангом.</div>
+          <button class="button">Выбрать</button>
+        </div>
+      </div>
+
+      <div class="tariff">
+        <div class="tariff-inner">
+          <div class="tariff-name">Стандарт</div>
+          <div class="tariff-days">6 дней доступа</div>
+          <div class="price-row">
+            <div class="price">899</div>
+            <div class="currency">₽</div>
+          </div>
+          <div class="desc">Оптимально для классического отпуска.</div>
+          <button class="button">Выбрать</button>
+        </div>
+      </div>
+
+      <div class="tariff featured">
+        <div class="top-seller">⭐ Самый популярный</div>
+        <div class="tariff-inner">
+          <div class="tariff-name">Комфорт</div>
+          <div class="tariff-days">10 дней доступа</div>
+          <div class="price-row">
+            <div class="price">1200</div>
+            <div class="currency">₽</div>
+          </div>
+          <div class="desc">Больше дней доступа за небольшую доплату.</div>
+          <button class="button">Выбрать</button>
+        </div>
+      </div>
+
+      <div class="tariff">
+        <div class="tariff-inner">
+          <div class="tariff-name">Разгул</div>
+          <div class="tariff-days">30 дней доступа</div>
+          <div class="price-row">
+            <div class="price">2500</div>
+            <div class="currency">₽</div>
+          </div>
+          <div class="desc">Для долгого отдыха, зимовки и максимального погружения.</div>
+          <button class="button">Выбрать</button>
+        </div>
+      </div>
+
+    </section>
+
+    <div class="all-access">
+      Все тарифы включают полный доступ ко всем материалам приложения.<br>
+      Разница только в количестве дней доступа.
     </div>
 
+    <section class="same-access">
+      <h3>Что входит в любой тариф</h3>
+      <p>
+        Все материалы приложения открываются одинаково в любом тарифе.
+      </p>
+
+      <div class="access-grid">
+        <div class="access-item">Авторские маршруты по Нячангу</div>
+        <div class="access-item">Пляжи, кафе, рестораны, смотровые и развлечения</div>
+        <div class="access-item">Секретные локации и лайфхаки местных</div>
+        <div class="access-item">SOS-контакты, госпитали, врачи и переводчики</div>
+        <div class="access-item">Скидки и рекомендации от проекта «Как Местный»</div>
+      </div>
+
+      <div class="note">
+        Все оплаты разовые. Подписок и автоматических списаний нет.
+        После оплаты доступ активируется внутри приложения.
+      </div>
+    </section>
+
     <footer>
-        <div class="footer-links">
-            <a href="https://drive.google.com/file/d/1mTvKGMDsva9Nxhdaql0T_WFDvgmcd--s/view?usp=sharing" target="_blank">Публичная оферта</a>
-            <a href="https://drive.google.com/file/d/1EXisDY_L9_W7NxI5CGAJtLyiAxZVugs5/view?usp=sharing" target="_blank">Политика конфиденциальности</a>
-        </div>
-        <div class="legal-info">
-            © 2026 TravelApp Nha Trang. Все права защищены.<br>
-            Самозанятый: Баева Мария Сергеевна | ИНН: 732901387845<br>
-            По вопросам поддержки:travel.app@bk.ru
-        </div>
+      <a href="https://drive.google.com/file/d/1mTvKGMDsva9Nxhdaql0T_WFDvgmcd--s/view?usp=sharing" target="_blank">Публичная оферта</a>
+      <a href="https://drive.google.com/file/d/1EXisDY_L9_W7NxI5CGAJtLyiAxZVugs5/view?usp=sharing" target="_blank">Политика конфиденциальности</a>
+      <br><br>
+      © 2026 TravelApp Nha Trang. Все права защищены.<br>
+      Самозанятый: Баева Мария Сергеевна | ИНН: 732901387845<br>
+      Поддержка: travel.app@bk.ru
     </footer>
 
+  </main>
 </body>
 </html>

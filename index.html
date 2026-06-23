@@ -17,9 +17,7 @@
       --line: rgba(255, 224, 138, 0.28);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -42,13 +40,7 @@
       pointer-events: none;
       background:
         linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.07) 22%, transparent 38%),
-        repeating-linear-gradient(
-          90deg,
-          rgba(255,255,255,0.022) 0,
-          rgba(255,255,255,0.022) 1px,
-          transparent 1px,
-          transparent 70px
-        );
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.022) 0, rgba(255,255,255,0.022) 1px, transparent 1px, transparent 70px);
       opacity: 0.34;
       z-index: 0;
     }
@@ -122,11 +114,7 @@
       margin-bottom: 42px;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .brand { display: flex; align-items: center; gap: 10px; }
 
     .brand-mark {
       width: 44px;
@@ -199,9 +187,7 @@
       line-height: 1.55;
     }
 
-    .route-text strong {
-      color: #fff;
-    }
+    .route-text strong { color: #fff; }
 
     .hero-points {
       margin-top: auto;
@@ -280,10 +266,7 @@
       font-weight: 950;
     }
 
-    .tariffs {
-      display: grid;
-      gap: 14px;
-    }
+    .tariffs { display: grid; gap: 14px; }
 
     .tariff {
       position: relative;
@@ -320,9 +303,7 @@
       transition: 0.9s;
     }
 
-    .tariff:hover::after {
-      transform: translateX(110%);
-    }
+    .tariff:hover::after { transform: translateX(110%); }
 
     .tariff.featured {
       border-color: rgba(255, 224, 138, 0.9);
@@ -332,10 +313,7 @@
         0 28px 68px rgba(0,0,0,0.78);
     }
 
-    .tariff-inner {
-      position: relative;
-      z-index: 1;
-    }
+    .tariff-inner { position: relative; z-index: 1; }
 
     .top-seller {
       position: absolute;
@@ -395,6 +373,9 @@
     }
 
     .button {
+      display: block;
+      text-align: center;
+      text-decoration: none;
       position: relative;
       width: 100%;
       margin-top: 16px;
@@ -412,9 +393,7 @@
       transition: 0.3s ease;
     }
 
-    .button:active {
-      transform: scale(0.98);
-    }
+    .button:active { transform: scale(0.98); }
 
     .all-access {
       margin-top: 20px;
@@ -454,10 +433,7 @@
       font-size: 14.5px;
     }
 
-    .access-grid {
-      display: grid;
-      gap: 9px;
-    }
+    .access-grid { display: grid; gap: 9px; }
 
     .access-item {
       padding: 13px 14px;
@@ -506,17 +482,9 @@
     }
 
     @media (min-width: 800px) {
-      body {
-        padding: 22px;
-      }
-
-      .page {
-        max-width: 760px;
-      }
-
-      .route-hero {
-        min-height: 460px;
-      }
+      body { padding: 22px; }
+      .page { max-width: 760px; }
+      .route-hero { min-height: 460px; }
     }
   </style>
 </head>
@@ -532,7 +500,6 @@
             <div class="brand-mark">⌖</div>
             <div class="brand-text">КАК<br>МЕСТНЫЙ</div>
           </div>
-
           <div class="city">Нячанг</div>
         </div>
 
@@ -550,45 +517,19 @@
         </p>
 
         <div class="hero-points">
-          <div class="hero-point">
-            <b>★</b>
-            Проверенные места без туристических ловушек
-          </div>
-
-          <div class="hero-point">
-            <b>₽</b>
-            Локации и советы под ваш бюджет
-          </div>
-
-          <div class="hero-point">
-            <b>⌁</b>
-            Секретные точки, тайминги и лайфхаки
-          </div>
-
-          <div class="hero-point">
-            <b>SOS</b>
-            Важные контакты на случай проблем
-          </div>
+          <div class="hero-point"><b>★</b>Проверенные места без туристических ловушек</div>
+          <div class="hero-point"><b>₽</b>Локации и советы под ваш бюджет</div>
+          <div class="hero-point"><b>⌁</b>Секретные точки, тайминги и лайфхаки</div>
+          <div class="hero-point"><b>SOS</b>Важные контакты на случай проблем</div>
         </div>
 
       </div>
     </section>
 
     <section class="numbers">
-      <div class="number">
-        <b>100+</b>
-        <span>локаций</span>
-      </div>
-
-      <div class="number">
-        <b>20+</b>
-        <span>разделов</span>
-      </div>
-
-      <div class="number">
-        <b>SOS</b>
-        <span>контакты</span>
-      </div>
+      <div class="number"><b>100+</b><span>локаций</span></div>
+      <div class="number"><b>20+</b><span>разделов</span></div>
+      <div class="number"><b>SOS</b><span>контакты</span></div>
     </section>
 
     <section class="section-title">
@@ -602,17 +543,9 @@
         <div class="tariff-inner">
           <div class="tariff-name">Тест-драйв</div>
           <div class="tariff-days">3 дня доступа</div>
-
-          <div class="price-row">
-            <div class="price">599</div>
-            <div class="currency">₽</div>
-          </div>
-
-          <div class="desc">
-            Для короткой поездки и быстрого знакомства с городом.
-          </div>
-
-          <button class="button">Получить доступ</button>
+          <div class="price-row"><div class="price">599</div><div class="currency">₽</div></div>
+          <div class="desc">Для короткой поездки и быстрого знакомства с городом.</div>
+          <a class="button" href="https://yookassa.ru/my/i/ajnhLotElBV8/l" target="_blank" rel="noopener noreferrer">Получить доступ</a>
         </div>
       </div>
 
@@ -620,37 +553,20 @@
         <div class="tariff-inner">
           <div class="tariff-name">Стандарт</div>
           <div class="tariff-days">6 дней доступа</div>
-
-          <div class="price-row">
-            <div class="price">899</div>
-            <div class="currency">₽</div>
-          </div>
-
-          <div class="desc">
-            Оптимально для классического отпуска в Нячанге.
-          </div>
-
-          <button class="button">Получить доступ</button>
+          <div class="price-row"><div class="price">899</div><div class="currency">₽</div></div>
+          <div class="desc">Оптимально для классического отпуска в Нячанге.</div>
+          <a class="button" href="https://yookassa.ru/my/i/ajnh29h2YeYD/l" target="_blank" rel="noopener noreferrer">Получить доступ</a>
         </div>
       </div>
 
       <div class="tariff featured">
         <div class="top-seller">Выбор туристов</div>
-
         <div class="tariff-inner">
           <div class="tariff-name">Комфорт</div>
           <div class="tariff-days">10 дней доступа</div>
-
-          <div class="price-row">
-            <div class="price">1200</div>
-            <div class="currency">₽</div>
-          </div>
-
-          <div class="desc">
-            Больше дней доступа за небольшую доплату.
-          </div>
-
-          <button class="button">Получить доступ</button>
+          <div class="price-row"><div class="price">1200</div><div class="currency">₽</div></div>
+          <div class="desc">Больше дней доступа за небольшую доплату.</div>
+          <a class="button" href="https://yookassa.ru/my/i/ajniMBEY_dRJ/l" target="_blank" rel="noopener noreferrer">Получить доступ</a>
         </div>
       </div>
 
@@ -658,17 +574,9 @@
         <div class="tariff-inner">
           <div class="tariff-name">Разгул</div>
           <div class="tariff-days">30 дней доступа</div>
-
-          <div class="price-row">
-            <div class="price">2500</div>
-            <div class="currency">₽</div>
-          </div>
-
-          <div class="desc">
-            Для долгого отдыха, зимовки и максимального погружения.
-          </div>
-
-          <button class="button">Получить доступ</button>
+          <div class="price-row"><div class="price">2500</div><div class="currency">₽</div></div>
+          <div class="desc">Для долгого отдыха, зимовки и максимального погружения.</div>
+          <a class="button" href="https://yookassa.ru/my/i/ajniUn3RoCpe/l" target="_blank" rel="noopener noreferrer">Получить доступ</a>
         </div>
       </div>
 
@@ -681,11 +589,7 @@
 
     <section class="same-access">
       <h3>Что входит в любой тариф</h3>
-
-      <p>
-        Все материалы открываются одинаково в любом тарифе:
-        вы выбираете только срок доступа.
-      </p>
+      <p>Все материалы открываются одинаково в любом тарифе: вы выбираете только срок доступа.</p>
 
       <div class="access-grid">
         <div class="access-item">Авторские маршруты по Нячангу</div>
@@ -704,9 +608,7 @@
     <footer>
       <a href="https://drive.google.com/file/d/1mTvKGMDsva9Nxhdaql0T_WFDvgmcd--s/view?usp=sharing" target="_blank">Публичная оферта</a>
       <a href="https://drive.google.com/file/d/1EXisDY_L9_W7NxI5CGAJtLyiAxZVugs5/view?usp=sharing" target="_blank">Политика конфиденциальности</a>
-
       <br><br>
-
       © 2026 TravelApp Nha Trang. Все права защищены.<br>
       Самозанятый: Баева Мария Сергеевна | ИНН: 732901387845<br>
       Поддержка: travel.app@bk.ru

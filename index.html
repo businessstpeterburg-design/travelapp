@@ -539,7 +539,7 @@
 
     <section class="tariffs">
 
-    <div class="tariff">
+<div class="tariff">
   <div class="tariff-inner">
     <div class="tariff-name">Тест-драйв</div>
     <div class="tariff-days">3 дня доступа</div>
@@ -558,38 +558,68 @@
     </a>
   </div>
 </div>
-      </div>
 
-      <div class="tariff">
-        <div class="tariff-inner">
-          <div class="tariff-name">Стандарт</div>
-          <div class="tariff-days">6 дней доступа</div>
-          <div class="price-row"><div class="price">899</div><div class="currency">₽</div></div>
-          <div class="desc">Оптимально для классического отпуска в Нячанге.</div>
-          <a class="button" href="https://yookassa.ru/my/i/ajnh29h2YeYD/l" target="_blank" rel="noopener noreferrer">Получить доступ</a>
-        </div>
-      </div>
+<div class="tariff">
+  <div class="tariff-inner">
+    <div class="tariff-name">Стандарт</div>
+    <div class="tariff-days">6 дней доступа</div>
 
-      <div class="tariff featured">
-        <div class="top-seller">Выбор туристов</div>
-        <div class="tariff-inner">
-          <div class="tariff-name">Комфорт</div>
-          <div class="tariff-days">10 дней доступа</div>
-          <div class="price-row"><div class="price">1200</div><div class="currency">₽</div></div>
-          <div class="desc">Больше дней доступа за небольшую доплату.</div>
-          <a class="button" href="https://yookassa.ru/my/i/ajniMBEY_dRJ/l" target="_blank" rel="noopener noreferrer">Получить доступ</a>
-        </div>
-      </div>
+    <div class="price-row">
+      <div class="price">899</div>
+      <div class="currency">₽</div>
+    </div>
 
-      <div class="tariff">
-        <div class="tariff-inner">
-          <div class="tariff-name">Разгул</div>
-          <div class="tariff-days">30 дней доступа</div>
-          <div class="price-row"><div class="price">2500</div><div class="currency">₽</div></div>
-          <div class="desc">Для долгого отдыха, зимовки и максимального погружения.</div>
-          <a class="button" href="https://yookassa.ru/my/i/ajniUn3RoCpe/l" target="_blank" rel="noopener noreferrer">Получить доступ</a>
-        </div>
-      </div>
+    <div class="desc">
+      Оптимально для классического отпуска в Нячанге.
+    </div>
+
+    <a class="button" href="#" onclick="buyTariff('standard'); return false;">
+      Получить доступ
+    </a>
+  </div>
+</div>
+
+<div class="tariff featured">
+  <div class="top-seller">Выбор туристов</div>
+
+  <div class="tariff-inner">
+    <div class="tariff-name">Комфорт</div>
+    <div class="tariff-days">10 дней доступа</div>
+
+    <div class="price-row">
+      <div class="price">1200</div>
+      <div class="currency">₽</div>
+    </div>
+
+    <div class="desc">
+      Больше дней доступа за небольшую доплату.
+    </div>
+
+    <a class="button" href="#" onclick="buyTariff('comfort'); return false;">
+      Получить доступ
+    </a>
+  </div>
+</div>
+
+<div class="tariff">
+  <div class="tariff-inner">
+    <div class="tariff-name">Разгул</div>
+    <div class="tariff-days">30 дней доступа</div>
+
+    <div class="price-row">
+      <div class="price">2500</div>
+      <div class="currency">₽</div>
+    </div>
+
+    <div class="desc">
+      Максимальный доступ ко всем материалам на месяц.
+    </div>
+
+    <a class="button" href="#" onclick="buyTariff('razgul'); return false;">
+      Получить доступ
+    </a>
+  </div>
+</div>
 
     </section>
 
@@ -627,8 +657,26 @@
 
   </main>
 <script>
+function getTelegramUserId() {
+  const params = new URLSearchParams(window.location.search);
+  const idFromUrl = params.get('id') || params.get('tgid');
+
+  if (idFromUrl) {
+    localStorage.setItem('tgid', idFromUrl);
+    return idFromUrl;
+  }
+
+  return localStorage.getItem('tgid');
+}
+
 async function buyTariff(tariff) {
   try {
+    const userId = getTelegramUserId();
+
+    if (!userId) {
+      alert('Не найден Telegram ID. Откройте оплату через приложение.');
+      return;
+    }
 
     const response = await fetch(
       'https://europe-west1-kak-mestniy.cloudfunctions.net/createYookassaPayment',
@@ -638,24 +686,29 @@ async function buyTariff(tariff) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          tariff: tariff,
-          userId: 'guest'
+          data: {
+            tariff: tariff,
+            userId: userId
+          }
         })
       }
     );
 
-    const result = await response.text();
+    const json = await response.json();
 
-    if (
-      result.includes('error') ||
-      result.includes('INVALID_ARGUMENT') ||
-      result.includes('Bad Request')
-    ) {
-      alert(result);
+    if (json.error) {
+      alert(JSON.stringify(json.error));
       return;
     }
 
-    window.location.href = result;
+    const paymentUrl = json.result;
+
+    if (!paymentUrl) {
+      alert('ЮKassa не вернула ссылку оплаты');
+      return;
+    }
+
+    window.location.href = paymentUrl;
 
   } catch (e) {
     console.error(e);

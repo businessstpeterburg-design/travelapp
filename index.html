@@ -656,6 +656,7 @@
     </footer>
 
   </main>
+
 <script>
 function getTelegramUserId() {
   const params = new URLSearchParams(window.location.search);
@@ -669,6 +670,25 @@ function getTelegramUserId() {
   return localStorage.getItem('tgid');
 }
 
+function getQuizValue(keys, fallback = '') {
+  const params = new URLSearchParams(window.location.search);
+
+  for (const key of keys) {
+    const fromUrl = params.get(key);
+    if (fromUrl !== null && fromUrl !== '') {
+      localStorage.setItem(key, fromUrl);
+      return fromUrl;
+    }
+
+    const fromStorage = localStorage.getItem(key);
+    if (fromStorage !== null && fromStorage !== '') {
+      return fromStorage;
+    }
+  }
+
+  return fallback;
+}
+
 async function buyTariff(tariff) {
   try {
     const userId = getTelegramUserId();
@@ -677,6 +697,10 @@ async function buyTariff(tariff) {
       alert('Не найден Telegram ID. Откройте оплату через приложение.');
       return;
     }
+
+    const guideDays = getQuizValue(['guideDays', 'guide_days', 'daysOfStay'], '');
+    const budgetLevel = getQuizValue(['budgetLevel', 'budget_level', 'budget'], '');
+    const aboutCount = getQuizValue(['aboutCount', 'about_count', 'peopleCount'], '');
 
     const response = await fetch(
       'https://europe-west1-kak-mestniy.cloudfunctions.net/createYookassaPayment',
@@ -688,7 +712,10 @@ async function buyTariff(tariff) {
         body: JSON.stringify({
           data: {
             tariff: tariff,
-            userId: userId
+            userId: userId,
+            guideDays: guideDays,
+            budgetLevel: budgetLevel,
+            aboutCount: aboutCount
           }
         })
       }

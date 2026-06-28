@@ -1,1 +1,514 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ваш отпуск уже готов</title>
 
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #030303;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      background: #030303;
+    }
+
+    .screen {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      padding: 34px 22px 28px;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(0,0,0,0.05),
+          rgba(0,0,0,0.22) 38%,
+          rgba(0,0,0,0.78) 72%,
+          #030303 100%
+        ),
+        url("guide-bg.png");
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      min-height: calc(100vh - 62px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .welcome-label {
+      color: #ffe08a;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .welcome-name {
+      margin-top: 5px;
+      font-size: 31px;
+      font-weight: 1000;
+      line-height: 1;
+      text-shadow: 0 8px 24px rgba(0,0,0,0.7);
+    }
+
+    .top-space {
+      height: 88px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 42px;
+      line-height: 0.95;
+      font-weight: 1000;
+      letter-spacing: -1.5px;
+      text-transform: uppercase;
+      text-shadow: 0 10px 32px rgba(0,0,0,0.75);
+    }
+
+    h1 span {
+      color: #ffe08a;
+    }
+
+    .subtitle {
+      margin-top: 15px;
+      max-width: 292px;
+      color: rgba(255,255,255,0.86);
+      font-size: 14px;
+      line-height: 1.5;
+      text-shadow: 0 6px 20px rgba(0,0,0,0.8);
+    }
+
+    .timer-card {
+      margin-top: 24px;
+      padding: 16px 14px;
+      border-radius: 24px;
+      background: rgba(6,6,6,0.72);
+      border: 1px solid rgba(255,224,138,0.38);
+      backdrop-filter: blur(16px);
+      box-shadow:
+        0 20px 55px rgba(0,0,0,0.62),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    .timer-title {
+      color: #ffe08a;
+      font-size: 12px;
+      font-weight: 1000;
+      text-transform: uppercase;
+      letter-spacing: 1.35px;
+      margin-bottom: 13px;
+    }
+
+    .timer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      text-align: center;
+    }
+
+    .time-box {
+      padding: 10px 4px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,224,138,0.13);
+    }
+
+    .time-box b {
+      display: block;
+      color: #ffe08a;
+      font-size: 25px;
+      font-weight: 1000;
+      line-height: 1;
+    }
+
+    .time-box span {
+      display: block;
+      margin-top: 6px;
+      color: rgba(255,255,255,0.62);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+    }
+
+    .sync-text {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.55);
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .info-card {
+      min-height: 91px;
+      padding: 11px 7px;
+      border-radius: 19px;
+      text-align: center;
+      background: rgba(5,5,5,0.74);
+      border: 1px solid rgba(255,224,138,0.28);
+      backdrop-filter: blur(14px);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+    }
+
+    .info-icon {
+      color: #ffe08a;
+      font-size: 22px;
+      margin-bottom: 7px;
+    }
+
+    .info-label {
+      color: rgba(255,255,255,0.55);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      margin-bottom: 7px;
+    }
+
+    .info-value {
+      font-size: 14px;
+      font-weight: 950;
+      line-height: 1.15;
+    }
+
+    .tariff {
+      margin-top: 10px;
+      padding: 12px 13px;
+      border-radius: 17px;
+      background: rgba(214,161,59,0.08);
+      border: 1px solid rgba(255,224,138,0.25);
+      color: #ffe08a;
+      font-size: 12.5px;
+      font-weight: 900;
+      text-align: center;
+      line-height: 1.35;
+    }
+
+    .actions {
+      margin-top: auto;
+      padding-top: 20px;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      margin-top: 12px;
+      padding: 17px 14px;
+      border-radius: 20px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 1000;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+    }
+
+    .button-main {
+      color: #050505;
+      border: none;
+      background: linear-gradient(135deg, #fff3bf 0%, #e3b24d 42%, #8e5c14 100%);
+      box-shadow:
+        0 15px 30px rgba(214,161,59,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.55);
+    }
+
+    .button-second {
+      color: #ffe08a;
+      background: rgba(0,0,0,0.66);
+      border: 1px solid rgba(255,224,138,0.44);
+    }
+
+    .note {
+      margin-top: 14px;
+      color: rgba(255,255,255,0.58);
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 390px) {
+      .screen {
+        padding: 30px 18px 26px;
+      }
+
+      .top-space {
+        height: 74px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .time-box b {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <section class="screen">
+      <div class="content">
+
+        <div>
+          <div class="welcome-label">Добро пожаловать,</div>
+          <div class="welcome-name" id="helloName">Гость 👋</div>
+        </div>
+
+        <div class="top-space"></div>
+
+        <h1>
+          Ваш отпуск<br>
+          <span>уже готов</span>
+        </h1>
+
+        <div class="subtitle">
+          Мы собрали для вас персональный маршрут по Нячангу:
+          куда ехать, где не переплатить и что выбрать под ваш формат отдыха.
+        </div>
+
+        <div class="timer-card">
+          <div class="timer-title">⌛ До окончания доступа</div>
+
+          <div class="timer-grid">
+            <div class="time-box">
+              <b id="days">0</b>
+              <span>дней</span>
+            </div>
+
+            <div class="time-box">
+              <b id="hours">0</b>
+              <span>часов</span>
+            </div>
+
+            <div class="time-box">
+              <b id="minutes">0</b>
+              <span>минут</span>
+            </div>
+
+            <div class="time-box">
+              <b id="seconds">0</b>
+              <span>секунд</span>
+            </div>
+          </div>
+
+          <div class="sync-text" id="syncText">
+            Доступ считается автоматически от даты оплаты
+          </div>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="info-icon">👥</div>
+            <div class="info-label">Компания</div>
+            <div class="info-value" id="aboutCount">—</div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">💎</div>
+            <div class="info-label">Стиль</div>
+            <div class="info-value" id="budgetLevel">—</div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">🗓</div>
+            <div class="info-label">Маршрут</div>
+            <div class="info-value" id="guideDays">—</div>
+          </div>
+        </div>
+
+        <div class="tariff" id="tariffName">
+          Тариф загружается...
+        </div>
+
+        <div class="actions">
+          <a class="button button-main" href="#" onclick="openRoute(); return false;">
+            🚀 НАЧАТЬ ПУТЕШЕСТВИЕ
+          </a>
+
+          <a class="button button-second" href="#" onclick="openPlaces(); return false;">
+            📖 ВСЕ МЕСТА И ЛАЙФХАКИ
+          </a>
+
+          <div class="note">
+            ✨ Можно начать с любого дня. Ваш маршрут уже внутри.
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "ВСТАВЬ_API_KEY",
+      authDomain: "ВСТАВЬ_AUTH_DOMAIN",
+      projectId: "ВСТАВЬ_PROJECT_ID",
+      storageBucket: "ВСТАВЬ_STORAGE_BUCKET",
+      messagingSenderId: "ВСТАВЬ_MESSAGING_SENDER_ID",
+      appId: "ВСТАВЬ_APP_ID"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const params = new URLSearchParams(window.location.search);
+
+    const userId =
+      params.get("tgid") ||
+      params.get("userId") ||
+      params.get("id") ||
+      localStorage.getItem("tgid");
+
+    if (userId) {
+      localStorage.setItem("tgid", userId);
+    }
+
+    let accessUntilDate = null;
+    let timerInterval = null;
+
+    function mapAboutCount(value) {
+      const map = {
+        "one_adult": "1 взрослый",
+        "two_adults": "2 взрослых",
+        "2_adults": "2 взрослых",
+        "family": "Семья"
+      };
+
+      return map[value] || "Ваш формат";
+    }
+
+    function mapBudgetLevel(value) {
+      const map = {
+        "econom": "Лайт",
+        "middle": "Средний",
+        "comfort": "Комфорт",
+        "premium": "Премиум"
+      };
+
+      return map[value] || "Комфорт";
+    }
+
+    function mapTariff(value, guideDays) {
+      const map = {
+        "test": "Тест-драйв",
+        "standard": "Стандарт",
+        "comfort": "Комфорт",
+        "razgul": "Разгул"
+      };
+
+      return `👑 Тариф: ${map[value] || "оплачен"} • ${guideDays || "—"} дней доступа`;
+    }
+
+    function setZero(message) {
+      document.getElementById("days").innerText = "0";
+      document.getElementById("hours").innerText = "0";
+      document.getElementById("minutes").innerText = "0";
+      document.getElementById("seconds").innerText = "0";
+      document.getElementById("syncText").innerText = message;
+    }
+
+    function updateTimer() {
+      if (!accessUntilDate) return;
+
+      const diff = accessUntilDate.getTime() - Date.now();
+
+      if (diff <= 0) {
+        setZero("Срок доступа закончился");
+        clearInterval(timerInterval);
+        return;
+      }
+
+      const total = Math.floor(diff / 1000);
+
+      document.getElementById("days").innerText = Math.floor(total / 86400);
+      document.getElementById("hours").innerText = Math.floor((total % 86400) / 3600);
+      document.getElementById("minutes").innerText = Math.floor((total % 3600) / 60);
+      document.getElementById("seconds").innerText = total % 60;
+    }
+
+    function startTimer() {
+      updateTimer();
+      timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    async function loadUserData() {
+      if (!userId) {
+        setZero("Telegram ID не найден");
+        return;
+      }
+
+      try {
+        const doc = await db.collection("tg_users").doc(String(userId)).get();
+
+        if (!doc.exists) {
+          setZero("Пользователь не найден");
+          return;
+        }
+
+        const data = doc.data();
+
+        const rawName = data.display_name || data.tg_username || "Гость";
+        const name = String(rawName).replace("@", "");
+
+        document.getElementById("helloName").innerText = `${name} 👋`;
+
+        const guide = data.guide_days || 0;
+
+        document.getElementById("aboutCount").innerText = mapAboutCount(data.about_count);
+        document.getElementById("budgetLevel").innerText = mapBudgetLevel(data.budget_level);
+        document.getElementById("guideDays").innerText = guide ? `${guide} дней` : "—";
+        document.getElementById("tariffName").innerText = mapTariff(data.last_paid_tariff, guide);
+
+        if (data.access_until && data.access_until.toDate) {
+          accessUntilDate = data.access_until.toDate();
+          startTimer();
+        } else {
+          setZero("Доступ не найден");
+        }
+
+      } catch (e) {
+        console.error(e);
+        setZero("Ошибка загрузки данных");
+      }
+    }
+
+    function openRoute() {
+      window.location.href = `route.html?tgid=${userId || ""}`;
+    }
+
+    function openPlaces() {
+      window.location.href = `places.html?tgid=${userId || ""}`;
+    }
+
+    loadUserData();
+  </script>
+</body>
+</html>

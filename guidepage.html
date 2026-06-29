@@ -11,23 +11,17 @@
       --bg: #05070b;
       --gold: #ffd86b;
       --gold-soft: #ffe7a3;
-      --cream: #fff4cf;
+      --cream: #fff3ca;
       --white: #ffffff;
-      --muted: rgba(255, 255, 255, 0.84);
-      --muted-soft: rgba(255, 255, 255, 0.58);
+      --muted: rgba(255,255,255,.84);
+      --muted-soft: rgba(255,255,255,.58);
       --cyan: #39d2c0;
       --screen: 430px;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-    html,
-    body {
+    html, body {
       width: 100%;
       min-height: 100%;
       background: var(--bg);
@@ -38,9 +32,7 @@
       text-rendering: geometricPrecision;
     }
 
-    body {
-      min-height: 100svh;
-    }
+    body { min-height: 100svh; }
 
     .viewport {
       width: 100%;
@@ -48,8 +40,8 @@
       display: flex;
       justify-content: center;
       background:
-        radial-gradient(circle at 50% 8%, rgba(57, 210, 192, 0.10), transparent 38%),
-        radial-gradient(circle at 50% 94%, rgba(255, 216, 107, 0.07), transparent 44%),
+        radial-gradient(circle at 50% 8%, rgba(57,210,192,.10), transparent 38%),
+        radial-gradient(circle at 50% 94%, rgba(255,216,107,.07), transparent 44%),
         #020407;
     }
 
@@ -61,7 +53,7 @@
       overflow: hidden;
       isolation: isolate;
       background: #020407;
-      box-shadow: 0 0 90px rgba(0, 0, 0, 0.78);
+      box-shadow: 0 0 90px rgba(0,0,0,.78);
     }
 
     .background {
@@ -81,19 +73,15 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(
-          90deg,
-          rgba(0, 0, 0, 0.66) 0%,
-          rgba(0, 0, 0, 0.55) 29%,
-          rgba(0, 0, 0, 0.25) 53%,
-          rgba(0, 0, 0, 0.04) 100%
-        ),
-        linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0.05) 0%,
-          rgba(0, 0, 0, 0.00) 42%,
-          rgba(0, 0, 0, 0.66) 100%
-        );
+        linear-gradient(90deg,
+          rgba(0,0,0,.66) 0%,
+          rgba(0,0,0,.55) 29%,
+          rgba(0,0,0,.25) 53%,
+          rgba(0,0,0,.04) 100%),
+        linear-gradient(180deg,
+          rgba(0,0,0,.05) 0%,
+          rgba(0,0,0,0) 42%,
+          rgba(0,0,0,.66) 100%);
       pointer-events: none;
     }
 
@@ -102,11 +90,11 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 78% 15%, rgba(255, 216, 107, 0.24), transparent 26%),
-        radial-gradient(circle at 77% 37%, rgba(57, 210, 192, 0.18), transparent 30%),
-        radial-gradient(ellipse at center, transparent 46%, rgba(0, 0, 0, 0.40) 100%);
+        radial-gradient(circle at 78% 15%, rgba(255,216,107,.24), transparent 26%),
+        radial-gradient(circle at 77% 37%, rgba(57,210,192,.18), transparent 30%),
+        radial-gradient(ellipse at center, transparent 46%, rgba(0,0,0,.40) 100%);
       mix-blend-mode: screen;
-      opacity: 0.80;
+      opacity: .80;
       pointer-events: none;
     }
 
@@ -114,10 +102,9 @@
       position: absolute;
       inset: 0;
       z-index: -8;
-      opacity: 0.042;
+      opacity: .042;
       pointer-events: none;
-      background-image:
-        repeating-radial-gradient(circle at 18% 24%, rgba(255,255,255,0.9) 0 1px, transparent 1px 4px);
+      background-image: repeating-radial-gradient(circle at 18% 24%, rgba(255,255,255,.9) 0 1px, transparent 1px 4px);
       mix-blend-mode: overlay;
     }
 
@@ -127,17 +114,14 @@
       z-index: -7;
       pointer-events: none;
       background:
-        radial-gradient(ellipse at 64% 38%, transparent 36%, rgba(0,0,0,0.31) 100%),
-        linear-gradient(180deg, transparent 58%, rgba(0,0,0,0.48) 100%);
+        radial-gradient(ellipse at 64% 38%, transparent 36%, rgba(0,0,0,.31) 100%),
+        linear-gradient(180deg, transparent 58%, rgba(0,0,0,.48) 100%);
     }
 
     .hero {
       position: relative;
       min-height: 100svh;
-      padding:
-        max(64px, env(safe-area-inset-top) + 46px)
-        24px
-        max(24px, env(safe-area-inset-bottom) + 18px);
+      padding: max(64px, env(safe-area-inset-top) + 46px) 24px max(24px, env(safe-area-inset-bottom) + 18px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -153,48 +137,41 @@
     .eyebrow {
       font-size: 11.5px;
       line-height: 1;
-      font-weight: 850;
-      letter-spacing: 0.16em;
+      font-weight: 820;
+      letter-spacing: .16em;
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 13px;
-      text-shadow:
-        0 0 16px rgba(255, 216, 107, 0.38),
-        0 8px 22px rgba(0,0,0,0.68);
+      text-shadow: 0 0 16px rgba(255,216,107,.38), 0 8px 22px rgba(0,0,0,.68);
     }
 
     .username {
       font-size: 32px;
-      line-height: 0.96;
-      font-weight: 820;
-      letter-spacing: -0.035em;
+      line-height: .98;
+      font-weight: 780;
+      letter-spacing: 0;
       color: #fff;
       margin-bottom: clamp(88px, 18.6svh, 142px);
-      text-shadow:
-        0 15px 36px rgba(0,0,0,0.78),
-        0 0 1px rgba(255,255,255,0.82);
+      text-shadow: 0 15px 36px rgba(0,0,0,.78), 0 0 1px rgba(255,255,255,.82);
     }
 
     .title {
-      max-width: 292px;
-      font-size: 37px;
-      line-height: 0.96;
-      font-weight: 880;
-      letter-spacing: -0.032em;
+      max-width: 302px;
+      font-size: 35px;
+      line-height: 1.05;
+      font-weight: 780;
+      letter-spacing: .01em;
+      word-spacing: .04em;
       text-transform: uppercase;
       color: #fff;
       margin-bottom: 21px;
-      text-shadow:
-        0 15px 38px rgba(0,0,0,0.82),
-        0 0 1px rgba(255,255,255,0.82);
+      text-shadow: 0 15px 38px rgba(0,0,0,.82), 0 0 1px rgba(255,255,255,.82);
     }
 
     .title .gold {
       display: block;
       color: var(--gold);
-      text-shadow:
-        0 0 20px rgba(255, 216, 107, 0.36),
-        0 15px 38px rgba(0,0,0,0.82);
+      text-shadow: 0 0 20px rgba(255,216,107,.36), 0 15px 38px rgba(0,0,0,.82);
     }
 
     .description {
@@ -203,7 +180,7 @@
       line-height: 1.54;
       font-weight: 470;
       color: var(--muted);
-      text-shadow: 0 8px 24px rgba(0,0,0,0.72);
+      text-shadow: 0 8px 24px rgba(0,0,0,.72);
     }
 
     .timer-zone {
@@ -216,94 +193,111 @@
     .timer-zone::before {
       content: "";
       position: absolute;
-      left: -12px;
-      right: -12px;
-      top: -34px;
-      height: 152px;
+      left: -16px;
+      right: -16px;
+      top: -36px;
+      height: 170px;
       z-index: -1;
       background:
-        radial-gradient(ellipse at 12% 36%, rgba(255,255,255,0.16), transparent 50%),
-        radial-gradient(ellipse at 77% 62%, rgba(57,210,192,0.28), transparent 68%),
-        radial-gradient(ellipse at 50% 18%, rgba(255,216,107,0.13), transparent 54%);
-      filter: blur(20px);
+        radial-gradient(ellipse at 12% 36%, rgba(255,255,255,.18), transparent 50%),
+        radial-gradient(ellipse at 78% 64%, rgba(57,210,192,.34), transparent 70%),
+        radial-gradient(ellipse at 50% 18%, rgba(255,216,107,.15), transparent 56%);
+      filter: blur(22px);
       pointer-events: none;
     }
 
-    .liquid-glass {
+    .sapphire-glass {
       position: relative;
       width: 100%;
-      min-height: 155px;
+      min-height: 156px;
       padding: 22px 14px 23px;
       border-radius: 34px;
       overflow: hidden;
       background:
         linear-gradient(135deg,
-          rgba(255,255,255,0.20) 0%,
-          rgba(255,255,255,0.075) 27%,
-          rgba(255,255,255,0.030) 52%,
-          rgba(57,210,192,0.115) 100%
-        );
-      border: 1px solid rgba(255,255,255,0.43);
-      backdrop-filter: blur(24px) saturate(190%) brightness(1.13);
-      -webkit-backdrop-filter: blur(24px) saturate(190%) brightness(1.13);
+          rgba(255,255,255,.115) 0%,
+          rgba(255,255,255,.038) 29%,
+          rgba(255,255,255,.014) 54%,
+          rgba(57,210,192,.070) 100%);
+      border: 1px solid rgba(255,255,255,.54);
+      backdrop-filter: blur(10px) saturate(165%) brightness(1.18) contrast(1.05);
+      -webkit-backdrop-filter: blur(10px) saturate(165%) brightness(1.18) contrast(1.05);
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.78),
-        inset 0 -24px 42px rgba(0,0,0,0.30),
-        inset 24px 0 50px rgba(255,255,255,0.13),
-        inset -25px 0 52px rgba(57,210,192,0.16),
-        0 24px 70px rgba(0,0,0,0.60),
-        0 0 24px rgba(57,210,192,0.34),
-        0 0 0 1px rgba(255,255,255,0.12);
+        inset 0 1px 0 rgba(255,255,255,.95),
+        inset 0 -1px 0 rgba(255,255,255,.30),
+        inset 14px 0 30px rgba(255,255,255,.11),
+        inset -20px 0 42px rgba(57,210,192,.14),
+        inset 0 -24px 42px rgba(0,0,0,.18),
+        0 22px 62px rgba(0,0,0,.55),
+        0 0 26px rgba(57,210,192,.36),
+        0 0 0 1px rgba(255,255,255,.10);
       transform: translateZ(0);
     }
 
-    .liquid-glass::before {
+    .sapphire-glass::before {
       content: "";
       position: absolute;
       inset: 0;
       border-radius: inherit;
       background:
-        radial-gradient(circle at 6% -6%, rgba(255,255,255,0.62), transparent 32%),
-        radial-gradient(circle at 102% 104%, rgba(57,210,192,0.38), transparent 39%),
-        radial-gradient(ellipse at 48% 20%, rgba(255,255,255,0.16), transparent 60%),
-        linear-gradient(114deg, rgba(255,255,255,0.24), transparent 33%, rgba(255,255,255,0.065));
+        radial-gradient(circle at 6% -8%, rgba(255,255,255,.74), transparent 30%),
+        radial-gradient(circle at 103% 108%, rgba(57,210,192,.44), transparent 40%),
+        radial-gradient(ellipse at 48% 18%, rgba(255,255,255,.18), transparent 62%),
+        linear-gradient(114deg, rgba(255,255,255,.32), transparent 31%, rgba(255,255,255,.065)),
+        linear-gradient(180deg, rgba(255,255,255,.10), transparent 48%, rgba(255,255,255,.045));
+      opacity: .92;
+      mix-blend-mode: screen;
       pointer-events: none;
     }
 
-    .liquid-glass::after {
+    .sapphire-glass::after {
       content: "";
       position: absolute;
-      left: 18px;
-      right: 18px;
+      left: 17px;
+      right: 17px;
       top: 1px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.96), transparent);
-      opacity: 1;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,1), rgba(255,240,190,.62), transparent);
+      opacity: .96;
+      filter: blur(.25px);
       pointer-events: none;
+    }
+
+    .glass-edge {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.30),
+        inset 0 0 18px rgba(255,255,255,.13),
+        inset 0 0 38px rgba(57,210,192,.08);
+      opacity: .95;
     }
 
     .glass-reflection {
       position: absolute;
-      inset: -78px -118px auto auto;
-      width: 286px;
-      height: 198px;
+      right: -120px;
+      top: -82px;
+      width: 300px;
+      height: 205px;
       border-radius: 999px;
-      background: radial-gradient(ellipse at center, rgba(255,255,255,0.32), transparent 61%);
+      background: radial-gradient(ellipse at center, rgba(255,255,255,.34), transparent 61%);
       transform: rotate(-18deg);
-      opacity: 0.72;
+      opacity: .72;
       pointer-events: none;
       animation: reflectionDrift 9s ease-in-out infinite;
     }
 
     .glass-reflection-2 {
       position: absolute;
-      left: -62px;
-      bottom: -42px;
-      width: 170px;
-      height: 132px;
+      left: -68px;
+      bottom: -44px;
+      width: 180px;
+      height: 138px;
       border-radius: 999px;
-      background: radial-gradient(ellipse at center, rgba(255,216,107,0.22), transparent 62%);
-      opacity: 0.55;
+      background: radial-gradient(ellipse at center, rgba(255,216,107,.22), transparent 62%);
+      opacity: .55;
       filter: blur(1px);
       pointer-events: none;
       animation: reflectionDrift2 11s ease-in-out infinite;
@@ -316,9 +310,9 @@
       bottom: 10px;
       height: 58px;
       border-radius: 999px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.085), rgba(255,255,255,0.012));
+      background: linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.012));
       filter: blur(2px);
-      opacity: 0.70;
+      opacity: .74;
       pointer-events: none;
     }
 
@@ -327,22 +321,28 @@
       inset: 0;
       border-radius: inherit;
       pointer-events: none;
-      opacity: 0.46;
+      opacity: .56;
       background:
-        linear-gradient(105deg, transparent 0%, rgba(255,255,255,0.14) 18%, transparent 34%),
-        linear-gradient(292deg, transparent 10%, rgba(57,210,192,0.16) 50%, transparent 72%);
+        linear-gradient(105deg, transparent 0%, rgba(255,255,255,.18) 18%, transparent 34%),
+        linear-gradient(292deg, transparent 10%, rgba(57,210,192,.18) 50%, transparent 72%),
+        radial-gradient(ellipse at 80% 84%, rgba(255,255,255,.16), transparent 34%);
       mix-blend-mode: screen;
       animation: causticMove 12s ease-in-out infinite;
     }
 
-    .glass-shadow {
+    .glass-bottom-refract {
       position: absolute;
-      left: 22px;
-      right: 22px;
-      bottom: 5px;
-      height: 38px;
-      border-radius: 999px;
-      background: radial-gradient(ellipse at center, rgba(0,0,0,0.36), transparent 72%);
+      left: 10px;
+      right: 10px;
+      bottom: 7px;
+      height: 26px;
+      border-radius: 0 0 28px 28px;
+      background: linear-gradient(90deg,
+        rgba(255,216,107,.30),
+        rgba(255,255,255,.10),
+        rgba(57,210,192,.34));
+      opacity: .42;
+      filter: blur(5px);
       pointer-events: none;
     }
 
@@ -352,14 +352,12 @@
       text-align: center;
       font-size: 12px;
       line-height: 1;
-      font-weight: 850;
-      letter-spacing: 0.18em;
+      font-weight: 780;
+      letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--gold-soft);
       margin-bottom: 25px;
-      text-shadow:
-        0 0 16px rgba(255,216,107,0.42),
-        0 8px 22px rgba(0,0,0,0.58);
+      text-shadow: 0 0 16px rgba(255,216,107,.42), 0 8px 22px rgba(0,0,0,.58);
     }
 
     .timer-grid {
@@ -370,11 +368,7 @@
       align-items: end;
     }
 
-    .timer-cell {
-      position: relative;
-      text-align: center;
-      min-width: 0;
-    }
+    .timer-cell { position: relative; text-align: center; min-width: 0; }
 
     .timer-cell:not(:last-child)::after {
       content: "";
@@ -383,111 +377,50 @@
       top: 4px;
       width: 1px;
       height: 62px;
-      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.53), transparent);
-      opacity: 0.90;
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,.58), transparent);
+      opacity: .92;
     }
 
     .timer-number {
       font-size: 43px;
-      line-height: 0.88;
-      font-weight: 860;
-      letter-spacing: -0.025em;
+      line-height: .92;
+      font-weight: 760;
+      letter-spacing: .01em;
       color: var(--cream);
       font-variant-numeric: tabular-nums;
-      text-shadow:
-        0 0 20px rgba(255,216,107,0.25),
-        0 12px 26px rgba(0,0,0,0.46);
+      text-shadow: 0 0 18px rgba(255,216,107,.22), 0 12px 26px rgba(0,0,0,.46);
     }
 
     .timer-caption {
       margin-top: 15px;
       font-size: 9.3px;
       line-height: 1;
-      font-weight: 720;
-      letter-spacing: 0.15em;
+      font-weight: 660;
+      letter-spacing: .15em;
       text-transform: uppercase;
       color: var(--muted-soft);
-      text-shadow: 0 6px 14px rgba(0,0,0,0.46);
+      text-shadow: 0 6px 14px rgba(0,0,0,.46);
     }
 
-    @keyframes heroIn {
-      from { opacity: 0; transform: translateY(18px) scale(0.985); filter: blur(8px); }
-      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-    }
-
-    @keyframes timerIn {
-      from { opacity: 0; transform: translateY(24px) scale(0.96); filter: blur(10px); }
-      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-    }
-
-    @keyframes reflectionDrift {
-      0%, 100% { transform: translate3d(0,0,0) rotate(-18deg); opacity: .66; }
-      50% { transform: translate3d(-16px, 10px, 0) rotate(-14deg); opacity: .78; }
-    }
-
-    @keyframes reflectionDrift2 {
-      0%, 100% { transform: translate3d(0,0,0) scale(1); opacity: .46; }
-      50% { transform: translate3d(18px,-8px,0) scale(1.08); opacity: .60; }
-    }
-
-    @keyframes causticMove {
-      0%, 100% { transform: translateX(-8px); opacity: .34; }
-      50% { transform: translateX(10px); opacity: .50; }
-    }
+    @keyframes heroIn { from { opacity:0; transform: translateY(18px) scale(.985); filter: blur(8px); } to { opacity:1; transform: translateY(0) scale(1); filter: blur(0); } }
+    @keyframes timerIn { from { opacity:0; transform: translateY(24px) scale(.96); filter: blur(10px); } to { opacity:1; transform: translateY(0) scale(1); filter: blur(0); } }
+    @keyframes reflectionDrift { 0%,100% { transform: translate3d(0,0,0) rotate(-18deg); opacity:.66; } 50% { transform: translate3d(-16px,10px,0) rotate(-14deg); opacity:.78; } }
+    @keyframes reflectionDrift2 { 0%,100% { transform: translate3d(0,0,0) scale(1); opacity:.46; } 50% { transform: translate3d(18px,-8px,0) scale(1.08); opacity:.60; } }
+    @keyframes causticMove { 0%,100% { transform: translateX(-8px); opacity:.38; } 50% { transform: translateX(10px); opacity:.58; } }
 
     @media (max-width: 390px) {
-      .hero {
-        padding-top: max(58px, env(safe-area-inset-top) + 42px);
-        padding-left: 21px;
-        padding-right: 21px;
-      }
-
-      .background {
-        background-position: 66% -42px;
-      }
-
-      .username {
-        font-size: 31px;
-        margin-bottom: clamp(76px, 16.5svh, 116px);
-      }
-
-      .title {
-        max-width: 265px;
-        font-size: 34px;
-        letter-spacing: -0.026em;
-      }
-
-      .description {
-        max-width: 255px;
-        font-size: 14.4px;
-      }
-
-      .liquid-glass {
-        min-height: 148px;
-        border-radius: 30px;
-        padding: 21px 10px 22px;
-      }
-
-      .timer-label {
-        font-size: 10.8px;
-        letter-spacing: 0.15em;
-        margin-bottom: 23px;
-      }
-
-      .timer-number {
-        font-size: 37px;
-      }
-
-      .timer-caption {
-        font-size: 8.4px;
-      }
+      .hero { padding-top: max(58px, env(safe-area-inset-top) + 42px); padding-left: 21px; padding-right: 21px; }
+      .background { background-position: 66% -42px; }
+      .username { font-size: 31px; margin-bottom: clamp(76px, 16.5svh, 116px); }
+      .title { max-width: 270px; font-size: 33px; line-height: 1.08; letter-spacing: .012em; }
+      .description { max-width: 255px; font-size: 14.4px; }
+      .sapphire-glass { min-height: 148px; border-radius: 30px; padding: 21px 10px 22px; }
+      .timer-label { font-size: 10.8px; letter-spacing: .15em; margin-bottom: 23px; }
+      .timer-number { font-size: 37px; letter-spacing: .01em; }
+      .timer-caption { font-size: 8.4px; }
     }
 
-    @media (min-width: 700px) {
-      .guidepage {
-        max-width: 430px;
-      }
-    }
+    @media (min-width: 700px) { .guidepage { max-width: 430px; } }
   </style>
 </head>
 
@@ -515,12 +448,13 @@
         </div>
 
         <div class="timer-zone">
-          <div class="liquid-glass" id="glassTimer">
+          <div class="sapphire-glass" id="glassTimer">
             <div class="glass-reflection" aria-hidden="true"></div>
             <div class="glass-reflection-2" aria-hidden="true"></div>
             <div class="glass-lens" aria-hidden="true"></div>
             <div class="glass-caustic" aria-hidden="true"></div>
-            <div class="glass-shadow" aria-hidden="true"></div>
+            <div class="glass-bottom-refract" aria-hidden="true"></div>
+            <div class="glass-edge" aria-hidden="true"></div>
 
             <div class="timer-label">⏳ До окончания доступа</div>
 
@@ -553,23 +487,11 @@
 
   <script>
     const params = new URLSearchParams(window.location.search);
-
-    const nameFromUrl =
-      params.get("displayName") ||
-      params.get("firstname") ||
-      params.get("name");
-
-    if (nameFromUrl) {
-      document.getElementById("userName").textContent = decodeURIComponent(nameFromUrl);
-    }
+    const nameFromUrl = params.get("displayName") || params.get("firstname") || params.get("name");
+    if (nameFromUrl) document.getElementById("userName").textContent = decodeURIComponent(nameFromUrl);
 
     const accessFromUrl = params.get("access_until");
-    let accessUntil;
-
-    if (accessFromUrl) {
-      accessUntil = new Date(accessFromUrl);
-    }
-
+    let accessUntil = accessFromUrl ? new Date(accessFromUrl) : null;
     if (!accessUntil || Number.isNaN(accessUntil.getTime())) {
       accessUntil = new Date();
       accessUntil.setDate(accessUntil.getDate() + 9);
@@ -582,10 +504,7 @@
     const elHours = document.getElementById("hours");
     const elMinutes = document.getElementById("minutes");
     const elSeconds = document.getElementById("seconds");
-
-    function pad(value) {
-      return String(value).padStart(2, "0");
-    }
+    const pad = (value) => String(value).padStart(2, "0");
 
     function zeroTimer() {
       elDays.textContent = "00";
@@ -596,21 +515,11 @@
 
     function updateTimer() {
       const diff = accessUntil.getTime() - Date.now();
-
-      if (diff <= 0) {
-        zeroTimer();
-        return;
-      }
-
-      const days = Math.floor(diff / 86400000);
-      const hours = Math.floor(diff / 3600000) % 24;
-      const minutes = Math.floor(diff / 60000) % 60;
-      const seconds = Math.floor(diff / 1000) % 60;
-
-      elDays.textContent = pad(days);
-      elHours.textContent = pad(hours);
-      elMinutes.textContent = pad(minutes);
-      elSeconds.textContent = pad(seconds);
+      if (diff <= 0) return zeroTimer();
+      elDays.textContent = pad(Math.floor(diff / 86400000));
+      elHours.textContent = pad(Math.floor(diff / 3600000) % 24);
+      elMinutes.textContent = pad(Math.floor(diff / 60000) % 60);
+      elSeconds.textContent = pad(Math.floor(diff / 1000) % 60);
     }
 
     updateTimer();
@@ -618,11 +527,10 @@
 
     const glass = document.getElementById("glassTimer");
     const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-
     if (glass && canHover) {
       window.addEventListener("mousemove", (event) => {
-        const x = (event.clientX / window.innerWidth - 0.5) * 6;
-        const y = (event.clientY / window.innerHeight - 0.5) * 6;
+        const x = (event.clientX / window.innerWidth - .5) * 5;
+        const y = (event.clientY / window.innerHeight - .5) * 5;
         glass.style.transform = `translate3d(${x}px, ${y}px, 0)`;
       });
     }

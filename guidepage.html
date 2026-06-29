@@ -12,7 +12,7 @@
       --gold: #ffd86b;
       --gold-light: #fff0bf;
       --white: #ffffff;
-      --muted: rgba(255, 255, 255, 0.82);
+      --muted: rgba(255, 255, 255, 0.84);
       --cyan: #39d2c0;
       --screen: 430px;
     }
@@ -66,9 +66,10 @@
       z-index: -10;
       background-image: url("guide-bg.png");
       background-size: cover;
-      background-position: 61% top;
+      background-position: 66% -48px;
       background-repeat: no-repeat;
-      transform: scale(1.012);
+      transform: scale(1.035);
+      transform-origin: 66% top;
     }
 
     .background::before {
@@ -78,16 +79,16 @@
       background:
         linear-gradient(
           90deg,
-          rgba(0, 0, 0, 0.82) 0%,
-          rgba(0, 0, 0, 0.74) 25%,
-          rgba(0, 0, 0, 0.40) 49%,
-          rgba(0, 0, 0, 0.08) 100%
+          rgba(0, 0, 0, 0.72) 0%,
+          rgba(0, 0, 0, 0.62) 25%,
+          rgba(0, 0, 0, 0.30) 50%,
+          rgba(0, 0, 0, 0.06) 100%
         ),
         linear-gradient(
           180deg,
-          rgba(0, 0, 0, 0.10) 0%,
-          rgba(0, 0, 0, 0.00) 43%,
-          rgba(0, 0, 0, 0.74) 100%
+          rgba(0, 0, 0, 0.06) 0%,
+          rgba(0, 0, 0, 0.00) 44%,
+          rgba(0, 0, 0, 0.70) 100%
         );
       pointer-events: none;
     }
@@ -97,11 +98,11 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 77% 24%, rgba(255, 216, 107, 0.15), transparent 33%),
-        radial-gradient(circle at 78% 44%, rgba(57, 210, 192, 0.16), transparent 32%),
-        radial-gradient(ellipse at center, transparent 42%, rgba(0, 0, 0, 0.46) 100%);
+        radial-gradient(circle at 77% 18%, rgba(255, 216, 107, 0.22), transparent 29%),
+        radial-gradient(circle at 78% 39%, rgba(57, 210, 192, 0.18), transparent 32%),
+        radial-gradient(ellipse at center, transparent 42%, rgba(0, 0, 0, 0.42) 100%);
       mix-blend-mode: screen;
-      opacity: 0.72;
+      opacity: 0.78;
       pointer-events: none;
     }
 
@@ -109,7 +110,7 @@
       position: absolute;
       inset: 0;
       z-index: -8;
-      opacity: 0.055;
+      opacity: 0.050;
       pointer-events: none;
       background-image:
         repeating-radial-gradient(circle at 16% 27%, rgba(255,255,255,0.95) 0 1px, transparent 1px 4px);
@@ -122,31 +123,31 @@
       z-index: -7;
       pointer-events: none;
       background:
-        radial-gradient(ellipse at 62% 42%, transparent 34%, rgba(0,0,0,0.36) 100%),
-        linear-gradient(180deg, transparent 58%, rgba(0,0,0,0.50) 100%);
+        radial-gradient(ellipse at 62% 38%, transparent 34%, rgba(0,0,0,0.33) 100%),
+        linear-gradient(180deg, transparent 58%, rgba(0,0,0,0.52) 100%);
     }
 
     .hero {
       position: relative;
       min-height: 100svh;
       padding:
-        max(76px, env(safe-area-inset-top) + 56px)
+        max(66px, env(safe-area-inset-top) + 48px)
         24px
-        max(26px, env(safe-area-inset-bottom) + 20px);
+        max(24px, env(safe-area-inset-bottom) + 18px);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 28px;
+      gap: 26px;
     }
 
     .hero-copy {
       width: 100%;
-      max-width: 310px;
+      max-width: 292px;
       animation: heroIn 850ms cubic-bezier(.2,.8,.2,1) both;
     }
 
     .eyebrow {
-      font-size: 12px;
+      font-size: 11.5px;
       line-height: 1;
       font-weight: 900;
       letter-spacing: 0.18em;
@@ -159,22 +160,23 @@
     }
 
     .username {
-      font-size: 34px;
+      font-size: 32px;
       line-height: 0.94;
       font-weight: 950;
       letter-spacing: -0.065em;
       color: #fff;
-      margin-bottom: clamp(84px, 18.5svh, 138px);
+      margin-bottom: clamp(88px, 18.8svh, 142px);
       text-shadow:
         0 16px 38px rgba(0,0,0,0.78),
         0 0 1px rgba(255,255,255,0.88);
     }
 
     .title {
-      font-size: 43px;
-      line-height: 0.89;
+      max-width: 260px;
+      font-size: 38px;
+      line-height: 0.91;
       font-weight: 1000;
-      letter-spacing: -0.078em;
+      letter-spacing: -0.074em;
       text-transform: uppercase;
       color: #fff;
       margin-bottom: 22px;
@@ -187,14 +189,14 @@
       display: block;
       color: var(--gold);
       text-shadow:
-        0 0 22px rgba(255, 216, 107, 0.36),
+        0 0 22px rgba(255, 216, 107, 0.38),
         0 16px 44px rgba(0,0,0,0.82);
     }
 
     .description {
-      max-width: 280px;
-      font-size: 15.5px;
-      line-height: 1.55;
+      max-width: 275px;
+      font-size: 14.8px;
+      line-height: 1.52;
       font-weight: 560;
       color: var(--muted);
       text-shadow: 0 8px 26px rgba(0,0,0,0.75);
@@ -203,19 +205,21 @@
     .timer-zone {
       position: relative;
       width: 100%;
-      padding-bottom: 4px;
+      padding-bottom: 2px;
       animation: timerIn 900ms cubic-bezier(.2,.8,.2,1) 120ms both;
     }
 
     .timer-zone::before {
       content: "";
       position: absolute;
-      left: -12px;
-      right: -12px;
-      top: -28px;
-      height: 138px;
+      left: -10px;
+      right: -10px;
+      top: -30px;
+      height: 145px;
       z-index: -1;
-      background: radial-gradient(ellipse at center, rgba(57,210,192,0.18), transparent 70%);
+      background:
+        radial-gradient(ellipse at 20% 35%, rgba(255,255,255,0.12), transparent 55%),
+        radial-gradient(ellipse at 70% 55%, rgba(57,210,192,0.25), transparent 66%);
       filter: blur(20px);
       pointer-events: none;
     }
@@ -223,27 +227,27 @@
     .liquid-glass {
       position: relative;
       width: 100%;
-      min-height: 158px;
-      padding: 23px 14px 24px;
+      min-height: 154px;
+      padding: 22px 14px 23px;
       border-radius: 34px;
       overflow: hidden;
       background:
         linear-gradient(135deg,
-          rgba(255,255,255,0.34) 0%,
-          rgba(255,255,255,0.14) 31%,
-          rgba(255,255,255,0.065) 64%,
-          rgba(57,210,192,0.12) 100%
+          rgba(255,255,255,0.24) 0%,
+          rgba(255,255,255,0.10) 28%,
+          rgba(0,0,0,0.20) 58%,
+          rgba(57,210,192,0.18) 100%
         );
-      border: 1px solid rgba(255,255,255,0.34);
-      backdrop-filter: blur(30px) saturate(185%);
-      -webkit-backdrop-filter: blur(30px) saturate(185%);
+      border: 1px solid rgba(255,255,255,0.38);
+      backdrop-filter: blur(34px) saturate(190%) brightness(1.08);
+      -webkit-backdrop-filter: blur(34px) saturate(190%) brightness(1.08);
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.60),
-        inset 0 -30px 52px rgba(0,0,0,0.45),
-        inset 22px 0 42px rgba(255,255,255,0.10),
-        inset -18px 0 42px rgba(57,210,192,0.08),
-        0 24px 70px rgba(0,0,0,0.68),
-        0 0 26px rgba(57,210,192,0.24),
+        inset 0 1px 0 rgba(255,255,255,0.68),
+        inset 0 -28px 54px rgba(0,0,0,0.52),
+        inset 20px 0 44px rgba(255,255,255,0.12),
+        inset -24px 0 54px rgba(57,210,192,0.16),
+        0 24px 72px rgba(0,0,0,0.70),
+        0 0 30px rgba(57,210,192,0.30),
         0 0 0 1px rgba(255,255,255,0.08);
       transform: translateZ(0);
     }
@@ -254,9 +258,9 @@
       inset: 0;
       border-radius: inherit;
       background:
-        radial-gradient(circle at 9% 0%, rgba(255,255,255,0.52), transparent 34%),
-        radial-gradient(circle at 100% 100%, rgba(57,210,192,0.30), transparent 38%),
-        linear-gradient(115deg, rgba(255,255,255,0.20), transparent 38%, rgba(255,255,255,0.08));
+        radial-gradient(circle at 8% -4%, rgba(255,255,255,0.56), transparent 34%),
+        radial-gradient(circle at 102% 104%, rgba(57,210,192,0.36), transparent 38%),
+        linear-gradient(116deg, rgba(255,255,255,0.20), transparent 36%, rgba(255,255,255,0.075));
       pointer-events: none;
     }
 
@@ -267,20 +271,33 @@
       right: 18px;
       top: 1px;
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.86), transparent);
-      opacity: 0.9;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.92), transparent);
+      opacity: 0.96;
       pointer-events: none;
     }
 
     .glass-reflection {
       position: absolute;
-      inset: -70px -110px auto auto;
-      width: 250px;
+      inset: -76px -110px auto auto;
+      width: 270px;
       height: 190px;
       border-radius: 999px;
-      background: radial-gradient(ellipse at center, rgba(255,255,255,0.24), transparent 62%);
+      background: radial-gradient(ellipse at center, rgba(255,255,255,0.28), transparent 62%);
       transform: rotate(-18deg);
-      opacity: 0.60;
+      opacity: 0.64;
+      pointer-events: none;
+    }
+
+    .glass-lens {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 12px;
+      height: 56px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.015));
+      filter: blur(2px);
+      opacity: 0.62;
       pointer-events: none;
     }
 
@@ -291,7 +308,7 @@
       bottom: 5px;
       height: 38px;
       border-radius: 999px;
-      background: radial-gradient(ellipse at center, rgba(0,0,0,0.46), transparent 72%);
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.50), transparent 72%);
       pointer-events: none;
     }
 
@@ -299,16 +316,16 @@
       position: relative;
       z-index: 2;
       text-align: center;
-      font-size: 12.5px;
+      font-size: 12.2px;
       line-height: 1;
       font-weight: 950;
       letter-spacing: 0.19em;
       text-transform: uppercase;
       color: var(--gold-light);
-      margin-bottom: 25px;
+      margin-bottom: 24px;
       text-shadow:
-        0 0 18px rgba(255,216,107,0.38),
-        0 8px 22px rgba(0,0,0,0.58);
+        0 0 18px rgba(255,216,107,0.40),
+        0 8px 22px rgba(0,0,0,0.60);
     }
 
     .timer-grid {
@@ -329,34 +346,34 @@
       content: "";
       position: absolute;
       right: 0;
-      top: 5px;
+      top: 4px;
       width: 1px;
       height: 62px;
-      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.52), transparent);
-      opacity: 0.86;
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.56), transparent);
+      opacity: 0.90;
     }
 
     .timer-number {
-      font-size: 45px;
+      font-size: 43px;
       line-height: 0.88;
       font-weight: 1000;
       letter-spacing: -0.07em;
       color: #fff3ca;
       font-variant-numeric: tabular-nums;
       text-shadow:
-        0 0 22px rgba(255,216,107,0.28),
-        0 12px 28px rgba(0,0,0,0.50);
+        0 0 22px rgba(255,216,107,0.30),
+        0 12px 28px rgba(0,0,0,0.52);
     }
 
     .timer-caption {
       margin-top: 15px;
-      font-size: 9.5px;
+      font-size: 9.3px;
       line-height: 1;
       font-weight: 850;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.58);
-      text-shadow: 0 6px 14px rgba(0,0,0,0.48);
+      color: rgba(255,255,255,0.60);
+      text-shadow: 0 6px 14px rgba(0,0,0,0.50);
     }
 
     @keyframes heroIn {
@@ -387,46 +404,48 @@
 
     @media (max-width: 390px) {
       .hero {
-        padding-top: max(62px, env(safe-area-inset-top) + 44px);
+        padding-top: max(58px, env(safe-area-inset-top) + 42px);
         padding-left: 21px;
         padding-right: 21px;
       }
 
       .background {
-        background-position: 62% top;
+        background-position: 67% -40px;
       }
 
       .username {
-        font-size: 32px;
-        margin-bottom: clamp(68px, 16svh, 112px);
+        font-size: 31px;
+        margin-bottom: clamp(74px, 16.5svh, 116px);
       }
 
       .title {
-        font-size: 39px;
+        max-width: 238px;
+        font-size: 35px;
       }
 
       .description {
-        font-size: 15px;
+        max-width: 255px;
+        font-size: 14.5px;
       }
 
       .liquid-glass {
-        min-height: 150px;
+        min-height: 148px;
         border-radius: 30px;
         padding: 21px 10px 22px;
       }
 
       .timer-label {
-        font-size: 11.2px;
+        font-size: 10.9px;
         letter-spacing: 0.16em;
         margin-bottom: 23px;
       }
 
       .timer-number {
-        font-size: 38px;
+        font-size: 37px;
       }
 
       .timer-caption {
-        font-size: 8.5px;
+        font-size: 8.4px;
       }
     }
 
@@ -464,6 +483,7 @@
         <div class="timer-zone">
           <div class="liquid-glass" id="glassTimer">
             <div class="glass-reflection" aria-hidden="true"></div>
+            <div class="glass-lens" aria-hidden="true"></div>
             <div class="glass-shadow" aria-hidden="true"></div>
 
             <div class="timer-label">⏳ До окончания доступа</div>

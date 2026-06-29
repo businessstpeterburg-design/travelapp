@@ -2,271 +2,366 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ваш отпуск уже готов</title>
-
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Как Местный — Guide Page</title>
 
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --gold: #ffd86b;
+      --gold-soft: #fff0bd;
+      --white: #ffffff;
+      --muted: rgba(255,255,255,.72);
+      --bg: #05070b;
+      --glass: rgba(255,255,255,.12);
+      --glass-border: rgba(255,255,255,.28);
+      --cyan: #39d2c0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--white);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", Arial, sans-serif;
+      overflow-x: hidden;
+    }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      background: #030303;
-      color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      min-height: 100svh;
     }
 
     .page {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      background: #030303;
+      position: relative;
+      width: 100%;
+      min-height: 100svh;
+      overflow: hidden;
+      isolation: isolate;
+      background: #05070b;
     }
 
-    .screen {
-      width: 100%;
-      max-width: 430px;
-      min-height: 100vh;
-      position: relative;
-      overflow: hidden;
-      padding: 34px 22px 28px;
-      background:
-        linear-gradient(
-          to bottom,
-          rgba(0,0,0,0.05),
-          rgba(0,0,0,0.22) 38%,
-          rgba(0,0,0,0.78) 72%,
-          #030303 100%
-        ),
-        url("guide-bg.png");
+    .bg {
+      position: absolute;
+      inset: 0;
+      z-index: -5;
+      background-image: url("guide-bg.png");
       background-size: cover;
-      background-position: center top;
+      background-position: 58% top;
       background-repeat: no-repeat;
+      transform: scale(1.01);
+    }
+
+    .bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 78% 24%, rgba(57,210,192,.16), transparent 32%),
+        radial-gradient(circle at 76% 44%, rgba(255,216,107,.13), transparent 30%),
+        linear-gradient(90deg,
+          rgba(0,0,0,.86) 0%,
+          rgba(0,0,0,.72) 25%,
+          rgba(0,0,0,.36) 52%,
+          rgba(0,0,0,.08) 100%
+        ),
+        linear-gradient(180deg,
+          rgba(0,0,0,.18) 0%,
+          rgba(0,0,0,.04) 40%,
+          rgba(0,0,0,.72) 100%
+        );
+    }
+
+    .bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at center, transparent 42%, rgba(0,0,0,.42) 100%);
+      mix-blend-mode: multiply;
+    }
+
+    .noise {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      opacity: .055;
+      pointer-events: none;
+      background-image:
+        repeating-radial-gradient(circle at 17% 32%, rgba(255,255,255,.9) 0 1px, transparent 1px 4px);
+      mix-blend-mode: overlay;
+    }
+
+    .hero {
+      min-height: 100svh;
+      padding:
+        max(72px, env(safe-area-inset-top) + 54px)
+        22px
+        max(28px, env(safe-area-inset-bottom) + 22px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .content {
-      position: relative;
-      z-index: 2;
-      min-height: calc(100vh - 62px);
-      display: flex;
-      flex-direction: column;
+      width: min(100%, 355px);
+      animation: showUp .9s cubic-bezier(.2,.8,.2,1) both;
     }
 
-    .welcome-label {
-      color: #ffe08a;
+    .hello {
       font-size: 12px;
       font-weight: 900;
+      letter-spacing: .18em;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      color: var(--gold);
+      text-shadow: 0 0 22px rgba(255,216,107,.32);
+      margin-bottom: 11px;
     }
 
-    .welcome-name {
-      margin-top: 5px;
-      font-size: 31px;
+    .name {
+      font-size: clamp(31px, 9vw, 42px);
+      line-height: .92;
+      font-weight: 950;
+      letter-spacing: -.06em;
+      margin-bottom: clamp(66px, 20svh, 138px);
+      text-shadow: 0 10px 34px rgba(0,0,0,.55);
+    }
+
+    .title {
+      font-size: clamp(39px, 12vw, 58px);
+      line-height: .88;
       font-weight: 1000;
-      line-height: 1;
-      text-shadow: 0 8px 24px rgba(0,0,0,0.7);
-    }
-
-    .top-space {
-      height: 88px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 42px;
-      line-height: 0.95;
-      font-weight: 1000;
-      letter-spacing: -1.5px;
+      letter-spacing: -.075em;
       text-transform: uppercase;
-      text-shadow: 0 10px 32px rgba(0,0,0,0.75);
+      text-shadow: 0 12px 42px rgba(0,0,0,.62);
+      margin-bottom: 20px;
     }
 
-    h1 span {
-      color: #ffe08a;
+    .title span {
+      display: block;
+      color: var(--gold);
+      text-shadow:
+        0 0 20px rgba(255,216,107,.28),
+        0 12px 42px rgba(0,0,0,.62);
     }
 
-    .subtitle {
-      margin-top: 15px;
-      max-width: 292px;
-      color: rgba(255,255,255,0.86);
-      font-size: 14px;
-      line-height: 1.5;
-      text-shadow: 0 6px 20px rgba(0,0,0,0.8);
+    .desc {
+      max-width: 285px;
+      font-size: 15.5px;
+      line-height: 1.55;
+      font-weight: 560;
+      color: rgba(255,255,255,.88);
+      text-shadow: 0 8px 24px rgba(0,0,0,.65);
     }
 
-    .timer-card {
-      margin-top: 24px;
-      padding: 16px 14px;
-      border-radius: 24px;
-      background: rgba(6,6,6,0.72);
-      border: 1px solid rgba(255,224,138,0.38);
-      backdrop-filter: blur(16px);
+    .timer-shell {
+      width: 100%;
+      animation: showTimer 1s cubic-bezier(.2,.8,.2,1) .18s both;
+    }
+
+    .timer {
+      position: relative;
+      width: 100%;
+      max-width: 580px;
+      margin: 0 auto;
+      padding: 21px 14px 22px;
+      border-radius: 32px;
+      overflow: hidden;
+      background:
+        linear-gradient(135deg,
+          rgba(255,255,255,.24) 0%,
+          rgba(255,255,255,.105) 36%,
+          rgba(255,255,255,.055) 100%
+        );
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(28px) saturate(170%);
+      -webkit-backdrop-filter: blur(28px) saturate(170%);
       box-shadow:
-        0 20px 55px rgba(0,0,0,0.62),
-        inset 0 1px 0 rgba(255,255,255,0.08);
+        inset 0 1px 0 rgba(255,255,255,.42),
+        inset 0 -22px 46px rgba(0,0,0,.34),
+        0 22px 60px rgba(0,0,0,.62),
+        0 0 34px rgba(57,210,192,.18);
     }
 
-    .timer-title {
-      color: #ffe08a;
-      font-size: 12px;
-      font-weight: 1000;
+    .timer::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255,255,255,.34), transparent 34%),
+        radial-gradient(circle at 100% 100%, rgba(57,210,192,.24), transparent 36%),
+        linear-gradient(120deg, rgba(255,255,255,.16), transparent 38%, rgba(255,255,255,.08));
+    }
+
+    .timer::after {
+      content: "";
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      top: 1px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.72), transparent);
+      opacity: .75;
+    }
+
+    .timer-label {
+      position: relative;
+      text-align: center;
+      font-size: 12.5px;
+      font-weight: 950;
+      letter-spacing: .19em;
       text-transform: uppercase;
-      letter-spacing: 1.35px;
-      margin-bottom: 13px;
+      color: var(--gold-soft);
+      margin-bottom: 22px;
+      text-shadow: 0 0 18px rgba(255,216,107,.25);
     }
 
     .timer-grid {
+      position: relative;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 7px;
+      align-items: end;
+    }
+
+    .timer-item {
+      position: relative;
       text-align: center;
+      min-width: 0;
     }
 
-    .time-box {
-      padding: 10px 4px;
-      border-radius: 16px;
-      background: rgba(255,255,255,0.045);
-      border: 1px solid rgba(255,224,138,0.13);
+    .timer-item:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 4px;
+      height: 60px;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,.44), transparent);
     }
 
-    .time-box b {
-      display: block;
-      color: #ffe08a;
-      font-size: 25px;
+    .num {
+      font-size: clamp(36px, 11vw, 54px);
+      line-height: .9;
       font-weight: 1000;
-      line-height: 1;
+      letter-spacing: -.07em;
+      color: #fff4cf;
+      text-shadow:
+        0 0 18px rgba(255,216,107,.22),
+        0 10px 24px rgba(0,0,0,.42);
+      font-variant-numeric: tabular-nums;
     }
 
-    .time-box span {
-      display: block;
-      margin-top: 6px;
-      color: rgba(255,255,255,0.62);
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-    }
-
-    .sync-text {
-      margin-top: 12px;
-      padding-top: 10px;
-      border-top: 1px solid rgba(255,255,255,0.12);
-      color: rgba(255,255,255,0.55);
-      font-size: 11px;
-      text-align: center;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .info-card {
-      min-height: 91px;
-      padding: 11px 7px;
-      border-radius: 19px;
-      text-align: center;
-      background: rgba(5,5,5,0.74);
-      border: 1px solid rgba(255,224,138,0.28);
-      backdrop-filter: blur(14px);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
-    }
-
-    .info-icon {
-      color: #ffe08a;
-      font-size: 22px;
-      margin-bottom: 7px;
-    }
-
-    .info-label {
-      color: rgba(255,255,255,0.55);
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-      margin-bottom: 7px;
-    }
-
-    .info-value {
-      font-size: 14px;
-      font-weight: 950;
-      line-height: 1.15;
-    }
-
-    .tariff {
-      margin-top: 10px;
-      padding: 12px 13px;
-      border-radius: 17px;
-      background: rgba(214,161,59,0.08);
-      border: 1px solid rgba(255,224,138,0.25);
-      color: #ffe08a;
-      font-size: 12.5px;
-      font-weight: 900;
-      text-align: center;
-      line-height: 1.35;
-    }
-
-    .actions {
-      margin-top: auto;
-      padding-top: 20px;
-    }
-
-    .button {
-      display: block;
-      width: 100%;
-      margin-top: 12px;
-      padding: 17px 14px;
-      border-radius: 20px;
-      text-align: center;
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: 1000;
-      letter-spacing: 0.4px;
-      cursor: pointer;
-    }
-
-    .button-main {
-      color: #050505;
-      border: none;
-      background: linear-gradient(135deg, #fff3bf 0%, #e3b24d 42%, #8e5c14 100%);
-      box-shadow:
-        0 15px 30px rgba(214,161,59,0.35),
-        inset 0 1px 0 rgba(255,255,255,0.55);
-    }
-
-    .button-second {
-      color: #ffe08a;
-      background: rgba(0,0,0,0.66);
-      border: 1px solid rgba(255,224,138,0.44);
-    }
-
-    .note {
+    .txt {
       margin-top: 14px;
-      color: rgba(255,255,255,0.58);
-      font-size: 12px;
-      text-align: center;
-      line-height: 1.4;
+      font-size: 10px;
+      line-height: 1;
+      font-weight: 850;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.56);
+    }
+
+    .bottom-glow {
+      position: absolute;
+      left: 14%;
+      right: 14%;
+      bottom: -80px;
+      height: 190px;
+      z-index: -1;
+      background: radial-gradient(ellipse at center, rgba(57,210,192,.19), transparent 68%);
+      filter: blur(16px);
+      pointer-events: none;
+    }
+
+    @keyframes showUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(.985);
+        filter: blur(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes showTimer {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(.96);
+        filter: blur(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @media (max-width: 430px) {
+      .hero {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .bg {
+        background-position: 61% top;
+      }
+
+      .timer {
+        border-radius: 30px;
+      }
     }
 
     @media (max-width: 390px) {
-      .screen {
-        padding: 30px 18px 26px;
+      .hero {
+        padding-top: max(58px, env(safe-area-inset-top) + 42px);
       }
 
-      .top-space {
-        height: 74px;
+      .name {
+        margin-bottom: 58px;
       }
 
-      h1 {
-        font-size: 38px;
+      .desc {
+        font-size: 15px;
       }
 
-      .time-box b {
-        font-size: 22px;
+      .timer {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .timer-label {
+        font-size: 11.5px;
+        letter-spacing: .16em;
+      }
+
+      .txt {
+        font-size: 9px;
+      }
+    }
+
+    @media (min-width: 700px) {
+      .hero {
+        padding-left: 7vw;
+        padding-right: 7vw;
+      }
+
+      .content {
+        max-width: 430px;
+      }
+
+      .bg {
+        background-position: center top;
       }
     }
   </style>
@@ -274,241 +369,115 @@
 
 <body>
   <main class="page">
-    <section class="screen">
+    <div class="bg"></div>
+    <div class="noise"></div>
+    <div class="bottom-glow"></div>
+
+    <section class="hero">
       <div class="content">
+        <div class="hello">Добро пожаловать,</div>
+        <div class="name" id="userName">Сергей</div>
 
-        <div>
-          <div class="welcome-label">Добро пожаловать,</div>
-          <div class="welcome-name" id="helloName">Гость 👋</div>
-        </div>
-
-        <div class="top-space"></div>
-
-        <h1>
-          Ваш отпуск<br>
+        <h1 class="title">
+          Ваш отпуск
           <span>уже готов</span>
         </h1>
 
-        <div class="subtitle">
-          Мы собрали для вас персональный маршрут по Нячангу:
-          куда ехать, где не переплатить и что выбрать под ваш формат отдыха.
-        </div>
+        <p class="desc">
+          Персональный маршрут по Нячангу уже собран.
+          Осталось только начать.
+        </p>
+      </div>
 
-        <div class="timer-card">
-          <div class="timer-title">⌛ До окончания доступа</div>
+      <div class="timer-shell">
+        <div class="timer">
+          <div class="timer-label">⏳ До окончания доступа</div>
 
           <div class="timer-grid">
-            <div class="time-box">
-              <b id="days">0</b>
-              <span>дней</span>
+            <div class="timer-item">
+              <div class="num" id="days">09</div>
+              <div class="txt">дней</div>
             </div>
 
-            <div class="time-box">
-              <b id="hours">0</b>
-              <span>часов</span>
+            <div class="timer-item">
+              <div class="num" id="hours">14</div>
+              <div class="txt">часов</div>
             </div>
 
-            <div class="time-box">
-              <b id="minutes">0</b>
-              <span>минут</span>
+            <div class="timer-item">
+              <div class="num" id="minutes">23</div>
+              <div class="txt">минут</div>
             </div>
 
-            <div class="time-box">
-              <b id="seconds">0</b>
-              <span>секунд</span>
+            <div class="timer-item">
+              <div class="num" id="seconds">47</div>
+              <div class="txt">секунд</div>
             </div>
           </div>
-
-          <div class="sync-text" id="syncText">
-            Доступ считается автоматически от даты оплаты
-          </div>
         </div>
-
-        <div class="info-grid">
-          <div class="info-card">
-            <div class="info-icon">👥</div>
-            <div class="info-label">Компания</div>
-            <div class="info-value" id="aboutCount">—</div>
-          </div>
-
-          <div class="info-card">
-            <div class="info-icon">💎</div>
-            <div class="info-label">Стиль</div>
-            <div class="info-value" id="budgetLevel">—</div>
-          </div>
-
-          <div class="info-card">
-            <div class="info-icon">🗓</div>
-            <div class="info-label">Маршрут</div>
-            <div class="info-value" id="guideDays">—</div>
-          </div>
-        </div>
-
-        <div class="tariff" id="tariffName">
-          Тариф загружается...
-        </div>
-
-        <div class="actions">
-          <a class="button button-main" href="#" onclick="openRoute(); return false;">
-            🚀 НАЧАТЬ ПУТЕШЕСТВИЕ
-          </a>
-
-          <a class="button button-second" href="#" onclick="openPlaces(); return false;">
-            📖 ВСЕ МЕСТА И ЛАЙФХАКИ
-          </a>
-
-          <div class="note">
-            ✨ Можно начать с любого дня. Ваш маршрут уже внутри.
-          </div>
-        </div>
-
       </div>
     </section>
   </main>
 
   <script>
-    const firebaseConfig = {
-      apiKey: "ВСТАВЬ_API_KEY",
-      authDomain: "ВСТАВЬ_AUTH_DOMAIN",
-      projectId: "ВСТАВЬ_PROJECT_ID",
-      storageBucket: "ВСТАВЬ_STORAGE_BUCKET",
-      messagingSenderId: "ВСТАВЬ_MESSAGING_SENDER_ID",
-      appId: "ВСТАВЬ_APP_ID"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
     const params = new URLSearchParams(window.location.search);
 
-    const userId =
-      params.get("tgid") ||
-      params.get("userId") ||
-      params.get("id") ||
-      localStorage.getItem("tgid");
+    const nameFromUrl =
+      params.get("name") ||
+      params.get("firstname") ||
+      params.get("displayName");
 
-    if (userId) {
-      localStorage.setItem("tgid", userId);
+    if (nameFromUrl) {
+      document.getElementById("userName").textContent = decodeURIComponent(nameFromUrl);
     }
 
-    let accessUntilDate = null;
-    let timerInterval = null;
+    const accessFromUrl = params.get("access_until");
 
-    function mapAboutCount(value) {
-      const map = {
-        "one_adult": "1 взрослый",
-        "two_adults": "2 взрослых",
-        "2_adults": "2 взрослых",
-        "family": "Семья"
-      };
+    let accessUntil;
 
-      return map[value] || "Ваш формат";
+    if (accessFromUrl) {
+      accessUntil = new Date(accessFromUrl);
+    } else {
+      accessUntil = new Date();
+      accessUntil.setDate(accessUntil.getDate() + 9);
+      accessUntil.setHours(accessUntil.getHours() + 14);
+      accessUntil.setMinutes(accessUntil.getMinutes() + 23);
+      accessUntil.setSeconds(accessUntil.getSeconds() + 47);
     }
 
-    function mapBudgetLevel(value) {
-      const map = {
-        "econom": "Лайт",
-        "middle": "Средний",
-        "comfort": "Комфорт",
-        "premium": "Премиум"
-      };
-
-      return map[value] || "Комфорт";
+    function pad(value) {
+      return String(value).padStart(2, "0");
     }
 
-    function mapTariff(value, guideDays) {
-      const map = {
-        "test": "Тест-драйв",
-        "standard": "Стандарт",
-        "comfort": "Комфорт",
-        "razgul": "Разгул"
-      };
-
-      return `👑 Тариф: ${map[value] || "оплачен"} • ${guideDays || "—"} дней доступа`;
-    }
-
-    function setZero(message) {
-      document.getElementById("days").innerText = "0";
-      document.getElementById("hours").innerText = "0";
-      document.getElementById("minutes").innerText = "0";
-      document.getElementById("seconds").innerText = "0";
-      document.getElementById("syncText").innerText = message;
+    function setTimerToZero() {
+      document.getElementById("days").textContent = "00";
+      document.getElementById("hours").textContent = "00";
+      document.getElementById("minutes").textContent = "00";
+      document.getElementById("seconds").textContent = "00";
     }
 
     function updateTimer() {
-      if (!accessUntilDate) return;
+      const now = new Date();
+      const diff = accessUntil - now;
 
-      const diff = accessUntilDate.getTime() - Date.now();
-
-      if (diff <= 0) {
-        setZero("Срок доступа закончился");
-        clearInterval(timerInterval);
+      if (!accessUntil || isNaN(accessUntil.getTime()) || diff <= 0) {
+        setTimerToZero();
         return;
       }
 
-      const total = Math.floor(diff / 1000);
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
 
-      document.getElementById("days").innerText = Math.floor(total / 86400);
-      document.getElementById("hours").innerText = Math.floor((total % 86400) / 3600);
-      document.getElementById("minutes").innerText = Math.floor((total % 3600) / 60);
-      document.getElementById("seconds").innerText = total % 60;
+      document.getElementById("days").textContent = pad(days);
+      document.getElementById("hours").textContent = pad(hours);
+      document.getElementById("minutes").textContent = pad(minutes);
+      document.getElementById("seconds").textContent = pad(seconds);
     }
 
-    function startTimer() {
-      updateTimer();
-      timerInterval = setInterval(updateTimer, 1000);
-    }
-
-    async function loadUserData() {
-      if (!userId) {
-        setZero("Telegram ID не найден");
-        return;
-      }
-
-      try {
-        const doc = await db.collection("tg_users").doc(String(userId)).get();
-
-        if (!doc.exists) {
-          setZero("Пользователь не найден");
-          return;
-        }
-
-        const data = doc.data();
-
-        const rawName = data.display_name || data.tg_username || "Гость";
-        const name = String(rawName).replace("@", "");
-
-        document.getElementById("helloName").innerText = `${name} 👋`;
-
-        const guide = data.guide_days || 0;
-
-        document.getElementById("aboutCount").innerText = mapAboutCount(data.about_count);
-        document.getElementById("budgetLevel").innerText = mapBudgetLevel(data.budget_level);
-        document.getElementById("guideDays").innerText = guide ? `${guide} дней` : "—";
-        document.getElementById("tariffName").innerText = mapTariff(data.last_paid_tariff, guide);
-
-        if (data.access_until && data.access_until.toDate) {
-          accessUntilDate = data.access_until.toDate();
-          startTimer();
-        } else {
-          setZero("Доступ не найден");
-        }
-
-      } catch (e) {
-        console.error(e);
-        setZero("Ошибка загрузки данных");
-      }
-    }
-
-    function openRoute() {
-      window.location.href = `route.html?tgid=${userId || ""}`;
-    }
-
-    function openPlaces() {
-      window.location.href = `places.html?tgid=${userId || ""}`;
-    }
-
-    loadUserData();
+    updateTimer();
+    setInterval(updateTimer, 1000);
   </script>
 </body>
 </html>

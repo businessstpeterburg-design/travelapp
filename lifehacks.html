@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#030303" />
+  <meta name="description" content="Локальные лайфхаки по Нячангу от Как Местный." />
+  <title>Как Местный — Лайфхаки</title>
+  <link rel="preload" as="image" href="guide-bg.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+  <main class="page isLoading" id="app">
+    <section class="content" aria-label="Лайфхаки">
+      <header class="hero">
+        <p class="eyebrow">Локальные советы</p>
+        <h1 class="title"><span>Лайфхаки</span><span class="gold">Нячанга</span></h1>
+        <p class="description">Короткие практичные подсказки, которые помогают чувствовать себя спокойнее уже в первый день.</p>
+        <div class="rule" aria-hidden="true"></div>
+      </header>
+
+      <section class="glass accessNotice" id="accessNotice" aria-live="polite">
+        <div class="panel">
+          <p class="kicker">Доступ</p>
+          <h2 class="cardTitle" id="accessMessage">Загружаем ваш персональный гид...</h2>
+        </div>
+      </section>
+
+      <section class="stack hiddenWhileLoading">
+        <div class="glass">
+          <div class="list">
+            <article class="item">
+              <div class="itemTop">
+                <h3 class="itemTitle">Как выбирать такси</h3>
+                <span class="itemMeta">город</span>
+              </div>
+              <p class="itemText">Сохраняйте точку назначения заранее и сверяйте маршрут до поездки, чтобы не объясняться на месте.</p>
+            </article>
+
+            <article class="item">
+              <div class="itemTop">
+                <h3 class="itemTitle">Когда лучше ехать на пляж</h3>
+                <span class="itemMeta">время</span>
+              </div>
+              <p class="itemText">Раннее утро и предзакатные часы обычно комфортнее: меньше жары, мягче свет и спокойнее атмосфера.</p>
+            </article>
+
+            <article class="item">
+              <div class="itemTop">
+                <h3 class="itemTitle">Что проверять перед покупкой</h3>
+                <span class="itemMeta">деньги</span>
+              </div>
+              <p class="itemText">Сверяйте сумму, курс и итоговую цену до оплаты. В туристических местах лучше не торопиться.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button class="btn primary" type="button" data-action="sos">SOS и контакты</button>
+        <button class="btn secondary" type="button" data-action="places">Все места</button>
+        <button class="btn retry" type="button" data-action="retry">Повторить</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="access.js"></script>
+  <script>
+    window.KMPageOptions = {};
+    KM.initProtectedPage(window.KMPageOptions);
+  </script>
+</body>
+</html>

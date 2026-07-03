@@ -54,6 +54,10 @@ const KM = (function() {
     });
   }
 
+  function getUserId() {
+    return currentUserId;
+  }
+
   function goTo(url) {
     const page = document.getElementById("app");
 
@@ -69,6 +73,7 @@ const KM = (function() {
     const buttons = document.querySelectorAll("[data-action]");
 
     if (page) page.classList.toggle("isLoading", isLoading);
+
     buttons.forEach(function(button) {
       button.disabled = isLoading;
     });
@@ -107,7 +112,13 @@ const KM = (function() {
     }
 
     if (data.premium === false || accessUntil.getTime() <= Date.now()) {
-      return { ok: false, expired: true, message: "Доступ закончился", data, accessUntil };
+      return {
+        ok: false,
+        expired: true,
+        message: "Доступ закончился",
+        data,
+        accessUntil
+      };
     }
 
     return { ok: true, data, accessUntil };
@@ -151,6 +162,10 @@ const KM = (function() {
           if (renew) renew.style.display = "flex";
         }
 
+        if (typeof settings.onBlocked === "function") {
+          settings.onBlocked(result);
+        }
+
         return;
       }
 
@@ -181,6 +196,7 @@ const KM = (function() {
 
   document.addEventListener("click", function(event) {
     const button = event.target.closest("[data-action]");
+
     if (!button || button.disabled) return;
 
     const tgid = encodeURIComponent(currentUserId || "");
@@ -198,7 +214,9 @@ const KM = (function() {
 
   return {
     initProtectedPage,
+    normalizeDate,
     formatDateRu,
+    getUserId,
     goTo
   };
 })();

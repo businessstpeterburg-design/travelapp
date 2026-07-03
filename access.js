@@ -18,6 +18,7 @@ const KM = (function() {
   let db = null;
   let currentUserId = userId ? String(userId) : "";
   let refreshInterval = null;
+  let lastReadyPayload = null;
 
   function hasFirebaseConfig() {
     return Boolean(
@@ -68,39 +69,79 @@ const KM = (function() {
     }, 220);
   }
 
-  function setLoading(isLoading) {
-    const page = document.getElementById("app");
-    const buttons = document.querySelectorAll("[data-action]");
+  function getActionButtons() {
+    return Array.from(document.querySelectorAll("[data-action]"));
+  }
 
-    if (page) page.classList.toggle("isLoading", isLoading);
-
-    buttons.forEach(function(button) {
-      button.disabled = isLoading;
+  function setButtonsDisabled(disabled) {
+    getActionButtons().forEach(function(button) {
+      button.disabled = disabled;
     });
   }
 
-  function showAccessMessage(message, canRetry) {
+  function setPaidButtonsDisabled(disabled) {
+    getActionButtons().forEach(function(button) {
+      const action = button.dataset.action;
+
+      if (action !== "retry" && action !== "renew-access") {
+        button.disabled = disabled;
+      }
+    });
+  }
+
+  function showAccessNotice(message, canRetry = true) {
     const page = document.getElementById("app");
     const notice = document.getElementById("accessNotice");
     const text = document.getElementById("accessMessage");
+    const retry = document.querySelector('[data-action="retry"]');
 
-    if (page) page.classList.toggle("canRetry", Boolean(canRetry));
+    if (page) {
+      page.classList.add("errorState");
+      page.classList.toggle("canRetry", Boolean(canRetry));
+    }
+
     if (notice) notice.classList.add("show");
     if (text) text.textContent = message;
+    if (retry) retry.disabled = !canRetry;
   }
 
-  function hideAccessMessage() {
+  function hideAccessNotice() {
     const page = document.getElementById("app");
     const notice = document.getElementById("accessNotice");
 
-    if (page) page.classList.remove("canRetry");
+    if (page) {
+      page.classList.remove("errorState", "canRetry");
+    }
+
     if (notice) notice.classList.remove("show");
+  }
+
+  function setLoading(isLoading) {
+    const page = document.getElementById("app");
+
+    if (page) page.classList.toggle("isLoading", isLoading);
+    setButtonsDisabled(isLoading);
+  }
+
+  function lockPaidContentForError(result) {
+    const renew = document.querySelector('[data-action="renew-access"]');
+    const retry = document.querySelector('[data-action="retry"]');
+
+    setPaidButtonsDisabled(true);
+
+    if (retry) retry.disabled = false;
+
+    if (renew && result && result.expired) {
+      renew.style.display = "flex";
+      renew.disabled = false;
+    }
   }
 
   async function readUser() {
     const doc = await db.collection("tg_users").doc(String(currentUserId)).get();
 
     if (!doc.exists) {
+      console.warn("User document not found");
       return { ok: false, message: "Профиль не найден" };
     }
 
@@ -108,10 +149,12 @@ const KM = (function() {
     const accessUntil = normalizeDate(data.access_until);
 
     if (!accessUntil) {
+      console.warn("Access date missing");
       return { ok: false, message: "Доступ не найден", data };
     }
 
     if (data.premium === false || accessUntil.getTime() <= Date.now()) {
+      console.warn("Access expired");
       return {
         ok: false,
         expired: true,
@@ -124,43 +167,36 @@ const KM = (function() {
     return { ok: true, data, accessUntil };
   }
 
-  async function initProtectedPage(options) {
-    const settings = options || {};
+  function buildReadyPayload(result) {
+    return {
+      userId: currentUserId,
+      data: result.data,
+      accessUntil: result.accessUntil,
+      accessUntilText: formatDateRu(result.accessUntil)
+    };
+  }
 
-    setLoading(true);
-    hideAccessMessage();
-
-    if (!currentUserId) {
-      setLoading(false);
-      showAccessMessage("Не удалось определить пользователя", true);
-      return;
-    }
-
-    localStorage.setItem("tgid", currentUserId);
-
+  async function initFirebaseIfNeeded() {
     if (!hasFirebaseConfig()) {
-      setLoading(false);
-      showAccessMessage("Доступ временно недоступен", true);
-      return;
+      console.warn("Firebase config missing");
+      return false;
     }
 
-    try {
-      if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-      }
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
 
-      db = firebase.firestore();
+    db = firebase.firestore();
+    return true;
+  }
+
+  async function refreshAccessSilently(settings) {
+    try {
       const result = await readUser();
 
-      setLoading(false);
-
       if (!result.ok) {
-        showAccessMessage(result.message, true);
-
-        if (result.expired) {
-          const renew = document.querySelector('[data-action="renew-access"]');
-          if (renew) renew.style.display = "flex";
-        }
+        showAccessNotice(result.message, true);
+        lockPaidContentForError(result);
 
         if (typeof settings.onBlocked === "function") {
           settings.onBlocked(result);
@@ -169,28 +205,87 @@ const KM = (function() {
         return;
       }
 
-      hideAccessMessage();
+      hideAccessNotice();
+      setPaidButtonsDisabled(false);
+
+      const payload = buildReadyPayload(result);
+      lastReadyPayload = payload;
+
+      if (typeof settings.onRefresh === "function") {
+        settings.onRefresh(payload);
+      }
+    } catch (error) {
+      console.warn("Access load failed", error);
+      showAccessNotice("Не удалось подключиться к серверу. Попробуйте ещё раз через несколько секунд.", true);
+      lockPaidContentForError({ expired: false });
+    }
+  }
+
+  async function initProtectedPage(options) {
+    const settings = options || {};
+    const page = document.getElementById("app");
+
+    setLoading(true);
+    hideAccessNotice();
+
+    if (!currentUserId) {
+      setLoading(false);
+      showAccessNotice("Не удалось определить пользователя", true);
+      lockPaidContentForError({ expired: false });
+      return;
+    }
+
+    localStorage.setItem("tgid", currentUserId);
+
+    try {
+      const firebaseReady = await initFirebaseIfNeeded();
+
+      if (!firebaseReady) {
+        setLoading(false);
+        showAccessNotice("Доступ временно недоступен", true);
+        lockPaidContentForError({ expired: false });
+        return;
+      }
+
+      const result = await readUser();
+
+      setLoading(false);
+
+      if (!result.ok) {
+        showAccessNotice(result.message, true);
+        lockPaidContentForError(result);
+
+        if (typeof settings.onBlocked === "function") {
+          settings.onBlocked(result);
+        }
+
+        return;
+      }
+
+      if (page) {
+        page.classList.remove("isLoading", "errorState", "canRetry");
+      }
+
+      hideAccessNotice();
+      setPaidButtonsDisabled(false);
+
+      const payload = buildReadyPayload(result);
+      lastReadyPayload = payload;
 
       if (typeof settings.onReady === "function") {
-        settings.onReady({
-          userId: currentUserId,
-          data: result.data,
-          accessUntil: result.accessUntil,
-          accessUntilText: formatDateRu(result.accessUntil)
-        });
+        settings.onReady(payload);
       }
 
       if (!refreshInterval) {
         refreshInterval = setInterval(function() {
-          initProtectedPage(settings).catch(function(error) {
-            console.warn("Access refresh failed", error);
-          });
+          refreshAccessSilently(settings);
         }, 5 * 60 * 1000);
       }
     } catch (error) {
       console.warn("Access load failed", error);
       setLoading(false);
-      showAccessMessage("Не удалось подключиться к серверу. Попробуйте ещё раз через несколько секунд.", true);
+      showAccessNotice("Не удалось подключиться к серверу. Попробуйте ещё раз через несколько секунд.", true);
+      lockPaidContentForError({ expired: false });
     }
   }
 
@@ -216,7 +311,11 @@ const KM = (function() {
     initProtectedPage,
     normalizeDate,
     formatDateRu,
+    goTo,
     getUserId,
-    goTo
+    currentUserId,
+    getLastReadyPayload: function() {
+      return lastReadyPayload;
+    }
   };
 })();

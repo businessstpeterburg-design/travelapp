@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#030303" />
   <title>Как Местный — Guide Pass</title>
 
+  <link rel="preload" as="image" href="guide-bg.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -15,7 +16,7 @@
       --black: #030303;
       --deep: #020407;
       --white: #FFFFFF;
-      --soft: rgba(255,255,255,.70);
+      --soft: rgba(255, 255, 255, .70);
       --goldLight: #F2D18A;
       --gold: #D5A84A;
       --goldDark: #8E5C14;
@@ -76,16 +77,16 @@
       background-image:
         linear-gradient(
           180deg,
-          rgba(2,4,7,.05) 0%,
-          rgba(2,4,7,.12) 32%,
-          rgba(3,3,3,.60) 58%,
-          rgba(3,3,3,.96) 100%
+          rgba(2, 4, 7, .05) 0%,
+          rgba(2, 4, 7, .12) 32%,
+          rgba(3, 3, 3, .60) 58%,
+          rgba(3, 3, 3, .96) 100%
         ),
         linear-gradient(
           90deg,
-          rgba(2,4,7,.56) 0%,
-          rgba(2,4,7,.28) 42%,
-          rgba(2,4,7,.08) 100%
+          rgba(2, 4, 7, .56) 0%,
+          rgba(2, 4, 7, .28) 42%,
+          rgba(2, 4, 7, .08) 100%
         ),
         url("guide-bg.png");
       background-size: cover, cover, cover;
@@ -105,12 +106,12 @@
       max-width: var(--screen);
       transform: translateX(-50%);
       background:
-        radial-gradient(circle at 84% 28%, rgba(242,209,138,.09), rgba(3,3,3,0) 26%),
+        radial-gradient(circle at 84% 28%, rgba(242, 209, 138, .09), rgba(3, 3, 3, 0) 26%),
         linear-gradient(
           180deg,
-          rgba(3,3,3,0) 0%,
-          rgba(3,3,3,.20) 44%,
-          rgba(3,3,3,.89) 88%,
+          rgba(3, 3, 3, 0) 0%,
+          rgba(3, 3, 3, .20) 44%,
+          rgba(3, 3, 3, .89) 88%,
           #030303 100%
         );
       z-index: -3;
@@ -128,7 +129,7 @@
 
     .hero {
       width: min(302px, 78vw);
-      animation: rise .6s cubic-bezier(.2,.8,.2,1) .16s both;
+      animation: rise .6s cubic-bezier(.2, .8, .2, 1) .16s both;
     }
 
     .eyebrow {
@@ -155,14 +156,14 @@
       border-radius: 999px;
       overflow: hidden;
       background:
-        linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.025)),
+        linear-gradient(145deg, rgba(255, 255, 255, .16), rgba(255, 255, 255, .025)),
         linear-gradient(135deg, var(--goldLight), var(--goldDark));
-      border: 1px solid rgba(242,209,138,.50);
+      border: 1px solid rgba(242, 209, 138, .50);
       box-shadow:
-        inset 0 0 1px rgba(255,255,255,.55),
-        inset 0 0 14px rgba(255,255,255,.04),
-        0 10px 24px rgba(0,0,0,.28),
-        0 0 18px rgba(213,168,74,.10);
+        inset 0 0 1px rgba(255, 255, 255, .55),
+        inset 0 0 14px rgba(255, 255, 255, .04),
+        0 10px 24px rgba(0, 0, 0, .28),
+        0 0 18px rgba(213, 168, 74, .10);
     }
 
     .avatar::before {
@@ -170,8 +171,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 34% 28%, rgba(255,255,255,.42), rgba(255,255,255,0) 34%),
-        linear-gradient(145deg, rgba(3,3,3,.05), rgba(3,3,3,.22));
+        radial-gradient(circle at 34% 28%, rgba(255, 255, 255, .42), rgba(255, 255, 255, 0) 34%),
+        linear-gradient(145deg, rgba(3, 3, 3, .05), rgba(3, 3, 3, .22));
       pointer-events: none;
     }
 
@@ -184,8 +185,8 @@
       height: 12px;
       border-radius: 999px;
       transform: translate(-50%, -70%);
-      background: rgba(3,3,3,.42);
-      box-shadow: 0 15px 0 9px rgba(3,3,3,.34);
+      background: rgba(3, 3, 3, .42);
+      box-shadow: 0 15px 0 9px rgba(3, 3, 3, .34);
       opacity: .46;
     }
 
@@ -222,7 +223,7 @@
       height: 1px;
       margin: 5px 0 40px;
       background: linear-gradient(90deg, var(--goldLight), var(--goldDark));
-      box-shadow: 0 0 18px rgba(242,209,138,.28);
+      box-shadow: 0 0 18px rgba(242, 209, 138, .28);
     }
 
     .title {
@@ -242,13 +243,13 @@
 
     .title .gold {
       color: var(--goldLight);
-      text-shadow: 0 0 24px rgba(213,168,74,.18);
+      text-shadow: 0 0 24px rgba(213, 168, 74, .18);
     }
 
     .description {
       margin: 27px 0 0;
       max-width: 295px;
-      color: rgba(255,255,255,.78);
+      color: rgba(255, 255, 255, .78);
       font-size: 16px;
       line-height: 1.62;
       letter-spacing: -.012em;
@@ -263,7 +264,7 @@
     .stack {
       display: grid;
       gap: 16px;
-      animation: rise .6s cubic-bezier(.2,.8,.2,1) .28s both;
+      animation: rise .6s cubic-bezier(.2, .8, .2, 1) .28s both;
     }
 
     .glass {
@@ -271,18 +272,18 @@
       overflow: hidden;
       border-radius: 21px;
       background:
-        linear-gradient(145deg, rgba(255,255,255,.155), rgba(255,255,255,.018) 38%, rgba(255,255,255,.055)),
-        linear-gradient(180deg, rgba(3,3,3,.012), rgba(3,3,3,.092));
-      border: 1px solid rgba(242,209,138,.46);
+        linear-gradient(145deg, rgba(255, 255, 255, .155), rgba(255, 255, 255, .018) 38%, rgba(255, 255, 255, .055)),
+        linear-gradient(180deg, rgba(3, 3, 3, .012), rgba(3, 3, 3, .092));
+      border: 1px solid rgba(242, 209, 138, .46);
       box-shadow:
-        inset 0 0 1px rgba(255,255,255,.50),
-        inset 0 0 22px rgba(255,255,255,.033),
-        inset 0 1px 0 rgba(255,255,255,.62),
-        inset 0 13px 30px rgba(255,255,255,.045),
-        inset 0 -13px 30px rgba(0,0,0,.075),
-        inset 0 -1px 0 rgba(142,92,20,.28),
-        0 18px 46px rgba(0,0,0,.42),
-        0 0 30px rgba(213,168,74,.10);
+        inset 0 0 1px rgba(255, 255, 255, .50),
+        inset 0 0 22px rgba(255, 255, 255, .033),
+        inset 0 1px 0 rgba(255, 255, 255, .62),
+        inset 0 13px 30px rgba(255, 255, 255, .045),
+        inset 0 -13px 30px rgba(0, 0, 0, .075),
+        inset 0 -1px 0 rgba(142, 92, 20, .28),
+        0 18px 46px rgba(0, 0, 0, .42),
+        0 0 30px rgba(213, 168, 74, .10);
       backdrop-filter: blur(3px) saturate(110%) brightness(105%);
       -webkit-backdrop-filter: blur(3px) saturate(110%) brightness(105%);
       transform: translateZ(0);
@@ -295,10 +296,10 @@
       inset: 0;
       pointer-events: none;
       background:
-        linear-gradient(105deg, rgba(255,255,255,.44) 0%, rgba(255,255,255,.105) 19%, rgba(255,255,255,0) 43%),
-        radial-gradient(circle at 12% 10%, rgba(255,255,255,.20), rgba(255,255,255,0) 25%),
-        radial-gradient(circle at 92% 0%, rgba(242,209,138,.27), rgba(242,209,138,0) 31%),
-        radial-gradient(circle at 50% 100%, rgba(242,209,138,.13), rgba(242,209,138,0) 36%);
+        linear-gradient(105deg, rgba(255, 255, 255, .44) 0%, rgba(255, 255, 255, .105) 19%, rgba(255, 255, 255, 0) 43%),
+        radial-gradient(circle at 12% 10%, rgba(255, 255, 255, .20), rgba(255, 255, 255, 0) 25%),
+        radial-gradient(circle at 92% 0%, rgba(242, 209, 138, .27), rgba(242, 209, 138, 0) 31%),
+        radial-gradient(circle at 50% 100%, rgba(242, 209, 138, .13), rgba(242, 209, 138, 0) 36%);
       opacity: .84;
     }
 
@@ -308,17 +309,17 @@
       inset: 1px;
       border-radius: inherit;
       pointer-events: none;
-      border: 1px solid rgba(255,255,255,.20);
+      border: 1px solid rgba(255, 255, 255, .20);
       box-shadow:
-        inset 12px 0 34px rgba(255,255,255,.038),
-        inset -12px 0 30px rgba(242,209,138,.045);
+        inset 12px 0 34px rgba(255, 255, 255, .038),
+        inset -12px 0 30px rgba(242, 209, 138, .045);
     }
 
     .shine {
       position: absolute;
       inset: -40%;
       z-index: 1;
-      background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.082) 48%, rgba(242,209,138,.052) 52%, transparent 65%);
+      background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, .082) 48%, rgba(242, 209, 138, .052) 52%, transparent 65%);
       transform: translateX(-55%) rotate(8deg);
       animation: luxuryShine 22s ease-in-out infinite;
       pointer-events: none;
@@ -330,9 +331,9 @@
       z-index: 1;
       pointer-events: none;
       background:
-        radial-gradient(ellipse 42% 20% at 18% 26%, rgba(255,255,255,.038), transparent 68%),
-        radial-gradient(ellipse 34% 18% at 82% 72%, rgba(242,209,138,.028), transparent 70%),
-        linear-gradient(128deg, transparent 0%, rgba(255,255,255,.019) 44%, transparent 62%);
+        radial-gradient(ellipse 42% 20% at 18% 26%, rgba(255, 255, 255, .038), transparent 68%),
+        radial-gradient(ellipse 34% 18% at 82% 72%, rgba(242, 209, 138, .028), transparent 70%),
+        linear-gradient(128deg, transparent 0%, rgba(255, 255, 255, .019) 44%, transparent 62%);
       mix-blend-mode: screen;
       opacity: .56;
       animation: causticDrift 24s ease-in-out infinite;
@@ -341,6 +342,48 @@
     .timer {
       padding: 21px 18px 19px;
       min-height: 126px;
+    }
+
+    .loadingText {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      z-index: 3;
+      display: none;
+      margin: 0;
+      transform: translateY(-50%);
+      color: rgba(242, 209, 138, .92);
+      font-size: 13px;
+      line-height: 1.35;
+      letter-spacing: .08em;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: 400;
+      pointer-events: none;
+    }
+
+    .isLoading .loadingText {
+      display: block;
+      animation: loadingPulse 1.8s ease-in-out infinite;
+    }
+
+    .expiredHint {
+      position: relative;
+      z-index: 2;
+      display: none;
+      margin: 14px auto 0;
+      max-width: 265px;
+      color: rgba(255, 255, 255, .72);
+      font-size: 13px;
+      line-height: 1.45;
+      text-align: center;
+      letter-spacing: -.01em;
+      font-weight: 300;
+    }
+
+    .expired .expiredHint {
+      display: block;
     }
 
     .timerLabel {
@@ -372,17 +415,17 @@
 
     .num {
       display: block;
-      color: rgba(255,255,255,.97);
+      color: rgba(255, 255, 255, .98);
       font-size: clamp(40px, 12vw, 56px);
       line-height: .96;
       letter-spacing: -.04em;
       font-weight: 300;
       font-variant-numeric: tabular-nums;
       text-shadow:
-        0 1px 0 rgba(255,255,255,.30),
-        0 -1px 0 rgba(255,255,255,.11),
-        0 0 9px rgba(255,255,255,.09),
-        0 0 24px rgba(255,255,255,.10);
+        0 1px 0 rgba(255, 255, 255, .34),
+        0 -1px 0 rgba(255, 255, 255, .12),
+        0 0 10px rgba(255, 255, 255, .10),
+        0 0 25px rgba(255, 255, 255, .11);
     }
 
     .num.tick {
@@ -403,8 +446,8 @@
     .separator {
       width: 1px;
       height: 54px;
-      background: linear-gradient(180deg, rgba(242,209,138,0), rgba(242,209,138,.62), rgba(142,92,20,.18), rgba(242,209,138,0));
-      box-shadow: 0 0 10px rgba(213,168,74,.18);
+      background: linear-gradient(180deg, rgba(242, 209, 138, 0), rgba(242, 209, 138, .62), rgba(142, 92, 20, .18), rgba(242, 209, 138, 0));
+      box-shadow: 0 0 10px rgba(213, 168, 74, .18);
     }
 
     .status {
@@ -419,11 +462,11 @@
 
     .row {
       display: grid;
-      grid-template-columns: minmax(0,1fr) auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       gap: 18px;
       align-items: center;
       min-height: 48px;
-      border-bottom: 1px solid rgba(255,255,255,.082);
+      border-bottom: 1px solid rgba(255, 255, 255, .082);
     }
 
     .row:last-child {
@@ -431,7 +474,7 @@
     }
 
     .key {
-      color: rgba(255,255,255,.82);
+      color: rgba(255, 255, 255, .82);
       font-size: 15px;
       line-height: 1.25;
       font-weight: 300;
@@ -439,7 +482,7 @@
     }
 
     .value {
-      color: rgba(255,255,255,.93);
+      color: rgba(255, 255, 255, .93);
       font-size: 14px;
       line-height: 1.25;
       text-align: right;
@@ -461,14 +504,14 @@
       border-radius: 999px;
       vertical-align: 1px;
       background: var(--gold);
-      box-shadow: 0 0 10px rgba(213,168,74,.65);
+      box-shadow: 0 0 10px rgba(213, 168, 74, .65);
     }
 
     .actions {
       display: grid;
       gap: 17px;
       margin-top: 22px;
-      animation: rise .6s cubic-bezier(.2,.8,.2,1) .4s both;
+      animation: rise .6s cubic-bezier(.2, .8, .2, 1) .4s both;
     }
 
     .btn {
@@ -484,7 +527,7 @@
       line-height: 1;
       letter-spacing: .118em;
       font-weight: 500;
-      transition: transform .22s cubic-bezier(.2,.8,.2,1), filter .22s, box-shadow .22s, border-color .22s;
+      transition: transform .22s cubic-bezier(.2, .8, .2, 1), filter .22s, box-shadow .22s, border-color .22s;
       overflow: hidden;
       transform: translateZ(0);
       -webkit-transform: translateZ(0);
@@ -495,23 +538,23 @@
     }
 
     .btn:focus-visible {
-      outline: 1px solid rgba(242,209,138,.88);
+      outline: 1px solid rgba(242, 209, 138, .88);
       outline-offset: 4px;
       box-shadow:
-        0 0 0 5px rgba(213,168,74,.12),
-        0 0 24px rgba(213,168,74,.16);
+        0 0 0 5px rgba(213, 168, 74, .12),
+        0 0 24px rgba(213, 168, 74, .16);
     }
 
     .primary {
       color: #030303;
       background:
-        linear-gradient(180deg, rgba(255,255,255,.32), rgba(255,255,255,0) 34%),
+        linear-gradient(180deg, rgba(255, 255, 255, .32), rgba(255, 255, 255, 0) 34%),
         linear-gradient(135deg, var(--goldLight) 0%, var(--gold) 52%, var(--goldDark) 100%);
       box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.66),
-        inset 0 -1px 0 rgba(142,92,20,.5),
-        0 14px 34px rgba(142,92,20,.24),
-        0 0 28px rgba(213,168,74,.16);
+        inset 0 1px 0 rgba(255, 255, 255, .66),
+        inset 0 -1px 0 rgba(142, 92, 20, .5),
+        0 14px 34px rgba(142, 92, 20, .24),
+        0 0 28px rgba(213, 168, 74, .16);
     }
 
     .primary::after {
@@ -528,18 +571,18 @@
     .secondary {
       color: var(--goldLight);
       background:
-        linear-gradient(145deg, rgba(255,255,255,.155), rgba(255,255,255,.018) 38%, rgba(255,255,255,.055)),
-        linear-gradient(180deg, rgba(3,3,3,.012), rgba(3,3,3,.092));
-      border: 1px solid rgba(213,168,74,.82);
+        linear-gradient(145deg, rgba(255, 255, 255, .155), rgba(255, 255, 255, .018) 38%, rgba(255, 255, 255, .055)),
+        linear-gradient(180deg, rgba(3, 3, 3, .012), rgba(3, 3, 3, .092));
+      border: 1px solid rgba(213, 168, 74, .82);
       box-shadow:
-        inset 0 0 1px rgba(255,255,255,.50),
-        inset 0 0 22px rgba(255,255,255,.033),
-        inset 0 1px 0 rgba(255,255,255,.62),
-        inset 0 13px 30px rgba(255,255,255,.045),
-        inset 0 -13px 30px rgba(0,0,0,.075),
-        inset 0 -1px 0 rgba(142,92,20,.28),
-        0 12px 34px rgba(0,0,0,.28),
-        0 0 22px rgba(213,168,74,.08);
+        inset 0 0 1px rgba(255, 255, 255, .50),
+        inset 0 0 22px rgba(255, 255, 255, .033),
+        inset 0 1px 0 rgba(255, 255, 255, .62),
+        inset 0 13px 30px rgba(255, 255, 255, .045),
+        inset 0 -13px 30px rgba(0, 0, 0, .075),
+        inset 0 -1px 0 rgba(142, 92, 20, .28),
+        0 12px 34px rgba(0, 0, 0, .28),
+        0 0 22px rgba(213, 168, 74, .08);
       backdrop-filter: blur(3px) saturate(110%) brightness(105%);
       -webkit-backdrop-filter: blur(3px) saturate(110%) brightness(105%);
     }
@@ -550,8 +593,8 @@
       inset: 0;
       pointer-events: none;
       background:
-        linear-gradient(105deg, rgba(255,255,255,.44) 0%, rgba(255,255,255,.105) 19%, rgba(255,255,255,0) 43%),
-        radial-gradient(circle at 92% 0%, rgba(242,209,138,.24), rgba(242,209,138,0) 31%);
+        linear-gradient(105deg, rgba(255, 255, 255, .44) 0%, rgba(255, 255, 255, .105) 19%, rgba(255, 255, 255, 0) 43%),
+        radial-gradient(circle at 92% 0%, rgba(242, 209, 138, .24), rgba(242, 209, 138, 0) 31%);
       opacity: .78;
     }
 
@@ -561,30 +604,19 @@
       inset: 1px;
       border-radius: inherit;
       pointer-events: none;
-      border: 1px solid rgba(255,255,255,.18);
+      border: 1px solid rgba(255, 255, 255, .18);
       box-shadow:
-        inset 12px 0 34px rgba(255,255,255,.034),
-        inset -12px 0 30px rgba(242,209,138,.04);
+        inset 12px 0 34px rgba(255, 255, 255, .034),
+        inset -12px 0 30px rgba(242, 209, 138, .04);
     }
 
     .isLoading .timerLabel,
     .isLoading .key,
     .isLoading .value,
-    .isLoading .unit {
-      color: transparent;
-      text-shadow: none;
-    }
-
+    .isLoading .unit,
     .isLoading .num {
       color: transparent;
       text-shadow: none;
-    }
-
-    .isLoading .timerLabel,
-    .isLoading .num,
-    .isLoading .unit,
-    .isLoading .key,
-    .isLoading .value {
       position: relative;
     }
 
@@ -597,8 +629,7 @@
       position: absolute;
       inset: 12% 8%;
       border-radius: 999px;
-      background:
-        linear-gradient(110deg, rgba(255,255,255,.035), rgba(242,209,138,.11), rgba(255,255,255,.035));
+      background: linear-gradient(110deg, rgba(255, 255, 255, .035), rgba(242, 209, 138, .11), rgba(255, 255, 255, .035));
       background-size: 220% 100%;
       animation: skeletonFlow 1.7s ease-in-out infinite;
     }
@@ -624,24 +655,24 @@
       .primary:hover {
         filter: brightness(1.025);
         box-shadow:
-          inset 0 1px 0 rgba(255,255,255,.70),
-          inset 0 -1px 0 rgba(142,92,20,.5),
-          0 16px 36px rgba(142,92,20,.26),
-          0 0 30px rgba(213,168,74,.18);
+          inset 0 1px 0 rgba(255, 255, 255, .70),
+          inset 0 -1px 0 rgba(142, 92, 20, .5),
+          0 16px 36px rgba(142, 92, 20, .26),
+          0 0 30px rgba(213, 168, 74, .18);
       }
 
       .secondary:hover {
-        border-color: rgba(242,209,138,.92);
+        border-color: rgba(242, 209, 138, .92);
         filter: brightness(1.035);
         box-shadow:
-          inset 0 0 1px rgba(255,255,255,.52),
-          inset 0 0 22px rgba(255,255,255,.036),
-          inset 0 1px 0 rgba(255,255,255,.64),
-          inset 0 13px 30px rgba(255,255,255,.048),
-          inset 0 -13px 30px rgba(0,0,0,.075),
-          inset 0 -1px 0 rgba(142,92,20,.28),
-          0 12px 34px rgba(0,0,0,.28),
-          0 0 26px rgba(213,168,74,.12);
+          inset 0 0 1px rgba(255, 255, 255, .52),
+          inset 0 0 22px rgba(255, 255, 255, .036),
+          inset 0 1px 0 rgba(255, 255, 255, .64),
+          inset 0 13px 30px rgba(255, 255, 255, .048),
+          inset 0 -13px 30px rgba(0, 0, 0, .075),
+          inset 0 -1px 0 rgba(142, 92, 20, .28),
+          0 12px 34px rgba(0, 0, 0, .28),
+          0 0 26px rgba(213, 168, 74, .12);
       }
     }
 
@@ -729,8 +760,8 @@
     @media (min-width: 431px) {
       .page {
         box-shadow:
-          0 0 0 1px rgba(255,255,255,.06),
-          0 40px 100px rgba(0,0,0,.65);
+          0 0 0 1px rgba(255, 255, 255, .06),
+          0 40px 100px rgba(0, 0, 0, .65);
       }
     }
 
@@ -760,9 +791,7 @@
         transform: translateX(-55%) rotate(8deg);
         opacity: 0;
       }
-      78% {
-        opacity: .62;
-      }
+      78% { opacity: .62; }
       100% {
         transform: translateX(55%) rotate(8deg);
         opacity: 0;
@@ -771,15 +800,15 @@
 
     @keyframes causticDrift {
       0%, 100% {
-        transform: translate3d(0,0,0) scale(1);
+        transform: translate3d(0, 0, 0) scale(1);
         opacity: .46;
       }
       45% {
-        transform: translate3d(7px,-5px,0) scale(1.03);
+        transform: translate3d(7px, -5px, 0) scale(1.03);
         opacity: .58;
       }
       72% {
-        transform: translate3d(-5px,6px,0) scale(.98);
+        transform: translate3d(-5px, 6px, 0) scale(.98);
         opacity: .42;
       }
     }
@@ -804,6 +833,11 @@
         background-position: -110% 0;
         opacity: .85;
       }
+    }
+
+    @keyframes loadingPulse {
+      0%, 100% { opacity: .58; }
+      50% { opacity: .96; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -847,10 +881,11 @@
         <div class="glass timer" aria-label="Таймер доступа">
           <div class="shine" aria-hidden="true"></div>
           <div class="caustic" aria-hidden="true"></div>
+          <p class="loadingText" id="loadingText">Подготавливаем ваш гид</p>
 
           <p class="timerLabel" id="timerLabel">До окончания доступа</p>
 
-          <div class="timerGrid">
+          <div class="timerGrid" aria-live="polite" aria-atomic="true">
             <div class="timerItem">
               <span class="num" id="days">00</span>
               <span class="unit">Дней</span>
@@ -877,6 +912,8 @@
               <span class="unit">Секунд</span>
             </div>
           </div>
+
+          <p class="expiredHint" id="expiredHint">Вы можете продлить доступ и продолжить пользоваться гидом.</p>
         </div>
 
         <div class="glass status" aria-label="Статус доступа">
@@ -908,11 +945,11 @@
       </section>
 
       <div class="actions">
-        <button class="btn primary" type="button" data-action="start-trip">
+        <button class="btn primary" type="button" data-action="start-trip" aria-label="Открыть маршрут путешествия">
           Начать путешествие
         </button>
 
-        <button class="btn secondary" type="button" data-action="all-places">
+        <button class="btn secondary" type="button" data-action="all-places" aria-label="Открыть все места и лайфхаки">
           Все места и лайфхаки
         </button>
       </div>
@@ -958,9 +995,11 @@
       params.get("id") ||
       localStorage.getItem("tgid");
 
+    let db = null;
     let currentUserId = userId ? String(userId) : "";
     let accessUntilDate = null;
     let countdownInterval = null;
+    let refreshInterval = null;
 
     function pad(value) {
       return String(Math.max(0, Number(value) || 0)).padStart(2, "0");
@@ -1002,7 +1041,8 @@
       return date.toLocaleDateString("ru-RU", {
         day: "numeric",
         month: "long",
-        year: "numeric"
+        year: "numeric",
+        timeZone: "Asia/Ho_Chi_Minh"
       });
     }
 
@@ -1025,6 +1065,9 @@
     function setUserPhoto(src) {
       if (!src) return;
 
+      els.avatarBox.classList.remove("hasPhoto");
+      els.avatarImg.removeAttribute("src");
+      els.avatarImg.alt = "";
       els.avatarImg.src = src;
 
       els.avatarImg.onload = function() {
@@ -1033,13 +1076,17 @@
 
       els.avatarImg.onerror = function() {
         els.avatarBox.classList.remove("hasPhoto");
+        els.avatarImg.removeAttribute("src");
       };
     }
 
-    function setInactiveState(reason) {
+    function setInactiveState(reason, options = {}) {
       clearInterval(countdownInterval);
+      countdownInterval = null;
       setTimer(0, 0, 0, 0);
       setPremiumState(reason);
+
+      appRoot.classList.toggle("expired", Boolean(options.expired));
 
       els.startButton.textContent = "Продлить доступ";
       els.startButton.dataset.action = "renew-access";
@@ -1048,7 +1095,7 @@
     }
 
     function setActiveState(data) {
-      appRoot.classList.remove("errorState");
+      appRoot.classList.remove("errorState", "expired");
 
       els.timerLabel.textContent = "До окончания доступа";
       els.accessStatus.innerHTML = 'Доступ активен <span class="dot" aria-hidden="true"></span>';
@@ -1063,11 +1110,14 @@
 
       updateCountdown();
 
-      countdownInterval = setInterval(updateCountdown, 1000);
+      if (!countdownInterval) {
+        countdownInterval = setInterval(updateCountdown, 1000);
+      }
     }
 
     function updateCountdown() {
       if (!accessUntilDate) {
+        console.warn("Access date missing");
         setInactiveState("Доступ не найден");
         return;
       }
@@ -1075,7 +1125,8 @@
       const distance = accessUntilDate.getTime() - Date.now();
 
       if (distance <= 0) {
-        setInactiveState("Доступ закончился");
+        console.warn("Access expired");
+        setInactiveState("Доступ закончился", { expired: true });
         return;
       }
 
@@ -1106,26 +1157,65 @@
       return accessUntilDate.getTime() > Date.now();
     }
 
+    function hasFirebaseConfig() {
+      return Boolean(
+        firebaseConfig.apiKey &&
+        !firebaseConfig.apiKey.includes("PASTE_") &&
+        firebaseConfig.projectId &&
+        !firebaseConfig.projectId.includes("PASTE_")
+      );
+    }
+
+    async function loadUserAccess({ initial = false } = {}) {
+      const doc = await db.collection("tg_users").doc(String(currentUserId)).get();
+
+      if (!doc.exists) {
+        console.warn("User document not found");
+        setInactiveState("Профиль не найден");
+        return;
+      }
+
+      const data = doc.data() || {};
+
+      els.userName.textContent = safeName(data);
+      setUserPhoto(data.photo_url || params.get("photoUrl"));
+
+      accessUntilDate = normalizeDate(data.access_until);
+
+      if (!accessUntilDate) {
+        console.warn("Access date missing");
+        setInactiveState("Доступ не найден");
+        return;
+      }
+
+      if (!hasFutureAccess(data)) {
+        console.warn("Access expired");
+        setInactiveState("Доступ закончился", { expired: true });
+        return;
+      }
+
+      setActiveState(data);
+
+      if (initial) {
+        appRoot.classList.remove("isLoading");
+      }
+    }
+
     async function init() {
       setTimer(0, 0, 0, 0);
 
       if (!currentUserId) {
         appRoot.classList.remove("isLoading");
-        setInactiveState("Telegram ID не найден");
+        setInactiveState("Не удалось определить пользователя");
         return;
       }
 
       localStorage.setItem("tgid", currentUserId);
 
-      const hasFirebaseConfig =
-        firebaseConfig.apiKey &&
-        !firebaseConfig.apiKey.includes("PASTE_") &&
-        firebaseConfig.projectId &&
-        !firebaseConfig.projectId.includes("PASTE_");
-
-      if (!hasFirebaseConfig) {
+      if (!hasFirebaseConfig()) {
+        console.warn("Firebase config missing");
         appRoot.classList.remove("isLoading");
-        setInactiveState("Firebase не настроен");
+        setInactiveState("Доступ временно недоступен");
         return;
       }
 
@@ -1134,39 +1224,20 @@
           firebase.initializeApp(firebaseConfig);
         }
 
-        const db = firebase.firestore();
-        const doc = await db.collection("tg_users").doc(String(currentUserId)).get();
+        db = firebase.firestore();
+        await loadUserAccess({ initial: true });
 
-        if (!doc.exists) {
-          appRoot.classList.remove("isLoading");
-          setInactiveState("Пользователь не найден");
-          return;
+        if (!refreshInterval) {
+          refreshInterval = setInterval(function() {
+            loadUserAccess().catch(function(error) {
+              console.warn("Access refresh failed", error);
+            });
+          }, 5 * 60 * 1000);
         }
-
-        const data = doc.data() || {};
-
-        els.userName.textContent = safeName(data);
-        setUserPhoto(data.photo_url || params.get("photoUrl"));
-
-        accessUntilDate = normalizeDate(data.access_until);
-
-        if (!accessUntilDate) {
-          appRoot.classList.remove("isLoading");
-          setInactiveState("Доступ не найден");
-          return;
-        }
-
-        if (!hasFutureAccess(data)) {
-          appRoot.classList.remove("isLoading");
-          setInactiveState("Доступ закончился");
-          return;
-        }
-
-        setActiveState(data);
-        appRoot.classList.remove("isLoading");
       } catch (error) {
+        console.warn("Access load failed", error);
         appRoot.classList.remove("isLoading");
-        setInactiveState("Ошибка загрузки доступа");
+        setInactiveState("Не удалось загрузить доступ");
       }
     }
 
@@ -1189,6 +1260,11 @@
         window.location.href = `index.html?tgid=${tgid}`;
       }
     });
+
+    /*
+      Важно: route.html и places.html тоже должны проверять tg_users/{userId}.access_until.
+      Нельзя полагаться только на guidepage.html как на единственную защиту доступа.
+    */
 
     init();
   </script>

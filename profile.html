@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#030303" />
+  <meta name="description" content="Профиль доступа Как Местный." />
+  <title>Как Местный — Профиль</title>
+  <link rel="preload" as="image" href="guide-bg.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+  <main class="page isLoading" id="app">
+    <section class="content" aria-label="Профиль">
+      <header class="hero">
+        <p class="eyebrow">Ваш доступ</p>
+        <h1 class="title"><span>Профиль</span><span class="gold">гостя</span></h1>
+        <p class="description">Здесь отображается статус доступа, тариф и срок действия персонального гида.</p>
+        <div class="rule" aria-hidden="true"></div>
+      </header>
+
+      <section class="glass accessNotice" id="accessNotice" aria-live="polite">
+        <div class="panel">
+          <p class="kicker">Доступ</p>
+          <h2 class="cardTitle" id="accessMessage">Загружаем ваш персональный гид...</h2>
+        </div>
+      </section>
+
+      <section class="stack hiddenWhileLoading">
+        <div class="glass">
+          <div class="list">
+            <article class="item">
+              <div class="itemTop">
+                <h3 class="itemTitle">Имя</h3>
+                <span class="itemMeta" id="profileName">—</span>
+              </div>
+            </article>
+
+            <article class="item">
+              <div class="itemTop">
+                <h3 class="itemTitle">Доступ до</h3>
+                <span class="itemMeta" id="profileUntil">—</span>
+              </div>
+            </article>
+
+            <article class="item">
+              <div class="itemTop">
+                <h3 class="itemTitle">Тариф</h3>
+                <span class="itemMeta" id="profilePlan">—</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <button class="btn primary" type="button" data-action="route">Начать путешествие</button>
+        <button class="btn secondary" type="button" data-action="places">Все места и лайфхаки</button>
+        <button class="btn retry" type="button" data-action="retry">Повторить</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="access.js"></script>
+  <script>
+    window.KMPageOptions = {
+      onReady: function(context) {
+        document.getElementById("profileName").textContent = context.data.display_name || context.data.tg_username || "Гость";
+        document.getElementById("profileUntil").textContent = context.accessUntilText;
+        document.getElementById("profilePlan").textContent = context.data.last_paid_tariff || context.data.plan || "Premium Guide";
+      }
+    };
+
+    KM.initProtectedPage(window.KMPageOptions);
+  </script>
+</body>
+</html>

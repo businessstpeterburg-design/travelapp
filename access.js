@@ -1,12 +1,12 @@
-const KM = (function() {
+const KM = (function () {
   const firebaseConfig = {
     apiKey: "AIzaSyAUzz_K-yhh1W2aEfzMiWeOe_AMb22ENpw",
-  authDomain: "kak-mestniy.firebaseapp.com",
-  projectId: "kak-mestniy",
-  storageBucket: "kak-mestniy.firebasestorage.app",
-  messagingSenderId: "1000266473398",
-  appId: "1:1000266473398:web:ba1f6bba5248ff517b6b17",
-  measurementId: "G-M4KB2PFWKG"
+    authDomain: "kak-mestniy.firebaseapp.com",
+    projectId: "kak-mestniy",
+    storageBucket: "kak-mestniy.firebasestorage.app",
+    messagingSenderId: "1000266473398",
+    appId: "1:1000266473398:web:ba1f6bba5248ff517b6b17",
+    measurementId: "G-M4KB2PFWKG"
   };
 
   const params = new URLSearchParams(window.location.search);
@@ -22,32 +22,21 @@ const KM = (function() {
   let lastReadyPayload = null;
 
   function hasFirebaseConfig() {
-    return Boolean(
-      firebaseConfig.apiKey &&
-      !firebaseConfig.apiKey.includes("PASTE_") &&
-      firebaseConfig.projectId &&
-      !firebaseConfig.projectId.includes("PASTE_")
-    );
+    return Boolean(firebaseConfig.apiKey && firebaseConfig.projectId);
   }
 
   function normalizeDate(value) {
     if (!value) return null;
-
-    if (value && typeof value.toDate === "function") {
-      return value.toDate();
-    }
-
+    if (value && typeof value.toDate === "function") return value.toDate();
     if (typeof value === "object" && typeof value.seconds === "number") {
       return new Date(value.seconds * 1000);
     }
-
     const date = new Date(value);
     return Number.isNaN(date.getTime()) ? null : date;
   }
 
   function formatDateRu(date) {
     if (!(date instanceof Date) || Number.isNaN(date.getTime())) return "—";
-
     return date.toLocaleDateString("ru-RU", {
       day: "numeric",
       month: "long",
@@ -62,10 +51,9 @@ const KM = (function() {
 
   function goTo(url) {
     const page = document.getElementById("app");
-
     if (page) page.classList.add("isLeaving");
 
-    setTimeout(function() {
+    setTimeout(function () {
       window.location.href = url;
     }, 220);
   }
@@ -75,15 +63,14 @@ const KM = (function() {
   }
 
   function setButtonsDisabled(disabled) {
-    getActionButtons().forEach(function(button) {
+    getActionButtons().forEach(function (button) {
       button.disabled = disabled;
     });
   }
 
   function setPaidButtonsDisabled(disabled) {
-    getActionButtons().forEach(function(button) {
+    getActionButtons().forEach(function (button) {
       const action = button.dataset.action;
-
       if (action !== "retry" && action !== "renew-access") {
         button.disabled = disabled;
       }
@@ -119,7 +106,6 @@ const KM = (function() {
 
   function setLoading(isLoading) {
     const page = document.getElementById("app");
-
     if (page) page.classList.toggle("isLoading", isLoading);
     setButtonsDisabled(isLoading);
   }
@@ -142,7 +128,6 @@ const KM = (function() {
     const doc = await db.collection("tg_users").doc(String(currentUserId)).get();
 
     if (!doc.exists) {
-      console.warn("User document not found");
       return { ok: false, message: "Профиль не найден" };
     }
 
@@ -150,12 +135,10 @@ const KM = (function() {
     const accessUntil = normalizeDate(data.access_until);
 
     if (!accessUntil) {
-      console.warn("Access date missing");
       return { ok: false, message: "Доступ не найден", data };
     }
 
     if (data.premium === false || accessUntil.getTime() <= Date.now()) {
-      console.warn("Access expired");
       return {
         ok: false,
         expired: true,
@@ -216,8 +199,8 @@ const KM = (function() {
         settings.onRefresh(payload);
       }
     } catch (error) {
-      console.warn("Access load failed", error);
-      showAccessNotice("Не удалось подключиться к серверу. Попробуйте ещё раз через несколько секунд.", true);
+      console.warn("Access refresh failed", error);
+      showAccessNotice("Не удалось подключиться к серверу.", true);
       lockPaidContentForError({ expired: false });
     }
   }
@@ -233,6 +216,11 @@ const KM = (function() {
       setLoading(false);
       showAccessNotice("Не удалось определить пользователя", true);
       lockPaidContentForError({ expired: false });
+
+      if (typeof settings.onBlocked === "function") {
+        settings.onBlocked({ ok: false, message: "Не удалось определить пользователя" });
+      }
+
       return;
     }
 
@@ -278,7 +266,7 @@ const KM = (function() {
       }
 
       if (!refreshInterval) {
-        refreshInterval = setInterval(function() {
+        refreshInterval = setInterval(function () {
           refreshAccessSilently(settings);
         }, 5 * 60 * 1000);
       }
@@ -290,22 +278,21 @@ const KM = (function() {
     }
   }
 
- document.addEventListener("click", function(event) {
-  const button = event.target.closest("[data-action]");
+  document.addEventListener("click", function (event) {
+    const button = event.target.closest("[data-action]");
+    if (!button || button.disabled) return;
 
-  if (!button || button.disabled) return;
+    const tgid = encodeURIComponent(currentUserId || "");
+    const action = button.dataset.action;
 
-  const tgid = encodeURIComponent(currentUserId || "");
-  const action = button.dataset.action;
+    if (action === "renew-access") {
+      goTo(`index.html?tgid=${tgid}`);
+    }
 
-  if (action === "renew-access") {
-    goTo(`index.html?tgid=${tgid}`);
-  }
-
-  if (action === "retry") {
-    initProtectedPage(window.KMPageOptions || {});
-  }
-});
+    if (action === "retry") {
+      initProtectedPage(window.KMPageOptions || {});
+    }
+  });
 
   return {
     initProtectedPage,
@@ -314,7 +301,7 @@ const KM = (function() {
     goTo,
     getUserId,
     currentUserId,
-    getLastReadyPayload: function() {
+    getLastReadyPayload: function () {
       return lastReadyPayload;
     }
   };

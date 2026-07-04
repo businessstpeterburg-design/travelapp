@@ -92,7 +92,7 @@ function setUserPhoto(src) {
       const distance = accessUntil.getTime() - Date.now();
 
       if (distance <= 0) {
-        window.location.href = "index.html?tgid=" + encodeURIComponent(KM.getUserId());
+ console.warn("Redirect to paywall blocked for debug");
         return;
       }
 
@@ -131,7 +131,7 @@ function setUserPhoto(src) {
     },
 
     onBlocked() {
-      window.location.href = "index.html?tgid=" + encodeURIComponent(KM.getUserId());
+     console.warn("Redirect to paywall blocked for debug");
     }
   };
 

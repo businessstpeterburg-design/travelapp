@@ -290,23 +290,22 @@ const KM = (function() {
     }
   }
 
-  document.addEventListener("click", function(event) {
-    const button = event.target.closest("[data-action]");
+ document.addEventListener("click", function(event) {
+  const button = event.target.closest("[data-action]");
 
-    if (!button || button.disabled) return;
+  if (!button || button.disabled) return;
 
-    const tgid = encodeURIComponent(currentUserId || "");
-    const action = button.dataset.action;
+  const tgid = encodeURIComponent(currentUserId || "");
+  const action = button.dataset.action;
 
-    if (action === "route") goTo(`route.html?tgid=${tgid}`);
-    if (action === "places") goTo(`places.html?tgid=${tgid}`);
-    if (action === "lifehacks") goTo(`lifehacks.html?tgid=${tgid}`);
-    if (action === "sos") goTo(`sos.html?tgid=${tgid}`);
-    if (action === "profile") goTo(`profile.html?tgid=${tgid}`);
-    if (action === "guide") goTo(`guidepage.html?tgid=${tgid}`);
-    if (action === "renew-access") goTo(`index.html?tgid=${tgid}`);
-    if (action === "retry") initProtectedPage(window.KMPageOptions || {});
-  });
+  if (action === "renew-access") {
+    goTo(`index.html?tgid=${tgid}`);
+  }
+
+  if (action === "retry") {
+    initProtectedPage(window.KMPageOptions || {});
+  }
+});
 
   return {
     initProtectedPage,

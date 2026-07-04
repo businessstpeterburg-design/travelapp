@@ -1,11 +1,12 @@
 const KM = (function() {
   const firebaseConfig = {
-    apiKey: "PASTE_FIREBASE_API_KEY_HERE",
-    authDomain: "PASTE_FIREBASE_AUTH_DOMAIN_HERE",
-    projectId: "PASTE_FIREBASE_PROJECT_ID_HERE",
-    storageBucket: "PASTE_FIREBASE_STORAGE_BUCKET_HERE",
-    messagingSenderId: "PASTE_FIREBASE_MESSAGING_SENDER_ID_HERE",
-    appId: "PASTE_FIREBASE_APP_ID_HERE"
+    apiKey: "AIzaSyAUzz_K-yhh1W2aEfzMiWeOe_AMb22ENpw",
+  authDomain: "kak-mestniy.firebaseapp.com",
+  projectId: "kak-mestniy",
+  storageBucket: "kak-mestniy.firebasestorage.app",
+  messagingSenderId: "1000266473398",
+  appId: "1:1000266473398:web:ba1f6bba5248ff517b6b17",
+  measurementId: "G-M4KB2PFWKG"
   };
 
   const params = new URLSearchParams(window.location.search);

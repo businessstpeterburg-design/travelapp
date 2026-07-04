@@ -143,11 +143,11 @@ function setUserPhoto(src) {
     const tgid = encodeURIComponent(KM.getUserId() || "");
 
     if (button.dataset.action === "start-trip") {
-      KM.goTo("https://travel-app-rnftpo.flutterflow.app/?tgid=" + tgid);
+    KM.goTo("https://travel-app-rnftpo.flutterflow.app/guidePage?tgid=" + tgid);
     }
 
     if (button.dataset.action === "all-places") {
-      KM.goTo("https://travel-app-rnftpo.flutterflow.app/?tgid=" + tgid);
+    KM.goTo("https://travel-app-rnftpo.flutterflow.app/guidePage?tgid=" + tgid);
     }
   });
 

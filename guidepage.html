@@ -53,32 +53,105 @@
   </main>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
-  <script>
-    const firebaseConfig={apiKey:"PASTE_FIREBASE_API_KEY_HERE",authDomain:"PASTE_FIREBASE_AUTH_DOMAIN_HERE",projectId:"PASTE_FIREBASE_PROJECT_ID_HERE",storageBucket:"PASTE_FIREBASE_STORAGE_BUCKET_HERE",messagingSenderId:"PASTE_FIREBASE_MESSAGING_SENDER_ID_HERE",appId:"PASTE_FIREBASE_APP_ID_HERE"};
-    const appRoot=document.getElementById("app");
-    const params=new URLSearchParams(window.location.search);
-    const els={userName:document.getElementById("userName"),avatarBox:document.getElementById("avatarBox"),avatarImg:document.getElementById("avatarImg"),timerLabel:document.getElementById("timerLabel"),days:document.getElementById("days"),hours:document.getElementById("hours"),minutes:document.getElementById("minutes"),seconds:document.getElementById("seconds"),accessStatus:document.getElementById("accessStatus"),validUntil:document.getElementById("validUntil"),tariff:document.getElementById("tariff"),period:document.getElementById("period"),startButton:document.querySelector('[data-action="start-trip"]'),allPlacesButton:document.querySelector('[data-action="all-places"]'),retryButton:document.querySelector('[data-action="retry"]')};
-    const userId=params.get("tgid")||params.get("userId")||params.get("id")||localStorage.getItem("tgid");
-    let db=null,currentUserId=userId?String(userId):"",accessUntilDate=null,countdownInterval=null,refreshInterval=null;
-    function pad(value){return String(Math.max(0,Number(value)||0)).padStart(2,"0")}
-    function animateValue(el,value){const next=pad(value);if(el.textContent===next)return;el.textContent=next;el.classList.remove("tick");void el.offsetWidth;el.classList.add("tick")}
-    function setTimer(days,hours,minutes,seconds){animateValue(els.days,days);animateValue(els.hours,hours);animateValue(els.minutes,minutes);animateValue(els.seconds,seconds)}
-    function setButtonsDisabled(disabled){els.startButton.disabled=disabled;els.allPlacesButton.disabled=disabled}
-    function setPremiumState(reason,timerLabel="Доступ недоступен"){appRoot.classList.add("errorState");els.timerLabel.textContent=timerLabel;els.accessStatus.textContent=reason;els.validUntil.textContent=accessUntilDate?formatDateRu(accessUntilDate):"—";els.tariff.textContent="Private Pass";els.period.textContent="—"}
-    function formatDateRu(date){if(!(date instanceof Date)||Number.isNaN(date.getTime()))return"—";return date.toLocaleDateString("ru-RU",{day:"numeric",month:"long",year:"numeric",timeZone:"Asia/Ho_Chi_Minh"})}
-    function normalizeDate(value){if(!value)return null;if(value&&typeof value.toDate==="function")return value.toDate();if(typeof value==="object"&&typeof value.seconds==="number")return new Date(value.seconds*1000);const date=new Date(value);return Number.isNaN(date.getTime())?null:date}
-    function setUserPhoto(src){if(!src)return;els.avatarBox.classList.remove("hasPhoto");els.avatarImg.removeAttribute("src");els.avatarImg.alt="";els.avatarImg.src=src;els.avatarImg.onload=function(){els.avatarBox.classList.add("hasPhoto")};els.avatarImg.onerror=function(){els.avatarBox.classList.remove("hasPhoto");els.avatarImg.removeAttribute("src")}}
-    function setInactiveState(reason,options={}){clearInterval(countdownInterval);countdownInterval=null;setTimer(0,0,0,0);setPremiumState(reason);appRoot.classList.toggle("expired",Boolean(options.expired));appRoot.classList.toggle("canRetry",Boolean(options.canRetry));els.startButton.textContent="Продлить доступ";els.startButton.dataset.action="renew-access";els.allPlacesButton.classList.add("disabled");setButtonsDisabled(false);els.allPlacesButton.disabled=true}
-    function setActiveState(data){appRoot.classList.remove("errorState","expired","canRetry");els.timerLabel.textContent="До окончания доступа";els.accessStatus.innerHTML='Доступ активен <span class="dot" aria-hidden="true"></span>';els.validUntil.textContent=formatDateRu(accessUntilDate);els.tariff.textContent=data.last_paid_tariff||data.plan||"Premium Guide";els.period.textContent=data.guide_days?`${data.guide_days} дней`:"—";els.startButton.textContent="Начать путешествие";els.startButton.dataset.action="start-trip";els.allPlacesButton.classList.remove("disabled");setButtonsDisabled(false);updateCountdown();if(!countdownInterval)countdownInterval=setInterval(updateCountdown,1000)}
-    function updateCountdown(){if(!accessUntilDate){console.warn("Access date missing");setInactiveState("Доступ не найден");return}const distance=accessUntilDate.getTime()-Date.now();if(distance<=0){console.warn("Access expired");setInactiveState("Доступ закончился",{expired:true});return}const totalSeconds=Math.floor(distance/1000);setTimer(Math.floor(totalSeconds/86400),Math.floor((totalSeconds%86400)/3600),Math.floor((totalSeconds%3600)/60),totalSeconds%60)}
-    function safeName(data){return data.display_name||params.get("displayName")||params.get("firstname")||params.get("username")||"Гость"}
-    function hasFutureAccess(data){if(!accessUntilDate)return false;if(data.premium===false)return false;return accessUntilDate.getTime()>Date.now()}
-    function hasFirebaseConfig(){return Boolean(firebaseConfig.apiKey&&!firebaseConfig.apiKey.includes("PASTE_")&&firebaseConfig.projectId&&!firebaseConfig.projectId.includes("PASTE_"))}
-    async function loadUserAccess({initial=false}={}){const doc=await db.collection("tg_users").doc(String(currentUserId)).get();if(!doc.exists){console.warn("User document not found");setInactiveState("Профиль не найден");return}const data=doc.data()||{};els.userName.textContent=safeName(data);setUserPhoto(data.photo_url||params.get("photoUrl"));accessUntilDate=normalizeDate(data.access_until);if(!accessUntilDate){console.warn("Access date missing");setInactiveState("Доступ не найден");return}if(!hasFutureAccess(data)){console.warn("Access expired");setInactiveState("Доступ закончился",{expired:true});return}setActiveState(data);if(initial)appRoot.classList.remove("isLoading")}
-    async function init(){appRoot.classList.add("isLoading");appRoot.classList.remove("errorState","expired","canRetry","isLeaving");setButtonsDisabled(true);setTimer(0,0,0,0);if(!currentUserId){appRoot.classList.remove("isLoading");setInactiveState("Не удалось определить пользователя",{canRetry:true});return}localStorage.setItem("tgid",currentUserId);if(!hasFirebaseConfig()){console.warn("Firebase config missing");appRoot.classList.remove("isLoading");setInactiveState("Доступ временно недоступен",{canRetry:true});return}try{if(!firebase.apps.length)firebase.initializeApp(firebaseConfig);db=firebase.firestore();await loadUserAccess({initial:true});if(!refreshInterval){refreshInterval=setInterval(function(){loadUserAccess().catch(function(error){console.warn("Access refresh failed",error)})},5*60*1000)}}catch(error){console.warn("Access load failed",error);appRoot.classList.remove("isLoading");setInactiveState("Не удалось подключиться к серверу. Попробуйте ещё раз через несколько секунд.",{canRetry:true})}}
-    function goTo(url){appRoot.classList.add("isLeaving");setButtonsDisabled(true);setTimeout(function(){window.location.href=url},220)}
-    document.addEventListener("click",function(event){const button=event.target.closest("[data-action]");if(!button||button.disabled||button.classList.contains("disabled"))return;const tgid=encodeURIComponent(currentUserId||"");if(button.dataset.action==="start-trip")goTo(`route.html?tgid=${tgid}`);if(button.dataset.action==="all-places")goTo(`places.html?tgid=${tgid}`);if(button.dataset.action==="renew-access")goTo(`index.html?tgid=${tgid}`);if(button.dataset.action==="retry")init()});
-    init();
-  </script>
+<script src="access.js"></script>
+
+<script>
+  let countdownInterval = null;
+
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+  }
+
+  function pad(value) {
+    return String(Math.max(0, Number(value) || 0)).padStart(2, "0");
+  }
+function setUserPhoto(src) {
+  if (!src) return;
+
+  const avatarBox = document.getElementById("avatarBox");
+  const avatarImg = document.getElementById("avatarImg");
+
+  if (!avatarBox || !avatarImg) return;
+
+  avatarImg.src = src;
+
+  avatarImg.onload = function () {
+    avatarBox.classList.add("hasPhoto");
+  };
+
+  avatarImg.onerror = function () {
+    avatarBox.classList.remove("hasPhoto");
+    avatarImg.removeAttribute("src");
+  };
+}
+  function startCountdown(accessUntil) {
+    clearInterval(countdownInterval);
+
+    function update() {
+      const distance = accessUntil.getTime() - Date.now();
+
+      if (distance <= 0) {
+        window.location.href = "index.html?tgid=" + encodeURIComponent(KM.getUserId());
+        return;
+      }
+
+      const totalSeconds = Math.floor(distance / 1000);
+
+      setText("days", pad(Math.floor(totalSeconds / 86400)));
+      setText("hours", pad(Math.floor((totalSeconds % 86400) / 3600)));
+      setText("minutes", pad(Math.floor((totalSeconds % 3600) / 60)));
+      setText("seconds", pad(totalSeconds % 60));
+    }
+
+    update();
+    countdownInterval = setInterval(update, 1000);
+  }
+
+  window.KMPageOptions = {
+    onReady({ data, accessUntil, accessUntilText }) {
+      setText("userName", data.display_name || data.tg_username || "Гость");
+      setUserPhoto(data.photo_url);
+      setText("validUntil", accessUntilText);
+      setText("tariff", data.last_paid_tariff || data.plan || "Premium Guide");
+      setText("period", data.guide_days ? data.guide_days + " дней" : "—");
+
+      const status = document.getElementById("accessStatus");
+      if (status) {
+        status.innerHTML = 'Доступ активен <span class="dot" aria-hidden="true"></span>';
+      }
+
+      const start = document.querySelector('[data-action="start-trip"]');
+      const places = document.querySelector('[data-action="all-places"]');
+
+      if (start) start.disabled = false;
+      if (places) places.disabled = false;
+
+      startCountdown(accessUntil);
+    },
+
+    onBlocked() {
+      window.location.href = "index.html?tgid=" + encodeURIComponent(KM.getUserId());
+    }
+  };
+
+  document.addEventListener("click", function (event) {
+    const button = event.target.closest("[data-action]");
+    if (!button || button.disabled) return;
+    if (button.dataset.action === "retry") return;
+
+    const tgid = encodeURIComponent(KM.getUserId() || "");
+
+    if (button.dataset.action === "start-trip") {
+      KM.goTo("https://travel-app-rnftpo.flutterflow.app/?tgid=" + tgid);
+    }
+
+    if (button.dataset.action === "all-places") {
+      KM.goTo("https://travel-app-rnftpo.flutterflow.app/?tgid=" + tgid);
+    }
+  });
+
+  KM.initProtectedPage(window.KMPageOptions);
+</script>
 </body>
 </html>

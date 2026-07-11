@@ -81,7 +81,26 @@ body::before {
   opacity: 0.34;
   z-index: 0;
 }
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
 
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.48) 0%,
+      rgba(0, 0, 0, 0.18) 55%,
+      rgba(214, 161, 59, 0.05) 100%
+    );
+
+  box-shadow:
+    inset 0 0 180px rgba(0, 0, 0, 0.84);
+
+  opacity: 1;
+}
 body.modal-open {
   overflow: hidden;
 }

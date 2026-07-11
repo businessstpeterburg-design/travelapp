@@ -1124,21 +1124,94 @@ function updateLegalConsentState() {
   return allAccepted;
 }
 
-function continueAfterLegalConsent() {
+async function continueAfterLegalConsent() {
   if (!pendingTariff || !updateLegalConsentState()) {
     return;
   }
 
   const tariff = pendingTariff;
+  const userId = getTelegramUserId();
+  const button = document.getElementById('continuePaymentButton');
 
-  const modal = document.getElementById('legalConsentModal');
-  modal?.classList.remove('is-open');
-  modal?.setAttribute('aria-hidden', 'true');
-  document.body.classList.remove('modal-open');
+  if (!userId) {
+    alert('Не найден Telegram ID. Откройте оплату через приложение.');
+    return;
+  }
 
-  pendingTariff = null;
+  if (button) {
+    button.disabled = true;
+    button.textContent = 'Сохраняем согласие...';
+  }
 
-  buyTariff(tariff);
+  try {
+    const timezone =
+      Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+
+    const response = await fetch(
+      'https://europe-west1-kak-mestniy.cloudfunctions.net/recordLegalConsent',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          data: {
+            userId: userId,
+            tariff: tariff,
+
+            acceptedOffer: true,
+            acceptedAgreement: true,
+            acceptedPrivacy: true,
+            acceptedPersonalData: true,
+
+            timezone: timezone,
+            userAgent: navigator.userAgent || '',
+            pageUrl: window.location.href
+          }
+        })
+      }
+    );
+
+    const json = await response.json();
+
+    if (!response.ok || json.error || !json.result?.success) {
+      console.error('Ошибка записи согласия:', json);
+
+      alert(
+        'Не удалось сохранить согласие. Попробуйте ещё раз.'
+      );
+
+      if (button) {
+        button.disabled = false;
+        button.textContent = 'Продолжить оплату';
+      }
+
+      return;
+    }
+
+    const modal = document.getElementById('legalConsentModal');
+
+    modal?.classList.remove('is-open');
+    modal?.setAttribute('aria-hidden', 'true');
+
+    document.body.classList.remove('modal-open');
+
+    pendingTariff = null;
+
+    await buyTariff(tariff);
+
+  } catch (error) {
+    console.error('recordLegalConsent error:', error);
+
+    alert(
+      'Ошибка соединения при сохранении согласия. Попробуйте ещё раз.'
+    );
+
+    if (button) {
+      button.disabled = false;
+      button.textContent = 'Продолжить оплату';
+    }
+  }
 }
 
 document.addEventListener('keydown', (event) => {

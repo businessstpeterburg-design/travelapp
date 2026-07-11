@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>Пользовательское соглашение — Как Местный</title>
+
+  <meta
+    name="description"
+    content="Пользовательское соглашение цифрового информационного сервиса «Как Местный»."
+  />
+
+  <link rel="stylesheet" href="legal.css" />
+  <script src="legal.js" defer></script>
+
+  <style>
+    .doc-hero {
+      min-height: 78vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      border: 1px solid rgba(255,224,138,.32);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.46) 48%, rgba(0,0,0,.94) 100%),
+        url("https://images.unsplash.com/photo-1542259009477-d625272157b7?auto=format&fit=crop&w=1600&q=88");
+      background-size: cover;
+      background-position: center;
+      box-shadow:
+        0 36px 100px rgba(0,0,0,.75),
+        0 0 56px rgba(214,161,59,.13),
+        inset 0 1px 0 rgba(255,255,255,.12);
+    }
+
+    .doc-hero::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 76% 18%, rgba(255,224,138,.28), transparent 26%),
+        linear-gradient(90deg, rgba(0,0,0,.82) 0%, rgba(0,0,0,.38) 58%, rgba(0,0,0,.12) 100%);
+      pointer-events:none;
+    }
+
+    .doc-hero::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(115deg, transparent 0%, rgba(255,255,255,.08) 43%, transparent 62%);
+      transform:translateX(-120%);
+      animation:docShine 7s infinite;
+      pointer-events:none;
+    }
+
+    @keyframes docShine {
+      0% { transform:translateX(-120%); }
+      40% { transform:translateX(120%); }
+      100% { transform:translateX(120%); }
+    }
+
+    .doc-hero-inner {
+      position:relative;
+      z-index:2;
+      width:100%;
+      max-width:740px;
+    }
+
+    .doc-live-status {
+      position:absolute;
+      top:22px;
+      right:22px;
+      z-index:3;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 12px;
+      border-radius:999px;
+      background:rgba(0,0,0,.46);
+      border:1px solid rgba(158,232,191,.34);
+      color:#b8f2d0;
+      font-size:11px;
+      font-weight:950;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+      backdrop-filter:blur(14px);
+    }
+
+    .doc-live-status::before {
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:#9ee8bf;
+      box-shadow:0 0 14px rgba(158,232,191,.75);
+    }
+
+    .doc-eyebrow {
+      display:inline-flex;
+      padding:8px 14px;
+      border-radius:999px;
+      background:linear-gradient(135deg,#fff3bf,#d6a13b,#8e5c14);
+      color:#050505;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-size:11px;
+      font-weight:1000;
+      box-shadow:0 0 28px rgba(255,224,138,.25);
+    }
+
+    .doc-title {
+      margin:18px 0 14px;
+      font-size:clamp(42px,8vw,78px);
+      line-height:.94;
+      letter-spacing:-2.4px;
+      text-transform:uppercase;
+      font-weight:1000;
+      text-wrap:balance;
+    }
+
+    .doc-title span {
+      display:block;
+      color:var(--gold-light);
+      text-shadow:0 0 36px rgba(255,224,138,.22);
+    }
+
+    .doc-lead {
+      margin:0;
+      max-width:650px;
+      color:rgba(248,244,234,.88);
+      font-size:17px;
+      line-height:1.58;
+    }
+
+    .doc-status-grid {
+      margin-top:24px;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .doc-status {
+      padding:14px;
+      border-radius:18px;
+      background:rgba(0,0,0,.42);
+      border:1px solid rgba(255,224,138,.18);
+      backdrop-filter:blur(14px);
+    }
+
+    .doc-status b {
+      display:block;
+      color:var(--gold-light);
+      font-size:11px;
+      letter-spacing:.9px;
+      text-transform:uppercase;
+      margin-bottom:4px;
+    }
+
+    .doc-status span {
+      font-size:13px;
+      line-height:1.35;
+      color:#fff;
+    }
+
+    .doc-update {
+      margin-top:12px;
+      color:rgba(248,244,234,.66);
+      font-size:12.5px;
+      font-weight:800;
+    }
+
+    .doc-scroll {
+      margin-top:22px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      color:var(--gold-light);
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .doc-scroll i {
+      width:34px;
+      height:34px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      border:1px solid rgba(255,224,138,.3);
+      background:rgba(0,0,0,.34);
+      font-style:normal;
+    }
+
+    .doc-summary,
+    .doc-nav {
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .doc-summary-card,
+    .doc-nav-card {
+      position:relative;
+      overflow:hidden;
+      padding:20px;
+      border-radius:26px;
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025)),
+        rgba(8,8,8,.9);
+      border:1px solid rgba(255,224,138,.2);
+      box-shadow:0 22px 60px rgba(0,0,0,.48);
+    }
+
+    .doc-summary-card {
+      min-height:170px;
+    }
+
+    .doc-nav-card {
+      display:block;
+      min-height:145px;
+      transition:.25s ease;
+    }
+
+    .doc-summary-card::before,
+    .doc-nav-card::before {
+      content:"";
+      position:absolute;
+      width:160px;
+      height:160px;
+      right:-70px;
+      top:-70px;
+      background:radial-gradient(circle,rgba(255,224,138,.17),transparent 70%);
+    }
+
+    .doc-nav-card:hover {
+      transform:translateY(-3px);
+      border-color:rgba(255,224,138,.48);
+      text-decoration:none;
+    }
+
+    .doc-kicker,
+    .doc-nav-no {
+      position:relative;
+      z-index:1;
+      color:var(--gold-light);
+      font-size:11px;
+      font-weight:950;
+      letter-spacing:1px;
+      text-transform:uppercase;
+    }
+
+    .doc-summary-title,
+    .doc-nav-title {
+      position:relative;
+      z-index:1;
+      margin-top:12px;
+      color:#fff;
+      font-size:20px;
+      line-height:1.12;
+      font-weight:1000;
+    }
+
+    .doc-summary-text {
+      position:relative;
+      z-index:1;
+      margin-top:10px;
+      color:var(--muted);
+      font-size:13.5px;
+      line-height:1.5;
+    }
+
+    .doc-nav-arrow {
+      position:absolute;
+      right:16px;
+      bottom:14px;
+      color:var(--gold-light);
+      font-size:20px;
+    }
+
+    .doc-sticky-nav {
+      position:sticky;
+      top:82px;
+      z-index:18;
+      margin-top:16px;
+      padding:10px;
+      display:flex;
+      gap:7px;
+      overflow-x:auto;
+      scrollbar-width:none;
+      border-radius:18px;
+      background:rgba(8,8,8,.78);
+      border:1px solid rgba(255,224,138,.18);
+      box-shadow:0 16px 44px rgba(0,0,0,.42);
+      backdrop-filter:blur(16px);
+    }
+
+    .doc-sticky-nav::-webkit-scrollbar { display:none; }
+
+    .doc-sticky-nav a {
+      flex:0 0 auto;
+      min-width:38px;
+      height:38px;
+      display:grid;
+      place-items:center;
+      padding:0 10px;
+      border-radius:12px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,224,138,.1);
+      color:rgba(248,244,234,.78);
+      font-size:12px;
+      font-weight:950;
+    }
+
+    .doc-sticky-nav a:hover,
+    .doc-sticky-nav a.is-active {
+      color:#050505;
+      text-decoration:none;
+      background:linear-gradient(135deg,#fff3bf,#d6a13b,#8e5c14);
+    }
+
+    .doc-body {
+      margin-top:18px;
+      display:grid;
+      gap:16px;
+    }
+
+    .doc-chapter {
+      position:relative;
+      overflow:hidden;
+      padding:28px;
+      border-radius:30px;
+      border-left:3px solid rgba(214,161,59,.58);
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.022)),
+        rgba(8,8,8,.88);
+      border-top:1px solid rgba(255,224,138,.18);
+      border-right:1px solid rgba(255,224,138,.18);
+      border-bottom:1px solid rgba(255,224,138,.18);
+      box-shadow:0 24px 60px rgba(0,0,0,.46);
+      scroll-margin-top:100px;
+    }
+
+    .doc-chapter::before {
+      content:attr(data-number);
+      position:absolute;
+      top:-18px;
+      right:16px;
+      font-size:112px;
+      line-height:1;
+      font-weight:1000;
+      color:rgba(255,224,138,.055);
+      letter-spacing:-8px;
+      pointer-events:none;
+    }
+
+    .doc-chapter-head {
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:flex-start;
+      gap:16px;
+      margin-bottom:20px;
+    }
+
+    .doc-index {
+      flex:0 0 auto;
+      width:46px;
+      height:46px;
+      display:grid;
+      place-items:center;
+      border-radius:15px;
+      background:linear-gradient(135deg,#fff2bc,#d6a13b,#8e5c14);
+      color:#050505;
+      font-size:14px;
+      font-weight:1000;
+    }
+
+    .doc-chapter-title {
+      margin:0;
+      color:var(--gold-light);
+      font-size:28px;
+      line-height:1.08;
+      font-weight:1000;
+    }
+
+    .doc-point {
+      padding:16px 0;
+      border-top:1px solid rgba(255,224,138,.10);
+    }
+
+    .doc-point:first-child {
+      padding-top:0;
+      border-top:none;
+    }
+
+    .doc-point::before {
+      content:"";
+      display:block;
+      width:42px;
+      height:1px;
+      margin-bottom:12px;
+      background:linear-gradient(90deg,rgba(255,224,138,.7),transparent);
+    }
+
+    .doc-point:first-child::before { display:none; }
+
+    .doc-point p,
+    .doc-point li {
+      color:rgba(248,244,234,.91);
+      font-size:15.5px;
+      line-height:1.72;
+    }
+
+    .doc-point p { margin:0 0 12px; }
+    .doc-point p:last-child { margin-bottom:0; }
+    .doc-point ul,
+    .doc-point ol { margin:8px 0 0; padding-left:22px; }
+    .doc-point li { margin:7px 0; }
+    .doc-point strong { color:#fff; }
+
+    .doc-final {
+      margin-top:18px;
+      padding:30px;
+      border-radius:32px;
+      text-align:center;
+      background:
+        radial-gradient(circle at 50% 0%,rgba(255,224,138,.16),transparent 36%),
+        linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025)),
+        rgba(8,8,8,.9);
+      border:1px solid rgba(255,224,138,.28);
+      box-shadow:0 30px 80px rgba(0,0,0,.62);
+    }
+
+    .doc-final-label {
+      color:var(--gold-light);
+      font-size:11px;
+      font-weight:950;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+    }
+
+    .doc-final h2 {
+      margin:12px 0 8px;
+      font-size:clamp(32px,5vw,52px);
+      line-height:1;
+      text-transform:uppercase;
+      font-weight:1000;
+    }
+
+    .doc-final h2 span {
+      display:block;
+      color:var(--gold-light);
+    }
+
+    .doc-final-meta {
+      margin:18px auto 0;
+      max-width:560px;
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .doc-final-meta div {
+      padding:14px;
+      border-radius:17px;
+      background:rgba(0,0,0,.35);
+      border:1px solid rgba(255,224,138,.14);
+      color:rgba(248,244,234,.86);
+      font-size:13.5px;
+    }
+
+    .doc-final-meta b {
+      display:block;
+      margin-bottom:4px;
+      color:var(--gold-light);
+      font-size:10.5px;
+      letter-spacing:.8px;
+      text-transform:uppercase;
+    }
+
+    .doc-final .legal-button {
+      margin-top:18px;
+      width:min(100%,360px);
+    }
+
+    .reading-progress {
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:2000;
+      width:100%;
+      height:3px;
+      background:rgba(255,255,255,.04);
+      pointer-events:none;
+    }
+
+    .reading-progress-bar {
+      width:0;
+      height:100%;
+      background:linear-gradient(90deg,#8e5c14,#ffe08a,#d6a13b);
+      box-shadow:0 0 18px rgba(255,224,138,.55);
+    }
+
+    @media(max-width:760px) {
+      .doc-hero {
+        min-height:700px;
+        padding:24px 20px;
+      }
+
+      .doc-status-grid,
+      .doc-summary,
+      .doc-nav,
+      .doc-final-meta {
+        grid-template-columns:1fr;
+      }
+
+      .doc-live-status {
+        top:16px;
+        right:16px;
+      }
+
+      .doc-title {
+        font-size:43px;
+        letter-spacing:-1.6px;
+      }
+
+      .doc-chapter {
+        padding:21px;
+      }
+
+      .doc-chapter-title {
+        font-size:23px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="reading-progress" aria-hidden="true">
+    <div class="reading-progress-bar" id="readingProgressBar"></div>
+  </div>
+
+  <main class="legal-page">
+
+    <header class="legal-topbar">
+      <div class="legal-brand">
+        <div class="legal-brand-mark" aria-hidden="true">⌖</div>
+        <div class="legal-brand-text">КАК<br />МЕСТНЫЙ</div>
+      </div>
+
+      <a class="legal-back" href="index.html">← Юридический центр</a>
+    </header>
+
+    <section class="doc-hero">
+      <div class="doc-live-status">Документ актуален</div>
+
+      <div class="doc-hero-inner">
+        <div class="doc-eyebrow">Официальный документ</div>
+
+        <h1 class="doc-title">
+          Пользовательское
+          <span>соглашение</span>
+        </h1>
+
+        <p class="doc-lead">
+          Правила доступа, авторизации и использования цифрового информационного
+          сервиса «Как Местный».
+        </p>
+
+        <div class="doc-status-grid">
+          <div class="doc-status">
+            <b>Редакция</b>
+            <span>1.0</span>
+          </div>
+
+          <div class="doc-status">
+            <b>Дата вступления</b>
+            <span>11 июля 2026</span>
+          </div>
+
+          <div class="doc-status">
+            <b>Статус</b>
+            <span>Документ действует</span>
+          </div>
+        </div>
+
+        <div class="doc-update">Последнее обновление · 11 июля 2026 года</div>
+
+        <a class="doc-scroll" href="#contents">
+          <i>↓</i>
+          Читать документ
+        </a>
+      </div>
+    </section>
+
+    <section class="doc-summary" aria-label="Ключевые положения">
+      <article class="doc-summary-card">
+        <div class="doc-kicker">Назначение</div>
+        <div class="doc-summary-title">Правила использования</div>
+        <div class="doc-summary-text">
+          Документ определяет, как Пользователь может пользоваться Сервисом и его материалами.
+        </div>
+      </article>
+
+      <article class="doc-summary-card">
+        <div class="doc-kicker">Доступ</div>
+        <div class="doc-summary-title">Telegram-авторизация</div>
+        <div class="doc-summary-text">
+          Доступ и настройки связываются с учетной записью Пользователя.
+        </div>
+      </article>
+
+      <article class="doc-summary-card">
+        <div class="doc-kicker">Материалы</div>
+        <div class="doc-summary-title">Личное использование</div>
+        <div class="doc-summary-text">
+          Передача, массовое копирование и коммерческое использование запрещены.
+        </div>
+      </article>
+    </section>
+
+    <section class="doc-nav" id="contents" aria-label="Разделы соглашения">
+      <a class="doc-nav-card" href="#chapter-01">
+        <div class="doc-nav-no">01</div>
+        <div class="doc-nav-title">Общие положения</div>
+        <div class="doc-nav-arrow">→</div>
+      </a>
+
+      <a class="doc-nav-card" href="#chapter-03">
+        <div class="doc-nav-no">03</div>
+        <div class="doc-nav-title">Доступ и авторизация</div>
+        <div class="doc-nav-arrow">→</div>
+      </a>
+
+      <a class="doc-nav-card" href="#chapter-04">
+        <div class="doc-nav-no">04</div>
+        <div class="doc-nav-title">Правила использования</div>
+        <div class="doc-nav-arrow">→</div>
+      </a>
+
+      <a class="doc-nav-card" href="#chapter-06">
+        <div class="doc-nav-no">06</div>
+        <div class="doc-nav-title">Интеллектуальные права</div>
+        <div class="doc-nav-arrow">→</div>
+      </a>
+
+      <a class="doc-nav-card" href="#chapter-10">
+        <div class="doc-nav-no">10</div>
+        <div class="doc-nav-title">Ответственность сторон</div>
+        <div class="doc-nav-arrow">→</div>
+      </a>
+
+      <a class="doc-nav-card" href="#chapter-12">
+        <div class="doc-nav-no">12</div>
+        <div class="doc-nav-title">Контакты и реквизиты</div>
+        <div class="doc-nav-arrow">→</div>
+      </a>
+    </section>
+
+    <nav class="doc-sticky-nav" aria-label="Быстрая навигация по главам">
+      <a href="#chapter-01" data-chapter-link="01">01</a>
+      <a href="#chapter-02" data-chapter-link="02">02</a>
+      <a href="#chapter-03" data-chapter-link="03">03</a>
+      <a href="#chapter-04" data-chapter-link="04">04</a>
+      <a href="#chapter-05" data-chapter-link="05">05</a>
+      <a href="#chapter-06" data-chapter-link="06">06</a>
+      <a href="#chapter-07" data-chapter-link="07">07</a>
+      <a href="#chapter-08" data-chapter-link="08">08</a>
+      <a href="#chapter-09" data-chapter-link="09">09</a>
+      <a href="#chapter-10" data-chapter-link="10">10</a>
+      <a href="#chapter-11" data-chapter-link="11">11</a>
+      <a href="#chapter-12" data-chapter-link="12">12</a>
+    </nav>
+
+    <section class="doc-body">
+
+      <article class="doc-chapter" id="chapter-01" data-number="01">
+        <div class="doc-chapter-head">
+          <div class="doc-index">01</div>
+          <h2 class="doc-chapter-title">Общие положения</h2>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>1.1.</strong> Настоящее Пользовательское соглашение регулирует отношения между Баевой Марией Сергеевной, ИНН 732901387845, применяющей специальный налоговый режим «Налог на профессиональный доход», именуемой в дальнейшем «Администратор», и физическим лицом, использующим цифровой информационный сервис «Как Местный», именуемым в дальнейшем «Пользователь».</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>1.2.</strong> Сервис «Как Местный» представляет собой цифровой информационный сервис, содержащий авторские материалы о туристических направлениях, маршрутах, местах, заведениях, услугах, безопасности, экстренных контактах, практических рекомендациях и иных вопросах, связанных с самостоятельной организацией путешествия.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>1.3.</strong> Настоящее Соглашение применяется ко всем официальным способам доступа к Сервису, включая веб-версию, мобильную веб-версию, PWA, связанные страницы и иные технические интерфейсы.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>1.4.</strong> Платные отношения между Администратором и Пользователем регулируются Публичной офертой. Обработка персональных данных регулируется Политикой обработки персональных данных и Согласием на обработку персональных данных.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>1.5.</strong> Настоящее Соглашение не регулирует порядок оплаты, срок платного доступа и возврат денежных средств в той части, в которой эти вопросы урегулированы Публичной офертой.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>1.6.</strong> Использование Сервиса допускается только при полном принятии настоящего Соглашения. Если Пользователь не согласен с его условиями, он обязан прекратить использование Сервиса.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>1.7.</strong> Администратор вправе изменять настоящее Соглашение путем публикации новой редакции. Новая редакция применяется к дальнейшему использованию Сервиса после даты ее вступления в силу.</p>
+        </div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-02" data-number="02">
+        <div class="doc-chapter-head">
+          <div class="doc-index">02</div>
+          <h2 class="doc-chapter-title">Термины и определения</h2>
+        </div>
+
+        <div class="doc-point"><p><strong>2.1. Сервис</strong> — совокупность цифровых интерфейсов, программных компонентов, страниц и информационных материалов проекта «Как Местный».</p></div>
+        <div class="doc-point"><p><strong>2.2. Администратор</strong> — лицо, организующее работу Сервиса, определяющее его структуру, содержание и правила использования.</p></div>
+        <div class="doc-point"><p><strong>2.3. Пользователь</strong> — физическое лицо, использующее Сервис, прошедшее авторизацию либо получившее доступ к его открытым или закрытым разделам.</p></div>
+        <div class="doc-point"><p><strong>2.4. Учетная запись</strong> — совокупность данных, позволяющих идентифицировать Пользователя и связать с ним приобретенный доступ и настройки.</p></div>
+        <div class="doc-point"><p><strong>2.5. Авторизация</strong> — процедура идентификации Пользователя с применением Telegram или иного поддерживаемого способа входа.</p></div>
+        <div class="doc-point"><p><strong>2.6. Материалы</strong> — тексты, маршруты, подборки, рекомендации, фотографии, изображения, справочные данные, контакты, инструкции и иные материалы Сервиса.</p></div>
+        <div class="doc-point"><p><strong>2.7. Закрытый раздел</strong> — часть Сервиса, доступная после авторизации и при наличии действующего платного либо иного предоставленного Администратором доступа.</p></div>
+        <div class="doc-point"><p><strong>2.8. Технические данные</strong> — информация, автоматически формируемая при использовании Сервиса и необходимая для его работы, безопасности и диагностики.</p></div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-03" data-number="03">
+        <div class="doc-chapter-head">
+          <div class="doc-index">03</div>
+          <h2 class="doc-chapter-title">Доступ и авторизация</h2>
+        </div>
+
+        <div class="doc-point"><p><strong>3.1.</strong> Для использования отдельных функций Пользователь должен пройти авторизацию способом, доступным в интерфейсе Сервиса.</p></div>
+        <div class="doc-point"><p><strong>3.2.</strong> На дату публикации основным способом авторизации является Telegram. Администратор вправе добавлять другие способы авторизации.</p></div>
+        <div class="doc-point"><p><strong>3.3.</strong> Пользователь обязан использовать принадлежащую ему учетную запись и не должен проходить авторизацию от имени другого лица без законного основания.</p></div>
+        <div class="doc-point"><p><strong>3.4.</strong> Пользователь самостоятельно отвечает за безопасность своей учетной записи Telegram, устройства, браузера и иных средств, используемых для входа.</p></div>
+        <div class="doc-point"><p><strong>3.5.</strong> Администратор не получает и не хранит пароль Пользователя от Telegram.</p></div>
+        <div class="doc-point"><p><strong>3.6.</strong> После успешной авторизации действия, совершенные в Сервисе, предполагаются совершенными самим Пользователем, пока Администратор не получил обоснованного уведомления о неправомерном использовании учетной записи.</p></div>
+        <div class="doc-point"><p><strong>3.7.</strong> Изменение имени, username, фотографии или иных данных Telegram не прекращает ранее приобретенный доступ, если технически возможно однозначно идентифицировать ту же учетную запись.</p></div>
+        <div class="doc-point">
+          <p><strong>3.8.</strong> Пользователь обязан уведомить Администратора при обнаружении:</p>
+          <ul>
+            <li>несанкционированного доступа;</li>
+            <li>ошибочной привязки покупки;</li>
+            <li>невозможности войти в ранее использованную учетную запись;</li>
+            <li>иных обстоятельств, способных повлиять на доступ.</li>
+          </ul>
+        </div>
+        <div class="doc-point">
+          <p><strong>3.9.</strong> Администратор вправе временно ограничить авторизацию или доступ при выявлении признаков мошенничества, обхода технических ограничений, массовой передачи доступа, автоматизированного сбора данных либо угрозы безопасности.</p>
+        </div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-04" data-number="04">
+        <div class="doc-chapter-head">
+          <div class="doc-index">04</div>
+          <h2 class="doc-chapter-title">Правила использования</h2>
+        </div>
+
+        <div class="doc-point"><p><strong>4.1.</strong> Пользователь вправе использовать Сервис только законным способом, в личных некоммерческих целях и в пределах предоставленного функционала.</p></div>
+
+        <div class="doc-point">
+          <p><strong>4.2.</strong> Пользователь вправе:</p>
+          <ul>
+            <li>просматривать доступные материалы;</li>
+            <li>применять рекомендации при самостоятельном планировании путешествия;</li>
+            <li>пользоваться функциями, доступными в его текущем статусе;</li>
+            <li>обращаться в службу поддержки;</li>
+            <li>сообщать об ошибочной или устаревшей информации.</li>
+          </ul>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>4.3.</strong> Пользователю запрещается:</p>
+          <ul>
+            <li>передавать платный доступ третьим лицам;</li>
+            <li>продавать, сдавать или иным образом отчуждать доступ;</li>
+            <li>публиковать существенные части закрытых материалов;</li>
+            <li>массово копировать материалы;</li>
+            <li>использовать автоматические программы, парсеры или ботов для сбора данных;</li>
+            <li>обходить проверку авторизации и срока доступа;</li>
+            <li>вмешиваться в работу программных компонентов;</li>
+            <li>пытаться получить доступ к чужим данным;</li>
+            <li>выдавать себя за Администратора или представителя проекта;</li>
+            <li>использовать материалы для создания конкурирующего продукта без разрешения;</li>
+            <li>использовать Сервис для противоправной деятельности.</li>
+          </ul>
+        </div>
+
+        <div class="doc-point"><p><strong>4.4.</strong> Допускается использование отдельных кратких фрагментов материалов в объеме, разрешенном законодательством, при обязательном указании источника и при условии, что такое использование не раскрывает существенную часть закрытого продукта.</p></div>
+        <div class="doc-point"><p><strong>4.5.</strong> Пользователь не вправе совершать действия, создающие чрезмерную нагрузку на техническую инфраструктуру либо препятствующие использованию Сервиса другими лицами.</p></div>
+        <div class="doc-point"><p><strong>4.6.</strong> Администратор вправе блокировать вредоносные запросы, ограничивать техническую активность и применять иные разумные меры защиты.</p></div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-05" data-number="05">
+        <div class="doc-chapter-head">
+          <div class="doc-index">05</div>
+          <h2 class="doc-chapter-title">Информационные материалы и рекомендации</h2>
+        </div>
+
+        <div class="doc-point"><p><strong>5.1.</strong> Материалы Сервиса формируются на основе собственного опыта, анализа общедоступной информации, практических наблюдений и иных законных источников.</p></div>
+        <div class="doc-point"><p><strong>5.2.</strong> Информационные материалы предназначены для самостоятельного использования Пользователем при планировании и организации путешествий.</p></div>
+        <div class="doc-point"><p><strong>5.3.</strong> Информация может изменяться вследствие действий третьих лиц, изменений законодательства, решений органов власти, изменения коммерческой политики организаций, погодных условий и сезонных факторов.</p></div>
+        <div class="doc-point">
+          <p><strong>5.4.</strong> Администратор вправе:</p>
+          <ul>
+            <li>обновлять и дополнять материалы;</li>
+            <li>удалять устаревшую информацию;</li>
+            <li>перерабатывать структуру материалов;</li>
+            <li>создавать новые и объединять существующие разделы.</li>
+          </ul>
+        </div>
+        <div class="doc-point"><p><strong>5.5.</strong> Рекомендации не являются гарантией получения какого-либо результата.</p></div>
+        <div class="doc-point">
+          <p><strong>5.6.</strong> При использовании информации Пользователь обязан учитывать:</p>
+          <ul>
+            <li>действующее законодательство государства пребывания;</li>
+            <li>местные правила и требования органов власти;</li>
+            <li>собственное состояние здоровья;</li>
+            <li>погодные условия и текущую обстановку.</li>
+          </ul>
+        </div>
+        <div class="doc-point"><p><strong>5.7.</strong> Пользователю рекомендуется самостоятельно проверять режим работы организаций, стоимость товаров и услуг, расписание транспорта, контактные данные и правила посещения объектов непосредственно перед использованием информации.</p></div>
+        <div class="doc-point"><p><strong>5.8.</strong> Пользователь вправе сообщать об обнаруженной неточной или устаревшей информации.</p></div>
+        <div class="doc-point"><p><strong>5.9.</strong> Администратор вправе использовать современные цифровые инструменты, включая технологии искусственного интеллекта, при условии последующей проверки и редактирования материалов.</p></div>
+        <div class="doc-point"><p><strong>5.10.</strong> Окончательное решение о применении любой информации Пользователь принимает самостоятельно.</p></div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-06" data-number="06">
+        <div class="doc-chapter-head">
+          <div class="doc-index">06</div>
+          <h2 class="doc-chapter-title">Интеллектуальная собственность</h2>
+        </div>
+
+        <div class="doc-point"><p><strong>6.1.</strong> Все материалы, размещенные в Сервисе, включая тексты, изображения, фотографии, подборки, маршруты, рекомендации, структуру разделов, элементы интерфейса, программный код, дизайн и графические элементы, принадлежат Администратору либо используются на законных основаниях.</p></div>
+        <div class="doc-point"><p><strong>6.2.</strong> Пользователю предоставляется ограниченное право использования материалов исключительно в пределах функциональности Сервиса.</p></div>
+        <div class="doc-point"><p><strong>6.3.</strong> Использование материалов не означает передачу Пользователю исключительных прав.</p></div>
+        <div class="doc-point">
+          <p><strong>6.4.</strong> Без письменного разрешения запрещается:</p>
+          <ul>
+            <li>копировать материалы полностью или в существенной части;</li>
+            <li>распространять и публиковать материалы;</li>
+            <li>продавать материалы;</li>
+            <li>использовать материалы при оказании платных услуг;</li>
+            <li>создавать производные коммерческие продукты;</li>
+            <li>использовать структуру Сервиса для создания аналогичных проектов.</li>
+          </ul>
+        </div>
+        <div class="doc-point"><p><strong>6.5.</strong> Под защитой находятся не только отдельные материалы, но и результат их творческого отбора, систематизации и организации внутри Сервиса.</p></div>
+        <div class="doc-point"><p><strong>6.6.</strong> Допускается цитирование небольших фрагментов в объеме, допускаемом законодательством, при указании источника и при условии, что такое цитирование не заменяет использование самого Сервиса.</p></div>
+        <div class="doc-point"><p><strong>6.7.</strong> При выявлении нарушения исключительных прав Администратор вправе использовать предусмотренные законодательством способы защиты.</p></div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-07" data-number="07">
+        <div class="doc-chapter-head">
+          <div class="doc-index">07</div>
+          <h2 class="doc-chapter-title">Сторонние сервисы и внешние ресурсы</h2>
+        </div>
+
+        <div class="doc-point"><p><strong>7.1.</strong> В процессе использования Сервиса Пользователь может переходить по ссылкам на сайты и сервисы третьих лиц, включая платежные, картографические, государственные, транспортные, гостиничные и иные ресурсы.</p></div>
+        <div class="doc-point"><p><strong>7.2.</strong> Такие ссылки размещаются для удобства и не означают одобрение, гарантию либо принятие Администратором ответственности за деятельность соответствующих лиц.</p></div>
+        <div class="doc-point"><p><strong>7.3.</strong> Администратор не контролирует содержание сторонних сайтов и не отвечает за изменение цен, условий обслуживания, режима работы и прекращение деятельности третьих лиц.</p></div>
+        <div class="doc-point"><p><strong>7.4.</strong> При переходе на сторонний ресурс Пользователь самостоятельно знакомится с его условиями использования и политикой обработки персональных данных.</p></div>
+        <div class="doc-point"><p><strong>7.5.</strong> Администратор не является стороной договоров, заключаемых Пользователем со сторонними организациями.</p></div>
+        <div class="doc-point"><p><strong>7.6.</strong> Прием платежей осуществляется специализированным платежным оператором.</p></div>
+        <div class="doc-point"><p><strong>7.7.</strong> Администратор не отвечает за временную недоступность стороннего сервиса, если причина находится вне его разумного контроля.</p></div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-08" data-number="08">
+        <div class="doc-chapter-head">
+          <div class="doc-index">08</div>
+          <h2 class="doc-chapter-title">Ограничение и прекращение доступа</h2>
+        </div>
+
+        <div class="doc-point"><p><strong>8.1.</strong> Администратор вправе временно ограничить либо прекратить доступ Пользователя в случаях, предусмотренных настоящим Соглашением, Публичной офертой или законодательством.</p></div>
+        <div class="doc-point">
+          <p><strong>8.2.</strong> Основаниями могут являться:</p>
+          <ul>
+            <li>нарушение условий юридических документов Сервиса;</li>
+            <li>попытки обхода технических ограничений;</li>
+            <li>использование автоматизированных средств доступа;</li>
+            <li>передача доступа третьим лицам;</li>
+            <li>нарушение исключительных прав;</li>
+            <li>действия, создающие угрозу безопасности Сервиса.</li>
+          </ul>
+        </div>
+        <div class="doc-point"><p><strong>8.3.</strong> Администратор вправе временно ограничить доступ при признаках компрометации учетной записи либо подозрительной активности.</p></div>
+        <div class="doc-point"><p><strong>8.4.</strong> При наличии технической возможности Администратор вправе уведомить Пользователя о причинах ограничения.</p></div>
+        <div class="doc-point"><p><strong>8.5.</strong> Если нарушение носит устранимый характер, Пользователю может быть предоставлена возможность устранить его.</p></div>
+        <div class="doc-point"><p><strong>8.6.</strong> Ограничение доступа вследствие нарушения Пользователем правил само по себе не влечет обязанность вернуть стоимость доступа, если иное не предусмотрено законом.</p></div>
+        <div class="doc-point"><p><strong>8.7.</strong> После устранения причин ограничения Администратор вправе восстановить доступ.</p></div>
+        <div class="doc-point"><p><strong>8.8.</strong> Администратор вправе проводить профилактические работы, обновления и техническое обслуживание Сервиса.</p></div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-09" data-number="09">
+        <div class="doc-chapter-head">
+          <div class="doc-index">09</div>
+          <h2 class="doc-chapter-title">Обращения и служба поддержки</h2>
+        </div>
+
+        <div class="doc-point"><p><strong>9.1.</strong> Администратор обеспечивает возможность обращения Пользователей по вопросам использования Сервиса посредством контактных данных, размещенных на официальных страницах.</p></div>
+        <div class="doc-point">
+          <p><strong>9.2.</strong> Пользователь вправе обратиться по вопросам:</p>
+          <ul>
+            <li>приобретения и восстановления доступа;</li>
+            <li>технических ошибок;</li>
+            <li>работы функциональности;</li>
+            <li>обнаруженных неточностей;</li>
+            <li>обработки персональных данных;</li>
+            <li>исполнения Соглашения и Публичной оферты.</li>
+          </ul>
+        </div>
+        <div class="doc-point"><p><strong>9.3.</strong> При обращении Пользователь обязан предоставить достаточную информацию для идентификации ситуации.</p></div>
+        <div class="doc-point"><p><strong>9.4.</strong> Обращения рассматриваются в разумный срок с учетом сложности вопроса.</p></div>
+        <div class="doc-point"><p><strong>9.5.</strong> При недостаточности сведений Администратор вправе запросить дополнительную информацию.</p></div>
+        <div class="doc-point">
+          <p><strong>9.6.</strong> Администратор вправе оставить без рассмотрения обращения, содержащие:</p>
+          <ul>
+            <li>оскорбления или угрозы;</li>
+            <li>нецензурную лексику;</li>
+            <li>заведомо ложные сведения;</li>
+            <li>массовую рассылку или спам;</li>
+            <li>информацию, не относящуюся к работе Сервиса.</li>
+          </ul>
+        </div>
+        <div class="doc-point"><p><strong>9.7.</strong> Сообщения об ошибках безопасности или защиты персональных данных рассматриваются в приоритетном порядке.</p></div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-10" data-number="10">
+        <div class="doc-chapter-head">
+          <div class="doc-index">10</div>
+          <h2 class="doc-chapter-title">Ответственность сторон</h2>
+        </div>
+
+        <div class="doc-point"><p><strong>10.1.</strong> Каждая сторона несет ответственность за неисполнение или ненадлежащее исполнение своих обязательств в пределах настоящего Соглашения и законодательства Российской Федерации.</p></div>
+        <div class="doc-point"><p><strong>10.2.</strong> Администратор несет ответственность за надлежащее предоставление доступа в объеме, предусмотренном условиями приобретенного доступа.</p></div>
+        <div class="doc-point">
+          <p><strong>10.3.</strong> Пользователь несет ответственность за:</p>
+          <ul>
+            <li>достоверность предоставляемых сведений;</li>
+            <li>соблюдение настоящего Соглашения;</li>
+            <li>сохранность своей учетной записи;</li>
+            <li>законность использования Сервиса;</li>
+            <li>последствия передачи доступа третьим лицам.</li>
+          </ul>
+        </div>
+        <div class="doc-point"><p><strong>10.4.</strong> Пользователь самостоятельно несет ответственность за решения, принятые на основании материалов без учета конкретных обстоятельств путешествия или законодательства государства пребывания.</p></div>
+        <div class="doc-point"><p><strong>10.5.</strong> Администратор не отвечает за убытки, возникшие вследствие действий третьих лиц, нарушения Пользователем правил, обстоятельств непреодолимой силы или технических сбоев, не зависящих от Администратора.</p></div>
+        <div class="doc-point"><p><strong>10.6.</strong> При выявлении технической ошибки, препятствующей использованию оплаченного доступа, Администратор принимает разумные меры по ее устранению.</p></div>
+        <div class="doc-point"><p><strong>10.7.</strong> Ничто в настоящем Соглашении не исключает и не ограничивает ответственность сторон в случаях, когда такое ограничение прямо запрещено законом.</p></div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-11" data-number="11">
+        <div class="doc-chapter-head">
+          <div class="doc-index">11</div>
+          <h2 class="doc-chapter-title">Персональные данные</h2>
+        </div>
+
+        <div class="doc-point"><p><strong>11.1.</strong> При использовании Сервиса Администратор обрабатывает персональные данные исключительно в объеме, необходимом для функционирования Сервиса, исполнения договоров, соблюдения требований законодательства и обеспечения безопасности.</p></div>
+        <div class="doc-point"><p><strong>11.2.</strong> Порядок обработки, состав данных, цели, сроки хранения и права Пользователей определяются Политикой обработки персональных данных.</p></div>
+        <div class="doc-point"><p><strong>11.3.</strong> В случаях, когда получение отдельного согласия требуется законодательством, такое согласие оформляется отдельно.</p></div>
+        <div class="doc-point"><p><strong>11.4.</strong> Администратор принимает разумные организационные и технические меры для защиты персональных данных.</p></div>
+        <div class="doc-point"><p><strong>11.5.</strong> Пользователь вправе реализовать свои права путем обращения по контактным данным, указанным в юридических документах Сервиса.</p></div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-12" data-number="12">
+        <div class="doc-chapter-head">
+          <div class="doc-index">12</div>
+          <h2 class="doc-chapter-title">Заключительные положения</h2>
+        </div>
+
+        <div class="doc-point"><p><strong>12.1.</strong> Настоящее Соглашение вступает в силу с даты его публикации и действует до замены новой редакцией либо прекращения функционирования Сервиса.</p></div>
+        <div class="doc-point"><p><strong>12.2.</strong> Администратор вправе изменять Соглашение путем публикации новой редакции.</p></div>
+        <div class="doc-point"><p><strong>12.3.</strong> Если отдельное положение будет признано недействительным или неисполнимым, остальные положения сохраняют силу.</p></div>
+        <div class="doc-point"><p><strong>12.4.</strong> Во всем, что не урегулировано настоящим Соглашением, стороны руководствуются Публичной офертой, Политикой обработки персональных данных, Согласием на обработку персональных данных и законодательством Российской Федерации.</p></div>
+        <div class="doc-point"><p><strong>12.5.</strong> При противоречии между настоящим Соглашением и Публичной офертой в части оплаты, сроков доступа, заключения договора и возврата денежных средств применяются положения Публичной оферты.</p></div>
+        <div class="doc-point"><p><strong>12.6.</strong> Настоящее Соглашение составлено на русском языке. При наличии переводов приоритет имеет текст на русском языке, если иное не предусмотрено законом.</p></div>
+        <div class="doc-point"><p><strong>12.7.</strong> Споры стороны стремятся урегулировать путем переговоров, а при недостижении соглашения — в порядке, установленном законодательством Российской Федерации.</p></div>
+      </article>
+
+    </section>
+
+    <section class="doc-final">
+      <div class="doc-final-label">Официальный документ</div>
+
+      <h2>
+        Пользовательское
+        <span>соглашение</span>
+      </h2>
+
+      <div class="doc-final-meta">
+        <div>
+          <b>Администратор</b>
+          Баева Мария Сергеевна
+        </div>
+
+        <div>
+          <b>ИНН</b>
+          732901387845
+        </div>
+
+        <div>
+          <b>Редакция</b>
+          1.0
+        </div>
+
+        <div>
+          <b>E-mail</b>
+          travel.app@bk.ru
+        </div>
+      </div>
+
+      <a class="legal-button" href="index.html">
+        ← Вернуться в Юридический центр
+      </a>
+    </section>
+
+    <footer class="legal-footer">
+      <div class="legal-footer-links">
+        <a href="index.html">Юридический центр</a>
+        <a href="offer.html">Публичная оферта</a>
+        <a href="privacy-policy.html">Политика ПД</a>
+        <a href="personal-data-consent.html">Согласие</a>
+      </div>
+
+      <div>
+        © <span data-current-year>2026</span>
+        «Как Местный». Все права защищены.
+      </div>
+
+      <div>
+        Баева Мария Сергеевна · ИНН 732901387845
+      </div>
+    </footer>
+
+  </main>
+
+  <button
+    class="legal-to-top"
+    type="button"
+    aria-label="Вернуться наверх"
+    aria-hidden="true"
+  >
+    ↑
+  </button>
+
+  <script>
+    (() => {
+      const progressBar = document.getElementById('readingProgressBar');
+      const links = [...document.querySelectorAll('[data-chapter-link]')];
+      const chapters = [...document.querySelectorAll('.doc-chapter')];
+
+      const update = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
+
+        if (progressBar) {
+          progressBar.style.width = progress + '%';
+        }
+
+        let activeId = '';
+
+        for (const chapter of chapters) {
+          if (chapter.getBoundingClientRect().top <= 150) {
+            activeId = chapter.id;
+          }
+        }
+
+        links.forEach((link) => {
+          link.classList.toggle(
+            'is-active',
+            activeId && link.getAttribute('href') === '#' + activeId
+          );
+        });
+      };
+
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+  </script>
+</body>
+</html>

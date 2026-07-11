@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>Публичная оферта — Как Местный</title>
+  <meta name="description" content="Публичная оферта цифрового информационного сервиса «Как Местный»." />
+
+  <link rel="stylesheet" href="legal.css" />
+  <script src="legal.js" defer></script>
+
+  <style>
+    .offer-hero {
+      min-height: 78vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      border: 1px solid rgba(255,224,138,.32);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.46) 48%, rgba(0,0,0,.94) 100%),
+        url("https://images.unsplash.com/photo-1542259009477-d625272157b7?auto=format&fit=crop&w=1600&q=88");
+      background-size: cover;
+      background-position: center;
+      box-shadow:
+        0 36px 100px rgba(0,0,0,.75),
+        0 0 56px rgba(214,161,59,.13),
+        inset 0 1px 0 rgba(255,255,255,.12);
+    }
+
+    .offer-hero::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 76% 18%, rgba(255,224,138,.28), transparent 26%),
+        linear-gradient(90deg, rgba(0,0,0,.82) 0%, rgba(0,0,0,.38) 58%, rgba(0,0,0,.12) 100%);
+      pointer-events:none;
+    }
+
+    .offer-hero::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(115deg, transparent 0%, rgba(255,255,255,.08) 43%, transparent 62%);
+      transform:translateX(-120%);
+      animation:offerShine 7s infinite;
+      pointer-events:none;
+    }
+
+    @keyframes offerShine {
+      0% { transform:translateX(-120%); }
+      40% { transform:translateX(120%); }
+      100% { transform:translateX(120%); }
+    }
+
+    .offer-hero-inner {
+      position:relative;
+      z-index:2;
+      width:100%;
+      max-width:720px;
+    }
+
+    .offer-eyebrow {
+      display:inline-flex;
+      padding:8px 14px;
+      border-radius:999px;
+      background:linear-gradient(135deg,#fff3bf,#d6a13b,#8e5c14);
+      color:#050505;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-size:11px;
+      font-weight:1000;
+      box-shadow:0 0 28px rgba(255,224,138,.25);
+    }
+
+    .offer-title {
+      margin:18px 0 14px;
+      font-size:clamp(46px,9vw,88px);
+      line-height:.92;
+      letter-spacing:-2.6px;
+      text-transform:uppercase;
+      font-weight:1000;
+      text-wrap:balance;
+    }
+
+    .offer-title span {
+      display:block;
+      color:var(--gold-light);
+      text-shadow:0 0 36px rgba(255,224,138,.22);
+    }
+
+    .offer-lead {
+      margin:0;
+      max-width:640px;
+      color:rgba(248,244,234,.88);
+      font-size:17px;
+      line-height:1.58;
+    }
+
+    .offer-status-grid {
+      margin-top:24px;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .offer-status {
+      padding:14px;
+      border-radius:18px;
+      background:rgba(0,0,0,.42);
+      border:1px solid rgba(255,224,138,.18);
+      backdrop-filter:blur(14px);
+    }
+
+    .offer-status b {
+      display:block;
+      color:var(--gold-light);
+      font-size:11px;
+      letter-spacing:.9px;
+      text-transform:uppercase;
+      margin-bottom:4px;
+    }
+
+    .offer-status span {
+      font-size:13px;
+      line-height:1.35;
+      color:#fff;
+    }
+
+    .offer-scroll {
+      margin-top:22px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      color:var(--gold-light);
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.5px;
+    }
+
+    .offer-scroll i {
+      width:34px;
+      height:34px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      border:1px solid rgba(255,224,138,.3);
+      background:rgba(0,0,0,.34);
+      font-style:normal;
+    }
+
+    .offer-nav {
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .offer-nav-card {
+      display:block;
+      min-height:150px;
+      padding:18px;
+      border-radius:24px;
+      position:relative;
+      overflow:hidden;
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.025)),
+        rgba(8,8,8,.88);
+      border:1px solid rgba(255,224,138,.18);
+      box-shadow:0 20px 52px rgba(0,0,0,.48);
+      transition:.25s ease;
+    }
+
+    .offer-nav-card::before {
+      content:"";
+      position:absolute;
+      width:140px;
+      height:140px;
+      right:-65px;
+      top:-65px;
+      background:radial-gradient(circle,rgba(255,224,138,.18),transparent 70%);
+    }
+
+    .offer-nav-card:hover {
+      transform:translateY(-3px);
+      border-color:rgba(255,224,138,.48);
+      text-decoration:none;
+    }
+
+    .offer-nav-no {
+      position:relative;
+      z-index:1;
+      color:var(--gold-light);
+      font-size:12px;
+      font-weight:1000;
+      letter-spacing:1px;
+    }
+
+    .offer-nav-title {
+      position:relative;
+      z-index:1;
+      margin-top:12px;
+      color:#fff;
+      font-size:18px;
+      line-height:1.15;
+      font-weight:950;
+    }
+
+    .offer-nav-arrow {
+      position:absolute;
+      right:16px;
+      bottom:14px;
+      color:var(--gold-light);
+      font-size:20px;
+    }
+
+    .offer-doc {
+      margin-top:18px;
+      display:grid;
+      gap:16px;
+    }
+
+    .offer-chapter {
+      position:relative;
+      overflow:hidden;
+      padding:28px;
+      border-radius:30px;
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.022)),
+        rgba(8,8,8,.88);
+      border:1px solid rgba(255,224,138,.18);
+      box-shadow:0 24px 60px rgba(0,0,0,.46);
+      scroll-margin-top:100px;
+    }
+
+    .offer-chapter::before {
+      content:attr(data-number);
+      position:absolute;
+      top:-18px;
+      right:16px;
+      font-size:112px;
+      line-height:1;
+      font-weight:1000;
+      color:rgba(255,224,138,.055);
+      letter-spacing:-8px;
+      pointer-events:none;
+    }
+
+    .offer-chapter-head {
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:flex-start;
+      gap:16px;
+      margin-bottom:20px;
+    }
+
+    .offer-chapter-index {
+      flex:0 0 auto;
+      width:46px;
+      height:46px;
+      display:grid;
+      place-items:center;
+      border-radius:15px;
+      background:linear-gradient(135deg,#fff2bc,#d6a13b,#8e5c14);
+      color:#050505;
+      font-size:14px;
+      font-weight:1000;
+      box-shadow:0 0 22px rgba(255,224,138,.18);
+    }
+
+    .offer-chapter-title {
+      margin:0;
+      color:var(--gold-light);
+      font-size:28px;
+      line-height:1.08;
+      font-weight:1000;
+      letter-spacing:-.5px;
+    }
+
+    .offer-chapter-body {
+      position:relative;
+      z-index:1;
+    }
+
+    .offer-point {
+      padding:16px 0;
+      border-top:1px solid rgba(255,224,138,.10);
+    }
+
+    .offer-point:first-child {
+      padding-top:0;
+      border-top:none;
+    }
+
+    .offer-point:last-child {
+      padding-bottom:0;
+    }
+
+    .offer-point p,
+    .offer-point li {
+      color:rgba(248,244,234,.91);
+      font-size:15.5px;
+      line-height:1.72;
+    }
+
+    .offer-point p {
+      margin:0 0 12px;
+    }
+
+    .offer-point p:last-child {
+      margin-bottom:0;
+    }
+
+    .offer-point ul,
+    .offer-point ol {
+      margin:8px 0 0;
+      padding-left:22px;
+    }
+
+    .offer-point li {
+      margin:7px 0;
+    }
+
+    .offer-point strong {
+      color:#fff;
+    }
+
+    .offer-contact {
+      margin-top:18px;
+      padding:20px;
+      border-radius:22px;
+      background:rgba(214,161,59,.08);
+      border:1px dashed rgba(255,224,138,.34);
+    }
+
+    @media(max-width:760px) {
+      .offer-hero {
+        min-height:680px;
+        padding:24px 20px;
+      }
+
+      .offer-status-grid,
+      .offer-nav {
+        grid-template-columns:1fr;
+      }
+
+      .offer-nav-card {
+        min-height:120px;
+      }
+
+      .offer-title {
+        font-size:48px;
+        letter-spacing:-1.7px;
+      }
+
+      .offer-chapter {
+        padding:21px;
+      }
+
+      .offer-chapter-title {
+        font-size:23px;
+      }
+    }
+
+    @media(max-width:420px) {
+      .offer-hero {
+        min-height:620px;
+      }
+
+      .offer-title {
+        font-size:41px;
+      }
+
+      .offer-lead {
+        font-size:15px;
+      }
+    }
+  
+    /* ===== FINAL RC UPGRADE ===== */
+
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 2000;
+      width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,.04);
+      pointer-events: none;
+    }
+
+    .reading-progress-bar {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg,#8e5c14,#ffe08a,#d6a13b);
+      box-shadow: 0 0 18px rgba(255,224,138,.55);
+      transition: width .08s linear;
+    }
+
+    .offer-live-status {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.46);
+      border: 1px solid rgba(158,232,191,.34);
+      color: #b8f2d0;
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .offer-live-status::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #9ee8bf;
+      box-shadow: 0 0 14px rgba(158,232,191,.75);
+    }
+
+    .offer-update-note {
+      margin-top: 12px;
+      color: rgba(248,244,234,.66);
+      font-size: 12.5px;
+      font-weight: 800;
+      letter-spacing: .25px;
+    }
+
+    .offer-summary {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+    }
+
+    .offer-summary-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 170px;
+      padding: 20px;
+      border-radius: 26px;
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025)),
+        rgba(8,8,8,.9);
+      border: 1px solid rgba(255,224,138,.2);
+      box-shadow:
+        0 22px 60px rgba(0,0,0,.48),
+        inset 0 1px 0 rgba(255,255,255,.08);
+    }
+
+    .offer-summary-card::before {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      right: -70px;
+      top: -70px;
+      background: radial-gradient(circle,rgba(255,224,138,.17),transparent 70%);
+    }
+
+    .offer-summary-kicker {
+      position: relative;
+      z-index: 1;
+      color: var(--gold-light);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .offer-summary-title {
+      position: relative;
+      z-index: 1;
+      margin-top: 12px;
+      color: #fff;
+      font-size: 21px;
+      font-weight: 1000;
+      line-height: 1.08;
+    }
+
+    .offer-summary-text {
+      position: relative;
+      z-index: 1;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    .offer-sticky-nav {
+      position: sticky;
+      top: 82px;
+      z-index: 18;
+      margin-top: 16px;
+      padding: 10px;
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      border-radius: 18px;
+      background: rgba(8,8,8,.78);
+      border: 1px solid rgba(255,224,138,.18);
+      box-shadow: 0 16px 44px rgba(0,0,0,.42);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .offer-sticky-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .offer-sticky-nav a {
+      flex: 0 0 auto;
+      min-width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      padding: 0 10px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,224,138,.1);
+      color: rgba(248,244,234,.78);
+      font-size: 12px;
+      font-weight: 950;
+      transition: .2s ease;
+    }
+
+    .offer-sticky-nav a:hover,
+    .offer-sticky-nav a.is-active {
+      color: #050505;
+      text-decoration: none;
+      background: linear-gradient(135deg,#fff3bf,#d6a13b,#8e5c14);
+      border-color: rgba(255,224,138,.6);
+    }
+
+    .offer-chapter {
+      border-left: 3px solid rgba(214,161,59,.58);
+    }
+
+    .offer-point::before {
+      content: "";
+      display: block;
+      width: 42px;
+      height: 1px;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg,rgba(255,224,138,.7),transparent);
+    }
+
+    .offer-point:first-child::before {
+      display: none;
+    }
+
+    .offer-final {
+      margin-top: 18px;
+      padding: 30px;
+      border-radius: 32px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 0%,rgba(255,224,138,.16),transparent 36%),
+        linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025)),
+        rgba(8,8,8,.9);
+      border: 1px solid rgba(255,224,138,.28);
+      box-shadow:
+        0 30px 80px rgba(0,0,0,.62),
+        0 0 44px rgba(214,161,59,.1);
+    }
+
+    .offer-final-label {
+      color: var(--gold-light);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .offer-final h2 {
+      margin: 12px 0 8px;
+      font-size: clamp(34px,6vw,56px);
+      line-height: .98;
+      text-transform: uppercase;
+      font-weight: 1000;
+      letter-spacing: -1.4px;
+    }
+
+    .offer-final h2 span {
+      display: block;
+      color: var(--gold-light);
+    }
+
+    .offer-final-meta {
+      margin: 18px auto 0;
+      max-width: 560px;
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 10px;
+    }
+
+    .offer-final-meta div {
+      padding: 14px;
+      border-radius: 17px;
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,224,138,.14);
+      color: rgba(248,244,234,.86);
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    .offer-final-meta b {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--gold-light);
+      font-size: 10.5px;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+    }
+
+    .offer-final .legal-button {
+      margin-top: 18px;
+      width: min(100%, 360px);
+    }
+
+    @media(max-width:760px) {
+      .offer-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .offer-final-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .offer-live-status {
+        top: 16px;
+        right: 16px;
+      }
+
+      .offer-sticky-nav {
+        top: 74px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="reading-progress" aria-hidden="true">
+    <div class="reading-progress-bar" id="readingProgressBar"></div>
+  </div>
+  <main class="legal-page">
+
+    <header class="legal-topbar">
+      <div class="legal-brand">
+        <div class="legal-brand-mark" aria-hidden="true">⌖</div>
+        <div class="legal-brand-text">КАК<br>МЕСТНЫЙ</div>
+      </div>
+
+      <a class="legal-back" href="index.html">← Юридический центр</a>
+    </header>
+
+    <section class="offer-hero">
+      <div class="offer-live-status">Документ актуален</div>
+      <div class="offer-hero-inner">
+        <div class="offer-eyebrow">Действующий документ</div>
+
+        <h1 class="offer-title">
+          Публичная
+          <span>оферта</span>
+        </h1>
+
+        <p class="offer-lead">
+          Условия предоставления временного доступа к цифровому информационному
+          сервису «Как Местный».
+        </p>
+
+        <div class="offer-status-grid">
+          <div class="offer-status">
+            <b>Редакция</b>
+            <span>1.0</span>
+          </div>
+
+          <div class="offer-status">
+            <b>Дата вступления</b>
+            <span>11 июля 2026</span>
+          </div>
+
+          <div class="offer-status">
+            <b>Статус</b>
+            <span>Документ действует</span>
+          </div>
+        </div>
+
+        <div class="offer-update-note">Последнее обновление · 11 июля 2026 года</div>
+
+        <a class="offer-scroll" href="#contents">
+          <i>↓</i>
+          Читать документ
+        </a>
+      </div>
+    </section>
+
+
+    <section class="offer-summary" aria-label="Ключевые условия">
+      <article class="offer-summary-card">
+        <div class="offer-summary-kicker">Модель оплаты</div>
+        <div class="offer-summary-title">Разовая покупка</div>
+        <div class="offer-summary-text">
+          Подписок и автоматических списаний на дату этой редакции нет.
+        </div>
+      </article>
+
+      <article class="offer-summary-card">
+        <div class="offer-summary-kicker">Авторизация</div>
+        <div class="offer-summary-title">Telegram → доступ</div>
+        <div class="offer-summary-text">
+          Доступ привязывается к учетной записи Пользователя после подтверждения оплаты.
+        </div>
+      </article>
+
+      <article class="offer-summary-card">
+        <div class="offer-summary-kicker">Возврат</div>
+        <div class="offer-summary-title">По закону и условиям</div>
+        <div class="offer-summary-text">
+          Технические сбои рассматриваются отдельно; изменение личных планов само по себе не является основанием.
+        </div>
+      </article>
+    </section>
+
+    <section class="offer-nav" id="contents" aria-label="Разделы оферты">
+      <a class="offer-nav-card" href="#chapter-01">
+        <div class="offer-nav-no">01</div>
+        <div class="offer-nav-title">Общие положения</div>
+        <div class="offer-nav-arrow">→</div>
+      </a>
+
+      <a class="offer-nav-card" href="#chapter-03">
+        <div class="offer-nav-no">03</div>
+        <div class="offer-nav-title">Предмет договора</div>
+        <div class="offer-nav-arrow">→</div>
+      </a>
+
+      <a class="offer-nav-card" href="#chapter-06">
+        <div class="offer-nav-no">06</div>
+        <div class="offer-nav-title">Тарифы и оплата</div>
+        <div class="offer-nav-arrow">→</div>
+      </a>
+
+      <a class="offer-nav-card" href="#chapter-07">
+        <div class="offer-nav-no">07</div>
+        <div class="offer-nav-title">Предоставление доступа</div>
+        <div class="offer-nav-arrow">→</div>
+      </a>
+
+      <a class="offer-nav-card" href="#chapter-12">
+        <div class="offer-nav-no">12</div>
+        <div class="offer-nav-title">Возврат денежных средств</div>
+        <div class="offer-nav-arrow">→</div>
+      </a>
+
+      <a class="offer-nav-card" href="#chapter-15">
+        <div class="offer-nav-no">15</div>
+        <div class="offer-nav-title">Контакты и реквизиты</div>
+        <div class="offer-nav-arrow">→</div>
+      </a>
+    </section>
+
+
+    <nav class="offer-sticky-nav" aria-label="Быстрая навигация по главам">
+      <a href="#chapter-01" data-chapter-link="01">01</a>
+      <a href="#chapter-02" data-chapter-link="02">02</a>
+      <a href="#chapter-03" data-chapter-link="03">03</a>
+      <a href="#chapter-04" data-chapter-link="04">04</a>
+      <a href="#chapter-05" data-chapter-link="05">05</a>
+      <a href="#chapter-06" data-chapter-link="06">06</a>
+      <a href="#chapter-07" data-chapter-link="07">07</a>
+      <a href="#chapter-08" data-chapter-link="08">08</a>
+      <a href="#chapter-09" data-chapter-link="09">09</a>
+      <a href="#chapter-10" data-chapter-link="10">10</a>
+      <a href="#chapter-11" data-chapter-link="11">11</a>
+      <a href="#chapter-12" data-chapter-link="12">12</a>
+      <a href="#chapter-13" data-chapter-link="13">13</a>
+      <a href="#chapter-14" data-chapter-link="14">14</a>
+      <a href="#chapter-15" data-chapter-link="15">15</a>
+    </nav>
+
+    <section class="offer-doc">
+
+      <article class="offer-chapter" id="chapter-01" data-number="01">
+        <div class="offer-chapter-head">
+          <div class="offer-chapter-index">01</div>
+          <h2 class="offer-chapter-title">Общие положения</h2>
+        </div>
+
+        <div class="offer-chapter-body">
+          <div class="offer-point">
+            <p><strong>1.1.</strong> Настоящий документ является официальным публичным предложением физического лица, применяющего специальный налоговый режим «Налог на профессиональный доход», Баевой Марии Сергеевны, ИНН 732901387845, именуемой в дальнейшем «Исполнитель», заключить договор возмездного предоставления временного доступа к цифровому информационному сервису «Как Местный» на условиях настоящей Оферты.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>1.2.</strong> Оферта адресована дееспособным физическим лицам, использующим Сервис для личных целей, не связанных с предпринимательской деятельностью.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>1.3.</strong> Настоящая Оферта регулирует порядок приобретения доступа, оплаты, предоставления доступа, использования Сервиса, возврата денежных средств и иные связанные отношения между Исполнителем и Пользователем.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>1.4.</strong> Акцептом Оферты является совершение Пользователем совокупности действий:</p>
+            <ul>
+              <li>ознакомление с настоящей Офертой и иными юридическими документами Сервиса;</li>
+              <li>подтверждение согласия с условиями документов посредством интерфейса Сервиса;</li>
+              <li>подтверждение согласия на обработку персональных данных в случаях, когда оно требуется;</li>
+              <li>успешная оплата выбранного Тарифа.</li>
+            </ul>
+          </div>
+          <div class="offer-point">
+            <p><strong>1.5.</strong> С момента успешного подтверждения оплаты платежным оператором и предоставления Пользователю доступа договор считается заключенным.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>1.6.</strong> Если Пользователь не согласен хотя бы с одним из положений настоящей Оферты, он обязан воздержаться от оплаты и использования платных функций Сервиса.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>1.7.</strong> Исполнитель вправе публиковать новые редакции Оферты. Условия уже оплаченного периода определяются редакцией, действовавшей на момент оплаты, если иное не установлено законодательством Российской Федерации.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>1.8.</strong> Актуальная редакция Оферты постоянно размещается в Юридическом центре Сервиса.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="offer-chapter" id="chapter-02" data-number="02">
+        <div class="offer-chapter-head">
+          <div class="offer-chapter-index">02</div>
+          <h2 class="offer-chapter-title">Термины и определения</h2>
+        </div>
+
+        <div class="offer-chapter-body">
+          <div class="offer-point">
+            <p><strong>2.1. Сервис</strong> — цифровой информационный сервис «Как Местный», предоставляющий Пользователям доступ к информационным материалам о туристических направлениях, маршрутах, местах, заведениях, сервисах, безопасности, практических рекомендациях и иной информации.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>2.2. Пользователь</strong> — физическое лицо, принявшее условия настоящей Оферты и использующее Сервис.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>2.3. Доступ</strong> — ограниченное по времени неисключительное право просмотра и использования материалов Сервиса в пределах выбранного Тарифа.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>2.4. Информационные материалы</strong> — тексты, маршруты, подборки, рекомендации, изображения, фотографии, справочные сведения, контакты, инструкции, предупреждения и иные цифровые материалы Сервиса.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>2.5. Тариф</strong> — условия предоставления доступа, включающие стоимость, продолжительность и объем доступных возможностей.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>2.6. Период доступа</strong> — срок, в течение которого Пользователь вправе использовать платные разделы Сервиса.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>2.7. Авторизация</strong> — процедура идентификации Пользователя через Telegram или иной официально поддерживаемый способ входа.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>2.8. Учетная запись</strong> — совокупность данных, позволяющих идентифицировать Пользователя и связать с ним приобретенный доступ.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>2.9. Платежный оператор</strong> — организация, обеспечивающая прием и обработку платежей. На дату публикации настоящей редакции используется ЮKassa.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="offer-chapter" id="chapter-03" data-number="03">
+        <div class="offer-chapter-head">
+          <div class="offer-chapter-index">03</div>
+          <h2 class="offer-chapter-title">Предмет договора</h2>
+        </div>
+
+        <div class="offer-chapter-body">
+          <div class="offer-point">
+            <p><strong>3.1.</strong> Исполнитель предоставляет Пользователю за плату неисключительное, ограниченное по времени право доступа к Сервису в объеме выбранного Тарифа, а Пользователь обязуется оплатить такой доступ.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>3.2.</strong> Сервис может включать, помимо прочего:</p>
+            <ul>
+              <li>авторские маршруты;</li>
+              <li>подборки мест;</li>
+              <li>рекомендации по транспорту, питанию, отдыху и безопасности;</li>
+              <li>сведения о достопримечательностях, заведениях и организациях;</li>
+              <li>контакты экстренных служб, медицинских учреждений и иных полезных сервисов;</li>
+              <li>практические советы, предупреждения и справочную информацию;</li>
+              <li>иные цифровые информационные материалы.</li>
+            </ul>
+          </div>
+          <div class="offer-point">
+            <p><strong>3.3.</strong> Доступ является персональным, ограниченным, неисключительным, непередаваемым и предоставляется исключительно для личного некоммерческого использования.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>3.4.</strong> Договор не предусматривает передачу Пользователю исключительных прав на материалы Сервиса.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>3.5.</strong> Предоставление доступа осуществляется исключительно в электронной форме посредством сети Интернет. Материальные носители и физические товары Пользователю не передаются.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>3.6.</strong> Сервис не является туристическим продуктом и не оказывает услуги туроператора, турагента, перевозчика, гостиницы, страховой, медицинской или юридической организации.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>3.7.</strong> Материалы имеют информационный и рекомендательный характер. Пользователь самостоятельно принимает окончательные решения о посещении мест, выборе маршрутов, использовании услуг и иных действиях.</p>
+          </div>
+          <div class="offer-point">
+            <p><strong>3.8.</strong> Исполнитель вправе обновлять, дополнять, перерабатывать и удалять отдельные материалы в целях развития Сервиса и поддержания их актуальности.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="offer-chapter" id="chapter-04" data-number="04">
+        <div class="offer-chapter-head">
+          <div class="offer-chapter-index">04</div>
+          <h2 class="offer-chapter-title">Порядок заключения договора</h2>
+        </div>
+
+        <div class="offer-chapter-body">
+          <div class="offer-point"><p><strong>4.1.</strong> Договор заключается дистанционно без подписания бумажного документа.</p></div>
+          <div class="offer-point">
+            <p><strong>4.2.</strong> Для получения доступа Пользователь:</p>
+            <ol>
+              <li>проходит авторизацию;</li>
+              <li>выбирает Тариф;</li>
+              <li>знакомится с юридическими документами Сервиса;</li>
+              <li>подтверждает согласия посредством интерфейса;</li>
+              <li>совершает оплату;</li>
+              <li>после подтверждения платежа получает доступ к Сервису.</li>
+            </ol>
+          </div>
+          <div class="offer-point"><p><strong>4.3.</strong> При неуспешной, отклоненной или отмененной оплате договор считается незаключенным, а доступ не предоставляется.</p></div>
+          <div class="offer-point"><p><strong>4.4.</strong> Успешная оплата подтверждается платежным оператором. Сам факт перехода на страницу оплаты или страницу успешного платежа не является достаточным подтверждением оплаты.</p></div>
+          <div class="offer-point"><p><strong>4.5.</strong> Доступ после подтверждения оплаты предоставляется автоматически либо в максимально короткий технически необходимый срок.</p></div>
+          <div class="offer-point"><p><strong>4.6.</strong> При возникновении технического сбоя Пользователь вправе обратиться в службу поддержки по контактам, указанным в настоящей Оферте.</p></div>
+        </div>
+      </article>
+
+      <article class="offer-chapter" id="chapter-05" data-number="05">
+        <div class="offer-chapter-head">
+          <div class="offer-chapter-index">05</div>
+          <h2 class="offer-chapter-title">Авторизация и идентификация Пользователя</h2>
+        </div>
+
+        <div class="offer-chapter-body">
+          <div class="offer-point"><p><strong>5.1.</strong> Для использования отдельных функций Пользователь проходит авторизацию.</p></div>
+          <div class="offer-point"><p><strong>5.2.</strong> На дату публикации настоящей редакции основным способом авторизации является Telegram. Исполнитель вправе добавлять иные способы входа.</p></div>
+          <div class="offer-point">
+            <p><strong>5.3.</strong> При авторизации могут передаваться:</p>
+            <ul>
+              <li>уникальный идентификатор учетной записи;</li>
+              <li>отображаемое имя;</li>
+              <li>username, если он установлен;</li>
+              <li>изображение профиля, если оно доступно;</li>
+              <li>иные сведения, предоставляемые выбранным способом авторизации.</li>
+            </ul>
+          </div>
+          <div class="offer-point"><p><strong>5.4.</strong> Исполнитель не запрашивает и не хранит пароли Пользователей от Telegram.</p></div>
+          <div class="offer-point"><p><strong>5.5.</strong> Пользователь самостоятельно отвечает за безопасность своей учетной записи, устройства и средств авторизации.</p></div>
+          <div class="offer-point"><p><strong>5.6.</strong> Действия, совершенные после успешной авторизации, считаются действиями самого Пользователя до момента получения Исполнителем обоснованного уведомления о неправомерном использовании учетной записи.</p></div>
+          <div class="offer-point"><p><strong>5.7.</strong> Изменение имени, username или фотографии не прекращает ранее приобретенный доступ, если сохраняется возможность идентифицировать ту же учетную запись.</p></div>
+        </div>
+      </article>
+
+      <article class="offer-chapter" id="chapter-06" data-number="06">
+        <div class="offer-chapter-head">
+          <div class="offer-chapter-index">06</div>
+          <h2 class="offer-chapter-title">Тарифы, стоимость и порядок оплаты</h2>
+        </div>
+
+        <div class="offer-chapter-body">
+          <div class="offer-point"><p><strong>6.1.</strong> Стоимость и срок доступа определяются действующими Тарифами, указанными в интерфейсе Сервиса на момент оформления заказа.</p></div>
+          <div class="offer-point"><p><strong>6.2.</strong> Актуальные Тарифы являются неотъемлемой частью настоящей Оферты.</p></div>
+          <div class="offer-point"><p><strong>6.3.</strong> Исполнитель вправе изменять стоимость, перечень Тарифов, сроки доступа и специальные предложения. Такие изменения не распространяются на уже оплаченный период.</p></div>
+          <div class="offer-point"><p><strong>6.4.</strong> На дату публикации настоящей редакции доступ предоставляется по модели разовой оплаты выбранного Тарифа.</p></div>
+          <div class="offer-point"><p><strong>6.5.</strong> Автоматическое продление и рекуррентные списания не применяются, если иное прямо не указано при оформлении конкретного продукта.</p></div>
+          <div class="offer-point"><p><strong>6.6.</strong> В последующих версиях Сервиса Исполнитель вправе внедрить подписку или иные модели оплаты с предварительным информированием Пользователя и публикацией соответствующих условий.</p></div>
+          <div class="offer-point"><p><strong>6.7.</strong> Оплата осуществляется через платежного оператора. Обязательство по оплате считается исполненным после подтверждения успешного платежа.</p></div>
+          <div class="offer-point"><p><strong>6.8.</strong> Исполнитель не получает и не хранит полные реквизиты банковских карт Пользователей.</p></div>
+          <div class="offer-point"><p><strong>6.9.</strong> Электронный чек или иной документ об оплате формируется в порядке, предусмотренном законодательством Российской Федерации и используемой схемой фискализации.</p></div>
+          <div class="offer-point"><p><strong>6.10.</strong> Исполнитель вправе проводить акции, предоставлять скидки, бонусы и запускать программы лояльности.</p></div>
+        </div>
+      </article>
+
+      <article class="offer-chapter" id="chapter-07" data-number="07">
+        <div class="offer-chapter-head">
+          <div class="offer-chapter-index">07</div>
+          <h2 class="offer-chapter-title">Предоставление доступа к Сервису</h2>
+        </div>
+
+        <div class="offer-chapter-body">
+          <div class="offer-point"><p><strong>7.1.</strong> После подтверждения оплаты доступ предоставляется на срок выбранного Тарифа.</p></div>
+          <div class="offer-point"><p><strong>7.2.</strong> Период доступа исчисляется с момента фактического открытия платных разделов, если иной момент не указан в описании Тарифа.</p></div>
+          <div class="offer-point"><p><strong>7.3.</strong> По окончании оплаченного периода доступ к платным разделам автоматически прекращается.</p></div>
+          <div class="offer-point"><p><strong>7.4.</strong> Для продолжения использования платных материалов Пользователь вправе приобрести новый период доступа по действующим на момент покупки условиям.</p></div>
+          <div class="offer-point"><p><strong>7.5.</strong> Во время технических работ отдельные функции могут быть временно недоступны. Исполнитель принимает разумные меры для минимизации перерывов.</p></div>
+          <div class="offer-point"><p><strong>7.6.</strong> При подтвержденном техническом сбое по вине Исполнителя Пользователь вправе обратиться в службу поддержки для восстановления доступа.</p></div>
+          <div class="offer-point"><p><strong>7.7.</strong> Исполнитель вправе ограничить доступ при нарушении Оферты, Пользовательского соглашения, попытках обхода технических ограничений, передаче доступа третьим лицам или иных неправомерных действиях.</p></div>
+        </div>
+      </article>
+
+      <article class="offer-chapter" id="chapter-08" data-number="08">
+        <div class="offer-chapter-head">
+          <div class="offer-chapter-index">08</div>
+          <h2 class="offer-chapter-title">Правила использования Сервиса</h2>
+        </div>
+
+        <div class="offer-chapter-body">
+          <div class="offer-point"><p><strong>8.1.</strong> Пользователь вправе использовать Сервис только законным способом, в личных некоммерческих целях и в пределах предоставленного доступа.</p></div>
+          <div class="offer-point">
+            <p><strong>8.2.</strong> Пользователю запрещается:</p>
+            <ul>
+              <li>передавать приобретенный доступ третьим лицам;</li>
+              <li>перепродавать или сдавать доступ;</li>
+              <li>массово копировать материалы;</li>
+              <li>распространять или публиковать существенные части закрытых материалов;</li>
+              <li>использовать парсеры, ботов и иные средства автоматизированного сбора данных;</li>
+              <li>обходить технические ограничения;</li>
+              <li>вмешиваться в работу Сервиса;</li>
+              <li>получать доступ к чужим данным;</li>
+              <li>создавать на основе материалов аналогичные коммерческие продукты без письменного разрешения Исполнителя.</li>
+            </ul>
+          </div>
+          <div class="offer-point"><p><strong>8.3.</strong> Исполнитель вправе применять разумные технические и организационные меры защиты Сервиса.</p></div>
+          <div class="offer-point"><p><strong>8.4.</strong> Ограничение доступа вследствие нарушения Пользователем условий документов Сервиса само по себе не является основанием для возврата денежных средств, если иное не предусмотрено законом.</p></div>
+        </div>
+      </article>
+
+      <article class="offer-chapter" id="chapter-09" data-number="09">
+        <div class="offer-chapter-head">
+          <div class="offer-chapter-index">09</div>
+          <h2 class="offer-chapter-title">Интеллектуальная собственность</h2>
+        </div>
+
+        <div class="offer-chapter-body">
+          <div class="offer-point"><p><strong>9.1.</strong> Тексты, маршруты, подборки, структура базы знаний, изображения, фотографии, элементы интерфейса, дизайн и иные охраняемые результаты интеллектуальной деятельности принадлежат Исполнителю либо используются им на законных основаниях.</p></div>
+          <div class="offer-point"><p><strong>9.2.</strong> Приобретение доступа не означает передачу Пользователю исключительных прав.</p></div>
+          <div class="offer-point">
+            <p><strong>9.3.</strong> Без письменного разрешения запрещается:</p>
+            <ul>
+              <li>воспроизводить материалы полностью или в существенной части;</li>
+              <li>распространять и публиковать материалы;</li>
+              <li>продавать материалы;</li>
+              <li>использовать материалы при оказании платных услуг;</li>
+              <li>создавать производные коммерческие продукты;</li>
+              <li>использовать структуру Сервиса для создания аналогичных проектов.</li>
+            </ul>
+          </div>
+          <div class="offer-point"><p><strong>9.4.</strong> В пределах, установленных законодательством, защите подлежит также результат творческого отбора, систематизации и организации материалов, включая структуру разделов, подборки и авторские маршруты.</p></div>
+          <div class="offer-point"><p><strong>9.5.</strong> Положения настоящей главы сохраняют силу после прекращения доступа.</p></div>
+        </div>
+      </article>
+
+      <article class="offer-chapter" id="chapter-10" data-number="10">
+        <div class="offer-chapter-head">
+          <div class="offer-chapter-index">10</div>
+          <h2 class="offer-chapter-title">Права и обязанности сторон</h2>
+        </div>
+
+        <div class="offer-chapter-body">
+          <div class="offer-point">
+            <p><strong>10.1. Исполнитель вправе:</strong></p>
+            <ul>
+              <li>развивать Сервис, изменять его структуру, интерфейс и содержание;</li>
+              <li>добавлять новые функции, города, страны и способы оплаты;</li>
+              <li>изменять перечень и стоимость Тарифов;</li>
+              <li>проводить технические работы;</li>
+              <li>использовать сторонних технических поставщиков и платежных операторов;</li>
+              <li>ограничивать доступ при нарушении правил.</li>
+            </ul>
+          </div>
+          <div class="offer-point">
+            <p><strong>10.2. Исполнитель обязан:</strong></p>
+            <ul>
+              <li>предоставить оплаченный доступ;</li>
+              <li>принимать разумные меры для работоспособности Сервиса;</li>
+              <li>обрабатывать персональные данные в соответствии с законом;</li>
+              <li>рассматривать добросовестные обращения Пользователей;</li>
+              <li>устранять подтвержденные технические ошибки, препятствующие доступу.</li>
+            </ul>
+          </div>
+          <div class="offer-point">
+            <p><strong>10.3. Пользователь вправе:</strong></p>
+            <ul>
+              <li>использовать Сервис в пределах оплаченного периода;</li>
+              <li>получать доступ к материалам выбранного Тарифа;</li>
+              <li>обращаться в службу поддержки;</li>
+              <li>получать информацию о Тарифах и юридических документах.</li>
+            </ul>
+          </div>
+          <div class="offer-point">
+            <p><strong>10.4. Пользователь обязан:</strong></p>
+            <ul>
+              <li>соблюдать условия юридических документов Сервиса;</li>
+              <li>не нарушать права Исполнителя;</li>
+              <li>не передавать доступ третьим лицам;</li>
+              <li>не использовать Сервис в противоправных целях;</li>
+              <li>самостоятельно соблюдать законодательство страны пребывания;</li>
+              <li>самостоятельно оценивать применимость рекомендаций.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="offer-chapter" id="chapter-11" data-number="11">
+        <div class="offer-chapter-head">
+          <div class="offer-chapter-index">11</div>
+          <h2 class="offer-chapter-title">Ограничение ответственности</h2>
+        </div>
+
+        <div class="offer-chapter-body">
+          <div class="offer-point"><p><strong>11.1.</strong> Исполнитель стремится поддерживать информацию актуальной, однако сведения могут изменяться вследствие действий третьих лиц, изменений законодательства, цен, расписаний, погодных условий, решений государственных органов и иных обстоятельств.</p></div>
+          <div class="offer-point"><p><strong>11.2.</strong> Материалы имеют информационный и рекомендательный характер и не являются обязательными инструкциями.</p></div>
+          <div class="offer-point">
+            <p><strong>11.3.</strong> Исполнитель не гарантирует неизменность:</p>
+            <ul>
+              <li>цен;</li>
+              <li>режима работы организаций;</li>
+              <li>расписаний;</li>
+              <li>контактных данных;</li>
+              <li>визовых, миграционных и иных требований;</li>
+              <li>погодных и иных внешних условий.</li>
+            </ul>
+          </div>
+          <div class="offer-point"><p><strong>11.4.</strong> Исполнитель не отвечает за действия гостиниц, ресторанов, перевозчиков, медицинских учреждений, государственных органов, обменных пунктов, такси и иных третьих лиц.</p></div>
+          <div class="offer-point"><p><strong>11.5.</strong> Сервис не заменяет профессиональную медицинскую, юридическую, страховую или иную консультацию.</p></div>
+          <div class="offer-point"><p><strong>11.6.</strong> Исполнитель не отвечает за невозможность использования Сервиса по причинам, находящимся вне его разумного контроля, включая отсутствие Интернета, неисправность устройства, ограничения операторов связи и сбои сторонних сервисов.</p></div>
+          <div class="offer-point"><p><strong>11.7.</strong> Пользователь самостоятельно отвечает за соблюдение законодательства государства пребывания и за решения, принятые на основании материалов Сервиса.</p></div>
+          <div class="offer-point"><p><strong>11.8.</strong> Ничто в настоящей Оферте не исключает и не ограничивает ответственность Исполнителя в случаях, когда такое ограничение запрещено законодательством.</p></div>
+        </div>
+      </article>
+
+      <article class="offer-chapter" id="chapter-12" data-number="12">
+        <div class="offer-chapter-head">
+          <div class="offer-chapter-index">12</div>
+          <h2 class="offer-chapter-title">Возврат денежных средств</h2>
+        </div>
+
+        <div class="offer-chapter-body">
+          <div class="offer-point"><p><strong>12.1.</strong> Порядок возврата определяется настоящей Офертой, законодательством Российской Федерации и правилами платежного оператора.</p></div>
+          <div class="offer-point"><p><strong>12.2.</strong> Неиспользование доступа, изменение личных планов, досрочный отъезд, изменение маршрута или отсутствие времени на использование Сервиса сами по себе не являются основанием для возврата, если иное не предусмотрено законом.</p></div>
+          <div class="offer-point">
+            <p><strong>12.3.</strong> При подтвержденном техническом сбое по вине Исполнителя, когда доступ не был предоставлен или объективно не мог быть использован, Исполнитель рассматривает вопрос о:</p>
+            <ul>
+              <li>восстановлении доступа;</li>
+              <li>продлении доступа;</li>
+              <li>ином способе исполнения;</li>
+              <li>возврате денежных средств с учетом обстоятельств и требований закона.</li>
+            </ul>
+          </div>
+          <div class="offer-point"><p><strong>12.4.</strong> Возврат осуществляется тем же способом, которым была произведена оплата, если иное не предусмотрено законом или правилами платежного оператора.</p></div>
+          <div class="offer-point"><p><strong>12.5.</strong> Исполнитель вправе запросить сведения, необходимые для проверки факта оплаты и обстоятельств обращения.</p></div>
+          <div class="offer-point"><p><strong>12.6.</strong> Программы лояльности, бонусные программы и специальные предложения регулируются отдельными правилами и не являются безусловным правом на возврат стоимости доступа.</p></div>
+          <div class="offer-point"><p><strong>12.7.</strong> Ничто в настоящей главе не ограничивает права Пользователя, которые не могут быть ограничены соглашением сторон.</p></div>
+        </div>
+      </article>
+
+      <article class="offer-chapter" id="chapter-13" data-number="13">
+        <div class="offer-chapter-head">
+          <div class="offer-chapter-index">13</div>
+          <h2 class="offer-chapter-title">Персональные данные</h2>
+        </div>
+
+        <div class="offer-chapter-body">
+          <div class="offer-point"><p><strong>13.1.</strong> Для исполнения договора Исполнитель обрабатывает персональные данные в объеме, необходимом для авторизации, предоставления доступа, обработки платежей, поддержки, безопасности и соблюдения требований законодательства.</p></div>
+          <div class="offer-point"><p><strong>13.2.</strong> Подробный порядок обработки определяется Политикой обработки персональных данных.</p></div>
+          <div class="offer-point"><p><strong>13.3.</strong> В случаях, когда требуется отдельное согласие, Пользователь выражает его посредством интерфейса Сервиса.</p></div>
+          <div class="offer-point"><p><strong>13.4.</strong> Исполнитель принимает разумные организационные и технические меры для защиты персональных данных.</p></div>
+          <div class="offer-point"><p><strong>13.5.</strong> Пользователь вправе реализовать свои права в области персональных данных путем обращения к Исполнителю.</p></div>
+        </div>
+      </article>
+
+      <article class="offer-chapter" id="chapter-14" data-number="14">
+        <div class="offer-chapter-head">
+          <div class="offer-chapter-index">14</div>
+          <h2 class="offer-chapter-title">Изменение условий Сервиса и Оферты</h2>
+        </div>
+
+        <div class="offer-chapter-body">
+          <div class="offer-point"><p><strong>14.1.</strong> Исполнитель вправе развивать Сервис, изменять его функциональность, дизайн, структуру, способы оплаты и перечень материалов.</p></div>
+          <div class="offer-point">
+            <p><strong>14.2.</strong> Исполнитель вправе внедрять:</p>
+            <ul>
+              <li>новые Тарифы;</li>
+              <li>подписки;</li>
+              <li>новые способы оплаты;</li>
+              <li>программы лояльности;</li>
+              <li>партнерские программы;</li>
+              <li>новые страны;</li>
+              <li>новые языковые версии;</li>
+              <li>новые функции и цифровые сервисы.</li>
+            </ul>
+          </div>
+          <div class="offer-point"><p><strong>14.3.</strong> Новая редакция Оферты применяется к отношениям, возникшим после даты ее вступления в силу, если иное прямо не установлено новой редакцией или законом.</p></div>
+          <div class="offer-point"><p><strong>14.4.</strong> Изменения не должны ухудшать объем уже оплаченных прав Пользователя в пределах текущего периода доступа, кроме случаев, предусмотренных законодательством.</p></div>
+          <div class="offer-point"><p><strong>14.5.</strong> Актуальная редакция всегда размещается в Юридическом центре.</p></div>
+        </div>
+      </article>
+
+      <article class="offer-chapter" id="chapter-15" data-number="15">
+        <div class="offer-chapter-head">
+          <div class="offer-chapter-index">15</div>
+          <h2 class="offer-chapter-title">Заключительные положения</h2>
+        </div>
+
+        <div class="offer-chapter-body">
+          <div class="offer-point"><p><strong>15.1.</strong> Оферта вступает в силу с даты публикации и действует до ее отзыва или замены новой редакцией.</p></div>
+          <div class="offer-point"><p><strong>15.2.</strong> Во всем, что не урегулировано Офертой, стороны руководствуются законодательством Российской Федерации.</p></div>
+          <div class="offer-point"><p><strong>15.3.</strong> Недействительность отдельного положения не влияет на действительность остальных положений.</p></div>
+          <div class="offer-point"><p><strong>15.4.</strong> Уведомления могут направляться посредством интерфейса Сервиса, электронной почты или иными предусмотренными законом способами.</p></div>
+          <div class="offer-point"><p><strong>15.5.</strong> Настоящая Оферта составлена на русском языке. При наличии переводов приоритет имеет текст на русском языке, если иное установлено законом.</p></div>
+          <div class="offer-point"><p><strong>15.6.</strong> Споры стороны стремятся урегулировать путем переговоров, а при недостижении соглашения — в порядке, установленном законодательством Российской Федерации.</p></div>
+
+          <div class="offer-contact">
+            <p><strong>Исполнитель:</strong> Баева Мария Сергеевна</p>
+            <p><strong>Статус:</strong> физическое лицо, применяющее специальный налоговый режим «Налог на профессиональный доход»</p>
+            <p><strong>ИНН:</strong> 732901387845</p>
+            <p><strong>E-mail:</strong> <a href="mailto:travel.app@bk.ru">travel.app@bk.ru</a></p>
+            <p><strong>Редакция:</strong> 1.0</p>
+            <p><strong>Дата публикации и вступления в силу:</strong> 11 июля 2026 года</p>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+
+    <section class="offer-final">
+      <div class="offer-final-label">Официальный документ</div>
+
+      <h2>
+        Публичная
+        <span>оферта</span>
+      </h2>
+
+      <div class="offer-final-meta">
+        <div>
+          <b>Исполнитель</b>
+          Баева Мария Сергеевна
+        </div>
+
+        <div>
+          <b>ИНН</b>
+          732901387845
+        </div>
+
+        <div>
+          <b>Редакция</b>
+          1.0
+        </div>
+
+        <div>
+          <b>E-mail</b>
+          travel.app@bk.ru
+        </div>
+      </div>
+
+      <a class="legal-button" href="index.html">
+        ← Вернуться в Юридический центр
+      </a>
+    </section>
+
+
+    <footer class="legal-footer">
+      <div class="legal-footer-links">
+        <a href="index.html">Юридический центр</a>
+        <a href="user-agreement.html">Пользовательское соглашение</a>
+        <a href="privacy-policy.html">Политика ПД</a>
+        <a href="personal-data-consent.html">Согласие</a>
+      </div>
+
+      <div>© <span data-current-year>2026</span> «Как Местный». Все права защищены.</div>
+      <div>Баева Мария Сергеевна · ИНН 732901387845</div>
+    </footer>
+
+  </main>
+
+  <button class="legal-to-top" type="button" aria-label="Вернуться наверх" aria-hidden="true">↑</button>
+
+  <script>
+    (() => {
+      const progressBar = document.getElementById('readingProgressBar');
+      const chapterLinks = [...document.querySelectorAll('[data-chapter-link]')];
+      const chapters = [...document.querySelectorAll('.offer-chapter')];
+
+      const updateProgress = () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / docHeight) * 100)) : 0;
+
+        if (progressBar) {
+          progressBar.style.width = progress + '%';
+        }
+
+        let activeId = '';
+
+        for (const chapter of chapters) {
+          const top = chapter.getBoundingClientRect().top;
+
+          if (top <= 150) {
+            activeId = chapter.id;
+          }
+        }
+
+        chapterLinks.forEach((link) => {
+          link.classList.toggle(
+            'is-active',
+            activeId && link.getAttribute('href') === '#' + activeId
+          );
+        });
+      };
+
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      window.addEventListener('resize', updateProgress);
+      updateProgress();
+    })();
+  </script>
+
+</body>
+</html>

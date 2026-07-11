@@ -486,6 +486,220 @@
       .page { max-width: 760px; }
       .route-hero { min-height: 460px; }
     }
+
+    /* ===== LEGAL CONSENT POPUP ===== */
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    .legal-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .legal-modal.is-open {
+      display: flex;
+    }
+
+    .legal-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .legal-modal-dialog {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 460px);
+      max-height: calc(100vh - 36px);
+      overflow-y: auto;
+      padding: 22px;
+      border-radius: 28px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.11), rgba(255,255,255,0.035)),
+        rgba(8,8,8,0.96);
+      border: 1px solid rgba(255,224,138,0.42);
+      box-shadow:
+        0 36px 100px rgba(0,0,0,0.88),
+        0 0 48px rgba(214,161,59,0.18),
+        inset 0 1px 0 rgba(255,255,255,0.14);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+    }
+
+    .legal-modal-badge {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(214,161,59,0.12);
+      border: 1px solid rgba(255,224,138,0.24);
+      color: var(--gold-light);
+      font-size: 10px;
+      font-weight: 950;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .legal-modal-title {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.08;
+      font-weight: 1000;
+      letter-spacing: -0.5px;
+    }
+
+    .legal-modal-text {
+      margin: 10px 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .legal-checkbox-list {
+      display: grid;
+      gap: 11px;
+    }
+
+    .legal-checkbox {
+      position: relative;
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 11px;
+      align-items: start;
+      padding: 13px;
+      border-radius: 17px;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,224,138,0.12);
+      cursor: pointer;
+      transition: 0.22s ease;
+    }
+
+    .legal-checkbox:hover {
+      border-color: rgba(255,224,138,0.32);
+      background: rgba(214,161,59,0.06);
+    }
+
+    .legal-checkbox input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .legal-checkbox-box {
+      width: 22px;
+      height: 22px;
+      border-radius: 7px;
+      border: 1px solid rgba(255,224,138,0.42);
+      background: rgba(0,0,0,0.32);
+      display: grid;
+      place-items: center;
+      color: #050505;
+      font-size: 14px;
+      font-weight: 1000;
+      transition: 0.22s ease;
+    }
+
+    .legal-checkbox input:checked + .legal-checkbox-box {
+      background: linear-gradient(135deg, #fff3bf, #d6a13b, #8e5c14);
+      border-color: rgba(255,224,138,0.86);
+      box-shadow: 0 0 18px rgba(255,224,138,0.22);
+    }
+
+    .legal-checkbox input:checked + .legal-checkbox-box::after {
+      content: "✓";
+    }
+
+    .legal-checkbox-text {
+      color: rgba(248,244,234,0.9);
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+
+    .legal-checkbox-text a {
+      color: var(--gold-light);
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .legal-checkbox-text a:hover {
+      text-decoration: underline;
+    }
+
+    .legal-modal-actions {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .legal-modal-button {
+      min-height: 50px;
+      padding: 14px 16px;
+      border-radius: 17px;
+      border: none;
+      font-size: 14px;
+      font-weight: 1000;
+      cursor: pointer;
+      transition: 0.22s ease;
+    }
+
+    .legal-modal-button-secondary {
+      color: var(--white);
+      background: rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,224,138,0.2);
+    }
+
+    .legal-modal-button-primary {
+      color: #050505;
+      background: linear-gradient(135deg, #fff3bf 0%, #e3b24d 42%, #8e5c14 100%);
+      box-shadow:
+        0 15px 30px rgba(214,161,59,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.5);
+    }
+
+    .legal-modal-button-primary:disabled {
+      cursor: not-allowed;
+      opacity: 0.38;
+      filter: grayscale(0.5);
+      box-shadow: none;
+    }
+
+    .legal-modal-selected {
+      margin-top: 14px;
+      padding: 12px 13px;
+      border-radius: 15px;
+      color: var(--gold-light);
+      background: rgba(214,161,59,0.08);
+      border: 1px dashed rgba(255,224,138,0.28);
+      font-size: 12.5px;
+      line-height: 1.4;
+      font-weight: 850;
+    }
+
+    @media (max-width: 520px) {
+      .legal-modal-dialog {
+        padding: 19px;
+        border-radius: 24px;
+      }
+
+      .legal-modal-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .legal-modal-title {
+        font-size: 25px;
+      }
+    }
+
   </style>
 </head>
 
@@ -553,7 +767,7 @@
       Для короткой поездки и быстрого знакомства с городом.
     </div>
 
-    <a class="button" href="#" onclick="buyTariff('test'); return false;">
+    <a class="button" href="#" onclick="openLegalConsent('test'); return false;">
       Получить доступ
     </a>
   </div>
@@ -573,7 +787,7 @@
       Оптимально для классического отпуска в Нячанге.
     </div>
 
-    <a class="button" href="#" onclick="buyTariff('standard'); return false;">
+    <a class="button" href="#" onclick="openLegalConsent('standard'); return false;">
       Получить доступ
     </a>
   </div>
@@ -595,7 +809,7 @@
       Больше дней доступа за небольшую доплату.
     </div>
 
-    <a class="button" href="#" onclick="buyTariff('comfort'); return false;">
+    <a class="button" href="#" onclick="openLegalConsent('comfort'); return false;">
       Получить доступ
     </a>
   </div>
@@ -615,7 +829,7 @@
       Максимальный доступ ко всем материалам на месяц.
     </div>
 
-    <a class="button" href="#" onclick="buyTariff('razgul'); return false;">
+    <a class="button" href="#" onclick="openLegalConsent('razgul'); return false;">
       Получить доступ
     </a>
   </div>
@@ -684,7 +898,255 @@
 
   </main>
 
+  <!-- Legal consent popup -->
+  <div
+    class="legal-modal"
+    id="legalConsentModal"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="legalConsentTitle"
+  >
+    <div
+      class="legal-modal-backdrop"
+      onclick="closeLegalConsent()"
+      aria-hidden="true"
+    ></div>
+
+    <div class="legal-modal-dialog">
+      <div class="legal-modal-badge">Перед оплатой</div>
+
+      <h2 class="legal-modal-title" id="legalConsentTitle">
+        Подтвердите ознакомление
+      </h2>
+
+      <p class="legal-modal-text">
+        Для продолжения необходимо принять обязательные документы сервиса.
+      </p>
+
+      <div class="legal-checkbox-list">
+
+        <label class="legal-checkbox">
+          <input
+            type="checkbox"
+            id="acceptOffer"
+            onchange="updateLegalConsentState()"
+          />
+          <span class="legal-checkbox-box" aria-hidden="true"></span>
+          <span class="legal-checkbox-text">
+            Я принимаю условия
+            <a
+              href="legal/offer.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              onclick="event.stopPropagation()"
+            >
+              Публичной оферты
+            </a>
+          </span>
+        </label>
+
+        <label class="legal-checkbox">
+          <input
+            type="checkbox"
+            id="acceptAgreement"
+            onchange="updateLegalConsentState()"
+          />
+          <span class="legal-checkbox-box" aria-hidden="true"></span>
+          <span class="legal-checkbox-text">
+            Я принимаю
+            <a
+              href="legal/user-agreement.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              onclick="event.stopPropagation()"
+            >
+              Пользовательское соглашение
+            </a>
+          </span>
+        </label>
+
+        <label class="legal-checkbox">
+          <input
+            type="checkbox"
+            id="acceptPrivacy"
+            onchange="updateLegalConsentState()"
+          />
+          <span class="legal-checkbox-box" aria-hidden="true"></span>
+          <span class="legal-checkbox-text">
+            Я ознакомился с
+            <a
+              href="legal/privacy-policy.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              onclick="event.stopPropagation()"
+            >
+              Политикой обработки персональных данных
+            </a>
+          </span>
+        </label>
+
+        <label class="legal-checkbox">
+          <input
+            type="checkbox"
+            id="acceptPersonalData"
+            onchange="updateLegalConsentState()"
+          />
+          <span class="legal-checkbox-box" aria-hidden="true"></span>
+          <span class="legal-checkbox-text">
+            Я даю
+            <a
+              href="legal/personal-data-consent.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              onclick="event.stopPropagation()"
+            >
+              Согласие на обработку персональных данных
+            </a>
+          </span>
+        </label>
+
+      </div>
+
+      <div class="legal-modal-selected" id="legalSelectedTariff">
+        Выбранный тариф будет указан здесь.
+      </div>
+
+      <div class="legal-modal-actions">
+        <button
+          class="legal-modal-button legal-modal-button-secondary"
+          type="button"
+          onclick="closeLegalConsent()"
+        >
+          Отмена
+        </button>
+
+        <button
+          class="legal-modal-button legal-modal-button-primary"
+          id="continuePaymentButton"
+          type="button"
+          onclick="continueAfterLegalConsent()"
+          disabled
+        >
+          Продолжить оплату
+        </button>
+      </div>
+    </div>
+  </div>
+
+
 <script>
+
+let pendingTariff = null;
+
+const tariffLabels = {
+  test: 'Тест-драйв — 3 дня — 599 ₽',
+  standard: 'Стандарт — 6 дней — 899 ₽',
+  comfort: 'Комфорт — 10 дней — 1200 ₽',
+  razgul: 'Разгул — 30 дней — 2500 ₽'
+};
+
+function openLegalConsent(tariff) {
+  const userId = getTelegramUserId();
+
+  if (!userId) {
+    alert('Не найден Telegram ID. Откройте оплату через приложение.');
+    return;
+  }
+
+  pendingTariff = tariff;
+
+  const modal = document.getElementById('legalConsentModal');
+  const selected = document.getElementById('legalSelectedTariff');
+
+  resetLegalConsentCheckboxes();
+
+  if (selected) {
+    selected.textContent = 'Выбранный тариф: ' + (tariffLabels[tariff] || tariff);
+  }
+
+  modal.classList.add('is-open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+
+  setTimeout(() => {
+    document.getElementById('acceptOffer')?.focus();
+  }, 100);
+}
+
+function closeLegalConsent() {
+  const modal = document.getElementById('legalConsentModal');
+
+  if (!modal) return;
+
+  modal.classList.remove('is-open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+  pendingTariff = null;
+  resetLegalConsentCheckboxes();
+}
+
+function resetLegalConsentCheckboxes() {
+  const ids = [
+    'acceptOffer',
+    'acceptAgreement',
+    'acceptPrivacy',
+    'acceptPersonalData'
+  ];
+
+  ids.forEach((id) => {
+    const checkbox = document.getElementById(id);
+    if (checkbox) checkbox.checked = false;
+  });
+
+  updateLegalConsentState();
+}
+
+function updateLegalConsentState() {
+  const requiredIds = [
+    'acceptOffer',
+    'acceptAgreement',
+    'acceptPrivacy',
+    'acceptPersonalData'
+  ];
+
+  const allAccepted = requiredIds.every((id) => {
+    const checkbox = document.getElementById(id);
+    return checkbox && checkbox.checked;
+  });
+
+  const button = document.getElementById('continuePaymentButton');
+
+  if (button) {
+    button.disabled = !allAccepted;
+  }
+
+  return allAccepted;
+}
+
+function continueAfterLegalConsent() {
+  if (!pendingTariff || !updateLegalConsentState()) {
+    return;
+  }
+
+  const tariff = pendingTariff;
+
+  const modal = document.getElementById('legalConsentModal');
+  modal?.classList.remove('is-open');
+  modal?.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+
+  pendingTariff = null;
+
+  buyTariff(tariff);
+}
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    closeLegalConsent();
+  }
+});
+
 function getTelegramUserId() {
   const params = new URLSearchParams(window.location.search);
   const idFromUrl = params.get('id') || params.get('tgid');

@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+
+  <title>Согласие на обработку персональных данных — Как Местный</title>
+
+  <meta
+    name="description"
+    content="Согласие на обработку персональных данных цифрового информационного сервиса «Как Местный»."
+  />
+
+  <link rel="stylesheet" href="legal.css" />
+  <script src="legal.js" defer></script>
+
+  <style>
+    .doc-hero {
+      min-height: 78vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      border: 1px solid rgba(255,224,138,.32);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.46) 48%, rgba(0,0,0,.94) 100%),
+        url("https://images.unsplash.com/photo-1542259009477-d625272157b7?auto=format&fit=crop&w=1600&q=88");
+      background-size: cover;
+      background-position: center;
+      box-shadow:
+        0 36px 100px rgba(0,0,0,.75),
+        0 0 56px rgba(214,161,59,.13),
+        inset 0 1px 0 rgba(255,255,255,.12);
+    }
+
+    .doc-hero::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 76% 18%, rgba(255,224,138,.28), transparent 26%),
+        linear-gradient(90deg, rgba(0,0,0,.82) 0%, rgba(0,0,0,.38) 58%, rgba(0,0,0,.12) 100%);
+      pointer-events:none;
+    }
+
+    .doc-hero::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(115deg, transparent 0%, rgba(255,255,255,.08) 43%, transparent 62%);
+      transform:translateX(-120%);
+      animation:docShine 7s infinite;
+      pointer-events:none;
+    }
+
+    @keyframes docShine {
+      0% { transform:translateX(-120%); }
+      40% { transform:translateX(120%); }
+      100% { transform:translateX(120%); }
+    }
+
+    .doc-hero-inner {
+      position:relative;
+      z-index:2;
+      width:100%;
+      max-width:760px;
+    }
+
+    .doc-live-status {
+      position:absolute;
+      top:22px;
+      right:22px;
+      z-index:3;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 12px;
+      border-radius:999px;
+      background:rgba(0,0,0,.46);
+      border:1px solid rgba(158,232,191,.34);
+      color:#b8f2d0;
+      font-size:11px;
+      font-weight:950;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+      backdrop-filter:blur(14px);
+    }
+
+    .doc-live-status::before {
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:#9ee8bf;
+      box-shadow:0 0 14px rgba(158,232,191,.75);
+    }
+
+    .doc-eyebrow {
+      display:inline-flex;
+      padding:8px 14px;
+      border-radius:999px;
+      background:linear-gradient(135deg,#fff3bf,#d6a13b,#8e5c14);
+      color:#050505;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-size:11px;
+      font-weight:1000;
+      box-shadow:0 0 28px rgba(255,224,138,.25);
+    }
+
+    .doc-title {
+      margin:18px 0 14px;
+      font-size:clamp(40px,7.4vw,72px);
+      line-height:.95;
+      letter-spacing:-2.2px;
+      text-transform:uppercase;
+      font-weight:1000;
+      text-wrap:balance;
+    }
+
+    .doc-title span {
+      display:block;
+      color:var(--gold-light);
+      text-shadow:0 0 36px rgba(255,224,138,.22);
+    }
+
+    .doc-lead {
+      margin:0;
+      max-width:670px;
+      color:rgba(248,244,234,.88);
+      font-size:17px;
+      line-height:1.58;
+    }
+
+    .doc-status-grid {
+      margin-top:24px;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .doc-status {
+      padding:14px;
+      border-radius:18px;
+      background:rgba(0,0,0,.42);
+      border:1px solid rgba(255,224,138,.18);
+      backdrop-filter:blur(14px);
+    }
+
+    .doc-status b {
+      display:block;
+      color:var(--gold-light);
+      font-size:11px;
+      letter-spacing:.9px;
+      text-transform:uppercase;
+      margin-bottom:4px;
+    }
+
+    .doc-status span {
+      font-size:13px;
+      line-height:1.35;
+      color:#fff;
+    }
+
+    .doc-update {
+      margin-top:12px;
+      color:rgba(248,244,234,.66);
+      font-size:12.5px;
+      font-weight:800;
+    }
+
+    .doc-scroll {
+      margin-top:22px;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      color:var(--gold-light);
+      font-size:13px;
+      font-weight:900;
+    }
+
+    .doc-scroll i {
+      width:34px;
+      height:34px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      border:1px solid rgba(255,224,138,.3);
+      background:rgba(0,0,0,.34);
+      font-style:normal;
+    }
+
+    .doc-summary,
+    .doc-nav {
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+    }
+
+    .doc-summary-card,
+    .doc-nav-card {
+      position:relative;
+      overflow:hidden;
+      padding:20px;
+      border-radius:26px;
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025)),
+        rgba(8,8,8,.9);
+      border:1px solid rgba(255,224,138,.2);
+      box-shadow:0 22px 60px rgba(0,0,0,.48);
+    }
+
+    .doc-summary-card { min-height:170px; }
+    .doc-nav-card { display:block; min-height:145px; transition:.25s ease; }
+
+    .doc-summary-card::before,
+    .doc-nav-card::before {
+      content:"";
+      position:absolute;
+      width:160px;
+      height:160px;
+      right:-70px;
+      top:-70px;
+      background:radial-gradient(circle,rgba(255,224,138,.17),transparent 70%);
+    }
+
+    .doc-nav-card:hover {
+      transform:translateY(-3px);
+      border-color:rgba(255,224,138,.48);
+      text-decoration:none;
+    }
+
+    .doc-kicker,
+    .doc-nav-no {
+      position:relative;
+      z-index:1;
+      color:var(--gold-light);
+      font-size:11px;
+      font-weight:950;
+      letter-spacing:1px;
+      text-transform:uppercase;
+    }
+
+    .doc-summary-title,
+    .doc-nav-title {
+      position:relative;
+      z-index:1;
+      margin-top:12px;
+      color:#fff;
+      font-size:20px;
+      line-height:1.12;
+      font-weight:1000;
+    }
+
+    .doc-summary-text {
+      position:relative;
+      z-index:1;
+      margin-top:10px;
+      color:var(--muted);
+      font-size:13.5px;
+      line-height:1.5;
+    }
+
+    .doc-nav-arrow {
+      position:absolute;
+      right:16px;
+      bottom:14px;
+      color:var(--gold-light);
+      font-size:20px;
+    }
+
+    .doc-sticky-nav {
+      position:sticky;
+      top:82px;
+      z-index:18;
+      margin-top:16px;
+      padding:10px;
+      display:flex;
+      gap:7px;
+      overflow-x:auto;
+      scrollbar-width:none;
+      border-radius:18px;
+      background:rgba(8,8,8,.78);
+      border:1px solid rgba(255,224,138,.18);
+      box-shadow:0 16px 44px rgba(0,0,0,.42);
+      backdrop-filter:blur(16px);
+    }
+
+    .doc-sticky-nav::-webkit-scrollbar { display:none; }
+
+    .doc-sticky-nav a {
+      flex:0 0 auto;
+      min-width:38px;
+      height:38px;
+      display:grid;
+      place-items:center;
+      padding:0 10px;
+      border-radius:12px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,224,138,.1);
+      color:rgba(248,244,234,.78);
+      font-size:12px;
+      font-weight:950;
+    }
+
+    .doc-sticky-nav a:hover,
+    .doc-sticky-nav a.is-active {
+      color:#050505;
+      text-decoration:none;
+      background:linear-gradient(135deg,#fff3bf,#d6a13b,#8e5c14);
+    }
+
+    .doc-body {
+      margin-top:18px;
+      display:grid;
+      gap:16px;
+    }
+
+    .doc-chapter {
+      position:relative;
+      overflow:hidden;
+      padding:28px;
+      border-radius:30px;
+      border-left:3px solid rgba(214,161,59,.58);
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.022)),
+        rgba(8,8,8,.88);
+      border-top:1px solid rgba(255,224,138,.18);
+      border-right:1px solid rgba(255,224,138,.18);
+      border-bottom:1px solid rgba(255,224,138,.18);
+      box-shadow:0 24px 60px rgba(0,0,0,.46);
+      scroll-margin-top:100px;
+    }
+
+    .doc-chapter::before {
+      content:attr(data-number);
+      position:absolute;
+      top:-18px;
+      right:16px;
+      font-size:112px;
+      line-height:1;
+      font-weight:1000;
+      color:rgba(255,224,138,.055);
+      letter-spacing:-8px;
+      pointer-events:none;
+    }
+
+    .doc-chapter-head {
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:flex-start;
+      gap:16px;
+      margin-bottom:20px;
+    }
+
+    .doc-index {
+      flex:0 0 auto;
+      width:46px;
+      height:46px;
+      display:grid;
+      place-items:center;
+      border-radius:15px;
+      background:linear-gradient(135deg,#fff2bc,#d6a13b,#8e5c14);
+      color:#050505;
+      font-size:14px;
+      font-weight:1000;
+    }
+
+    .doc-chapter-title {
+      margin:0;
+      color:var(--gold-light);
+      font-size:28px;
+      line-height:1.08;
+      font-weight:1000;
+    }
+
+    .doc-point {
+      padding:16px 0;
+      border-top:1px solid rgba(255,224,138,.10);
+    }
+
+    .doc-point:first-child { padding-top:0; border-top:none; }
+
+    .doc-point::before {
+      content:"";
+      display:block;
+      width:42px;
+      height:1px;
+      margin-bottom:12px;
+      background:linear-gradient(90deg,rgba(255,224,138,.7),transparent);
+    }
+
+    .doc-point:first-child::before { display:none; }
+
+    .doc-point p,
+    .doc-point li {
+      color:rgba(248,244,234,.91);
+      font-size:15.5px;
+      line-height:1.72;
+    }
+
+    .doc-point p { margin:0 0 12px; }
+    .doc-point p:last-child { margin-bottom:0; }
+    .doc-point ul,
+    .doc-point ol { margin:8px 0 0; padding-left:22px; }
+    .doc-point li { margin:7px 0; }
+    .doc-point strong { color:#fff; }
+
+    .doc-note {
+      margin-top:14px;
+      padding:16px;
+      border-radius:18px;
+      color:var(--gold-light);
+      background:rgba(214,161,59,.08);
+      border:1px dashed rgba(255,224,138,.34);
+      font-size:13.5px;
+      line-height:1.55;
+    }
+
+    .doc-final {
+      margin-top:18px;
+      padding:30px;
+      border-radius:32px;
+      text-align:center;
+      background:
+        radial-gradient(circle at 50% 0%,rgba(255,224,138,.16),transparent 36%),
+        linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025)),
+        rgba(8,8,8,.9);
+      border:1px solid rgba(255,224,138,.28);
+      box-shadow:0 30px 80px rgba(0,0,0,.62);
+    }
+
+    .doc-final-label {
+      color:var(--gold-light);
+      font-size:11px;
+      font-weight:950;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+    }
+
+    .doc-final h2 {
+      margin:12px 0 8px;
+      font-size:clamp(31px,5vw,50px);
+      line-height:1;
+      text-transform:uppercase;
+      font-weight:1000;
+    }
+
+    .doc-final h2 span {
+      display:block;
+      color:var(--gold-light);
+    }
+
+    .doc-final-meta {
+      margin:18px auto 0;
+      max-width:560px;
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px;
+    }
+
+    .doc-final-meta div {
+      padding:14px;
+      border-radius:17px;
+      background:rgba(0,0,0,.35);
+      border:1px solid rgba(255,224,138,.14);
+      color:rgba(248,244,234,.86);
+      font-size:13.5px;
+    }
+
+    .doc-final-meta b {
+      display:block;
+      margin-bottom:4px;
+      color:var(--gold-light);
+      font-size:10.5px;
+      letter-spacing:.8px;
+      text-transform:uppercase;
+    }
+
+    .doc-final .legal-button {
+      margin-top:18px;
+      width:min(100%,360px);
+    }
+
+    .reading-progress {
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:2000;
+      width:100%;
+      height:3px;
+      background:rgba(255,255,255,.04);
+      pointer-events:none;
+    }
+
+    .reading-progress-bar {
+      width:0;
+      height:100%;
+      background:linear-gradient(90deg,#8e5c14,#ffe08a,#d6a13b);
+      box-shadow:0 0 18px rgba(255,224,138,.55);
+    }
+
+    @media(max-width:760px) {
+      .doc-hero {
+        min-height:720px;
+        padding:24px 20px;
+      }
+
+      .doc-status-grid,
+      .doc-summary,
+      .doc-nav,
+      .doc-final-meta {
+        grid-template-columns:1fr;
+      }
+
+      .doc-live-status {
+        top:16px;
+        right:16px;
+      }
+
+      .doc-title {
+        font-size:39px;
+        letter-spacing:-1.5px;
+      }
+
+      .doc-chapter {
+        padding:21px;
+      }
+
+      .doc-chapter-title {
+        font-size:23px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="reading-progress" aria-hidden="true">
+    <div class="reading-progress-bar" id="readingProgressBar"></div>
+  </div>
+
+  <main class="legal-page">
+
+    <header class="legal-topbar">
+      <div class="legal-brand">
+        <div class="legal-brand-mark" aria-hidden="true">⌖</div>
+        <div class="legal-brand-text">КАК<br />МЕСТНЫЙ</div>
+      </div>
+
+      <a class="legal-back" href="index.html">← Юридический центр</a>
+    </header>
+
+    <section class="doc-hero">
+      <div class="doc-live-status">Согласие актуально</div>
+
+      <div class="doc-hero-inner">
+        <div class="doc-eyebrow">Отдельное согласие</div>
+
+        <h1 class="doc-title">
+          Согласие на обработку
+          <span>персональных данных</span>
+        </h1>
+
+        <p class="doc-lead">
+          Электронное согласие Пользователя на обработку данных, необходимых
+          для авторизации, оплаты, предоставления доступа, поддержки и безопасности.
+        </p>
+
+        <div class="doc-status-grid">
+          <div class="doc-status">
+            <b>Редакция</b>
+            <span>1.0</span>
+          </div>
+
+          <div class="doc-status">
+            <b>Дата вступления</b>
+            <span>11 июля 2026</span>
+          </div>
+
+          <div class="doc-status">
+            <b>Оператор</b>
+            <span>Баева Мария Сергеевна</span>
+          </div>
+        </div>
+
+        <div class="doc-update">Последнее обновление · 11 июля 2026 года</div>
+
+        <a class="doc-scroll" href="#contents">
+          <i>↓</i>
+          Читать согласие
+        </a>
+      </div>
+    </section>
+
+    <section class="doc-summary" aria-label="Ключевые положения">
+      <article class="doc-summary-card">
+        <div class="doc-kicker">Форма</div>
+        <div class="doc-summary-title">Электронное подтверждение</div>
+        <div class="doc-summary-text">
+          Согласие выражается отдельной обязательной галочкой перед оплатой.
+        </div>
+      </article>
+
+      <article class="doc-summary-card">
+        <div class="doc-kicker">Фиксация</div>
+        <div class="doc-summary-title">Версия и время</div>
+        <div class="doc-summary-text">
+          Система фиксирует идентификатор Пользователя, дату, время и версию документа.
+        </div>
+      </article>
+
+      <article class="doc-summary-card">
+        <div class="doc-kicker">Отзыв</div>
+        <div class="doc-summary-title">Письменное обращение</div>
+        <div class="doc-summary-text">
+          Пользователь вправе отозвать согласие по официальному адресу Оператора.
+        </div>
+      </article>
+    </section>
+
+    <section class="doc-nav" id="contents" aria-label="Разделы согласия">
+      <a class="doc-nav-card" href="#chapter-01">
+        <div class="doc-nav-no">01</div>
+        <div class="doc-nav-title">Кто дает согласие</div>
+        <div class="doc-nav-arrow">→</div>
+      </a>
+
+      <a class="doc-nav-card" href="#chapter-02">
+        <div class="doc-nav-no">02</div>
+        <div class="doc-nav-title">Какие данные</div>
+        <div class="doc-nav-arrow">→</div>
+      </a>
+
+      <a class="doc-nav-card" href="#chapter-03">
+        <div class="doc-nav-no">03</div>
+        <div class="doc-nav-title">Цели обработки</div>
+        <div class="doc-nav-arrow">→</div>
+      </a>
+
+      <a class="doc-nav-card" href="#chapter-04">
+        <div class="doc-nav-no">04</div>
+        <div class="doc-nav-title">Разрешенные действия</div>
+        <div class="doc-nav-arrow">→</div>
+      </a>
+
+      <a class="doc-nav-card" href="#chapter-06">
+        <div class="doc-nav-no">06</div>
+        <div class="doc-nav-title">Срок и отзыв</div>
+        <div class="doc-nav-arrow">→</div>
+      </a>
+
+      <a class="doc-nav-card" href="#chapter-08">
+        <div class="doc-nav-no">08</div>
+        <div class="doc-nav-title">Контакты Оператора</div>
+        <div class="doc-nav-arrow">→</div>
+      </a>
+    </section>
+
+    <nav class="doc-sticky-nav" aria-label="Быстрая навигация по разделам">
+      <a href="#chapter-01" data-chapter-link="01">01</a>
+      <a href="#chapter-02" data-chapter-link="02">02</a>
+      <a href="#chapter-03" data-chapter-link="03">03</a>
+      <a href="#chapter-04" data-chapter-link="04">04</a>
+      <a href="#chapter-05" data-chapter-link="05">05</a>
+      <a href="#chapter-06" data-chapter-link="06">06</a>
+      <a href="#chapter-07" data-chapter-link="07">07</a>
+      <a href="#chapter-08" data-chapter-link="08">08</a>
+    </nav>
+
+    <section class="doc-body">
+
+      <article class="doc-chapter" id="chapter-01" data-number="01">
+        <div class="doc-chapter-head">
+          <div class="doc-index">01</div>
+          <h2 class="doc-chapter-title">Общие положения и выражение согласия</h2>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>1.1.</strong> Пользователь цифрового информационного сервиса «Как Местный», действуя свободно, своей волей и в своем интересе, предоставляет Баевой Марии Сергеевне, ИНН 732901387845, применяющей специальный налоговый режим «Налог на профессиональный доход», далее — «Оператор», согласие на обработку персональных данных на условиях настоящего документа.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>1.2.</strong> Согласие является конкретным, предметным, информированным, сознательным и однозначным.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>1.3.</strong> Согласие оформляется отдельно от Публичной оферты, Пользовательского соглашения и иных документов и подтверждается отдельным действием Пользователя в интерфейсе Сервиса.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>1.4.</strong> Подтверждением согласия является установка Пользователем обязательной галочки рядом с текстом согласия и последующее нажатие кнопки продолжения оплаты либо иное равнозначное однозначное действие.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>1.5.</strong> Молчание, бездействие или заранее установленная галочка не считаются согласием.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>1.6.</strong> Пользователь подтверждает, что ознакомился с Политикой обработки персональных данных и понимает цели, состав, способы и условия обработки.</p>
+        </div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-02" data-number="02">
+        <div class="doc-chapter-head">
+          <div class="doc-index">02</div>
+          <h2 class="doc-chapter-title">Перечень персональных данных</h2>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>2.1.</strong> Пользователь дает согласие на обработку следующих данных:</p>
+          <ul>
+            <li>Telegram ID;</li>
+            <li>отображаемое имя;</li>
+            <li>username, если он установлен;</li>
+            <li>ссылка на фотографию профиля или фотография профиля, если она доступна;</li>
+            <li>дата и время регистрации и входа;</li>
+            <li>реферальный идентификатор;</li>
+            <li>ответы на квиз, включая продолжительность поездки, уровень бюджета и состав путешественников;</li>
+            <li>сведения о выбранном Тарифе, сроке и статусе доступа;</li>
+            <li>идентификатор, сумма, статус и дата платежа;</li>
+            <li>идентификатор и статус возврата;</li>
+            <li>сведения об участии в реферальной программе и программе лояльности;</li>
+            <li>содержание обращений в службу поддержки;</li>
+            <li>адрес электронной почты, если Пользователь сообщает его самостоятельно;</li>
+            <li>IP-адрес и иные технические данные, необходимые для работы и безопасности Сервиса.</li>
+          </ul>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>2.2.</strong> Согласие не распространяется на полные реквизиты банковской карты, которые обрабатываются платежным оператором и не передаются Оператору в полном объеме.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>2.3.</strong> Оператор не запрашивает специальные категории персональных данных и биометрические персональные данные.</p>
+        </div>
+
+        <div class="doc-note">
+          Пользователю не следует самостоятельно направлять избыточные сведения, документы, паспортные данные или медицинскую информацию, если это не требуется для конкретного обращения.
+        </div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-03" data-number="03">
+        <div class="doc-chapter-head">
+          <div class="doc-index">03</div>
+          <h2 class="doc-chapter-title">Цели обработки</h2>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>3.1.</strong> Согласие предоставляется для следующих целей:</p>
+          <ul>
+            <li>идентификация и авторизация Пользователя;</li>
+            <li>создание и сопровождение учетной записи;</li>
+            <li>сохранение входа и восстановление доступа;</li>
+            <li>предоставление, проверка и прекращение платного доступа;</li>
+            <li>исполнение Публичной оферты и Пользовательского соглашения;</li>
+            <li>создание платежей и учет результатов оплаты;</li>
+            <li>обработка запросов на возврат;</li>
+            <li>сохранение ответов на квиз;</li>
+            <li>работа реферальной программы и программы лояльности;</li>
+            <li>оказание поддержки и рассмотрение обращений;</li>
+            <li>предотвращение мошенничества и злоупотреблений;</li>
+            <li>обеспечение информационной безопасности;</li>
+            <li>диагностика и устранение технических ошибок;</li>
+            <li>исполнение обязанностей, установленных законодательством Российской Федерации.</li>
+          </ul>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>3.2.</strong> Использование данных для целей, несовместимых с указанными, требует отдельного законного основания или нового согласия.</p>
+        </div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-04" data-number="04">
+        <div class="doc-chapter-head">
+          <div class="doc-index">04</div>
+          <h2 class="doc-chapter-title">Перечень разрешенных действий</h2>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>4.1.</strong> Пользователь разрешает Оператору совершать следующие действия с персональными данными:</p>
+          <ul>
+            <li>сбор;</li>
+            <li>запись;</li>
+            <li>систематизация;</li>
+            <li>накопление;</li>
+            <li>хранение;</li>
+            <li>уточнение и обновление;</li>
+            <li>извлечение;</li>
+            <li>использование;</li>
+            <li>передача и предоставление в случаях, необходимых для заявленных целей;</li>
+            <li>обезличивание;</li>
+            <li>блокирование;</li>
+            <li>удаление;</li>
+            <li>уничтожение.</li>
+          </ul>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>4.2.</strong> Обработка может осуществляться автоматизированным способом, а при необходимости рассмотрения обращений или исполнения обязанностей — без использования средств автоматизации.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>4.3.</strong> Оператор вправе объединять сведения, полученные из официальных интерфейсов Сервиса, если это необходимо для достижения заявленных целей.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>4.4.</strong> Настоящее согласие не является согласием на распространение персональных данных неопределенному кругу лиц.</p>
+        </div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-05" data-number="05">
+        <div class="doc-chapter-head">
+          <div class="doc-index">05</div>
+          <h2 class="doc-chapter-title">Привлекаемые сервисы и получатели</h2>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>5.1.</strong> Пользователь соглашается, что для достижения заявленных целей Оператор вправе поручать обработку и предоставлять необходимый объем данных поставщикам инфраструктуры.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>5.2.</strong> К таким лицам и сервисам могут относиться:</p>
+          <ul>
+            <li>Telegram — для авторизации и получения данных профиля;</li>
+            <li>Firebase и иные используемые компоненты Google Cloud — для хранения, обработки и работы backend-функций;</li>
+            <li>ЮKassa — для приема платежей и возвратов;</li>
+            <li>GitHub Pages — для размещения публичных технических страниц;</li>
+            <li>поставщики электронной почты и технической поддержки;</li>
+            <li>подрядчики, обеспечивающие разработку, сопровождение и безопасность.</li>
+          </ul>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>5.3.</strong> Передается только объем данных, необходимый для выполнения соответствующей функции.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>5.4.</strong> Оператор вправе предоставлять данные государственным органам и иным лицам в случаях, предусмотренных законодательством.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>5.5.</strong> Оператор не продает персональные данные Пользователей.</p>
+        </div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-06" data-number="06">
+        <div class="doc-chapter-head">
+          <div class="doc-index">06</div>
+          <h2 class="doc-chapter-title">Срок действия и отзыв согласия</h2>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>6.1.</strong> Согласие действует с момента его электронного подтверждения до достижения целей обработки, прекращения оснований обработки либо получения Оператором отзыва согласия, если иное не предусмотрено законом.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>6.2.</strong> Пользователь вправе отозвать согласие путем направления обращения на адрес <a href="mailto:travel.app@bk.ru">travel.app@bk.ru</a>.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>6.3.</strong> В обращении рекомендуется указать имя, Telegram ID или username, суть требования и сведения, позволяющие идентифицировать учетную запись.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>6.4.</strong> Отзыв согласия не влияет на законность обработки, осуществленной до момента получения отзыва.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>6.5.</strong> После отзыва Оператор прекращает обработку и удаляет данные в предусмотренных законом случаях и сроки, если отсутствует иное законное основание для продолжения обработки.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>6.6.</strong> Отзыв согласия может привести к невозможности авторизации, предоставления доступа, участия в программах лояльности и использования иных функций, для которых эти данные необходимы.</p>
+        </div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-07" data-number="07">
+        <div class="doc-chapter-head">
+          <div class="doc-index">07</div>
+          <h2 class="doc-chapter-title">Фиксация электронного согласия</h2>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>7.1.</strong> Для подтверждения факта получения согласия Оператор вправе фиксировать:</p>
+          <ul>
+            <li>Telegram ID Пользователя;</li>
+            <li>факт установки обязательной галочки;</li>
+            <li>дату и время подтверждения;</li>
+            <li>версию настоящего Согласия;</li>
+            <li>версию Политики обработки персональных данных;</li>
+            <li>версию Публичной оферты;</li>
+            <li>технические сведения о странице или сценарии подтверждения;</li>
+            <li>результат записи подтверждения в информационной системе.</li>
+          </ul>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>7.2.</strong> Фиксация производится до перехода к оплате.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>7.3.</strong> При неуспешной записи обязательного подтверждения переход к оплате может быть заблокирован до устранения технической ошибки.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>7.4.</strong> Электронная запись используется для подтверждения версии документа и момента предоставления согласия.</p>
+        </div>
+      </article>
+
+      <article class="doc-chapter" id="chapter-08" data-number="08">
+        <div class="doc-chapter-head">
+          <div class="doc-index">08</div>
+          <h2 class="doc-chapter-title">Заключительные положения и контакты</h2>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>8.1.</strong> Настоящее Согласие применяется совместно с Политикой обработки персональных данных, Публичной офертой и Пользовательским соглашением.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>8.2.</strong> Оператор принимает разумные организационные и технические меры для защиты персональных данных.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>8.3.</strong> Пользователь вправе получать сведения об обработке, требовать уточнения, блокирования, удаления или уничтожения данных при наличии предусмотренных законом оснований.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>8.4.</strong> Обращения направляются по адресу электронной почты <a href="mailto:travel.app@bk.ru">travel.app@bk.ru</a>.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>8.5.</strong> Согласие составлено на русском языке. При наличии переводов приоритет имеет текст на русском языке, если иное не предусмотрено законом.</p>
+        </div>
+
+        <div class="doc-point">
+          <p><strong>8.6.</strong> Пользователь подтверждает, что до предоставления согласия ему была доступна информация об Операторе, целях, составе данных, действиях с данными, сроке действия согласия и порядке его отзыва.</p>
+        </div>
+      </article>
+
+    </section>
+
+    <section class="doc-final">
+      <div class="doc-final-label">Отдельное электронное согласие</div>
+
+      <h2>
+        Согласие на обработку
+        <span>персональных данных</span>
+      </h2>
+
+      <div class="doc-final-meta">
+        <div>
+          <b>Оператор</b>
+          Баева Мария Сергеевна
+        </div>
+
+        <div>
+          <b>ИНН</b>
+          732901387845
+        </div>
+
+        <div>
+          <b>Редакция</b>
+          1.0
+        </div>
+
+        <div>
+          <b>E-mail</b>
+          travel.app@bk.ru
+        </div>
+      </div>
+
+      <a class="legal-button" href="index.html">
+        ← Вернуться в Юридический центр
+      </a>
+    </section>
+
+    <footer class="legal-footer">
+      <div class="legal-footer-links">
+        <a href="index.html">Юридический центр</a>
+        <a href="offer.html">Публичная оферта</a>
+        <a href="user-agreement.html">Пользовательское соглашение</a>
+        <a href="privacy-policy.html">Политика ПД</a>
+      </div>
+
+      <div>
+        © <span data-current-year>2026</span>
+        «Как Местный». Все права защищены.
+      </div>
+
+      <div>
+        Баева Мария Сергеевна · ИНН 732901387845
+      </div>
+    </footer>
+
+  </main>
+
+  <button
+    class="legal-to-top"
+    type="button"
+    aria-label="Вернуться наверх"
+    aria-hidden="true"
+  >
+    ↑
+  </button>
+
+  <script>
+    (() => {
+      const progressBar = document.getElementById('readingProgressBar');
+      const links = [...document.querySelectorAll('[data-chapter-link]')];
+      const chapters = [...document.querySelectorAll('.doc-chapter')];
+
+      const update = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = max > 0
+          ? Math.min(100, Math.max(0, (window.scrollY / max) * 100))
+          : 0;
+
+        if (progressBar) {
+          progressBar.style.width = progress + '%';
+        }
+
+        let activeId = '';
+
+        for (const chapter of chapters) {
+          if (chapter.getBoundingClientRect().top <= 150) {
+            activeId = chapter.id;
+          }
+        }
+
+        links.forEach((link) => {
+          link.classList.toggle(
+            'is-active',
+            activeId && link.getAttribute('href') === '#' + activeId
+          );
+        });
+      };
+
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+  </script>
+</body>
+</html>

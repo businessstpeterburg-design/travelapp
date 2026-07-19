@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta name="theme-color" content="#080808">
+
+  <title>О проекте — Как Местный</title>
+
+  <style>
+    :root {
+      --background: #080808;
+      --surface: rgba(18, 18, 18, 0.88);
+      --surface-light: rgba(30, 30, 30, 0.82);
+
+      --gold: #d9b15f;
+      --gold-light: #f3d78f;
+      --gold-dark: #8f6924;
+
+      --tiffany: #39d2c0;
+      --white: #ffffff;
+      --text: #f4f0e7;
+      --muted: #c8c1b2;
+
+      --border-gold: rgba(217, 177, 95, 0.45);
+      --border-tiffany: rgba(57, 210, 192, 0.35);
+
+      --shadow:
+        0 20px 60px rgba(0, 0, 0, 0.65),
+        0 0 35px rgba(217, 177, 95, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--background);
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+      color: var(--text);
+      background:
+        radial-gradient(
+          circle at 12% 8%,
+          rgba(57, 210, 192, 0.13),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 88% 22%,
+          rgba(217, 177, 95, 0.14),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 50% 82%,
+          rgba(217, 177, 95, 0.08),
+          transparent 38%
+        ),
+        linear-gradient(
+          180deg,
+          #050505 0%,
+          #111111 48%,
+          #070707 100%
+        );
+
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+
+      background-image:
+        linear-gradient(
+          rgba(255, 255, 255, 0.016) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.016) 1px,
+          transparent 1px
+        );
+
+      background-size: 34px 34px;
+      mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.75),
+        transparent
+      );
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.8),
+          transparent 16%,
+          transparent 84%,
+          rgba(0, 0, 0, 0.8)
+        );
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+
+      padding:
+        calc(18px + env(safe-area-inset-top))
+        16px
+        calc(40px + env(safe-area-inset-bottom));
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      min-height: 54px;
+      margin: -18px -16px 18px;
+      padding:
+        calc(8px + env(safe-area-inset-top))
+        16px
+        8px;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(5, 5, 5, 0.98),
+          rgba(5, 5, 5, 0.88)
+        );
+
+      border-bottom: 1px solid rgba(57, 210, 192, 0.5);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0 12px;
+
+      border: 1px solid rgba(217, 177, 95, 0.25);
+      border-radius: 14px;
+
+      color: var(--gold-light);
+      background: rgba(255, 255, 255, 0.035);
+
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+
+      cursor: pointer;
+      transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .back-button:active {
+      transform: scale(0.96);
+    }
+
+    .back-arrow {
+      font-size: 25px;
+      line-height: 1;
+      transform: translateY(-1px);
+    }
+
+    .topbar-title {
+      color: var(--gold-light);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .topbar-space {
+      width: 68px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+
+      border: 1px solid var(--border-gold);
+      border-radius: 28px;
+
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-photo-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      max-height: 630px;
+      overflow: hidden;
+      background: #111111;
+    }
+
+    .hero-photo {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 42%;
+    }
+
+    .hero-photo-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          180deg,
+          transparent 52%,
+          rgba(0, 0, 0, 0.35) 70%,
+          rgba(0, 0, 0, 0.96) 100%
+        );
+    }
+
+    .hero-glow {
+      position: absolute;
+      left: 50%;
+      bottom: -110px;
+
+      width: 280px;
+      height: 200px;
+
+      transform: translateX(-50%);
+      border-radius: 50%;
+
+      background: rgba(217, 177, 95, 0.22);
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+
+      margin-top: -105px;
+      padding: 28px 22px 28px;
+      text-align: center;
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+
+      margin-bottom: 14px;
+      padding: 8px 14px;
+
+      border: 1px solid rgba(57, 210, 192, 0.42);
+      border-radius: 999px;
+
+      color: var(--tiffany);
+      background: rgba(0, 0, 0, 0.7);
+
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .brand-dot {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+      background: var(--tiffany);
+      box-shadow: 0 0 14px rgba(57, 210, 192, 0.9);
+    }
+
+    .hero-title {
+      margin-bottom: 8px;
+
+      color: var(--gold-light);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(32px, 9vw, 50px);
+      font-weight: 600;
+      line-height: 1.08;
+    }
+
+    .hero-names {
+      margin-bottom: 14px;
+
+      color: var(--white);
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-description {
+      max-width: 560px;
+      margin: 0 auto;
+
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+
+      margin: 18px 0;
+    }
+
+    .fact {
+      padding: 18px 10px;
+
+      border: 1px solid rgba(217, 177, 95, 0.24);
+      border-radius: 18px;
+
+      text-align: center;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.05),
+          rgba(255, 255, 255, 0.018)
+        );
+    }
+
+    .fact-value {
+      display: block;
+      margin-bottom: 6px;
+
+      color: var(--gold-light);
+      font-size: 23px;
+      font-weight: 800;
+    }
+
+    .fact-label {
+      display: block;
+
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .section {
+      position: relative;
+      overflow: hidden;
+
+      margin-top: 16px;
+      padding: 24px 20px;
+
+      border: 1px solid rgba(217, 177, 95, 0.22);
+      border-radius: 24px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(24, 24, 24, 0.94),
+          rgba(12, 12, 12, 0.96)
+        );
+
+      box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.28);
+    }
+
+    .section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 20px;
+      right: 20px;
+
+      height: 1px;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(57, 210, 192, 0.8),
+          transparent
+        );
+    }
+
+    .section-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 34px;
+      height: 34px;
+      margin-bottom: 14px;
+
+      border: 1px solid rgba(217, 177, 95, 0.55);
+      border-radius: 11px;
+
+      color: var(--gold-light);
+      background: rgba(217, 177, 95, 0.08);
+
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .section-title {
+      margin-bottom: 14px;
+
+      color: var(--gold-light);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 25px;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .section p {
+      margin-bottom: 15px;
+
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.72;
+    }
+
+    .section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .accent {
+      color: var(--gold-light);
+      font-weight: 700;
+    }
+
+    .tiffany {
+      color: var(--tiffany);
+      font-weight: 700;
+    }
+
+    .quote {
+      margin: 18px 0 2px;
+      padding: 18px 18px 18px 20px;
+
+      border-left: 3px solid var(--tiffany);
+      border-radius: 0 18px 18px 0;
+
+      color: var(--gold-light);
+      background: rgba(57, 210, 192, 0.06);
+
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 11px;
+
+      margin-top: 8px;
+      list-style: none;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+
+      padding: 14px;
+
+      border: 1px solid rgba(57, 210, 192, 0.18);
+      border-radius: 16px;
+
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .feature-icon {
+      flex: 0 0 auto;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 26px;
+      height: 26px;
+
+      border-radius: 50%;
+
+      color: #071412;
+      background: var(--tiffany);
+
+      font-size: 14px;
+      font-weight: 900;
+      box-shadow: 0 0 18px rgba(57, 210, 192, 0.2);
+    }
+
+    .feature-text {
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .destinations {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      margin-top: 16px;
+    }
+
+    .destination {
+      padding: 9px 12px;
+
+      border: 1px solid rgba(217, 177, 95, 0.3);
+      border-radius: 999px;
+
+      color: var(--gold-light);
+      background: rgba(217, 177, 95, 0.055);
+
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .final-card {
+      margin-top: 18px;
+      padding: 30px 21px;
+
+      border: 1px solid rgba(57, 210, 192, 0.42);
+      border-radius: 26px;
+
+      text-align: center;
+
+      background:
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(57, 210, 192, 0.13),
+          transparent 50%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(20, 20, 20, 0.97),
+          rgba(7, 7, 7, 0.98)
+        );
+
+      box-shadow:
+        0 18px 50px rgba(0, 0, 0, 0.42);
+    }
+
+    .final-title {
+      margin-bottom: 13px;
+
+      color: var(--gold-light);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 27px;
+      line-height: 1.25;
+    }
+
+    .final-text {
+      margin-bottom: 24px;
+
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.68;
+    }
+
+    .guide-button {
+      position: relative;
+      overflow: hidden;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+
+      width: 100%;
+      min-height: 58px;
+      padding: 15px 18px;
+
+      border: 1px solid rgba(243, 215, 143, 0.75);
+      border-radius: 18px;
+
+      color: #15100a;
+      background:
+        linear-gradient(
+          135deg,
+          #f4db98 0%,
+          #d9b15f 48%,
+          #a7792e 100%
+        );
+
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      text-transform: uppercase;
+
+      box-shadow:
+        0 12px 30px rgba(217, 177, 95, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+      cursor: pointer;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .guide-button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -140%;
+
+      width: 90%;
+      height: 100%;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.42),
+          transparent
+        );
+
+      transform: skewX(-20deg);
+      animation: shine 4.5s infinite;
+    }
+
+    .guide-button:active {
+      transform: scale(0.98);
+    }
+
+    .guide-button-icon {
+      font-size: 20px;
+    }
+
+    .footer {
+      padding: 24px 10px 4px;
+
+      color: rgba(255, 255, 255, 0.38);
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.75s ease forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.06s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.12s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.18s;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes shine {
+      0% {
+        left: -140%;
+      }
+
+      45%,
+      100% {
+        left: 160%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .topbar {
+        margin-left: -12px;
+        margin-right: -12px;
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .topbar-title {
+        font-size: 12px;
+      }
+
+      .topbar-space {
+        width: 54px;
+      }
+
+      .back-button {
+        min-width: 48px;
+        padding: 0 9px;
+      }
+
+      .back-text {
+        display: none;
+      }
+
+      .hero {
+        border-radius: 23px;
+      }
+
+      .hero-content {
+        padding-left: 17px;
+        padding-right: 17px;
+      }
+
+      .hero-title {
+        font-size: 36px;
+      }
+
+      .hero-names {
+        font-size: 18px;
+      }
+
+      .hero-description {
+        font-size: 15px;
+      }
+
+      .facts {
+        gap: 7px;
+      }
+
+      .fact {
+        padding: 15px 6px;
+        border-radius: 15px;
+      }
+
+      .fact-value {
+        font-size: 20px;
+      }
+
+      .fact-label {
+        font-size: 10px;
+      }
+
+      .section {
+        padding: 22px 17px;
+        border-radius: 21px;
+      }
+
+      .section-title {
+        font-size: 23px;
+      }
+
+      .section p {
+        font-size: 15px;
+        line-height: 1.68;
+      }
+
+      .quote {
+        font-size: 17px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <header class="topbar">
+      <button
+        class="back-button"
+        type="button"
+        onclick="openGuide()"
+        aria-label="Вернуться в гид"
+      >
+        <span class="back-arrow">←</span>
+        <span class="back-text">Назад</span>
+      </button>
+
+      <div class="topbar-title">О проекте</div>
+
+      <div class="topbar-space"></div>
+    </header>
+
+
+    <section class="hero fade-up">
+
+      <div class="hero-photo-wrap">
+        <img
+          class="hero-photo"
+          src="assets/about-us.jpg"
+          alt="Мария и Сергей — создатели проекта Как Местный"
+        >
+      </div>
+
+      <div class="hero-glow"></div>
+
+      <div class="hero-content">
+
+        <div class="brand-mark">
+          <span class="brand-dot"></span>
+          Как Местный
+        </div>
+
+        <h1 class="hero-title">О проекте</h1>
+
+        <div class="hero-names">Мария и Сергей</div>
+
+        <p class="hero-description">
+          Мы путешествуем не ради количества стран и одинаковых фотографий.
+          Нам важно почувствовать место, понять его ритм и увидеть жизнь такой,
+          какой её видят местные.
+        </p>
+
+      </div>
+    </section>
+
+
+    <div class="facts fade-up delay-1">
+
+      <div class="fact">
+        <span class="fact-value">6+</span>
+        <span class="fact-label">лет путешествуем вместе</span>
+      </div>
+
+      <div class="fact">
+        <span class="fact-value">20+</span>
+        <span class="fact-label">посещённых стран</span>
+      </div>
+
+      <div class="fact">
+        <span class="fact-value">100%</span>
+        <span class="fact-label">личная проверка</span>
+      </div>
+
+    </div>
+
+
+    <section class="section fade-up delay-2">
+
+      <div class="section-number">01</div>
+
+      <h2 class="section-title">
+        Кто мы
+      </h2>
+
+      <p>
+        Мы — Мария и Сергей. Уже больше шести лет вместе путешествуем,
+        живём в разных странах и изучаем мир не как туристы, а как люди,
+        которым важно почувствовать страну по-настоящему.
+      </p>
+
+      <p>
+        За это время мы посетили более двадцати стран и поняли одну простую
+        вещь: настоящее путешествие — это не количество
+        достопримечательностей и не фотографии «как у всех».
+      </p>
+
+      <div class="quote">
+        Самые сильные впечатления рождаются из атмосферы, деталей,
+        случайных открытий и ощущения, что ты действительно проживаешь
+        место, а не просто приезжаешь в него на несколько дней.
+      </div>
+
+    </section>
+
+
+    <section class="section fade-up">
+
+      <div class="section-number">02</div>
+
+      <h2 class="section-title">
+        Почему появился проект
+      </h2>
+
+      <p>
+        Сегодня интернет переполнен одинаковыми маршрутами, рекламными
+        обзорами и советами из серии «обязательно посетить».
+      </p>
+
+      <p>
+        Но очень часто за красивой картинкой скрываются переполненные
+        локации, завышенные цены и ощущение, будто ты проходишь заранее
+        подготовленный туристический сценарий.
+      </p>
+
+      <p>
+        Именно поэтому мы создали проект
+        <span class="accent">«КАК МЕСТНЫЙ»</span>.
+      </p>
+
+      <p>
+        Мы не пытаемся показать мир «не как у всех» ради громких слов.
+        Многие популярные места действительно заслуживают внимания.
+        Но почти у каждой страны, каждого города и даже каждой известной
+        локации есть совершенно другая сторона — более живая,
+        атмосферная и настоящая.
+      </p>
+
+    </section>
+
+
+    <section class="section fade-up">
+
+      <div class="section-number">03</div>
+
+      <h2 class="section-title">
+        Чем мы делимся
+      </h2>
+
+      <p>
+        Мы делимся только тем, что действительно проверили сами:
+        где ожидания совпадают с реальностью, а где нет.
+      </p>
+
+      <ul class="feature-list">
+
+        <li class="feature-item">
+          <span class="feature-icon">✓</span>
+          <span class="feature-text">
+            Куда лучше ехать в определённое время.
+          </span>
+        </li>
+
+        <li class="feature-item">
+          <span class="feature-icon">✓</span>
+          <span class="feature-text">
+            Как избежать типичных туристических ошибок.
+          </span>
+        </li>
+
+        <li class="feature-item">
+          <span class="feature-icon">✓</span>
+          <span class="feature-text">
+            Где действительно вкусно, красиво и атмосферно.
+          </span>
+        </li>
+
+        <li class="feature-item">
+          <span class="feature-icon">✓</span>
+          <span class="feature-text">
+            Как отдыхать комфортнее и не переплачивать там,
+            где переплачивает большинство туристов.
+          </span>
+        </li>
+
+        <li class="feature-item">
+          <span class="feature-icon">✓</span>
+          <span class="feature-text">
+            Какие детали делают путешествие не просто красивым,
+            а по-настоящему запоминающимся.
+          </span>
+        </li>
+
+      </ul>
+
+    </section>
+
+
+    <section class="section fade-up">
+
+      <div class="section-number">04</div>
+
+      <h2 class="section-title">
+        Как мы изучаем страны
+      </h2>
+
+      <p>
+        Каждую страну мы изучаем самостоятельно: живём внутри местной
+        среды, исследуем города, сравниваем локации, тестируем маршруты,
+        общаемся с местными жителями, экспатами и путешественниками.
+      </p>
+
+      <p>
+        Наша задача — собирать действительно полезный опыт без шаблонов,
+        рекламы и туристических клише.
+      </p>
+
+      <p>
+        Мы хотим, чтобы рекомендации проекта помогали не просто найти
+        очередную точку на карте, а
+        <span class="tiffany">
+          лучше понять место и чувствовать себя в нём увереннее.
+        </span>
+      </p>
+
+    </section>
+
+
+    <section class="section fade-up">
+
+      <div class="section-number">05</div>
+
+      <h2 class="section-title">
+        Сейчас — Нячанг
+      </h2>
+
+      <p>
+        Основное направление проекта сейчас — Вьетнам, а именно Нячанг:
+        город, который за последние годы стал для нас вторым домом.
+      </p>
+
+      <p>
+        Здесь мы собрали большое количество проверенных мест, полезных
+        рекомендаций, контактов и маршрутов, которыми теперь готовы
+        делиться с вами.
+      </p>
+
+      <div class="quote">
+        Но это только начало.
+      </div>
+
+    </section>
+
+
+    <section class="section fade-up">
+
+      <div class="section-number">06</div>
+
+      <h2 class="section-title">
+        Что будет дальше
+      </h2>
+
+      <p>
+        За нашими плечами уже десятки путешествий и большой опыт
+        самостоятельного изучения разных стран.
+      </p>
+
+      <p>
+        Постепенно внутри проекта «Как Местный» будут появляться новые
+        направления:
+      </p>
+
+      <div class="destinations">
+        <span class="destination">Бали</span>
+        <span class="destination">Таиланд</span>
+        <span class="destination">Турция</span>
+        <span class="destination">Египет</span>
+        <span class="destination">Индия</span>
+        <span class="destination">Шри-Ланка</span>
+        <span class="destination">Узбекистан</span>
+        <span class="destination">Малайзия</span>
+      </div>
+
+    </section>
+
+
+    <section class="final-card fade-up">
+
+      <h2 class="final-title">
+        Путешествуйте глубже
+      </h2>
+
+      <p class="final-text">
+        «Как Местный» — это возможность не просто увидеть новую страну,
+        а прожить её глубже: почувствовать ритм, атмосферу и характер,
+        чтобы увезти с собой не только фотографии, а настоящие
+        воспоминания.
+      </p>
+
+      <button
+        class="guide-button"
+        type="button"
+        onclick="openGuide()"
+      >
+        <span class="guide-button-icon">←</span>
+        Вернуться в гид
+      </button>
+
+    </section>
+
+
+    <footer class="footer">
+      Как Местный · Путешествия, проверенные лично
+    </footer>
+
+  </main>
+
+
+  <script>
+    function openGuide() {
+      const queryString = window.location.search || "";
+
+      window.location.href =
+        "guidepage.html" + queryString;
+    }
+  </script>
+
+</body>
+</html>

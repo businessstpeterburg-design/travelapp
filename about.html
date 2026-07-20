@@ -1239,7 +1239,11 @@
       ? "?tgid=" + encodeURIComponent(tgid)
       : "";
   }
-
+function goHome() {
+  window.location.href =
+    "https://travel-app-rnftpo.flutterflow.app/homePage" +
+    getCurrentQueryString();
+}
   function openGuide() {
   window.location.href =
     "guidepage.html" + getCurrentQueryString();

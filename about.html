@@ -1246,9 +1246,10 @@
   }
 
   function openQuiz() {
-    window.location.href =
-      "index.html" + getCurrentQueryString();
-  }
+  window.location.href =
+    "https://travel-app-rnftpo.flutterflow.app/homePage?openQuiz=1" +
+    (getCurrentQueryString() ? "&" + getCurrentQueryString().substring(1) : "");
+}
 
   function startJourney() {
     const button = document.getElementById("startJourneyButton");

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
 
-<metaname="viewport"content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 
 
@@ -1200,9 +1200,9 @@
     почувствовали его характер и стали в нём немного своими.
   </p>
 
-  <button
-
-id="startJourneyButton"class="guide-button"type="button"onclick="startJourney()">Начать путешествие</button>
+  <button id="startJourneyButton" class="guide-button" type="button" onclick="startJourney()">
+    Начать путешествие
+  </button>
 
 </section>
 
@@ -1261,7 +1261,18 @@ function goHome() {
       button.textContent = "Проверяем доступ...";
     }
 
-    KM.initProtectedPage({
+    if (!window.KM || typeof window.KM.initProtectedPage !== "function") {
+      if (button) {
+        button.disabled = false;
+        button.textContent = "Начать путешествие";
+      }
+
+      console.error("KM.initProtectedPage не найден. Проверь файл access.js.");
+      openQuiz();
+      return;
+    }
+
+    window.KM.initProtectedPage({
       onReady: function () {
         openGuide();
       },

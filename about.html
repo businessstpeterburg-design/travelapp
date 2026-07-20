@@ -1,1278 +1,1095 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  >
-
-  <meta name="theme-color" content="#121212">
-
-  <title>О проекте — Как Местный</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
-
-  <style>
-    :root {
-      --bg: #121212;
-      --bg-deep: #080808;
-      --surface: #181818;
-      --surface-soft: rgba(28, 28, 28, 0.82);
-
-      --white: #ffffff;
-      --text: #f2f2f2;
-      --muted: #d7d7d7;
-
-      --tiffany: #39d2c0;
-      --tiffany-soft: rgba(57, 210, 192, 0.12);
-      --tiffany-border: rgba(57, 210, 192, 0.28);
-
-      --gold: #d9b15f;
-      --gold-light: #f0d58d;
-      --gold-soft: rgba(217, 177, 95, 0.10);
-
-      --radius-large: 28px;
-      --radius-medium: 20px;
-      --radius-small: 16px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      background: var(--bg);
-    }
-
-    body {
-      min-height: 100vh;
-      min-height: 100dvh;
-
-      overflow-x: hidden;
-
-      color: var(--text);
-      background:
-        radial-gradient(
-          circle at 0% 0%,
-          rgba(57, 210, 192, 0.10),
-          transparent 34%
-        ),
-        radial-gradient(
-          circle at 100% 20%,
-          rgba(217, 177, 95, 0.08),
-          transparent 30%
-        ),
-        linear-gradient(
-          180deg,
-          #0b0b0b 0%,
-          #121212 38%,
-          #0a0a0a 100%
-        );
-
-      font-family:
-        "Montserrat",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      pointer-events: none;
-
-      background-image:
-        linear-gradient(
-          rgba(255, 255, 255, 0.012) 1px,
-          transparent 1px
-        ),
-        linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0.012) 1px,
-          transparent 1px
-        );
-
-      background-size: 40px 40px;
-      mask-image: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.7),
-        transparent 80%
-      );
-    }
-
-    button {
-      font: inherit;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .page {
-      width: 100%;
-      max-width: 720px;
-      margin: 0 auto;
-
-      padding:
-        calc(18px + env(safe-area-inset-top))
-        16px
-        calc(44px + env(safe-area-inset-bottom));
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-
-      display: grid;
-      grid-template-columns: 70px 1fr 70px;
-      align-items: center;
-
-      min-height: 62px;
-
-      margin:
-        calc(-18px - env(safe-area-inset-top))
-        -16px
-        22px;
-
-      padding:
-        calc(10px + env(safe-area-inset-top))
-        16px
-        10px;
-
-      background: rgba(8, 8, 8, 0.94);
-      border-bottom: 1px solid rgba(57, 210, 192, 0.42);
-
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-    }
-
-    .back-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-
-      min-height: 42px;
-      padding: 0 12px;
-
-      border: 1px solid rgba(217, 177, 95, 0.28);
-      border-radius: 14px;
-
-      color: var(--gold-light);
-      background: rgba(255, 255, 255, 0.025);
-
-      font-size: 13px;
-      font-weight: 700;
-
-      cursor: pointer;
-
-      transition:
-        transform 0.18s ease,
-        background 0.18s ease;
-    }
-
-    .back-button:active {
-      transform: scale(0.96);
-      background: rgba(217, 177, 95, 0.08);
-    }
-
-    .back-arrow {
-      font-size: 20px;
-      line-height: 1;
-    }
-
-    .topbar-title {
-      text-align: center;
-
-      color: var(--gold-light);
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .topbar-space {
-      width: 70px;
-    }
-
-    .hero {
-      position: relative;
-      overflow: hidden;
-
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: var(--radius-large);
-
-      background: #111111;
-
-      box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.45),
-        0 0 0 1px rgba(57, 210, 192, 0.025);
-    }
-
-    .hero-photo-wrap {
-      position: relative;
-
-      width: 100%;
-      aspect-ratio: 4 / 5;
-
-      overflow: hidden;
-    }
-
-    .hero-photo {
-      display: block;
-
-      width: 100%;
-      height: 100%;
-
-      object-fit: cover;
-      object-position: center 42%;
-    }
-
-    .hero-photo-wrap::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-
-      background:
-        linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0.02) 0%,
-          rgba(0, 0, 0, 0.08) 45%,
-          rgba(0, 0, 0, 0.82) 82%,
-          #111111 100%
-        );
-    }
-
-    .hero-photo-wrap::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-
-      box-shadow:
-        inset 0 0 80px rgba(0, 0, 0, 0.25);
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-
-      margin-top: -82px;
-      padding: 0 22px 28px;
-
-      text-align: center;
-    }
-
-    .project-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-
-      margin-bottom: 18px;
-      padding: 8px 14px;
-
-      border: 1px solid rgba(57, 210, 192, 0.45);
-      border-radius: 999px;
-
-      color: var(--tiffany);
-      background: rgba(5, 12, 11, 0.78);
-
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-
-    .project-dot {
-      width: 7px;
-      height: 7px;
-
-      border-radius: 50%;
-
-      background: var(--tiffany);
-      box-shadow: 0 0 14px rgba(57, 210, 192, 0.9);
-    }
-
-    .hero-title {
-      margin-bottom: 8px;
-
-      color: var(--white);
-      font-size: clamp(29px, 8vw, 42px);
-      font-weight: 800;
-      line-height: 1.08;
-      letter-spacing: -0.035em;
-    }
-
-    .hero-subtitle {
-      margin-bottom: 18px;
-
-      color: var(--gold-light);
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-    }
-
-    .hero-quote {
-      max-width: 520px;
-      margin: 0 auto;
-
-      color: #f3f3f3;
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 1.7;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 9px;
-
-      margin-top: 14px;
-    }
-
-    .stat {
-      min-height: 94px;
-      padding: 16px 8px;
-
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 18px;
-
-      text-align: center;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.045),
-          rgba(255, 255, 255, 0.012)
-        );
-    }
-
-    .stat-value {
-      display: block;
-      margin-bottom: 7px;
-
-      color: var(--gold-light);
-      font-size: 22px;
-      font-weight: 800;
-    }
-
-    .stat-label {
-      display: block;
-
-      color: var(--muted);
-      font-size: 10px;
-      font-weight: 500;
-      line-height: 1.4;
-    }
-
-    .content-section {
-      position: relative;
-
-      margin-top: 34px;
-      padding-left: 20px;
-    }
-
-    .content-section::before {
-      content: "";
-      position: absolute;
-      top: 5px;
-      bottom: 4px;
-      left: 0;
-
-      width: 2px;
-      border-radius: 999px;
-
-      background:
-        linear-gradient(
-          180deg,
-          var(--tiffany),
-          rgba(57, 210, 192, 0.08)
-        );
-    }
-
-    .section-kicker {
-      margin-bottom: 9px;
-
-      color: var(--tiffany);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .section-title {
-      margin-bottom: 16px;
-
-      color: var(--gold-light);
-      font-size: 23px;
-      font-weight: 800;
-      line-height: 1.25;
-      letter-spacing: -0.025em;
-    }
-
-    .content-section p {
-      margin-bottom: 15px;
-
-      color: #f1f1f1;
-      font-size: 15px;
-      font-weight: 400;
-      line-height: 1.75;
-    }
-
-    .content-section p:last-child {
-      margin-bottom: 0;
-    }
-
-    .strong {
-      color: var(--white);
-      font-weight: 650;
-    }
-
-    .gold {
-      color: var(--gold-light);
-      font-weight: 700;
-    }
-
-    .philosophy {
-      margin-top: 34px;
-      padding: 28px 22px;
-
-      border: 1px solid rgba(57, 210, 192, 0.22);
-      border-radius: var(--radius-medium);
-
-      background:
-        radial-gradient(
-          circle at 0% 0%,
-          rgba(57, 210, 192, 0.09),
-          transparent 48%
-        ),
-        rgba(18, 18, 18, 0.76);
-
-      box-shadow:
-        0 18px 45px rgba(0, 0, 0, 0.28);
-    }
-
-    .philosophy-label {
-      margin-bottom: 17px;
-
-      color: var(--tiffany);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.17em;
-      text-transform: uppercase;
-    }
-
-    .philosophy-text {
-      color: var(--white);
-      font-size: clamp(20px, 5.5vw, 27px);
-      font-weight: 600;
-      line-height: 1.55;
-      letter-spacing: -0.02em;
-    }
-
-    .philosophy-text span {
-      color: var(--gold-light);
-    }
-
-    .features {
-      margin-top: 34px;
-    }
-
-    .features-heading {
-      margin-bottom: 18px;
-
-      color: var(--gold-light);
-      font-size: 23px;
-      font-weight: 800;
-      letter-spacing: -0.025em;
-    }
-
-    .feature-list {
-      display: grid;
-      gap: 10px;
-
-      list-style: none;
-    }
-
-    .feature-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-
-      min-height: 66px;
-      padding: 14px 16px;
-
-      border: 1px solid rgba(255, 255, 255, 0.065);
-      border-radius: var(--radius-small);
-
-      background: rgba(255, 255, 255, 0.022);
-    }
-
-    .feature-icon {
-      flex: 0 0 auto;
-
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-
-      width: 34px;
-      height: 34px;
-
-      border: 1px solid rgba(57, 210, 192, 0.32);
-      border-radius: 12px;
-
-      color: var(--tiffany);
-      background: var(--tiffany-soft);
-
-      font-size: 15px;
-      font-weight: 900;
-    }
-
-    .feature-text {
-      color: #eeeeee;
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.45;
-    }
-
-    .nha-trang {
-      position: relative;
-      overflow: hidden;
-
-      margin-top: 34px;
-      padding: 28px 22px;
-
-      border: 1px solid rgba(217, 177, 95, 0.20);
-      border-radius: var(--radius-medium);
-
-      background:
-        radial-gradient(
-          circle at 100% 0%,
-          rgba(217, 177, 95, 0.12),
-          transparent 48%
-        ),
-        linear-gradient(
-          145deg,
-          rgba(26, 26, 26, 0.94),
-          rgba(13, 13, 13, 0.96)
-        );
-    }
-
-    .nha-trang::after {
-      content: "NHA TRANG";
-      position: absolute;
-      right: -14px;
-      bottom: -10px;
-
-      color: rgba(255, 255, 255, 0.022);
-      font-size: 44px;
-      font-weight: 800;
-      letter-spacing: -0.05em;
-
-      pointer-events: none;
-    }
-
-    .nha-trang-label {
-      margin-bottom: 11px;
-
-      color: var(--tiffany);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.17em;
-      text-transform: uppercase;
-    }
-
-    .nha-trang-title {
-      max-width: 440px;
-      margin-bottom: 14px;
-
-      color: var(--white);
-      font-size: 25px;
-      font-weight: 800;
-      line-height: 1.35;
-      letter-spacing: -0.03em;
-    }
-
-    .nha-trang-text {
-      max-width: 520px;
-
-      color: #ededed;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .destinations {
-      margin-top: 34px;
-    }
-
-    .destinations-title {
-      margin-bottom: 8px;
-
-      color: var(--gold-light);
-      font-size: 23px;
-      font-weight: 800;
-      letter-spacing: -0.025em;
-    }
-
-    .destinations-subtitle {
-      margin-bottom: 18px;
-
-      color: #e7e7e7;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .destination-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 9px;
-    }
-
-    .destination {
-      padding: 14px 15px;
-
-      border-bottom: 1px solid rgba(57, 210, 192, 0.18);
-
-      color: #e8e8e8;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .final-block {
-      margin-top: 40px;
-      padding-top: 32px;
-
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-
-      text-align: center;
-    }
-
-    .final-title {
-      max-width: 440px;
-      margin: 0 auto 14px;
-
-      color: var(--white);
-      font-size: clamp(26px, 7vw, 36px);
-      font-weight: 800;
-      line-height: 1.25;
-      letter-spacing: -0.04em;
-    }
-
-    .final-title span {
-      color: var(--gold-light);
-    }
-
-    .final-text {
-      max-width: 490px;
-      margin: 0 auto 25px;
-
-      color: #ededed;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .guide-button {
-      position: relative;
-      overflow: hidden;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-
-      width: 100%;
-      min-height: 58px;
-
-      padding: 15px 18px;
-
-      border: 1px solid rgba(84, 242, 224, 0.72);
-      border-radius: 17px;
-
-      color: #031513;
-      background:
-        linear-gradient(
-          135deg,
-          #67efdf 0%,
-          #39d2c0 52%,
-          #20a99a 100%
-        );
-
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-
-      box-shadow:
-        0 14px 34px rgba(57, 210, 192, 0.19),
-        inset 0 1px 0 rgba(255, 255, 255, 0.55);
-
-      cursor: pointer;
-
-      transition:
-        transform 0.18s ease,
-        box-shadow 0.18s ease;
-    }
-
-    .guide-button::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -140%;
-
-      width: 80%;
-      height: 100%;
-
-      background:
-        linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.42),
-          transparent
-        );
-
-      transform: skewX(-22deg);
-      animation: shine 4.5s infinite;
-    }
-
-    .guide-button:active {
-      transform: scale(0.98);
-    }
-
-    .footer {
-      padding: 25px 6px 2px;
-
-      color: rgba(255, 255, 255, 0.28);
-      text-align: center;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(16px);
-
-      animation: reveal 0.7s ease forwards;
-    }
-
-    .delay-1 {
-      animation-delay: 0.06s;
-    }
-
-    .delay-2 {
-      animation-delay: 0.12s;
-    }
-
-    @keyframes reveal {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes shine {
-      0% {
-        left: -140%;
-      }
-
-      42%,
-      100% {
-        left: 160%;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .page {
-        padding-left: 12px;
-        padding-right: 12px;
-      }
-
-      .topbar {
-        grid-template-columns: 52px 1fr 52px;
-
-        margin-left: -12px;
-        margin-right: -12px;
-
-        padding-left: 12px;
-        padding-right: 12px;
-      }
-
-      .back-button {
-        width: 46px;
-        min-width: 46px;
-        padding: 0;
-      }
-
-      .back-text {
-        display: none;
-      }
-
-      .topbar-space {
-        width: 52px;
-      }
-
-      .topbar-title {
-        font-size: 12px;
-      }
-
-      .hero {
-        border-radius: 24px;
-      }
-
-      .hero-photo-wrap {
-        aspect-ratio: 4 / 5.4;
-      }
-
-      .hero-content {
-        margin-top: -72px;
-        padding-left: 17px;
-        padding-right: 17px;
-      }
-
-      .hero-title {
-        font-size: 31px;
-      }
-
-      .hero-quote {
-        font-size: 14px;
-      }
-
-      .stats {
-        gap: 7px;
-      }
-
-      .stat {
-        min-height: 88px;
-        padding-left: 5px;
-        padding-right: 5px;
-      }
-
-      .stat-value {
-        font-size: 20px;
-      }
-
-      .stat-label {
-        font-size: 9px;
-      }
-
-      .content-section {
-        margin-top: 30px;
-        padding-left: 17px;
-      }
-
-      .section-title,
-      .features-heading,
-      .destinations-title {
-        font-size: 21px;
-      }
-
-      .content-section p {
-        font-size: 14px;
-      }
-
-      .philosophy,
-      .nha-trang {
-        padding: 24px 18px;
-      }
-
-      .philosophy-text {
-        font-size: 20px;
-      }
-
-      .destination {
-        padding-left: 9px;
-        padding-right: 9px;
-
-        font-size: 13px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <main class="page">
-
-    <header class="topbar">
-
-      <button
-        class="back-button"
-        type="button"
-        onclick="goHome()"
-        aria-label="Вернуться назад"
-      >
-        <span class="back-arrow">←</span>
-        <span class="back-text">Назад</span>
-      </button>
-
-      <div class="topbar-title">
-        О проекте
-      </div>
-
-      <div class="topbar-space"></div>
-
-    </header>
-
-
-    <section class="hero reveal">
-
-      <div class="hero-photo-wrap">
-
-        <img
-          class="hero-photo"
-         src="founders.jpg"
-          alt="Мария и Сергей — создатели проекта Как Местный"
-        >
-
-      </div>
-
-      <div class="hero-content">
-
-      
-
-        <h1 class="hero-title">
-          Мария и Сергей
-        </h1>
-
-        <div class="hero-subtitle">
-          Создатели проекта
-        </div>
-
-        <p class="hero-quote">
-          Мы не хотим показывать вам только туристическую картинку.
-          Мы хотим помочь почувствовать место, понять его ритм
-          и увидеть жизнь такой, какой её видят местные.
-        </p>
-
-      </div>
-
-    </section>
-
-
-    <section class="stats reveal delay-1">
-
-      <div class="stat">
-        <span class="stat-value">6+</span>
-        <span class="stat-label">
-          лет путешествуем вместе
-        </span>
-      </div>
-
-      <div class="stat">
-        <span class="stat-value">20+</span>
-        <span class="stat-label">
-          посещённых стран
-        </span>
-      </div>
-
-      <div class="stat">
-        <span class="stat-value">100%</span>
-        <span class="stat-label">
-          личная проверка
-        </span>
-      </div>
-
-    </section>
-
-
-    <section class="content-section reveal delay-2">
-
-      <div class="section-kicker">
-        Кто мы
-      </div>
-
-      <h2 class="section-title">
-        Путешественники, а не наблюдатели
-      </h2>
-
-      <p>
-        Мы вместе уже больше шести лет. За это время жили в разных странах,
-        посетили более двадцати направлений и научились смотреть на новое
-        место не только глазами туриста.
-      </p>
-
-      <p>
-        Для нас настоящее путешествие — это не количество посещённых
-        достопримечательностей и не набор одинаковых фотографий.
-      </p>
-
-      <p>
-        Самые сильные впечатления рождаются из атмосферы, деталей,
-        случайных открытий и ощущения, что ты действительно
-        <span class="strong">проживаешь место</span>,
-        а не просто приезжаешь в него на несколько дней.
-      </p>
-
-    </section>
-
-
-    <section class="content-section reveal">
-
-      <div class="section-kicker">
-        Почему появился проект
-      </div>
-
-      <h2 class="section-title">
-        Интернет показывает одно и то же
-      </h2>
-
-      <p>
-        Сегодня сеть переполнена одинаковыми маршрутами, рекламными
-        обзорами и советами из серии «обязательно посетить».
-      </p>
-
-      <p>
-        Но за красивой картинкой часто скрываются переполненные локации,
-        завышенные цены и заранее подготовленный туристический сценарий.
-      </p>
-
-      <p>
-        Именно поэтому мы создали
-        <span class="gold">«Как Местный»</span> —
-        не очередной каталог мест, а практический помощник,
-        собранный из личного опыта.
-      </p>
-
-    </section>
-
-
-    <section class="philosophy reveal">
-
-      <div class="philosophy-label">
-        Наша философия
-      </div>
-
-      <p class="philosophy-text">
-        Мы создавали не просто путеводитель.
-        Мы создавали ощущение, что в новой стране у тебя уже есть
-        <span>хороший знакомый.</span>
-      </p>
-
-    </section>
-
-
-    <section class="features reveal">
-
-      <h2 class="features-heading">
-        Что мы проверяем лично
-      </h2>
-
-      <ul class="feature-list">
-
-        <li class="feature-item">
-          <span class="feature-icon">✓</span>
-          <span class="feature-text">
-            Места, которые действительно стоят вашего времени.
-          </span>
-        </li>
-
-        <li class="feature-item">
-          <span class="feature-icon">✓</span>
-          <span class="feature-text">
-            Маршруты, время посещения и удобную последовательность поездки.
-          </span>
-        </li>
-
-        <li class="feature-item">
-          <span class="feature-icon">✓</span>
-          <span class="feature-text">
-            Кафе, рестораны и точки, где действительно вкусно.
-          </span>
-        </li>
-
-        <li class="feature-item">
-          <span class="feature-icon">✓</span>
-          <span class="feature-text">
-            Полезные контакты: врачи, переводчики и русскоговорящие специалисты.
-          </span>
-        </li>
-
-        <li class="feature-item">
-          <span class="feature-icon">✓</span>
-          <span class="feature-text">
-            Цены, туристические ловушки и способы не переплачивать.
-          </span>
-        </li>
-
-        <li class="feature-item">
-          <span class="feature-icon">✓</span>
-          <span class="feature-text">
-            Детали, которые помогают чувствовать себя спокойно и уверенно.
-          </span>
-        </li>
-
-      </ul>
-
-    </section>
-
-
-    <section class="nha-trang reveal">
-
-      <div class="nha-trang-label">
-        Сейчас
-      </div>
-
-      <h2 class="nha-trang-title">
-        Мы полностью посвятили себя Нячангу
-      </h2>
-
-      <p class="nha-trang-text">
-        Этот город стал для нас вторым домом. Здесь мы исследовали районы,
-        пляжи, кафе, маршруты, контакты и повседневную жизнь,
-        которой обычно не видно в стандартных туристических обзорах.
-        Но Нячанг — только начало.
-      </p>
-
-    </section>
-
-
-    <section class="destinations reveal">
-
-      <h2 class="destinations-title">
-        Следующие направления
-      </h2>
-
-      <p class="destinations-subtitle">
-        Постепенно внутри проекта будут появляться новые страны и города,
-        которые мы изучим по тому же принципу — лично и без рекламных шаблонов.
-      </p>
-
-      <div class="destination-grid">
-
-        <div class="destination">Вьетнам</div>
-        <div class="destination">Таиланд</div>
-
-        <div class="destination">Бали</div>
-        <div class="destination">Малайзия</div>
-
-        <div class="destination">Турция</div>
-        <div class="destination">Шри-Ланка</div>
-
-        <div class="destination">Индия</div>
-        <div class="destination">Узбекистан</div>
-
-      </div>
-
-    </section>
-
-
-    <section class="final-block reveal">
-
-      <h2 class="final-title">
-        Спасибо, что путешествуете
-        <span>вместе с нами</span>
-      </h2>
-
-      <p class="final-text">
-        Мы хотим, чтобы после поездки у вас оставались не только фотографии,
-        но и ощущение, что вы действительно узнали место,
-        почувствовали его характер и стали в нём немного своими.
-      </p>
-
-      <button
-  id="startJourneyButton"
-  class="guide-button"
-  type="button"
-  onclick="startJourney()">
-  Начать путешествие
-</button>
-
-    </section>
-
-
-    <footer class="footer">
-      КАК МЕСТНЫЙ · ПРОВЕРЕНО ЛИЧНО
-    </footer>
-
-  </main>
-
-
-  <!-- Firebase нужен для проверки оплаты в Firestore -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-
-<!-- Твоя готовая система проверки доступа -->
-<script src="access.js"></script>
-
-<script>
-  function getCurrentQueryString() {
-    const params = new URLSearchParams(window.location.search);
-
-    const tgid =
-      params.get("tgid") ||
-      params.get("userId") ||
-      params.get("id") ||
-      localStorage.getItem("tgid") ||
-      "";
-
-    return tgid
-      ? "?tgid=" + encodeURIComponent(tgid)
-      : "";
-  }
-function goHome() {
-  window.location.href =
-    "https://travel-app-rnftpo.flutterflow.app/homePage";
-}
-  function openGuide() {
-  window.location.href =
-    "guidepage.html" + getCurrentQueryString();
-}
-
-  function openQuiz() {
-  window.location.href =
-    "https://travel-app-rnftpo.flutterflow.app/homePage?openQuiz=1" +
-    (getCurrentQueryString() ? "&" + getCurrentQueryString().substring(1) : "");
-}
-
-  function startJourney() {
-    const button = document.getElementById("startJourneyButton");
-
-    if (button) {
-      button.disabled = true;
-      button.textContent = "Проверяем доступ...";
-    }
-
-    KM.initProtectedPage({
-      onReady: function () {
-        openGuide();
-      },
-
-      onBlocked: function () {
-        openQuiz();
-      }
-    });
-  }
-</script>
-
-</body>
-</html>
+     1	<!DOCTYPE html>
+     2	<html lang="ru">
+     3	<head>
+     4	  <meta charset="UTF-8">
+     5	  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+     6	  <meta name="theme-color" content="#031817">
+     7	  <meta name="description" content="О проекте Как Местный — премиальные путеводители с личной проверкой, честными маршрутами и атмосферой путешествий у моря.">
+     8	
+     9	  <title>О проекте — Как Местный</title>
+    10	
+    11	  <link rel="preconnect" href="https://fonts.googleapis.com">
+    12	  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    13	  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    14	
+    15	  <style>
+    16	    :root {
+    17	      --ink: #020807;
+    18	      --deep: #03110f;
+    19	      --ocean: #06231f;
+    20	      --ocean-2: #08342f;
+    21	      --glass: rgba(7, 22, 20, 0.72);
+    22	      --glass-strong: rgba(8, 18, 17, 0.92);
+    23	      --stroke: rgba(255, 255, 255, 0.09);
+    24	      --stroke-strong: rgba(117, 244, 229, 0.34);
+    25	
+    26	      --white: #ffffff;
+    27	      --text: #f7f4ec;
+    28	      --muted: rgba(247, 244, 236, 0.72);
+    29	      --muted-2: rgba(247, 244, 236, 0.52);
+    30	
+    31	      --aqua: #39d2c0;
+    32	      --aqua-hot: #8dfff3;
+    33	      --aqua-soft: rgba(57, 210, 192, 0.15);
+    34	      --gold: #d9b15f;
+    35	      --gold-hot: #ffe7a4;
+    36	      --gold-soft: rgba(217, 177, 95, 0.14);
+    37	
+    38	      --radius-xl: 36px;
+    39	      --radius-lg: 28px;
+    40	      --radius-md: 20px;
+    41	      --radius-sm: 16px;
+    42	
+    43	      --shadow-hero:
+    44	        0 34px 100px rgba(0, 0, 0, 0.64),
+    45	        0 0 0 1px rgba(255, 255, 255, 0.055),
+    46	        0 0 80px rgba(57, 210, 192, 0.10);
+    47	      --shadow-card:
+    48	        0 24px 62px rgba(0, 0, 0, 0.34),
+    49	        inset 0 1px 0 rgba(255, 255, 255, 0.075);
+    50	    }
+    51	
+    52	    * {
+    53	      box-sizing: border-box;
+    54	      margin: 0;
+    55	      padding: 0;
+    56	    }
+    57	
+    58	    html {
+    59	      scroll-behavior: smooth;
+    60	      background: var(--ink);
+    61	    }
+    62	
+    63	    body {
+    64	      min-height: 100vh;
+    65	      min-height: 100dvh;
+    66	      overflow-x: hidden;
+    67	      color: var(--text);
+    68	      background:
+    69	        radial-gradient(circle at 50% -8%, rgba(141, 255, 243, 0.20), transparent 34%),
+    70	        radial-gradient(circle at 88% 14%, rgba(217, 177, 95, 0.12), transparent 28%),
+    71	        radial-gradient(circle at 4% 34%, rgba(57, 210, 192, 0.16), transparent 31%),
+    72	        linear-gradient(180deg, #020807 0%, #031817 44%, #020807 100%);
+    73	      font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    74	    }
+    75	
+    76	    body::before {
+    77	      content: "";
+    78	      position: fixed;
+    79	      inset: 0;
+    80	      z-index: -5;
+    81	      pointer-events: none;
+    82	      background:
+    83	        linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    84	        linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px);
+    85	      background-size: 42px 42px;
+    86	      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.62), transparent 78%);
+    87	    }
+    88	
+    89	    body::after {
+    90	      content: "";
+    91	      position: fixed;
+    92	      inset: 0;
+    93	      z-index: -4;
+    94	      pointer-events: none;
+    95	      background:
+    96	        linear-gradient(90deg, rgba(0, 0, 0, 0.62), transparent 20%, transparent 80%, rgba(0, 0, 0, 0.62)),
+    97	        radial-gradient(circle at 50% 15%, transparent 0 42%, rgba(0, 0, 0, 0.42) 100%);
+    98	    }
+    99	
+   100	    button {
+   101	      font: inherit;
+   102	      border: 0;
+   103	      -webkit-tap-highlight-color: transparent;
+   104	    }
+   105	
+   106	    .ocean-scene {
+   107	      position: fixed;
+   108	      inset: auto 0 0;
+   109	      z-index: -3;
+   110	      height: min(48vh, 430px);
+   111	      overflow: hidden;
+   112	      pointer-events: none;
+   113	      background:
+   114	        linear-gradient(180deg, transparent 0%, rgba(57, 210, 192, 0.04) 22%, rgba(57, 210, 192, 0.12) 100%);
+   115	    }
+   116	
+   117	    .ocean-glow {
+   118	      position: absolute;
+   119	      left: 50%;
+   120	      bottom: -36%;
+   121	      width: 720px;
+   122	      height: 420px;
+   123	      border-radius: 50%;
+   124	      background: radial-gradient(circle, rgba(141, 255, 243, 0.20), rgba(57, 210, 192, 0.08) 40%, transparent 70%);
+   125	      filter: blur(14px);
+   126	      transform: translateX(-50%);
+   127	      animation: breathe 8s ease-in-out infinite;
+   128	    }
+   129	
+   130	    .wave {
+   131	      position: absolute;
+   132	      left: -15%;
+   133	      width: 130%;
+   134	      height: 130px;
+   135	      background-repeat: repeat-x;
+   136	      background-size: 360px 130px;
+   137	      opacity: 0.58;
+   138	      animation: waveMove 13s linear infinite;
+   139	    }
+   140	
+   141	    .wave-1 {
+   142	      bottom: 118px;
+   143	      background-image:
+   144	        radial-gradient(90px 38px at 82px 48px, rgba(141, 255, 243, 0.21) 0 58%, transparent 61%),
+   145	        radial-gradient(110px 44px at 270px 52px, rgba(57, 210, 192, 0.12) 0 58%, transparent 62%);
+   146	    }
+   147	
+   148	    .wave-2 {
+   149	      bottom: 70px;
+   150	      opacity: 0.48;
+   151	      animation-duration: 19s;
+   152	      animation-direction: reverse;
+   153	      background-image:
+   154	        radial-gradient(105px 42px at 84px 56px, rgba(217, 177, 95, 0.12) 0 56%, transparent 61%),
+   155	        radial-gradient(118px 46px at 282px 58px, rgba(141, 255, 243, 0.14) 0 56%, transparent 62%);
+   156	    }
+   157	
+   158	    .wave-3 {
+   159	      bottom: 20px;
+   160	      opacity: 0.34;
+   161	      animation-duration: 25s;
+   162	      background-image:
+   163	        radial-gradient(124px 48px at 92px 62px, rgba(255, 255, 255, 0.075) 0 57%, transparent 62%),
+   164	        radial-gradient(128px 50px at 286px 64px, rgba(57, 210, 192, 0.10) 0 57%, transparent 62%);
+   165	    }
+   166	
+   167	    .page {
+   168	      width: 100%;
+   169	      max-width: 760px;
+   170	      margin: 0 auto;
+   171	      padding: calc(18px + env(safe-area-inset-top)) 16px calc(48px + env(safe-area-inset-bottom));
+   172	    }
+   173	
+   174	    .topbar {
+   175	      position: sticky;
+   176	      top: 0;
+   177	      z-index: 20;
+   178	      display: grid;
+   179	      grid-template-columns: 84px 1fr 84px;
+   180	      align-items: center;
+   181	      min-height: 66px;
+   182	      margin: calc(-18px - env(safe-area-inset-top)) -16px 22px;
+   183	      padding: calc(10px + env(safe-area-inset-top)) 16px 10px;
+   184	      background: linear-gradient(180deg, rgba(2, 8, 7, 0.96), rgba(2, 8, 7, 0.78));
+   185	      border-bottom: 1px solid rgba(57, 210, 192, 0.32);
+   186	      backdrop-filter: blur(24px);
+   187	      -webkit-backdrop-filter: blur(24px);
+   188	      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+   189	    }
+   190	
+   191	    .back-button {
+   192	      display: inline-flex;
+   193	      align-items: center;
+   194	      justify-content: center;
+   195	      gap: 7px;
+   196	      min-height: 44px;
+   197	      padding: 0 14px;
+   198	      border: 1px solid rgba(255, 231, 164, 0.32);
+   199	      border-radius: 16px;
+   200	      color: var(--gold-hot);
+   201	      background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.018));
+   202	      font-size: 13px;
+   203	      font-weight: 900;
+   204	      cursor: pointer;
+   205	      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 12px 30px rgba(0, 0, 0, 0.22);
+   206	      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+   207	    }
+   208	
+   209	    .back-button:hover {
+   210	      border-color: rgba(255, 231, 164, 0.58);
+   211	      background: rgba(217, 177, 95, 0.10);
+   212	    }
+   213	
+   214	    .back-button:active {
+   215	      transform: scale(0.96);
+   216	    }
+   217	
+   218	    .back-button:focus-visible,
+   219	    .guide-button:focus-visible {
+   220	      outline: 3px solid rgba(141, 255, 243, 0.30);
+   221	      outline-offset: 3px;
+   222	    }
+   223	
+   224	    .back-arrow {
+   225	      font-size: 21px;
+   226	      line-height: 1;
+   227	    }
+   228	
+   229	    .topbar-title {
+   230	      text-align: center;
+   231	      color: var(--gold-hot);
+   232	      font-size: 13px;
+   233	      font-weight: 900;
+   234	      letter-spacing: 0.24em;
+   235	      text-transform: uppercase;
+   236	    }
+   237	
+   238	    .topbar-space {
+   239	      width: 84px;
+   240	    }
+
+--- middle ---
+   300	    }
+   301	
+   302	    .hero-content {
+   303	      position: relative;
+   304	      z-index: 4;
+   305	      padding: 26px 24px 31px;
+   306	      text-align: center;
+   307	      background:
+   308	        radial-gradient(circle at 50% 0%, rgba(141, 255, 243, 0.14), transparent 40%),
+   309	        radial-gradient(circle at 50% 100%, rgba(217, 177, 95, 0.10), transparent 46%),
+   310	        linear-gradient(180deg, rgba(5, 18, 16, 0.84), rgba(3, 10, 9, 0.96));
+   311	    }
+   312	
+   313	    .eyebrow {
+   314	      display: inline-flex;
+   315	      align-items: center;
+   316	      gap: 9px;
+   317	      margin-bottom: 17px;
+   318	      padding: 8px 15px;
+   319	      border: 1px solid rgba(141, 255, 243, 0.46);
+   320	      border-radius: 999px;
+   321	      color: var(--aqua-hot);
+   322	      background: rgba(4, 24, 22, 0.72);
+   323	      font-size: 10px;
+   324	      font-weight: 900;
+   325	      letter-spacing: 0.18em;
+   326	      text-transform: uppercase;
+   327	      backdrop-filter: blur(16px);
+   328	      -webkit-backdrop-filter: blur(16px);
+   329	      box-shadow: 0 0 34px rgba(57, 210, 192, 0.10);
+   330	    }
+   331	
+   332	    .eyebrow-dot {
+   333	      width: 7px;
+   334	      height: 7px;
+   335	      border-radius: 50%;
+   336	      background: var(--aqua-hot);
+   337	      box-shadow: 0 0 18px rgba(141, 255, 243, 0.95);
+   338	    }
+   339	
+   340	    .hero-title {
+   341	      margin-bottom: 9px;
+   342	      color: var(--white);
+   343	      font-size: clamp(36px, 8vw, 56px);
+   344	      font-weight: 900;
+   345	      line-height: 0.98;
+   346	      letter-spacing: -0.06em;
+   347	      text-wrap: balance;
+   348	    }
+   349	
+   350	    .hero-subtitle {
+   351	      margin-bottom: 18px;
+   352	      color: var(--gold-hot);
+   353	      font-size: 14px;
+   354	      font-weight: 800;
+   355	      letter-spacing: 0.055em;
+   356	    }
+   357	
+   358	    .hero-quote {
+   359	      max-width: 590px;
+   360	      margin: 0 auto;
+   361	      color: rgba(247, 244, 236, 0.86);
+   362	      font-size: 15px;
+   363	      font-weight: 450;
+   364	      line-height: 1.78;
+   365	    }
+   366	
+   367	    .stats {
+   368	      display: grid;
+   369	      grid-template-columns: repeat(3, 1fr);
+   370	      gap: 12px;
+   371	      margin-top: 18px;
+   372	    }
+   373	
+   374	    .stat,
+   375	    .premium-card,
+   376	    .feature-item,
+   377	    .destination,
+   378	    .final-block {
+   379	      position: relative;
+   380	      overflow: hidden;
+   381	      border: 1px solid var(--stroke);
+   382	      background: linear-gradient(145deg, rgba(255, 255, 255, 0.062), rgba(255, 255, 255, 0.018)), var(--glass);
+   383	      box-shadow: var(--shadow-card);
+   384	      backdrop-filter: blur(18px);
+   385	      -webkit-backdrop-filter: blur(18px);
+   386	    }
+   387	
+   388	    .stat {
+   389	      min-height: 108px;
+   390	      padding: 19px 10px;
+   391	      border-radius: var(--radius-md);
+   392	      text-align: center;
+   393	    }
+   394	
+   395	    .stat::before,
+   396	    .premium-card::before,
+   397	    .feature-item::before,
+   398	    .destination::before {
+   399	      content: "";
+   400	      position: absolute;
+   401	      inset: 0;
+   402	      pointer-events: none;
+   403	      background: radial-gradient(circle at 50% 0%, rgba(141, 255, 243, 0.10), transparent 54%);
+   404	    }
+   405	
+   406	    .stat-value {
+   407	      position: relative;
+   408	      display: block;
+   409	      margin-bottom: 8px;
+   410	      color: var(--gold-hot);
+   411	      font-size: 25px;
+   412	      font-weight: 900;
+   413	      letter-spacing: -0.045em;
+   414	    }
+   415	
+   416	    .stat-label {
+   417	      position: relative;
+   418	      display: block;
+   419	      color: var(--muted);
+   420	      font-size: 10px;
+   421	      font-weight: 650;
+   422	      line-height: 1.45;
+   423	    }
+   424	
+   425	    .premium-card {
+   426	      margin-top: 34px;
+   427	      padding: 28px 23px;
+   428	      border-radius: var(--radius-lg);
+   429	    }
+   430	
+   431	    .premium-card.accent-aqua {
+   432	      border-color: rgba(141, 255, 243, 0.22);
+   433	    }
+   434	
+   435	    .premium-card.accent-gold {
+   436	      border-color: rgba(255, 231, 164, 0.20);
+   437	      background:
+   438	        radial-gradient(circle at 100% 0%, rgba(217, 177, 95, 0.13), transparent 48%),
+   439	        linear-gradient(145deg, rgba(255, 255, 255, 0.062), rgba(255, 255, 255, 0.018)),
+   440	        var(--glass);
+   441	    }
+   442	
+   443	    .section-kicker {
+   444	      margin-bottom: 10px;
+   445	      color: var(--aqua-hot);
+   446	      font-size: 10px;
+   447	      font-weight: 900;
+   448	      letter-spacing: 0.18em;
+   449	      text-transform: uppercase;
+   450	    }
+   451	
+   452	    .section-title,
+   453	    .features-heading,
+   454	    .destinations-title {
+   455	      margin-bottom: 16px;
+   456	      color: var(--gold-hot);
+   457	      font-size: clamp(22px, 4.9vw, 29px);
+   458	      font-weight: 900;
+   459	      line-height: 1.2;
+   460	      letter-spacing: -0.045em;
+   461	      text-wrap: balance;
+   462	    }
+   463	
+   464	    .premium-card p,
+   465	    .destination-intro,
+   466	    .final-text {
+   467	      color: rgba(247, 244, 236, 0.84);
+   468	      font-size: 15px;
+   469	      font-weight: 450;
+   470	      line-height: 1.78;
+   471	    }
+   472	
+   473	    .premium-card p + p {
+   474	      margin-top: 15px;
+   475	    }
+   476	
+   477	    .strong {
+   478	      color: var(--white);
+   479	      font-weight: 800;
+   480	    }
+   481	
+   482	    .gold {
+   483	      color: var(--gold-hot);
+   484	      font-weight: 850;
+   485	    }
+   486	
+   487	    .manifest {
+   488	      display: grid;
+   489	      gap: 14px;
+   490	      margin-top: 34px;
+   491	    }
+   492	
+   493	    .manifest .premium-card {
+   494	      margin-top: 0;
+   495	    }
+   496	
+   497	    .big-thought {
+   498	      color: var(--white);
+   499	      font-size: clamp(22px, 5.6vw, 32px);
+   500	      font-weight: 800;
+   501	      line-height: 1.48;
+   502	      letter-spacing: -0.04em;
+   503	      text-wrap: balance;
+   504	    }
+   505	
+   506	    .big-thought span {
+   507	      color: var(--gold-hot);
+   508	    }
+   509	
+   510	    .features {
+   511	      margin-top: 34px;
+   512	    }
+   513	
+   514	    .feature-list {
+   515	      display: grid;
+   516	      gap: 11px;
+   517	      list-style: none;
+   518	    }
+   519	
+   520	    .feature-item {
+   521	      display: flex;
+   522	      align-items: flex-start;
+   523	      gap: 14px;
+   524	      min-height: 70px;
+   525	      padding: 15px 16px;
+   526	      border-radius: var(--radius-sm);
+   527	    }
+   528	
+   529	    .feature-icon {
+   530	      position: relative;
+   531	      flex: 0 0 auto;
+   532	      display: inline-flex;
+   533	      align-items: center;
+   534	      justify-content: center;
+   535	      width: 37px;
+   536	      height: 37px;
+   537	      border: 1px solid rgba(141, 255, 243, 0.38);
+   538	      border-radius: 14px;
+   539	      color: var(--aqua-hot);
+   540	      background: radial-gradient(circle at 50% 20%, rgba(141, 255, 243, 0.24), rgba(57, 210, 192, 0.08));
+   541	      font-size: 15px;
+   542	      font-weight: 900;
+   543	      box-shadow: 0 0 25px rgba(57, 210, 192, 0.12);
+   544	    }
+   545	
+   546	    .feature-text {
+   547	      position: relative;
+   548	      color: rgba(247, 244, 236, 0.88);
+   549	      font-size: 14px;
+   550	      font-weight: 650;
+   551	      line-height: 1.48;
+   552	    }
+   553	
+   554	    .nha-trang-word {
+   555	      position: absolute;
+   556	      right: -18px;
+   557	      bottom: -12px;
+   558	      color: rgba(255, 255, 255, 0.035);
+   559	      font-size: clamp(44px, 12vw, 78px);
+   560	      font-weight: 900;
+
+--- end ---
+   640	      background: linear-gradient(135deg, #b5fff8 0%, #65efe0 28%, #39d2c0 55%, #19a292 100%);
+   641	      font-size: 14px;
+   642	      font-weight: 900;
+   643	      letter-spacing: 0.10em;
+   644	      text-transform: uppercase;
+   645	      cursor: pointer;
+   646	      box-shadow:
+   647	        0 20px 52px rgba(57, 210, 192, 0.28),
+   648	        0 0 0 1px rgba(57, 210, 192, 0.14),
+   649	        inset 0 1px 0 rgba(255, 255, 255, 0.72),
+   650	        inset 0 -10px 24px rgba(0, 61, 55, 0.14);
+   651	      transition: transform 0.18s ease, filter 0.18s ease, box-shadow 0.18s ease;
+   652	    }
+   653	
+   654	    .guide-button::before {
+   655	      content: "";
+   656	      position: absolute;
+   657	      top: 0;
+   658	      left: -150%;
+   659	      width: 82%;
+   660	      height: 100%;
+   661	      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.54), transparent);
+   662	      transform: skewX(-22deg);
+   663	      animation: shine 4.8s infinite;
+   664	    }
+   665	
+   666	    .guide-button:hover {
+   667	      filter: brightness(1.05) saturate(1.08);
+   668	      box-shadow:
+   669	        0 26px 68px rgba(57, 210, 192, 0.34),
+   670	        0 0 0 1px rgba(141, 255, 243, 0.24),
+   671	        inset 0 1px 0 rgba(255, 255, 255, 0.74),
+   672	        inset 0 -10px 24px rgba(0, 61, 55, 0.14);
+   673	    }
+   674	
+   675	    .guide-button:active {
+   676	      transform: scale(0.985);
+   677	    }
+   678	
+   679	    .guide-button:disabled {
+   680	      cursor: wait;
+   681	      opacity: 0.76;
+   682	      filter: grayscale(0.08);
+   683	    }
+   684	
+   685	    .footer {
+   686	      padding: 28px 6px 2px;
+   687	      color: rgba(255, 255, 255, 0.32);
+   688	      text-align: center;
+   689	      font-size: 10px;
+   690	      font-weight: 800;
+   691	      letter-spacing: 0.09em;
+   692	    }
+   693	
+   694	    .reveal {
+   695	      opacity: 0;
+   696	      transform: translateY(20px);
+   697	      animation: reveal 0.78s cubic-bezier(0.2, 0.75, 0.25, 1) forwards;
+   698	    }
+   699	
+   700	    .delay-1 { animation-delay: 0.06s; }
+   701	    .delay-2 { animation-delay: 0.12s; }
+   702	    .delay-3 { animation-delay: 0.18s; }
+   703	    .delay-4 { animation-delay: 0.24s; }
+   704	
+   705	    @keyframes reveal {
+   706	      to {
+   707	        opacity: 1;
+   708	        transform: translateY(0);
+   709	      }
+   710	    }
+   711	
+   712	    @keyframes waveMove {
+   713	      from { transform: translateX(0); }
+   714	      to { transform: translateX(-360px); }
+   715	    }
+   716	
+   717	    @keyframes breathe {
+   718	      0%, 100% { opacity: 0.62; transform: translateX(-50%) scale(1); }
+   719	      50% { opacity: 0.92; transform: translateX(-50%) scale(1.08); }
+   720	    }
+   721	
+   722	    @keyframes shine {
+   723	      0% { left: -150%; }
+   724	      42%, 100% { left: 168%; }
+   725	    }
+   726	
+   727	    @media (max-width: 520px) {
+   728	      .page {
+   729	        padding-left: 12px;
+   730	        padding-right: 12px;
+   731	      }
+   732	
+   733	      .topbar {
+   734	        grid-template-columns: 54px 1fr 54px;
+   735	        margin-left: -12px;
+   736	        margin-right: -12px;
+   737	        padding-left: 12px;
+   738	        padding-right: 12px;
+   739	      }
+   740	
+   741	      .back-button {
+   742	        width: 46px;
+   743	        min-width: 46px;
+   744	        padding: 0;
+   745	      }
+   746	
+   747	      .back-text {
+   748	        display: none;
+   749	      }
+   750	
+   751	      .topbar-space {
+   752	        width: 54px;
+   753	      }
+   754	
+   755	      .topbar-title {
+   756	        font-size: 12px;
+   757	        letter-spacing: 0.19em;
+   758	      }
+   759	
+   760	      .hero {
+   761	        border-radius: 30px;
+   762	      }
+   763	
+   764	      .hero-photo-wrap {
+   765	        aspect-ratio: 4 / 4.95;
+   766	      }
+   767	
+   768	      .hero-photo {
+   769	        object-position: center 28%;
+   770	      }
+   771	
+   772	      .hero-content {
+   773	        padding: 23px 18px 27px;
+   774	      }
+   775	
+   776	      .eyebrow {
+   777	        font-size: 9px;
+   778	        letter-spacing: 0.15em;
+   779	      }
+   780	
+   781	      .hero-title {
+   782	        font-size: 34px;
+   783	      }
+   784	
+   785	      .hero-quote,
+   786	      .premium-card p,
+   787	      .destination-intro,
+   788	      .final-text {
+   789	        font-size: 14px;
+   790	      }
+   791	
+   792	      .stats {
+   793	        gap: 8px;
+   794	      }
+   795	
+   796	      .stat {
+   797	        min-height: 96px;
+   798	        padding: 16px 6px;
+   799	        border-radius: 18px;
+   800	      }
+   801	
+   802	      .stat-value {
+   803	        font-size: 21px;
+   804	      }
+   805	
+   806	      .stat-label {
+   807	        font-size: 9px;
+   808	      }
+   809	
+   810	      .premium-card,
+   811	      .final-block {
+   812	        margin-top: 30px;
+   813	        padding: 24px 18px;
+   814	        border-radius: 25px;
+   815	      }
+   816	
+   817	      .section-title,
+   818	      .features-heading,
+   819	      .destinations-title {
+   820	        font-size: 22px;
+   240	    }
+   241	
+   242	    .hero {
+   243	      position: relative;
+   244	      overflow: hidden;
+   245	      border: 1px solid rgba(255, 255, 255, 0.09);
+   246	      border-radius: var(--radius-xl);
+   247	      background: rgba(5, 14, 13, 0.82);
+   248	      box-shadow: var(--shadow-hero);
+   249	      isolation: isolate;
+   250	    }
+   251	
+   252	    .hero::before {
+   253	      content: "";
+   254	      position: absolute;
+   255	      inset: 0;
+   256	      z-index: 3;
+   257	      pointer-events: none;
+   258	      border-radius: inherit;
+   259	      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 -1px 0 rgba(141, 255, 243, 0.10);
+   260	    }
+   261	
+   262	    .hero-photo-wrap {
+   263	      position: relative;
+   264	      width: 100%;
+   265	      aspect-ratio: 4 / 4.35;
+   266	      overflow: hidden;
+   267	      background: #06110f;
+   268	    }
+   269	
+   270	    .hero-photo-wrap::before {
+   271	      content: "";
+   272	      position: absolute;
+   273	      inset: 0;
+   274	      z-index: 1;
+   275	      pointer-events: none;
+   276	      background:
+   277	        linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, transparent 48%, rgba(3, 17, 15, 0.76) 100%),
+   278	        radial-gradient(circle at 50% 18%, transparent 0 45%, rgba(0, 0, 0, 0.22) 100%);
+   279	    }
+   280	
+   281	    .hero-photo-wrap::after {
+   282	      content: "";
+   283	      position: absolute;
+   284	      left: 8%;
+   285	      right: 8%;
+   286	      bottom: -1px;
+   287	      z-index: 2;
+   288	      height: 1px;
+   289	      background: linear-gradient(90deg, transparent, rgba(141, 255, 243, 0.56), rgba(255, 231, 164, 0.34), transparent);
+   290	    }
+   291	
+   292	    .hero-photo {
+   293	      display: block;
+   294	      width: 100%;
+   295	      height: 100%;
+   296	      object-fit: cover;
+   297	      object-position: center 31%;
+   298	      filter: saturate(1.08) contrast(1.05) brightness(0.96);
+   299	      transform: scale(1.012);
+   300	    }
+   301	
+   302	    .hero-content {
+   303	      position: relative;
+   304	      z-index: 4;
+   305	      padding: 26px 24px 31px;
+   306	      text-align: center;
+   307	      background:
+   308	        radial-gradient(circle at 50% 0%, rgba(141, 255, 243, 0.14), transparent 40%),
+   309	        radial-gradient(circle at 50% 100%, rgba(217, 177, 95, 0.10), transparent 46%),
+   310	        linear-gradient(180deg, rgba(5, 18, 16, 0.84), rgba(3, 10, 9, 0.96));
+   311	    }
+   312	
+   313	    .eyebrow {
+   314	      display: inline-flex;
+   315	      align-items: center;
+   316	      gap: 9px;
+   317	      margin-bottom: 17px;
+   318	      padding: 8px 15px;
+   319	      border: 1px solid rgba(141, 255, 243, 0.46);
+   320	      border-radius: 999px;
+   321	      color: var(--aqua-hot);
+   322	      background: rgba(4, 24, 22, 0.72);
+   323	      font-size: 10px;
+   324	      font-weight: 900;
+   325	      letter-spacing: 0.18em;
+   326	      text-transform: uppercase;
+   327	      backdrop-filter: blur(16px);
+   328	      -webkit-backdrop-filter: blur(16px);
+   329	      box-shadow: 0 0 34px rgba(57, 210, 192, 0.10);
+   330	    }
+   331	
+   332	    .eyebrow-dot {
+   333	      width: 7px;
+   334	      height: 7px;
+   335	      border-radius: 50%;
+   336	      background: var(--aqua-hot);
+   337	      box-shadow: 0 0 18px rgba(141, 255, 243, 0.95);
+   338	    }
+   339	
+   340	    .hero-title {
+
+--- body ---
+   850	
+   851	      .stat {
+   852	        min-height: 76px;
+   853	      }
+   854	    }
+   855	
+   856	    @media (prefers-reduced-motion: reduce) {
+   857	      html {
+   858	        scroll-behavior: auto;
+   859	      }
+   860	
+   861	      *,
+   862	      *::before,
+   863	      *::after {
+   864	        animation-duration: 0.01ms !important;
+   865	        animation-iteration-count: 1 !important;
+   866	        transition-duration: 0.01ms !important;
+   867	      }
+   868	    }
+   869	  </style>
+   870	</head>
+   871	
+   872	<body>
+   873	  <div class="ocean-scene" aria-hidden="true">
+   874	    <div class="ocean-glow"></div>
+   875	    <div class="wave wave-1"></div>
+   876	    <div class="wave wave-2"></div>
+   877	    <div class="wave wave-3"></div>
+   878	  </div>
+   879	
+   880	  <main class="page">
+   881	    <header class="topbar">
+   882	      <button id="backButton" class="back-button" type="button" aria-label="Вернуться назад">
+   883	        <span class="back-arrow" aria-hidden="true">←</span>
+   884	        <span class="back-text">Назад</span>
+   885	      </button>
+   886	
+   887	      <div class="topbar-title">О проекте</div>
+   888	      <div class="topbar-space" aria-hidden="true"></div>
+   889	    </header>
+   890	
+   891	    <section class="hero reveal" aria-labelledby="heroTitle">
+   892	      <div class="hero-photo-wrap">
+   893	        <img
+   894	          class="hero-photo"
+   895	          src="founders.jpg"
+   896	          alt="Мария и Сергей — создатели проекта Как Местный"
+   897	          loading="eager"
+   898	          decoding="async"
+   899	        >
+   900	      </div>
+   901	
+   902	      <div class="hero-content">
+   903	        <div class="eyebrow">
+   904	          <span class="eyebrow-dot" aria-hidden="true"></span>
+   905	          Ocean premium guide
+   906	        </div>
+   907	
+   908	        <h1 id="heroTitle" class="hero-title">Мария и Сергей</h1>
+   909	
+   910	        <div class="hero-subtitle">Создатели проекта «Как Местный»</div>
+   911	
+   912	        <p class="hero-quote">
+   913	          Мы показываем путешествия не как рекламную открытку, а как живое место:
+   914	          с морским ритмом, честными маршрутами, проверенными деталями и ощущением,
+   915	          что в новой стране у вас уже есть свои люди.
+   916	        </p>
+   917	      </div>
+   918	    </section>
+   919	
+   920	    <section class="stats reveal delay-1" aria-label="Факты о проекте">
+   921	      <div class="stat">
+   922	        <span class="stat-value">6+</span>
+   923	        <span class="stat-label">лет путешествуем вместе</span>
+   924	      </div>
+   925	
+   926	      <div class="stat">
+   927	        <span class="stat-value">20+</span>
+   928	        <span class="stat-label">посещённых стран</span>
+   929	      </div>
+   930	
+   931	      <div class="stat">
+   932	        <span class="stat-value">100%</span>
+   933	        <span class="stat-label">личная проверка</span>
+   934	      </div>
+   935	    </section>
+   936	
+   937	    <section class="premium-card accent-aqua reveal delay-2">
+   938	      <div class="section-kicker">Кто мы</div>
+   939	
+   940	      <h2 class="section-title">
+   941	        Мы ищем не туристические точки, а настоящий ритм места
+   942	      </h2>
+   943	
+   944	      <p>
+   945	        За годы путешествий мы поняли: самые сильные впечатления редко лежат на поверхности.
+   946	        Они появляются в правильном районе, в тихом кафе у моря, на маршруте без толп
+   947	        и в маленьких деталях, которые заранее никто не объяснил.
+   948	      </p>
+   949	
+   950	      <p>
+   951	        Поэтому <span class="strong">«Как Местный»</span> — это не список красивых локаций,
+   952	        а личный опыт, собранный так, чтобы вам было спокойно, понятно и по-настоящему интересно.
+   953	      </p>
+   954	    </section>
+   955	
+   956	    <section class="manifest reveal delay-3" aria-label="Философия проекта">
+   957	      <div class="premium-card accent-gold">
+   958	        <div class="section-kicker">Наша философия</div>
+   959	
+   960	        <p class="big-thought">
+   961	          Мы создаём ощущение, что в новой стране у вас уже есть
+   962	          <span>хороший знакомый у моря.</span>
+   963	        </p>
+   964	      </div>
+   965	    </section>
+   966	
+   967	    <section class="premium-card accent-aqua reveal delay-4">
+   968	      <div class="section-kicker">Почему появился проект</div>
+   969	
+   970	      <h2 class="section-title">
+   971	        Потому что интернет часто показывает всем одно и то же
+   972	      </h2>
+   973	
+   974	      <p>
+   975	        Популярные подборки быстро превращают путешествие в одинаковый сценарий:
+   976	        очереди, завышенные цены, переполненные места и советы, которые больше похожи на рекламу.
+   977	      </p>
+   978	
+   979	      <p>
+   980	        Мы делаем иначе: проверяем маршруты лично, отмечаем нюансы, показываем честные цены
+   981	        и собираем только то, что действительно помогает почувствовать город
+   982	        <span class="gold">по-настоящему</span>.
+   983	      </p>
+   984	    </section>
+   985	
+   986	    <section class="features reveal">
+   987	      <h2 class="features-heading">Что внутри нашего подхода</h2>
+   988	
+   989	      <ul class="feature-list">
+   990	        <li class="feature-item">
+   991	          <span class="feature-icon" aria-hidden="true">✓</span>
+   992	          <span class="feature-text">Маршруты без хаоса: куда ехать, когда ехать и в какой последовательности.</span>
+   993	        </li>
+   994	
+   995	        <li class="feature-item">
+   996	          <span class="feature-icon" aria-hidden="true">✓</span>
+   997	          <span class="feature-text">Кафе, рестораны и точки, где действительно вкусно, а не просто красиво на фото.</span>
+   998	        </li>
+   999	
+  1000	        <li class="feature-item">
+  1001	          <span class="feature-icon" aria-hidden="true">✓</span>
+  1002	          <span class="feature-text">Реальные цены, туристические ловушки и способы не переплачивать.</span>
+  1003	        </li>
+  1004	
+  1005	        <li class="feature-item">
+  1006	          <span class="feature-icon" aria-hidden="true">✓</span>
+  1007	          <span class="feature-text">Полезные контакты: врачи, переводчики и русскоговорящие специалисты.</span>
+  1008	        </li>
+  1009	
+  1010	        <li class="feature-item">
+  1011	          <span class="feature-icon" aria-hidden="true">✓</span>
+  1012	          <span class="feature-text">Места у моря, атмосферные районы и детали, которые создают ощущение своего города.</span>
+  1013	        </li>
+  1014	      </ul>
+  1015	    </section>
+  1016	
+  1017	    <section class="premium-card accent-gold reveal">
+  1018	      <span class="nha-trang-word" aria-hidden="true">NHA TRANG</span>
+  1019	
+  1020	      <div class="section-kicker">Сейчас</div>
+  1021	
+  1022	      <h2 class="section-title">
+  1023	        Мы полностью посвятили себя Нячангу
+  1024	      </h2>
+  1025	
+  1026	      <p>
+  1027	        Этот город стал для нас вторым домом. Мы изучили районы, пляжи, кафе,
+  1028	        маршруты, бытовые вопросы и повседневную жизнь, которую обычно не видно
+  1029	        в стандартных туристических обзорах. Нячанг — наша первая большая глава,
+  1030	        но точно не последняя.
+  1031	      </p>
+  1032	    </section>
+  1033	
+  1034	    <section class="destinations reveal">
+  1035	      <h2 class="destinations-title">Следующие направления</h2>
+  1036	
+  1037	      <p class="destination-intro">
+  1038	        Новые города будут появляться постепенно — только после личной проверки
+  1039	        и по тому же принципу: честно, удобно и без рекламных шаблонов.
+  1040	      </p>
+
+--- script ---
+  1040	      </p>
+  1041	
+  1042	      <div class="destination-grid" aria-label="Будущие направления">
+  1043	        <div class="destination">Вьетнам</div>
+  1044	        <div class="destination">Таиланд</div>
+  1045	        <div class="destination">Бали</div>
+  1046	        <div class="destination">Малайзия</div>
+  1047	        <div class="destination">Турция</div>
+  1048	        <div class="destination">Шри-Ланка</div>
+  1049	        <div class="destination">Индия</div>
+  1050	        <div class="destination">Узбекистан</div>
+  1051	      </div>
+  1052	    </section>
+  1053	
+  1054	    <section class="final-block reveal">
+  1055	      <h2 class="final-title">
+  1056	        Путешествуйте красиво,
+  1057	        <span>но по-настоящему</span>
+  1058	      </h2>
+  1059	
+  1060	      <p class="final-text">
+  1061	        Мы хотим, чтобы после поездки у вас оставались не только фотографии,
+  1062	        но и ощущение: вы поняли место, почувствовали его характер и стали в нём немного своими.
+  1063	      </p>
+  1064	
+  1065	      <button id="startJourneyButton" class="guide-button" type="button">
+  1066	        Начать путешествие
+  1067	      </button>
+  1068	    </section>
+  1069	
+  1070	    <footer class="footer">КАК МЕСТНЫЙ · OCEAN EDITION · ПРОВЕРЕНО ЛИЧНО</footer>
+  1071	  </main>
+  1072	
+  1073	  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  1074	  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  1075	  <script src="access.js"></script>
+  1076	
+  1077	  <script>
+  1078	    const ROUTES = {
+  1079	      home: "https://travel-app-rnftpo.flutterflow.app/homePage",
+  1080	      guide: "guidepage.html"
+  1081	    };
+  1082	
+  1083	    function getCurrentQueryString() {
+  1084	      const params = new URLSearchParams(window.location.search);
+  1085	
+  1086	      const tgid =
+  1087	        params.get("tgid") ||
+  1088	        params.get("userId") ||
+  1089	        params.get("id") ||
+  1090	        localStorage.getItem("tgid") ||
+  1091	        "";
+  1092	
+  1093	      return tgid ? "?tgid=" + encodeURIComponent(tgid) : "";
+  1094	    }
+  1095	
+  1096	    function goHome() {
+  1097	      window.location.href = ROUTES.home;
+  1098	    }
+  1099	
+  1100	    function openGuide() {
+  1101	      window.location.href = ROUTES.guide + getCurrentQueryString();
+  1102	    }
+  1103	
+  1104	    function openQuiz() {
+  1105	      const currentQueryString = getCurrentQueryString();
+  1106	      const querySuffix = currentQueryString
+  1107	        ? "&" + currentQueryString.substring(1)
+  1108	        : "";
+  1109	
+  1110	      window.location.href = ROUTES.home + "?openQuiz=1" + querySuffix;
+  1111	    }
+  1112	
+  1113	    function setJourneyButtonLoading(isLoading) {
+  1114	      const button = document.getElementById("startJourneyButton");
+  1115
+  1113	    function setJourneyButtonLoading(isLoading) {
+  1114	      const button = document.getElementById("startJourneyButton");
+  1115	
+  1116	      if (!button) {
+  1117	        return;
+  1118	      }
+  1119	
+  1120	      button.disabled = isLoading;
+  1121	      button.textContent = isLoading ? "Проверяем доступ..." : "Начать путешествие";
+  1122	    }
+  1123	
+  1124	    function startJourney() {
+  1125	      setJourneyButtonLoading(true);
+  1126	
+  1127	      if (!window.KM || typeof window.KM.initProtectedPage !== "function") {
+  1128	        setJourneyButtonLoading(false);
+  1129	        console.error("KM.initProtectedPage не найден. Проверь подключение access.js.");
+  1130	        openQuiz();
+  1131	        return;
+  1132	      }
+  1133	
+  1134	      window.KM.initProtectedPage({
+  1135	        onReady: function () {
+  1136	          openGuide();
+  1137	        },
+  1138	
+  1139	        onBlocked: function () {
+  1140	          openQuiz();
+  1141	        }
+  1142	      });
+  1143	    }
+  1144	
+  1145	    document.getElementById("backButton")?.addEventListener("click", goHome);
+  1146	    document.getElementById("startJourneyButton")?.addEventListener("click", startJourney);
+  1147	  </script>
+  1148	</body>
+  1149	</html>

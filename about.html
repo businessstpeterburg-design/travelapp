@@ -1200,12 +1200,12 @@
       </p>
 
       <button
-        class="guide-button"
-        type="button"
-        onclick="openGuide()"
-      >
-        Начать путешествие
-      </button>
+  id="startJourneyButton"
+  class="guide-button"
+  type="button"
+  onclick="startJourney()">
+  Начать путешествие
+</button>
 
     </section>
 
@@ -1217,14 +1217,58 @@
   </main>
 
 
-  <script>
-    function openGuide() {
-      const queryString = window.location.search || "";
+  <!-- Firebase нужен для проверки оплаты в Firestore -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-      window.location.href =
-        "guidepage.html" + queryString;
+<!-- Твоя готовая система проверки доступа -->
+<script src="access.js"></script>
+
+<script>
+  function getCurrentQueryString() {
+    const params = new URLSearchParams(window.location.search);
+
+    const tgid =
+      params.get("tgid") ||
+      params.get("userId") ||
+      params.get("id") ||
+      localStorage.getItem("tgid") ||
+      "";
+
+    return tgid
+      ? "?tgid=" + encodeURIComponent(tgid)
+      : "";
+  }
+
+  function openGuide() {
+    window.location.href =
+      "guidepage.html" + getCurrentQueryString();
+  }
+
+  function openQuiz() {
+    window.location.href =
+      "index.html" + getCurrentQueryString();
+  }
+
+  function startJourney() {
+    const button = document.getElementById("startJourneyButton");
+
+    if (button) {
+      button.disabled = true;
+      button.textContent = "Проверяем доступ...";
     }
-  </script>
+
+    KM.initProtectedPage({
+      onReady: function () {
+        openGuide();
+      },
+
+      onBlocked: function () {
+        openQuiz();
+      }
+    });
+  }
+</script>
 
 </body>
 </html>

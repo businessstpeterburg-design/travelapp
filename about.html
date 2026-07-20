@@ -1,24 +1,16 @@
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
-
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#121212">
+  <meta name="description" content="О проекте Как Местный — личный путеводитель по Нячангу и другим направлениям, проверенный на собственном опыте.">
 
   <title>О проекте — Как Местный</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -30,8 +22,10 @@
       --white: #ffffff;
       --text: #f2f2f2;
       --muted: #d7d7d7;
+      --muted-soft: rgba(242, 242, 242, 0.68);
 
       --tiffany: #39d2c0;
+      --tiffany-light: #66eadc;
       --tiffany-soft: rgba(57, 210, 192, 0.12);
       --tiffany-border: rgba(57, 210, 192, 0.28);
 
@@ -58,60 +52,68 @@
     body {
       min-height: 100vh;
       min-height: 100dvh;
-
       overflow-x: hidden;
-
       color: var(--text);
       background:
-        radial-gradient(
-          circle at 0% 0%,
-          rgba(57, 210, 192, 0.10),
-          transparent 34%
-        ),
-        radial-gradient(
-          circle at 100% 20%,
-          rgba(217, 177, 95, 0.08),
-          transparent 30%
-        ),
-        linear-gradient(
-          180deg,
-          #0b0b0b 0%,
-          #121212 38%,
-          #0a0a0a 100%
-        );
-
-      font-family:
-        "Montserrat",
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+        radial-gradient(circle at 0% 0%, rgba(57, 210, 192, 0.11), transparent 34%),
+        radial-gradient(circle at 100% 18%, rgba(217, 177, 95, 0.09), transparent 31%),
+        radial-gradient(circle at 50% 100%, rgba(57, 210, 192, 0.07), transparent 34%),
+        linear-gradient(180deg, #0b0b0b 0%, #121212 42%, #090909 100%);
+      font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     body::before {
       content: "";
       position: fixed;
       inset: 0;
-      z-index: -1;
+      z-index: -2;
       pointer-events: none;
-
       background-image:
-        linear-gradient(
-          rgba(255, 255, 255, 0.012) 1px,
-          transparent 1px
-        ),
-        linear-gradient(
-          90deg,
-          rgba(255, 255, 255, 0.012) 1px,
-          transparent 1px
-        );
-
+        linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
       background-size: 40px 40px;
-      mask-image: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.7),
-        transparent 80%
-      );
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent 80%);
+    }
+
+    .sea-lines {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      height: 220px;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0.55;
+    }
+
+    .sea-lines::before,
+    .sea-lines::after {
+      content: "";
+      position: absolute;
+      left: -20%;
+      right: -20%;
+      height: 120px;
+      background-repeat: repeat-x;
+      background-size: 320px 120px;
+      animation: wave-drift 18s linear infinite;
+    }
+
+    .sea-lines::before {
+      bottom: 35px;
+      background-image:
+        radial-gradient(95px 36px at 70px 52px, rgba(57, 210, 192, 0.13) 0 58%, transparent 60%),
+        radial-gradient(110px 40px at 245px 54px, rgba(240, 213, 141, 0.07) 0 58%, transparent 61%);
+    }
+
+    .sea-lines::after {
+      bottom: -10px;
+      opacity: 0.7;
+      animation-duration: 26s;
+      animation-direction: reverse;
+      background-image:
+        radial-gradient(120px 42px at 90px 62px, rgba(255, 255, 255, 0.045) 0 56%, transparent 59%),
+        radial-gradient(120px 42px at 270px 62px, rgba(57, 210, 192, 0.07) 0 56%, transparent 59%);
     }
 
     button {
@@ -123,37 +125,21 @@
       width: 100%;
       max-width: 720px;
       margin: 0 auto;
-
-      padding:
-        calc(18px + env(safe-area-inset-top))
-        16px
-        calc(44px + env(safe-area-inset-bottom));
+      padding: calc(18px + env(safe-area-inset-top)) 16px calc(44px + env(safe-area-inset-bottom));
     }
 
     .topbar {
       position: sticky;
       top: 0;
       z-index: 100;
-
       display: grid;
       grid-template-columns: 70px 1fr 70px;
       align-items: center;
-
       min-height: 62px;
-
-      margin:
-        calc(-18px - env(safe-area-inset-top))
-        -16px
-        22px;
-
-      padding:
-        calc(10px + env(safe-area-inset-top))
-        16px
-        10px;
-
+      margin: calc(-18px - env(safe-area-inset-top)) -16px 22px;
+      padding: calc(10px + env(safe-area-inset-top)) 16px 10px;
       background: rgba(8, 8, 8, 0.94);
-      border-bottom: 1px solid rgba(57, 210, 192, 0.42);
-
+      border-bottom: 1px solid rgba(57, 210, 192, 0.38);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
     }
@@ -163,29 +149,27 @@
       align-items: center;
       justify-content: center;
       gap: 7px;
-
       min-height: 42px;
       padding: 0 12px;
-
-      border: 1px solid rgba(217, 177, 95, 0.28);
+      border: 1px solid rgba(217, 177, 95, 0.30);
       border-radius: 14px;
-
       color: var(--gold-light);
       background: rgba(255, 255, 255, 0.025);
-
       font-size: 13px;
       font-weight: 700;
-
       cursor: pointer;
-
-      transition:
-        transform 0.18s ease,
-        background 0.18s ease;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
     }
 
     .back-button:active {
       transform: scale(0.96);
       background: rgba(217, 177, 95, 0.08);
+    }
+
+    .back-button:focus-visible,
+    .guide-button:focus-visible {
+      outline: 3px solid rgba(57, 210, 192, 0.28);
+      outline-offset: 3px;
     }
 
     .back-arrow {
@@ -195,11 +179,10 @@
 
     .topbar-title {
       text-align: center;
-
       color: var(--gold-light);
       font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.18em;
+      font-weight: 700;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
     }
 
@@ -210,12 +193,9 @@
     .hero {
       position: relative;
       overflow: hidden;
-
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: var(--radius-large);
-
       background: #111111;
-
       box-shadow:
         0 24px 60px rgba(0, 0, 0, 0.45),
         0 0 0 1px rgba(57, 210, 192, 0.025);
@@ -223,19 +203,15 @@
 
     .hero-photo-wrap {
       position: relative;
-
       width: 100%;
       aspect-ratio: 4 / 5;
-
       overflow: hidden;
     }
 
     .hero-photo {
       display: block;
-
       width: 100%;
       height: 100%;
-
       object-fit: cover;
       object-position: center 42%;
     }
@@ -245,15 +221,8 @@
       position: absolute;
       inset: 0;
       z-index: 1;
-
       background:
-        linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0.02) 0%,
-          rgba(0, 0, 0, 0.08) 45%,
-          rgba(0, 0, 0, 0.82) 82%,
-          #111111 100%
-        );
+        linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.08) 45%, rgba(0, 0, 0, 0.82) 82%, #111111 100%);
     }
 
     .hero-photo-wrap::after {
@@ -261,120 +230,70 @@
       position: absolute;
       inset: 0;
       z-index: 1;
-
-      box-shadow:
-        inset 0 0 80px rgba(0, 0, 0, 0.25);
+      box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.25);
     }
 
     .hero-content {
       position: relative;
       z-index: 2;
-
-      margin-top: -82px;
+      margin-top: -76px;
       padding: 0 22px 28px;
-
       text-align: center;
-    }
-
-    .project-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-
-      margin-bottom: 18px;
-      padding: 8px 14px;
-
-      border: 1px solid rgba(57, 210, 192, 0.45);
-      border-radius: 999px;
-
-      color: var(--tiffany);
-      background: rgba(5, 12, 11, 0.78);
-
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-
-    .project-dot {
-      width: 7px;
-      height: 7px;
-
-      border-radius: 50%;
-
-      background: var(--tiffany);
-      box-shadow: 0 0 14px rgba(57, 210, 192, 0.9);
     }
 
     .hero-title {
       margin-bottom: 8px;
-
       color: var(--white);
-      font-size: clamp(29px, 8vw, 42px);
-      font-weight: 800;
-      line-height: 1.08;
-      letter-spacing: -0.035em;
+      font-size: clamp(30px, 7.8vw, 42px);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
     }
 
     .hero-subtitle {
       margin-bottom: 18px;
-
       color: var(--gold-light);
       font-size: 14px;
       font-weight: 600;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
     }
 
     .hero-quote {
       max-width: 520px;
       margin: 0 auto;
-
       color: #f3f3f3;
       font-size: 15px;
       font-weight: 400;
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
     .stats {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 9px;
-
       margin-top: 14px;
     }
 
     .stat {
       min-height: 94px;
       padding: 16px 8px;
-
       border: 1px solid rgba(255, 255, 255, 0.07);
       border-radius: 18px;
-
       text-align: center;
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255, 255, 255, 0.045),
-          rgba(255, 255, 255, 0.012)
-        );
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
     }
 
     .stat-value {
       display: block;
       margin-bottom: 7px;
-
       color: var(--gold-light);
       font-size: 22px;
-      font-weight: 800;
+      font-weight: 700;
+      letter-spacing: -0.01em;
     }
 
     .stat-label {
       display: block;
-
       color: var(--muted);
       font-size: 10px;
       font-weight: 500;
@@ -383,7 +302,6 @@
 
     .content-section {
       position: relative;
-
       margin-top: 34px;
       padding-left: 20px;
     }
@@ -391,48 +309,43 @@
     .content-section::before {
       content: "";
       position: absolute;
-      top: 5px;
+      top: 6px;
       bottom: 4px;
       left: 0;
-
       width: 2px;
       border-radius: 999px;
-
-      background:
-        linear-gradient(
-          180deg,
-          var(--tiffany),
-          rgba(57, 210, 192, 0.08)
-        );
+      background: linear-gradient(180deg, var(--tiffany), rgba(57, 210, 192, 0.08));
     }
 
-    .section-kicker {
-      margin-bottom: 9px;
-
-      color: var(--tiffany);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.16em;
+    .section-kicker,
+    .philosophy-label,
+    .nha-trang-label {
+      margin-bottom: 10px;
+      color: var(--tiffany-light);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.35;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
-    .section-title {
+    .section-title,
+    .features-heading,
+    .destinations-title {
       margin-bottom: 16px;
-
       color: var(--gold-light);
       font-size: 23px;
-      font-weight: 800;
-      line-height: 1.25;
-      letter-spacing: -0.025em;
+      font-weight: 700;
+      line-height: 1.28;
+      letter-spacing: -0.012em;
     }
 
     .content-section p {
       margin-bottom: 15px;
-
       color: #f1f1f1;
       font-size: 15px;
       font-weight: 400;
-      line-height: 1.75;
+      line-height: 1.78;
     }
 
     .content-section p:last-child {
@@ -441,72 +354,45 @@
 
     .strong {
       color: var(--white);
-      font-weight: 650;
+      font-weight: 600;
     }
 
     .gold {
       color: var(--gold-light);
-      font-weight: 700;
+      font-weight: 600;
     }
 
     .philosophy {
       margin-top: 34px;
       padding: 28px 22px;
-
       border: 1px solid rgba(57, 210, 192, 0.22);
       border-radius: var(--radius-medium);
-
       background:
-        radial-gradient(
-          circle at 0% 0%,
-          rgba(57, 210, 192, 0.09),
-          transparent 48%
-        ),
+        radial-gradient(circle at 0% 0%, rgba(57, 210, 192, 0.09), transparent 48%),
         rgba(18, 18, 18, 0.76);
-
-      box-shadow:
-        0 18px 45px rgba(0, 0, 0, 0.28);
-    }
-
-    .philosophy-label {
-      margin-bottom: 17px;
-
-      color: var(--tiffany);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.17em;
-      text-transform: uppercase;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
     }
 
     .philosophy-text {
       color: var(--white);
       font-size: clamp(20px, 5.5vw, 27px);
-      font-weight: 600;
-      line-height: 1.55;
-      letter-spacing: -0.02em;
+      font-weight: 500;
+      line-height: 1.58;
+      letter-spacing: -0.01em;
     }
 
     .philosophy-text span {
       color: var(--gold-light);
+      font-weight: 600;
     }
 
     .features {
       margin-top: 34px;
     }
 
-    .features-heading {
-      margin-bottom: 18px;
-
-      color: var(--gold-light);
-      font-size: 23px;
-      font-weight: 800;
-      letter-spacing: -0.025em;
-    }
-
     .feature-list {
       display: grid;
       gap: 10px;
-
       list-style: none;
     }
 
@@ -514,64 +400,45 @@
       display: flex;
       align-items: center;
       gap: 14px;
-
       min-height: 66px;
       padding: 14px 16px;
-
       border: 1px solid rgba(255, 255, 255, 0.065);
       border-radius: var(--radius-small);
-
       background: rgba(255, 255, 255, 0.022);
     }
 
     .feature-icon {
       flex: 0 0 auto;
-
       display: inline-flex;
       align-items: center;
       justify-content: center;
-
       width: 34px;
       height: 34px;
-
       border: 1px solid rgba(57, 210, 192, 0.32);
       border-radius: 12px;
-
       color: var(--tiffany);
       background: var(--tiffany-soft);
-
       font-size: 15px;
-      font-weight: 900;
+      font-weight: 700;
     }
 
     .feature-text {
       color: #eeeeee;
       font-size: 14px;
       font-weight: 500;
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
     .nha-trang {
       position: relative;
       overflow: hidden;
-
       margin-top: 34px;
       padding: 28px 22px;
-
       border: 1px solid rgba(217, 177, 95, 0.20);
       border-radius: var(--radius-medium);
-
       background:
-        radial-gradient(
-          circle at 100% 0%,
-          rgba(217, 177, 95, 0.12),
-          transparent 48%
-        ),
-        linear-gradient(
-          145deg,
-          rgba(26, 26, 26, 0.94),
-          rgba(13, 13, 13, 0.96)
-        );
+        radial-gradient(circle at 100% 0%, rgba(217, 177, 95, 0.12), transparent 48%),
+        linear-gradient(145deg, rgba(26, 26, 26, 0.94), rgba(13, 13, 13, 0.96));
     }
 
     .nha-trang::after {
@@ -579,60 +446,40 @@
       position: absolute;
       right: -14px;
       bottom: -10px;
-
       color: rgba(255, 255, 255, 0.022);
       font-size: 44px;
-      font-weight: 800;
-      letter-spacing: -0.05em;
-
+      font-weight: 700;
+      letter-spacing: -0.04em;
       pointer-events: none;
     }
 
-    .nha-trang-label {
-      margin-bottom: 11px;
-
-      color: var(--tiffany);
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.17em;
-      text-transform: uppercase;
-    }
-
     .nha-trang-title {
+      position: relative;
+      z-index: 1;
       max-width: 440px;
       margin-bottom: 14px;
-
       color: var(--white);
       font-size: 25px;
-      font-weight: 800;
+      font-weight: 700;
       line-height: 1.35;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.015em;
     }
 
     .nha-trang-text {
+      position: relative;
+      z-index: 1;
       max-width: 520px;
-
       color: #ededed;
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.72;
     }
 
     .destinations {
       margin-top: 34px;
     }
 
-    .destinations-title {
-      margin-bottom: 8px;
-
-      color: var(--gold-light);
-      font-size: 23px;
-      font-weight: 800;
-      letter-spacing: -0.025em;
-    }
-
     .destinations-subtitle {
       margin-bottom: 18px;
-
       color: #e7e7e7;
       font-size: 14px;
       line-height: 1.6;
@@ -646,32 +493,27 @@
 
     .destination {
       padding: 14px 15px;
-
       border-bottom: 1px solid rgba(57, 210, 192, 0.18);
-
       color: #e8e8e8;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 500;
     }
 
     .final-block {
       margin-top: 40px;
       padding-top: 32px;
-
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-
       text-align: center;
     }
 
     .final-title {
       max-width: 440px;
       margin: 0 auto 14px;
-
       color: var(--white);
       font-size: clamp(26px, 7vw, 36px);
-      font-weight: 800;
+      font-weight: 700;
       line-height: 1.25;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.025em;
     }
 
     .final-title span {
@@ -681,7 +523,6 @@
     .final-text {
       max-width: 490px;
       margin: 0 auto 25px;
-
       color: #ededed;
       font-size: 14px;
       line-height: 1.7;
@@ -690,43 +531,26 @@
     .guide-button {
       position: relative;
       overflow: hidden;
-
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-
       width: 100%;
       min-height: 58px;
-
       padding: 15px 18px;
-
       border: 1px solid rgba(84, 242, 224, 0.72);
       border-radius: 17px;
-
       color: #031513;
-      background:
-        linear-gradient(
-          135deg,
-          #67efdf 0%,
-          #39d2c0 52%,
-          #20a99a 100%
-        );
-
+      background: linear-gradient(135deg, #67efdf 0%, #39d2c0 52%, #20a99a 100%);
       font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
+      font-weight: 700;
+      letter-spacing: 0.055em;
       text-transform: uppercase;
-
       box-shadow:
         0 14px 34px rgba(57, 210, 192, 0.19),
         inset 0 1px 0 rgba(255, 255, 255, 0.55);
-
       cursor: pointer;
-
-      transition:
-        transform 0.18s ease,
-        box-shadow 0.18s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
     }
 
     .guide-button::before {
@@ -734,18 +558,9 @@
       position: absolute;
       top: 0;
       left: -140%;
-
       width: 80%;
       height: 100%;
-
-      background:
-        linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.42),
-          transparent
-        );
-
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), transparent);
       transform: skewX(-22deg);
       animation: shine 4.5s infinite;
     }
@@ -754,9 +569,13 @@
       transform: scale(0.98);
     }
 
+    .guide-button:disabled {
+      opacity: 0.74;
+      cursor: wait;
+    }
+
     .footer {
       padding: 25px 6px 2px;
-
       color: rgba(255, 255, 255, 0.28);
       text-align: center;
       font-size: 10px;
@@ -767,7 +586,6 @@
     .reveal {
       opacity: 0;
       transform: translateY(16px);
-
       animation: reveal 0.7s ease forwards;
     }
 
@@ -787,14 +605,13 @@
     }
 
     @keyframes shine {
-      0% {
-        left: -140%;
-      }
+      0% { left: -140%; }
+      42%, 100% { left: 160%; }
+    }
 
-      42%,
-      100% {
-        left: 160%;
-      }
+    @keyframes wave-drift {
+      from { transform: translateX(0); }
+      to { transform: translateX(-320px); }
     }
 
     @media (max-width: 480px) {
@@ -805,10 +622,8 @@
 
       .topbar {
         grid-template-columns: 52px 1fr 52px;
-
         margin-left: -12px;
         margin-right: -12px;
-
         padding-left: 12px;
         padding-right: 12px;
       }
@@ -886,6 +701,13 @@
         font-size: 14px;
       }
 
+      .section-kicker,
+      .philosophy-label,
+      .nha-trang-label {
+        font-size: 11px;
+        letter-spacing: 0.07em;
+      }
+
       .philosophy,
       .nha-trang {
         padding: 24px 18px;
@@ -898,7 +720,6 @@
       .destination {
         padding-left: 9px;
         padding-right: 9px;
-
         font-size: 13px;
       }
     }
@@ -917,372 +738,262 @@
       }
     }
   </style>
-
 </head>
 
 <body>
+  <div class="sea-lines" aria-hidden="true"></div>
 
   <main class="page">
-
-<header class="topbar">
-
-  <button
-    class="back-button"
-    type="button"
-    onclick="goHome()"
-    aria-label="Вернуться назад"
-  >
-    <span class="back-arrow">←</span>
-    <span class="back-text">Назад</span>
-  </button>
-
-  <div class="topbar-title">
-    О проекте
-  </div>
-
-  <div class="topbar-space"></div>
-
-</header>
-
-
-<section class="hero reveal">
-
-  <div class="hero-photo-wrap">
-
-    <img
-      class="hero-photo"
-     src="founders.jpg"
-      alt="Мария и Сергей — создатели проекта Как Местный"
-    >
-
-  </div>
-
-  <div class="hero-content">
-
-  
-
-    <h1 class="hero-title">
-      Мария и Сергей
-    </h1>
-
-    <div class="hero-subtitle">
-      Создатели проекта
-    </div>
-
-    <p class="hero-quote">
-      Мы не хотим показывать вам только туристическую картинку.
-      Мы хотим помочь почувствовать место, понять его ритм
-      и увидеть жизнь такой, какой её видят местные.
-    </p>
-
-  </div>
-
-</section>
-
-
-<section class="stats reveal delay-1">
-
-  <div class="stat">
-    <span class="stat-value">6+</span>
-    <span class="stat-label">
-      лет путешествуем вместе
-    </span>
-  </div>
-
-  <div class="stat">
-    <span class="stat-value">20+</span>
-    <span class="stat-label">
-      посещённых стран
-    </span>
-  </div>
-
-  <div class="stat">
-    <span class="stat-value">100%</span>
-    <span class="stat-label">
-      личная проверка
-    </span>
-  </div>
-
-</section>
-
-
-<section class="content-section reveal delay-2">
-
-  <div class="section-kicker">
-    Кто мы
-  </div>
-
-  <h2 class="section-title">
-    Путешественники, а не наблюдатели
-  </h2>
-
-  <p>
-    Мы вместе уже больше шести лет. За это время жили в разных странах,
-    посетили более двадцати направлений и научились смотреть на новое
-    место не только глазами туриста.
-  </p>
-
-  <p>
-    Для нас настоящее путешествие — это не количество посещённых
-    достопримечательностей и не набор одинаковых фотографий.
-  </p>
-
-  <p>
-    Самые сильные впечатления рождаются из атмосферы, деталей,
-    случайных открытий и ощущения, что ты действительно
-    <span class="strong">проживаешь место</span>,
-    а не просто приезжаешь в него на несколько дней.
-  </p>
-
-</section>
-
-
-<section class="content-section reveal">
-
-  <div class="section-kicker">
-    Почему появился проект
-  </div>
-
-  <h2 class="section-title">
-    Интернет показывает одно и то же
-  </h2>
-
-  <p>
-    Сегодня сеть переполнена одинаковыми маршрутами, рекламными
-    обзорами и советами из серии «обязательно посетить».
-  </p>
-
-  <p>
-    Но за красивой картинкой часто скрываются переполненные локации,
-    завышенные цены и заранее подготовленный туристический сценарий.
-  </p>
-
-  <p>
-    Именно поэтому мы создали
-    <span class="gold">«Как Местный»</span> —
-    не очередной каталог мест, а практический помощник,
-    собранный из личного опыта.
-  </p>
-
-</section>
-
-
-<section class="philosophy reveal">
-
-  <div class="philosophy-label">
-    Наша философия
-  </div>
-
-  <p class="philosophy-text">
-    Мы создавали не просто путеводитель.
-    Мы создавали ощущение, что в новой стране у тебя уже есть
-    <span>хороший знакомый.</span>
-  </p>
-
-</section>
-
-
-<section class="features reveal">
-
-  <h2 class="features-heading">
-    Что мы проверяем лично
-  </h2>
-
-  <ul class="feature-list">
-
-    <li class="feature-item">
-      <span class="feature-icon">✓</span>
-      <span class="feature-text">
-        Места, которые действительно стоят вашего времени.
-      </span>
-    </li>
-
-    <li class="feature-item">
-      <span class="feature-icon">✓</span>
-      <span class="feature-text">
-        Маршруты, время посещения и удобную последовательность поездки.
-      </span>
-    </li>
-
-    <li class="feature-item">
-      <span class="feature-icon">✓</span>
-      <span class="feature-text">
-        Кафе, рестораны и точки, где действительно вкусно.
-      </span>
-    </li>
-
-    <li class="feature-item">
-      <span class="feature-icon">✓</span>
-      <span class="feature-text">
-        Полезные контакты: врачи, переводчики и русскоговорящие специалисты.
-      </span>
-    </li>
-
-    <li class="feature-item">
-      <span class="feature-icon">✓</span>
-      <span class="feature-text">
-        Цены, туристические ловушки и способы не переплачивать.
-      </span>
-    </li>
-
-    <li class="feature-item">
-      <span class="feature-icon">✓</span>
-      <span class="feature-text">
-        Детали, которые помогают чувствовать себя спокойно и уверенно.
-      </span>
-    </li>
-
-  </ul>
-
-</section>
-
-
-<section class="nha-trang reveal">
-
-  <div class="nha-trang-label">
-    Сейчас
-  </div>
-
-  <h2 class="nha-trang-title">
-    Мы полностью посвятили себя Нячангу
-  </h2>
-
-  <p class="nha-trang-text">
-    Этот город стал для нас вторым домом. Здесь мы исследовали районы,
-    пляжи, кафе, маршруты, контакты и повседневную жизнь,
-    которой обычно не видно в стандартных туристических обзорах.
-    Но Нячанг — только начало.
-  </p>
-
-</section>
-
-
-<section class="destinations reveal">
-
-  <h2 class="destinations-title">
-    Следующие направления
-  </h2>
-
-  <p class="destinations-subtitle">
-    Постепенно внутри проекта будут появляться новые страны и города,
-    которые мы изучим по тому же принципу — лично и без рекламных шаблонов.
-  </p>
-
-  <div class="destination-grid">
-
-    <div class="destination">Вьетнам</div>
-    <div class="destination">Таиланд</div>
-
-    <div class="destination">Бали</div>
-    <div class="destination">Малайзия</div>
-
-    <div class="destination">Турция</div>
-    <div class="destination">Шри-Ланка</div>
-
-    <div class="destination">Индия</div>
-    <div class="destination">Узбекистан</div>
-
-  </div>
-
-</section>
-
-
-<section class="final-block reveal">
-
-  <h2 class="final-title">
-    Спасибо, что путешествуете
-    <span>вместе с нами</span>
-  </h2>
-
-  <p class="final-text">
-    Мы хотим, чтобы после поездки у вас оставались не только фотографии,
-    но и ощущение, что вы действительно узнали место,
-    почувствовали его характер и стали в нём немного своими.
-  </p>
-
-  <button id="startJourneyButton" class="guide-button" type="button" onclick="startJourney()">
-    Начать путешествие
-  </button>
-
-</section>
-
-
-<footer class="footer">
-  КАК МЕСТНЫЙ · ПРОВЕРЕНО ЛИЧНО
-</footer>
-
+    <header class="topbar">
+      <button class="back-button" type="button" onclick="goHome()" aria-label="Вернуться назад">
+        <span class="back-arrow" aria-hidden="true">←</span>
+        <span class="back-text">Назад</span>
+      </button>
+
+      <div class="topbar-title">О проекте</div>
+      <div class="topbar-space" aria-hidden="true"></div>
+    </header>
+
+    <section class="hero reveal">
+      <div class="hero-photo-wrap">
+        <img
+          class="hero-photo"
+          src="founders.jpg"
+          alt="Мария и Сергей — создатели проекта Как Местный"
+        >
+      </div>
+
+      <div class="hero-content">
+        <h1 class="hero-title">Мария и Сергей</h1>
+
+        <div class="hero-subtitle">Создатели проекта</div>
+
+        <p class="hero-quote">
+          Мы не хотим показывать вам только туристическую картинку.
+          Мы хотим помочь почувствовать место, понять его ритм
+          и увидеть жизнь такой, какой её видят местные.
+        </p>
+      </div>
+    </section>
+
+    <section class="stats reveal delay-1">
+      <div class="stat">
+        <span class="stat-value">6+</span>
+        <span class="stat-label">лет путешествуем вместе</span>
+      </div>
+
+      <div class="stat">
+        <span class="stat-value">20+</span>
+        <span class="stat-label">посещённых стран</span>
+      </div>
+
+      <div class="stat">
+        <span class="stat-value">100%</span>
+        <span class="stat-label">личная проверка</span>
+      </div>
+    </section>
+
+    <section class="content-section reveal delay-2">
+      <div class="section-kicker">Кто мы</div>
+
+      <h2 class="section-title">Путешественники, а не наблюдатели</h2>
+
+      <p>
+        Мы вместе уже больше шести лет. За это время жили в разных странах,
+        посетили более двадцати направлений и научились смотреть на новое
+        место не только глазами туриста.
+      </p>
+
+      <p>
+        Для нас настоящее путешествие — это не количество посещённых
+        достопримечательностей и не набор одинаковых фотографий.
+      </p>
+
+      <p>
+        Самые сильные впечатления рождаются из атмосферы, деталей,
+        случайных открытий и ощущения, что ты действительно
+        <span class="strong">проживаешь место</span>,
+        а не просто приезжаешь в него на несколько дней.
+      </p>
+    </section>
+
+    <section class="content-section reveal">
+      <div class="section-kicker">Почему появился проект</div>
+
+      <h2 class="section-title">Интернет показывает одно и то же</h2>
+
+      <p>
+        Сегодня сеть переполнена одинаковыми маршрутами, рекламными
+        обзорами и советами из серии «обязательно посетить».
+      </p>
+
+      <p>
+        Но за красивой картинкой часто скрываются переполненные локации,
+        завышенные цены и заранее подготовленный туристический сценарий.
+      </p>
+
+      <p>
+        Именно поэтому мы создали
+        <span class="gold">«Как Местный»</span> —
+        не очередной каталог мест, а практический помощник,
+        собранный из личного опыта.
+      </p>
+    </section>
+
+    <section class="philosophy reveal">
+      <div class="philosophy-label">Наша философия</div>
+
+      <p class="philosophy-text">
+        Мы создавали не просто путеводитель.
+        Мы создавали ощущение, что в новой стране у тебя уже есть
+        <span>хороший знакомый.</span>
+      </p>
+    </section>
+
+    <section class="features reveal">
+      <h2 class="features-heading">Что мы проверяем лично</h2>
+
+      <ul class="feature-list">
+        <li class="feature-item">
+          <span class="feature-icon" aria-hidden="true">✓</span>
+          <span class="feature-text">Места, которые действительно стоят вашего времени.</span>
+        </li>
+
+        <li class="feature-item">
+          <span class="feature-icon" aria-hidden="true">✓</span>
+          <span class="feature-text">Маршруты, время посещения и удобную последовательность поездки.</span>
+        </li>
+
+        <li class="feature-item">
+          <span class="feature-icon" aria-hidden="true">✓</span>
+          <span class="feature-text">Кафе, рестораны и точки, где действительно вкусно.</span>
+        </li>
+
+        <li class="feature-item">
+          <span class="feature-icon" aria-hidden="true">✓</span>
+          <span class="feature-text">Полезные контакты: врачи, переводчики и русскоговорящие специалисты.</span>
+        </li>
+
+        <li class="feature-item">
+          <span class="feature-icon" aria-hidden="true">✓</span>
+          <span class="feature-text">Цены, туристические ловушки и способы не переплачивать.</span>
+        </li>
+
+        <li class="feature-item">
+          <span class="feature-icon" aria-hidden="true">✓</span>
+          <span class="feature-text">Детали, которые помогают чувствовать себя спокойно и уверенно.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="nha-trang reveal">
+      <div class="nha-trang-label">Сейчас</div>
+
+      <h2 class="nha-trang-title">Мы полностью посвятили себя Нячангу</h2>
+
+      <p class="nha-trang-text">
+        Этот город стал для нас вторым домом. Здесь мы исследовали районы,
+        пляжи, кафе, маршруты, контакты и повседневную жизнь,
+        которой обычно не видно в стандартных туристических обзорах.
+        Но Нячанг — только начало.
+      </p>
+    </section>
+
+    <section class="destinations reveal">
+      <h2 class="destinations-title">Следующие направления</h2>
+
+      <p class="destinations-subtitle">
+        Постепенно внутри проекта будут появляться новые страны и города,
+        которые мы изучим по тому же принципу — лично и без рекламных шаблонов.
+      </p>
+
+      <div class="destination-grid">
+        <div class="destination">Вьетнам</div>
+        <div class="destination">Таиланд</div>
+        <div class="destination">Бали</div>
+        <div class="destination">Малайзия</div>
+        <div class="destination">Турция</div>
+        <div class="destination">Шри-Ланка</div>
+        <div class="destination">Индия</div>
+        <div class="destination">Узбекистан</div>
+      </div>
+    </section>
+
+    <section class="final-block reveal">
+      <h2 class="final-title">
+        Спасибо, что путешествуете
+        <span>вместе с нами</span>
+      </h2>
+
+      <p class="final-text">
+        Мы хотим, чтобы после поездки у вас оставались не только фотографии,
+        но и ощущение, что вы действительно узнали место,
+        почувствовали его характер и стали в нём немного своими.
+      </p>
+
+      <button id="startJourneyButton" class="guide-button" type="button" onclick="startJourney()">
+        Начать путешествие
+      </button>
+    </section>
+
+    <footer class="footer">КАК МЕСТНЫЙ · ПРОВЕРЕНО ЛИЧНО</footer>
   </main>
 
-  <!-- Firebase нужен для проверки оплаты в Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="access.js"></script>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script>
+    function getCurrentQueryString() {
+      const params = new URLSearchParams(window.location.search);
 
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+      const tgid =
+        params.get("tgid") ||
+        params.get("userId") ||
+        params.get("id") ||
+        localStorage.getItem("tgid") ||
+        "";
 
-<!-- Твоя готовая система проверки доступа -->
-
-<script src="access.js"></script>
-
-<script>
-  function getCurrentQueryString() {
-    const params = new URLSearchParams(window.location.search);
-
-    const tgid =
-      params.get("tgid") ||
-      params.get("userId") ||
-      params.get("id") ||
-      localStorage.getItem("tgid") ||
-      "";
-
-    return tgid
-      ? "?tgid=" + encodeURIComponent(tgid)
-      : "";
-  }
-function goHome() {
-  window.location.href =
-    "https://travel-app-rnftpo.flutterflow.app/homePage";
-}
-  function openGuide() {
-  window.location.href =
-    "guidepage.html" + getCurrentQueryString();
-}
-
-  function openQuiz() {
-  window.location.href =
-    "https://travel-app-rnftpo.flutterflow.app/homePage?openQuiz=1" +
-    (getCurrentQueryString() ? "&" + getCurrentQueryString().substring(1) : "");
-}
-
-  function startJourney() {
-    const button = document.getElementById("startJourneyButton");
-
-    if (button) {
-      button.disabled = true;
-      button.textContent = "Проверяем доступ...";
+      return tgid
+        ? "?tgid=" + encodeURIComponent(tgid)
+        : "";
     }
 
-    if (!window.KM || typeof window.KM.initProtectedPage !== "function") {
+    function goHome() {
+      window.location.href =
+        "https://travel-app-rnftpo.flutterflow.app/homePage" +
+        getCurrentQueryString();
+    }
+
+    function openGuide() {
+      window.location.href =
+        "guidepage.html" + getCurrentQueryString();
+    }
+
+    function openQuiz() {
+      window.location.href =
+        "https://travel-app-rnftpo.flutterflow.app/homePage?openQuiz=1" +
+        (getCurrentQueryString() ? "&" + getCurrentQueryString().substring(1) : "");
+    }
+
+    function startJourney() {
+      const button = document.getElementById("startJourneyButton");
+
       if (button) {
-        button.disabled = false;
-        button.textContent = "Начать путешествие";
+        button.disabled = true;
+        button.textContent = "Проверяем доступ...";
       }
 
-      console.error("KM.initProtectedPage не найден. Проверь файл access.js.");
-      openQuiz();
-      return;
+      KM.initProtectedPage({
+        onReady: function () {
+          openGuide();
+        },
+
+        onBlocked: function () {
+          openQuiz();
+        }
+      });
     }
-
-    window.KM.initProtectedPage({
-      onReady: function () {
-        openGuide();
-      },
-
-      onBlocked: function () {
-        openQuiz();
-      }
-    });
-  }
-</script>
-
+  </script>
 </body>
 </html>

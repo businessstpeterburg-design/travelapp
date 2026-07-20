@@ -236,22 +236,67 @@
     .hero-content {
       position: relative;
       z-index: 2;
-      margin-top: -76px;
-      padding: 0 22px 28px;
+      margin: 0;
+      padding: 20px 22px 28px;
       text-align: center;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(17, 17, 17, 0.96) 0%,
+          rgba(17, 17, 17, 0.99) 100%
+        );
+    }
+
+    .founders-panel {
+      position: relative;
+      overflow: hidden;
+      max-width: 560px;
+      margin: -54px auto 20px;
+      padding: 21px 18px 18px;
+      border: 1px solid rgba(217, 177, 95, 0.26);
+      border-radius: 20px;
+      background:
+        linear-gradient(
+          145deg,
+          rgba(28, 28, 28, 0.94),
+          rgba(13, 13, 13, 0.92)
+        );
+      box-shadow:
+        0 20px 44px rgba(0, 0, 0, 0.38),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .founders-panel::before {
+      content: "";
+      position: absolute;
+      left: 18%;
+      right: 18%;
+      top: 0;
+      height: 2px;
+      border-radius: 999px;
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          var(--gold-light),
+          transparent
+        );
+      box-shadow: 0 0 16px rgba(217, 177, 95, 0.32);
     }
 
     .hero-title {
       margin-bottom: 8px;
       color: var(--white);
-      font-size: clamp(30px, 7.8vw, 42px);
+      font-size: clamp(28px, 7vw, 38px);
       font-weight: 700;
       line-height: 1.12;
       letter-spacing: -0.025em;
     }
 
     .hero-subtitle {
-      margin-bottom: 18px;
+      margin-bottom: 0;
       color: var(--gold-light);
       font-size: 14px;
       font-weight: 600;
@@ -268,32 +313,80 @@
     }
 
     .stats {
+      position: relative;
+      overflow: hidden;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 9px;
+      gap: 0;
       margin-top: 14px;
+      padding: 22px 8px 18px;
+      border: 1px solid rgba(57, 210, 192, 0.22);
+      border-radius: 22px;
+      background:
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(57, 210, 192, 0.07),
+          transparent 45%
+        ),
+        linear-gradient(
+          145deg,
+          rgba(25, 25, 25, 0.94),
+          rgba(12, 12, 12, 0.96)
+        );
+      box-shadow:
+        0 18px 42px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .stats::before {
+      content: "НАШ ОПЫТ";
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--tiffany-light);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      white-space: nowrap;
     }
 
     .stat {
-      min-height: 94px;
-      padding: 16px 8px;
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 18px;
+      position: relative;
+      min-height: 82px;
+      padding: 18px 10px 4px;
       text-align: center;
-      background: linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+    }
+
+    .stat + .stat::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 21px;
+      bottom: 7px;
+      width: 1px;
+      background:
+        linear-gradient(
+          180deg,
+          transparent,
+          rgba(217, 177, 95, 0.50),
+          transparent
+        );
     }
 
     .stat-value {
       display: block;
-      margin-bottom: 7px;
+      margin-bottom: 8px;
       color: var(--gold-light);
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 700;
       letter-spacing: -0.01em;
     }
 
     .stat-label {
       display: block;
+      max-width: 130px;
+      margin: 0 auto;
       color: var(--muted);
       font-size: 10px;
       font-weight: 500;
@@ -655,13 +748,20 @@
       }
 
       .hero-content {
-        margin-top: -72px;
-        padding-left: 17px;
-        padding-right: 17px;
+        margin-top: 0;
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .founders-panel {
+        margin-top: -44px;
+        margin-bottom: 18px;
+        padding: 18px 14px 16px;
+        border-radius: 18px;
       }
 
       .hero-title {
-        font-size: 31px;
+        font-size: 29px;
       }
 
       .hero-quote {
@@ -669,17 +769,18 @@
       }
 
       .stats {
-        gap: 7px;
+        padding-left: 2px;
+        padding-right: 2px;
       }
 
       .stat {
-        min-height: 88px;
+        min-height: 82px;
         padding-left: 5px;
         padding-right: 5px;
       }
 
       .stat-value {
-        font-size: 20px;
+        font-size: 21px;
       }
 
       .stat-label {
@@ -764,9 +865,11 @@
       </div>
 
       <div class="hero-content">
-        <h1 class="hero-title">Мария и Сергей</h1>
+        <div class="founders-panel">
+          <h1 class="hero-title">Мария и Сергей</h1>
 
-        <div class="hero-subtitle">Создатели проекта</div>
+          <div class="hero-subtitle">Создатели проекта</div>
+        </div>
 
         <p class="hero-quote">
           Мы не хотим показывать вам только туристическую картинку.

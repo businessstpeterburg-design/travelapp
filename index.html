@@ -1739,6 +1739,14 @@ async function buyTariff(tariff) {
 
   paymentInProgress = true;
 
+  const paymentOverlay = document.getElementById('paymentProcessingOverlay');
+
+  if (paymentOverlay) {
+    paymentOverlay.classList.add('is-visible');
+  }
+
+  document.body.style.overflow = 'hidden';
+
   try {
     const userId = getTelegramUserId();
 

@@ -699,7 +699,450 @@
         font-size: 25px;
       }
     }
+/* ===== PAYMENT PROCESSING OVERLAY ===== */
 
+.payment-processing-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background:
+    radial-gradient(
+      circle at 50% -12%,
+      rgba(57, 210, 192, 0.085) 0%,
+      rgba(57, 210, 192, 0.024) 28%,
+      transparent 54%
+    ),
+    radial-gradient(
+      circle at 50% 112%,
+      rgba(217, 177, 95, 0.10) 0%,
+      rgba(217, 177, 95, 0.028) 30%,
+      transparent 57%
+    ),
+    linear-gradient(
+      180deg,
+      #0d0d0d 0%,
+      #070707 46%,
+      #030303 100%
+    );
+
+  overflow: hidden;
+}
+
+.payment-processing-overlay.is-visible {
+  display: flex;
+}
+
+.payment-processing-overlay::before {
+  content: "";
+
+  position: absolute;
+  inset: -30%;
+
+  background:
+    conic-gradient(
+      from 190deg at 50% 50%,
+      transparent 0deg,
+      rgba(255, 255, 255, 0.018) 72deg,
+      transparent 138deg,
+      rgba(57, 210, 192, 0.015) 222deg,
+      transparent 292deg
+    );
+
+  filter: blur(80px);
+  animation: paymentAtmosphere 18s linear infinite;
+
+  pointer-events: none;
+}
+
+.payment-processing-overlay::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      110deg,
+      transparent 25%,
+      rgba(255, 255, 255, 0.018) 48%,
+      transparent 70%
+    );
+
+  transform: translateX(-130%);
+  animation: paymentLightSweep 5.2s ease-in-out infinite;
+
+  pointer-events: none;
+}
+
+.payment-processing-scene {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  max-width: 430px;
+
+  text-align: center;
+}
+
+.payment-portal {
+  position: relative;
+
+  width: 142px;
+  height: 142px;
+
+  margin: 0 auto 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.payment-portal-glow {
+  position: absolute;
+  inset: 15px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(217, 177, 95, 0.19) 0%,
+      rgba(57, 210, 192, 0.075) 36%,
+      transparent 73%
+    );
+
+  filter: blur(20px);
+
+  animation: paymentGlowBreath 2.8s ease-in-out infinite;
+}
+
+.payment-door {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 2px;
+  height: 96px;
+
+  border-radius: 999px;
+
+  transform: translate(-50%, -50%);
+
+  background:
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(241, 215, 155, 0.38) 12%,
+      #f1d79b 44%,
+      #d9b15f 72%,
+      transparent 100%
+    );
+
+  box-shadow:
+    0 0 10px rgba(217, 177, 95, 0.34),
+    0 0 28px rgba(217, 177, 95, 0.15);
+
+  animation: paymentLineReveal 0.9s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+
+.payment-door-left,
+.payment-door-right {
+  position: absolute;
+  top: 50%;
+
+  width: 1px;
+  height: 96px;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(241, 215, 155, 0.22) 16%,
+      rgba(217, 177, 95, 0.92) 50%,
+      rgba(57, 210, 192, 0.38) 84%,
+      transparent 100%
+    );
+
+  box-shadow:
+    0 0 12px rgba(217, 177, 95, 0.22);
+}
+
+.payment-door-left {
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: paymentDoorLeftOpen 1.2s 0.72s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+
+.payment-door-right {
+  right: 50%;
+  transform: translate(50%, -50%);
+  animation: paymentDoorRightOpen 1.2s 0.72s cubic-bezier(.22, 1, .36, 1) forwards;
+}
+
+.payment-portal-ring {
+  position: absolute;
+
+  width: 112px;
+  height: 112px;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(217, 177, 95, 0.21);
+
+  box-shadow:
+    inset 0 0 20px rgba(217, 177, 95, 0.025),
+    0 0 24px rgba(57, 210, 192, 0.03);
+
+  animation: paymentRingPulse 2.6s ease-in-out infinite;
+}
+
+.payment-portal-core {
+  position: absolute;
+
+  width: 54px;
+  height: 54px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 50% 38%,
+      rgba(255, 255, 255, 0.98) 0%,
+      rgba(241, 215, 155, 0.88) 12%,
+      rgba(217, 177, 95, 0.23) 39%,
+      rgba(57, 210, 192, 0.07) 63%,
+      transparent 75%
+    );
+
+  animation: paymentCorePulse 2.5s ease-in-out infinite;
+}
+
+.payment-processing-status {
+  margin-bottom: 15px;
+
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 700;
+
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  color: rgba(245, 245, 247, 0.38);
+}
+
+.payment-processing-title {
+  margin: 0 0 17px;
+
+  font-size: clamp(31px, 8vw, 43px);
+  line-height: 1.04;
+  font-weight: 700;
+
+  letter-spacing: -1.4px;
+
+  color: #ffffff;
+}
+
+.payment-processing-description {
+  max-width: 310px;
+  margin: 0 auto;
+
+  font-size: 16px;
+  line-height: 1.58;
+  font-weight: 400;
+
+  color: rgba(245, 245, 247, 0.54);
+}
+
+.payment-processing-progress {
+  position: relative;
+
+  width: 120px;
+  height: 2px;
+
+  margin: 35px auto 0;
+
+  overflow: hidden;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.payment-processing-progress::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: -52%;
+
+  width: 52%;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #39d2c0,
+      #f1d79b,
+      transparent
+    );
+
+  filter: drop-shadow(0 0 6px rgba(217, 177, 95, 0.35));
+
+  animation: paymentProgressMove 1.55s ease-in-out infinite;
+}
+
+.payment-processing-note {
+  margin-top: 18px;
+
+  font-size: 12px;
+  line-height: 1.5;
+
+  color: rgba(245, 245, 247, 0.28);
+}
+
+@keyframes paymentLineReveal {
+  from {
+    opacity: 0;
+    height: 0;
+  }
+
+  to {
+    opacity: 1;
+    height: 96px;
+  }
+}
+
+@keyframes paymentDoorLeftOpen {
+  0% {
+    left: 50%;
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 30%;
+    opacity: 0.78;
+  }
+}
+
+@keyframes paymentDoorRightOpen {
+  0% {
+    right: 50%;
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    right: 30%;
+    opacity: 0.78;
+  }
+}
+
+@keyframes paymentGlowBreath {
+  0%,
+  100% {
+    opacity: 0.58;
+    transform: scale(0.96);
+  }
+
+  50% {
+    opacity: 0.95;
+    transform: scale(1.07);
+  }
+}
+
+@keyframes paymentCorePulse {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.78;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes paymentRingPulse {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.52;
+  }
+
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+
+@keyframes paymentProgressMove {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(330%);
+  }
+}
+
+@keyframes paymentAtmosphere {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes paymentLightSweep {
+  0%,
+  100% {
+    transform: translateX(-130%);
+  }
+
+  48%,
+  56% {
+    transform: translateX(130%);
+  }
+}
+
+@media (max-width: 420px) {
+  .payment-portal {
+    width: 128px;
+    height: 128px;
+    margin-bottom: 37px;
+  }
+
+  .payment-portal-ring {
+    width: 102px;
+    height: 102px;
+  }
+
+  .payment-processing-title {
+    font-size: 34px;
+  }
+
+  .payment-processing-description {
+    max-width: 285px;
+    font-size: 15px;
+  }
+}
   </style>
 </head>
 

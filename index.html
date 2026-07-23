@@ -1809,6 +1809,13 @@ async function buyTariff(tariff) {
     window.location.href = paymentUrl;
 
   } catch (e) {
+    const paymentOverlay = document.getElementById('paymentProcessingOverlay');
+
+if (paymentOverlay) {
+  paymentOverlay.classList.remove('is-visible');
+}
+
+document.body.style.overflow = '';
     console.error(e);
     alert('Ошибка оплаты');
     paymentInProgress = false;

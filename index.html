@@ -1729,7 +1729,15 @@ function getQuizValue(keys, fallback = '') {
 
   return fallback;
 }
+function hidePaymentOverlay() {
+  const paymentOverlay = document.getElementById('paymentProcessingOverlay');
 
+  if (paymentOverlay) {
+    paymentOverlay.classList.remove('is-visible');
+  }
+
+  document.body.style.overflow = '';
+}
 let paymentInProgress = false;
 
 async function buyTariff(tariff) {

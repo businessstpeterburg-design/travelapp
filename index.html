@@ -1810,10 +1810,11 @@ async function buyTariff(tariff) {
     const paymentUrl = json.result;
 
     if (!paymentUrl) {
-      alert('ЮKassa не вернула ссылку оплаты');
-      paymentInProgress = false;
-      return;
-    }
+  hidePaymentOverlay();
+  alert('ЮKassa не вернула ссылку оплаты');
+  paymentInProgress = false;
+  return;
+}
 
     window.location.href = paymentUrl;
 

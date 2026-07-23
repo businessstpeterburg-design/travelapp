@@ -1176,7 +1176,7 @@
     0 10px 30px rgba(0,0,0,.35),
     inset 0 1px 0 rgba(255,255,255,.08);
 
-  z-index:30000;
+  z-index:15000;
 
   transition:.25s ease;
 }
@@ -1201,7 +1201,7 @@
 
 <a
     class="page-back-button"
-    href="https://businessstpeterburg-design.github.io/travelapp/"
+    href="https://travel-app-rnftpo.flutterflow.app/homePage"
     aria-label="Вернуться на главную"
 >
     <svg
@@ -1907,6 +1907,21 @@ async function buyTariff(tariff) {
     paymentInProgress = false;
 }
 }
+  window.addEventListener('pageshow', function (event) {
+  hidePaymentOverlay();
+  paymentInProgress = false;
+
+  const navigationEntries = performance.getEntriesByType('navigation');
+  const navigationType = navigationEntries.length
+    ? navigationEntries[0].type
+    : '';
+
+  if (event.persisted || navigationType === 'back_forward') {
+    window.location.replace(
+      'https://travel-app-rnftpo.flutterflow.app/homePage'
+    );
+  }
+});
 </script>
 </body>
 </html>

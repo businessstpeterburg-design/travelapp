@@ -1759,10 +1759,13 @@ async function buyTariff(tariff) {
     const userId = getTelegramUserId();
 
     if (!userId) {
-      alert('Не найден Telegram ID. Откройте оплату через приложение.');
-      paymentInProgress = false;
-      return;
-    }
+  hidePaymentOverlay();
+
+  alert('Не найден Telegram ID. Откройте оплату через приложение.');
+
+  paymentInProgress = false;
+  return;
+}
 
     const guideDays = getQuizValue(
       ['guideDays', 'guide_days', 'daysOfStay'],

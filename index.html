@@ -1800,11 +1800,12 @@ async function buyTariff(tariff) {
 
     const json = await response.json();
 
-    if (json.error) {
-      alert(JSON.stringify(json.error));
-      paymentInProgress = false;
-      return;
-    }
+   if (json.error) {
+  hidePaymentOverlay();
+  alert(JSON.stringify(json.error));
+  paymentInProgress = false;
+  return;
+}
 
     const paymentUrl = json.result;
 

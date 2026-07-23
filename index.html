@@ -1251,18 +1251,38 @@ function getQuizValue(keys, fallback = '') {
   return fallback;
 }
 
+let paymentInProgress = false;
+
 async function buyTariff(tariff) {
+  if (paymentInProgress) {
+    return;
+  }
+
+  paymentInProgress = true;
+
   try {
     const userId = getTelegramUserId();
 
     if (!userId) {
       alert('Не найден Telegram ID. Откройте оплату через приложение.');
+      paymentInProgress = false;
       return;
     }
 
-    const guideDays = getQuizValue(['guideDays', 'guide_days', 'daysOfStay'], '');
-    const budgetLevel = getQuizValue(['budgetLevel', 'budget_level', 'budget'], '');
-    const aboutCount = getQuizValue(['aboutCount', 'about_count', 'peopleCount'], '');
+    const guideDays = getQuizValue(
+      ['guideDays', 'guide_days', 'daysOfStay'],
+      ''
+    );
+
+    const budgetLevel = getQuizValue(
+      ['budgetLevel', 'budget_level', 'budget'],
+      ''
+    );
+
+    const aboutCount = getQuizValue(
+      ['aboutCount', 'about_count', 'peopleCount'],
+      ''
+    );
 
     const response = await fetch(
       'https://europe-west1-kak-mestniy.cloudfunctions.net/createYookassaPayment',
@@ -1287,6 +1307,7 @@ async function buyTariff(tariff) {
 
     if (json.error) {
       alert(JSON.stringify(json.error));
+      paymentInProgress = false;
       return;
     }
 
@@ -1294,6 +1315,7 @@ async function buyTariff(tariff) {
 
     if (!paymentUrl) {
       alert('ЮKassa не вернула ссылку оплаты');
+      paymentInProgress = false;
       return;
     }
 
@@ -1302,6 +1324,7 @@ async function buyTariff(tariff) {
   } catch (e) {
     console.error(e);
     alert('Ошибка оплаты');
+    paymentInProgress = false;
   }
 }
 </script>

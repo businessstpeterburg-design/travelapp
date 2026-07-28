@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0d0e">
+<title>Как Местный — Нячанг · v24 Premium Recovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+
+<!-- v21 duplicate audit: existing Amiana card updated in-place; no duplicate cards created. Added Alibu, Diamond Bay, Mia Resort and Selectum Noa. Marriott Day Pass and Boton Blue remain separate existing locations. -->
+<!-- v22 FINAL AUDIT
+Full duplicate audit completed across all cards/sections represented by the shared places array.
+Removed: Mini Beach — Hòn Miễu; Paragon/"Progon" Beach.
+Updated cover images: Central Beach, Dốc Lết, Marina Beach, Amiana Resort, Gang Spa, Green Spa, Capybaras Coffee, Happy Smile Coffee, Kim Phát kids area. Google Maps links synchronized for Marina Beach, Panorama, Happy Smile Coffee, Central Beach, Railway Cafe, Fly Vietnam Paragliding and M-Bar Sushi.
+Marina Beach renamed and fully corrected from the author's first-hand experience.
+-->
+<!-- v22.2: Diamond Bay and Selectum Noa covers replaced; Marriott cover fills the frame; Mia Resort title shortened; review labels normalized; card/button/badge geometry unified. -->
+<!-- v23: TTC Resort Van Phong Bay completed as one master object with multi-category filters and full editorial detail. -->
+<!-- v24 PREMIUM RECOVERY: restored catalogue, dynamic time headers, live user statistics, views, favorites and visited counters with Firestore sync + local fallback. -->
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<main class="app">
+<header class="top"><div class="brand"><div class="logo">КМ</div><div><strong>Как Местный</strong><small>Нячанг · персональный гид</small></div></div><button class="avatar avatar-sync" id="profileAvatar" type="button" aria-label="Профиль"><img id="profileAvatarImage" alt="" hidden><span id="profileAvatarFallback">С</span></button></header>
+<section class="hero"><div class="hero-bg"></div><div class="hero-copy"><span class="eyebrow"><i class="dot"></i>Нячанг открыт для вас</span><h1 id="heroTitle">Город, который начинается с рассвета.</h1><p id="heroText">Лучшие места, маршруты и советы без туристического шума. Нячанг таким, каким его знают местные.</p><div class="actions"><button class="btn btn-primary" data-view="list">Список мест</button><button class="btn btn-secondary" data-view="map">Открыть карту</button></div></div></section>
+<section class="community-bar" aria-label="Статистика сообщества"><div class="community-main"><div class="community-copy"><small>Сообщество «Как Местный»</small><strong>Уже <span id="communityUsers">1 900</span> путешественников открывают Нячанг с нами</strong></div><span class="community-live" id="communityStatus">Живая статистика</span></div><div class="community-grid"><div class="community-stat"><small>Проверенных мест</small><strong id="communityPlaces">—</strong></div><div class="community-stat"><small>Просмотров карточек</small><strong id="communityViews">0</strong></div><div class="community-stat"><small>Добавлений в избранное</small><strong id="communityFavorites">0</strong></div><div class="community-stat"><small>Отметок «Был здесь»</small><strong id="communityVisited">0</strong></div></div></section>
+<div class="profile"><div class="mini"><small>Стиль отдыха</small><strong>Комфорт</strong></div><div class="mini"><small>Компания</small><strong>2 взрослых</strong></div><div class="mini"><small>Доступ</small><strong>6 дней</strong></div></div>
+<div class="searchline"><label class="search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input id="searchInput" placeholder="Ресторан, пляж, SPA, рассвет…"></label></div>
+<div class="quick-sections" aria-label="Разделы">
+<button class="quick-section chip active" data-filter="all"><span class="quick-icon">✦</span><strong>Для вас</strong><small>Персональная подборка</small></button>
+<button class="quick-section chip" data-filter="food"><span class="quick-icon">🍽</span><strong>Где поесть</strong><small>Рестораны и кафе</small></button>
+<button class="quick-section chip" data-filter="beach"><span class="quick-icon">🏝</span><strong>Пляжи</strong><small>Море и спокойный отдых</small></button>
+<button class="quick-section chip" data-filter="spa"><span class="quick-icon">◌</span><strong>SPA</strong><small>Массаж и восстановление</small></button>
+<button class="quick-section chip" data-filter="views"><span class="quick-icon">🌅</span><strong>Рассветы и виды</strong><small>Утро и панорамы</small></button>
+<button class="quick-section chip" data-filter="night"><span class="quick-icon">🌙</span><strong>Вечером</strong><small>Крыши и ночной город</small></button>
+<button class="quick-section chip" data-filter="family"><span class="quick-icon">◆</span><strong>С детьми</strong><small>Кафе и развлечения</small></button>
+<button class="quick-section chip" data-filter="luxury-day"><span class="quick-icon">♛</span><strong>День как король</strong><small>Resort-день без проживания</small></button>
+<button class="quick-section chip" data-filter="resort"><span class="quick-icon">◈</span><strong>Resort</strong><small>Курорты и Day Pass</small></button>
+<button class="quick-section chip" data-filter="pool"><span class="quick-icon">≈</span><strong>Бассейны</strong><small>Дневной отдых у воды</small></button>
+<button class="quick-section chip" data-filter="waterpark"><span class="quick-icon">〰</span><strong>Аквапарк</strong><small>Горки и семейный день</small></button>
+<button class="quick-section chip" data-filter="guide"><span class="quick-icon">i</span><strong>Памятки</strong><small>Инструкции и важные советы</small></button>
+<button class="quick-section chip" data-filter="money"><span class="quick-icon">₫</span><strong>Деньги</strong><small>Обмен и банкоматы</small></button>
+<button class="quick-section chip" data-filter="shopping"><span class="quick-icon">◇</span><strong>Покупки</strong><small>Сувениры и магазины</small></button>
+</div>
+<section class="section" id="places"><div class="head"><div><h2 id="sectionTitle">Лучшее для вас</h2><p id="count"></p></div><button class="link" id="resetBtn">Показать всё</button></div><div class="grid" id="grid"></div></section>
+<section class="section"><article class="editorial"><div><small>Выбор «Как Местный»</small><h2>День, который начинается правильно</h2><p>Рассвет у моря, спокойный завтрак, тихий пляж и красивый вечерний маршрут. Нячанг раскрывается не на закате — он раскрывается с первыми лучами солнца.</p><button class="btn btn-primary" data-view="list">Открыть подборку</button></div></article></section>
+</main>
+<nav class="bottom"><button class="nav active" data-nav="home"><strong>⌂</strong><span>Главная</span></button><button class="nav" data-view="list" data-nav="list"><strong>▤</strong><span>Все места</span></button><button class="nav" data-view="map" data-nav="map"><strong>⌖</strong><span>Карта</span></button><button class="nav" data-nav="favorites"><strong>♡</strong><span>Избранное</span></button></nav>
+
+<section class="overlay" id="mapOverlay" aria-hidden="true"><div class="overlay-head"><div class="overlay-title"><strong>Карта Нячанга</strong><small>Все рекомендации в одном месте</small></div><button class="close-overlay" data-close="map">×</button></div><div class="map-canvas" id="map"></div><article class="map-card" id="mapCard"><img id="mapCardImage" alt=""><div class="map-card-body"><button class="map-fav" id="mapFav">♡</button><h3 id="mapCardTitle"></h3><p id="mapCardDesc"></p><div class="map-card-meta"><span id="mapCardRating"></span><span id="mapCardArea"></span></div><div class="map-card-actions"><button class="details" id="mapDetails">Подробнее →</button><button class="route" id="mapRoute">↗</button></div></div></article></section>
+<section class="overlay list-overlay" id="listOverlay" aria-hidden="true"><div class="overlay-head"><div class="overlay-title"><strong>Все места</strong><small>Разделы и подразделы</small></div><button class="close-overlay" data-close="list">×</button></div><div class="catalog" id="catalog"></div></section>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle"><div class="sheet compact-sheet" tabindex="-1"><div class="sheetpic"><img id="mimg" alt=""><button class="close" id="closeModal">×</button><div class="modal-choice-badge" id="modalChoiceBadge" hidden>Выбор «Как Местный»</div><div class="seal modal-seal" id="modalSeal" hidden aria-label="Местный рекомендует">
+  <span>
+    <i>КАК МЕСТНЫЙ</i>
+    <b>✓</b>
+    <strong>МЕСТНЫЙ</strong>
+    <em>РЕКОМЕНДУЕТ</em>
+    <small>★ ★ ★</small>
+  </span>
+</div></div><div class="sheetbody compact-sheetbody" id="modalContent"></div></div></div>
+<div class="toast" id="toast">Сохранено в избранное</div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+<!-- v27 full patch: 19 cards added/reworked; Gaga Spa, Rovis, Anvy Coffee and VietDiving removed at runtime. -->
+<script src="js/app.js"></script>
+</body>
+</html>

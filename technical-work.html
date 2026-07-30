@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050706" />
+  <title>Как Местный — Техническое обновление</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --black:#050706;
+      --deep:#0a0f0d;
+      --white:#ffffff;
+      --muted:rgba(255,255,255,.54);
+      --muted2:rgba(255,255,255,.34);
+      --gold:#d8b96b;
+      --gold-soft:#f1d892;
+      --tiffany:#39d2c0;
+      --screen:430px;
+      --safe-top:env(safe-area-inset-top,0px);
+      --safe-bottom:env(safe-area-inset-bottom,0px);
+    }
+
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    html,body{
+      margin:0;
+      min-height:100%;
+      background:#030403;
+      color:var(--white);
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",Arial,sans-serif;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:geometricPrecision;
+    }
+
+    body{
+      display:flex;
+      justify-content:center;
+      min-height:100svh;
+      overflow-x:hidden;
+      background:
+        radial-gradient(circle at 50% 22%,rgba(38,61,52,.24),transparent 35%),
+        linear-gradient(180deg,#0d1411 0%,#050706 50%,#020302 100%);
+    }
+
+    button{
+      font:inherit;
+    }
+
+    .page{
+      position:relative;
+      width:100%;
+      max-width:var(--screen);
+      min-height:100svh;
+      overflow:hidden;
+      isolation:isolate;
+      background:
+        radial-gradient(circle at 50% 26%,rgba(24,45,37,.34),transparent 30%),
+        linear-gradient(180deg,rgba(13,19,16,.98),rgba(3,4,3,.99));
+    }
+
+    .page::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-3;
+      background:
+        radial-gradient(circle at 50% 27%,rgba(255,218,132,.055),transparent 20%),
+        radial-gradient(circle at 50% 50%,rgba(38,69,58,.13),transparent 47%),
+        linear-gradient(180deg,rgba(255,255,255,.012),transparent 32%);
+      pointer-events:none;
+    }
+
+    .page::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-2;
+      opacity:.22;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.01) 1px,transparent 1px);
+      background-size:44px 44px;
+      mask-image:linear-gradient(180deg,transparent,black 22%,black 78%,transparent);
+    }
+
+    .content{
+      min-height:100svh;
+      padding:
+        calc(46px + var(--safe-top))
+        28px
+        calc(34px + var(--safe-bottom));
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      animation:pageIn .7s ease-out both;
+    }
+
+    .mark{
+      position:relative;
+      width:132px;
+      height:132px;
+      margin-bottom:54px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      border:1px solid rgba(216,185,107,.30);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.015) inset,
+        0 0 60px rgba(216,185,107,.045);
+      animation:markBreath 4.2s ease-in-out infinite;
+    }
+
+    .mark::before,
+    .mark::after{
+      content:"";
+      position:absolute;
+      top:25px;
+      bottom:25px;
+      width:1px;
+      background:linear-gradient(180deg,transparent,rgba(216,185,107,.38),transparent);
+    }
+
+    .mark::before{left:48px}
+    .mark::after{right:48px}
+
+    .core{
+      position:relative;
+      width:38px;
+      height:38px;
+      border-radius:50%;
+      background:
+        radial-gradient(circle,
+          rgba(255,249,220,1) 0 8%,
+          rgba(255,230,151,.98) 16%,
+          rgba(232,184,78,.84) 31%,
+          rgba(178,124,32,.42) 49%,
+          transparent 74%);
+      filter:drop-shadow(0 0 14px rgba(255,214,112,.64));
+      animation:corePulse 3.4s ease-in-out infinite;
+      will-change:transform,opacity,filter;
+    }
+
+    .core::after{
+      content:"";
+      position:absolute;
+      inset:-20px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(255,218,118,.22),rgba(255,218,118,0) 66%);
+      animation:haloPulse 3.4s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    .core::before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:-26px;
+      width:1px;
+      height:90px;
+      transform:translateX(-50%);
+      background:linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(255,233,155,.82) 25%,
+        #fff7d3 49%,
+        rgba(216,185,107,.80) 72%,
+        transparent 100%);
+      box-shadow:0 0 10px rgba(255,222,133,.42);
+      animation:beamPulse 3.4s ease-in-out infinite;
+      transform-origin:center;
+    }
+
+    .eyebrow{
+      margin:0 0 22px;
+      color:rgba(255,255,255,.36);
+      font-size:12px;
+      line-height:1.4;
+      letter-spacing:.32em;
+      text-transform:uppercase;
+      font-weight:600;
+    }
+
+    .title{
+      margin:0;
+      max-width:340px;
+      font-size:clamp(44px,12vw,58px);
+      line-height:1.02;
+      letter-spacing:-.045em;
+      font-weight:700;
+    }
+
+    .message{
+      margin:26px auto 0;
+      max-width:330px;
+      color:rgba(255,255,255,.55);
+      font-size:17px;
+      line-height:1.58;
+      font-weight:400;
+      letter-spacing:-.018em;
+    }
+
+    .message strong{
+      color:var(--gold-soft);
+      font-weight:500;
+    }
+
+    .divider{
+      width:132px;
+      height:1px;
+      margin:38px auto 28px;
+      background:linear-gradient(90deg,transparent,rgba(216,185,107,.48),transparent);
+      box-shadow:0 0 18px rgba(216,185,107,.12);
+    }
+
+    .apology{
+      margin:0 auto;
+      max-width:315px;
+      color:rgba(255,255,255,.28);
+      font-size:14px;
+      line-height:1.55;
+      letter-spacing:-.01em;
+    }
+
+    .actions{
+      width:100%;
+      margin-top:26px;
+      display:grid;
+      gap:14px;
+    }
+
+    .back{
+      width:100%;
+      min-height:58px;
+      padding:0 22px;
+      border:1px solid rgba(57,210,192,.56);
+      border-radius:15px;
+      color:var(--tiffany);
+      background:
+        linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.008)),
+        rgba(3,5,4,.52);
+      text-transform:uppercase;
+      font-size:13px;
+      letter-spacing:.17em;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 12px 34px rgba(0,0,0,.26),
+        0 0 20px rgba(57,210,192,.035);
+      transition:transform .18s ease,filter .18s ease,border-color .18s ease;
+    }
+
+    .back:active{
+      transform:scale(.985);
+      filter:brightness(1.06);
+    }
+
+    .note{
+      margin-top:18px;
+      color:rgba(255,255,255,.19);
+      font-size:12px;
+      line-height:1.5;
+    }
+
+    @keyframes pageIn{
+      from{opacity:0;transform:translateY(12px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    @keyframes corePulse{
+      0%,100%{
+        transform:scale(.78);
+        opacity:.18;
+        filter:drop-shadow(0 0 4px rgba(255,214,112,.12));
+      }
+      18%{
+        transform:scale(.96);
+        opacity:.86;
+        filter:drop-shadow(0 0 18px rgba(255,214,112,.78));
+      }
+      38%{
+        transform:scale(1.10);
+        opacity:1;
+        filter:drop-shadow(0 0 34px rgba(255,214,112,1));
+      }
+      58%{
+        transform:scale(1.01);
+        opacity:.72;
+        filter:drop-shadow(0 0 22px rgba(255,214,112,.58));
+      }
+      76%{
+        transform:scale(.86);
+        opacity:.26;
+        filter:drop-shadow(0 0 7px rgba(255,214,112,.20));
+      }
+    }
+
+    @keyframes beamPulse{
+      0%,100%{
+        opacity:.10;
+        transform:translateX(-50%) scaleY(.72);
+        filter:blur(.15px);
+      }
+      22%{
+        opacity:.68;
+        transform:translateX(-50%) scaleY(.94);
+      }
+      40%{
+        opacity:1;
+        transform:translateX(-50%) scaleY(1.12);
+        filter:blur(0);
+      }
+      62%{
+        opacity:.58;
+        transform:translateX(-50%) scaleY(.92);
+      }
+      78%{
+        opacity:.16;
+        transform:translateX(-50%) scaleY(.76);
+      }
+    }
+
+    @keyframes haloPulse{
+      0%,100%{opacity:.08;transform:scale(.74)}
+      38%{opacity:.82;transform:scale(1.18)}
+      62%{opacity:.30;transform:scale(.94)}
+    }
+
+    @keyframes markBreath{
+      0%,100%{
+        border-color:rgba(216,185,107,.18);
+        box-shadow:
+          0 0 0 1px rgba(255,255,255,.012) inset,
+          0 0 24px rgba(216,185,107,.018);
+      }
+      40%{
+        border-color:rgba(239,207,123,.52);
+        box-shadow:
+          0 0 0 1px rgba(255,255,255,.024) inset,
+          0 0 66px rgba(216,185,107,.12);
+      }
+      72%{
+        border-color:rgba(216,185,107,.26);
+        box-shadow:
+          0 0 0 1px rgba(255,255,255,.016) inset,
+          0 0 34px rgba(216,185,107,.04);
+      }
+    }
+
+    @media(max-width:380px){
+      .content{
+        padding-left:22px;
+        padding-right:22px;
+      }
+
+      .mark{
+        width:116px;
+        height:116px;
+        margin-bottom:42px;
+      }
+
+      .mark::before{left:42px}
+      .mark::after{right:42px}
+
+      .title{
+        font-size:43px;
+      }
+
+      .message{
+        font-size:16px;
+      }
+    }
+
+    @media(min-width:431px){
+      .page{
+        box-shadow:
+          0 0 0 1px rgba(255,255,255,.04),
+          0 42px 110px rgba(0,0,0,.68);
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      *{
+        animation:none!important;
+        transition:none!important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="content" aria-label="Техническое обновление">
+      <div class="mark" aria-hidden="true">
+        <div class="core"></div>
+      </div>
+
+      <p class="eyebrow">Техническое обновление</p>
+
+      <h1 class="title">Мы почти<br>закончили</h1>
+
+      <p class="message">
+        Мы завершаем финальную проверку маршрутов, рекомендаций и локаций.
+        Этот раздел временно находится на техническом обновлении и станет доступен
+        в течение <strong>24–48 часов</strong>.
+      </p>
+
+      <div class="divider" aria-hidden="true"></div>
+
+      <p class="apology">
+        Приносим извинения за временные неудобства и благодарим вас за понимание.
+      </p>
+
+      <div class="actions">
+        <button class="back" type="button" id="backButton">
+          Вернуться на главную
+        </button>
+      </div>
+
+      <p class="note">«Как Местный» — персональный гид по Нячангу</p>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const tgid =
+        params.get("tgid") ||
+        params.get("userId") ||
+        params.get("id") ||
+        localStorage.getItem("tgid") ||
+        "";
+
+      const button = document.getElementById("backButton");
+
+      if (button) {
+        button.addEventListener("click", function () {
+          const target =
+            "https://travel-app-rnftpo.flutterflow.app/homePage" +
+            (tgid ? "?tgid=" + encodeURIComponent(tgid) : "");
+
+          window.location.href = target;
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

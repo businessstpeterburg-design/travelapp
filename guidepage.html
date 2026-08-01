@@ -215,11 +215,11 @@ function setUserPhoto(src) {
     const tgid = encodeURIComponent(KM.getUserId() || "");
 
     if (button.dataset.action === "start-trip") {
-    KM.goTo("technical-work.html?tgid=" + tgid);
+    KM.goTo("places.html?tgid=" + tgid);
 }
 
 if (button.dataset.action === "all-places") {
-    KM.goTo("technical-work.html?tgid=" + tgid);
+    KM.goTo("places.html?tgid=" + tgid);
 }
   });
 

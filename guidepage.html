@@ -215,15 +215,120 @@ function setUserPhoto(src) {
     const tgid = encodeURIComponent(KM.getUserId() || "");
 
     if (button.dataset.action === "start-trip") {
-    KM.goTo("https://travel-app-rnftpo.flutterflow.app/guidePage?tgid=" + tgid);
+    KM.goTo("places.html?tgid=" + tgid);
     }
 
     if (button.dataset.action === "all-places") {
-    KM.goTo("https://travel-app-rnftpo.flutterflow.app/guidePage?tgid=" + tgid);
+    KM.goTo("places.html?tgid=" + tgid);
     }
   });
 
   KM.initProtectedPage(window.KMPageOptions);
 </script>
+
+<!-- KM GUIDE TO PLACES V67 START -->
+<script>
+(function(){
+  "use strict";
+
+  function normalizedText(element){
+    return String(
+      element?.textContent ||
+      element?.value ||
+      element?.getAttribute?.("aria-label") ||
+      ""
+    )
+      .replace(/\s+/g," ")
+      .trim()
+      .toLowerCase();
+  }
+
+  function buildPlacesUrl(){
+    const target = new URL("places.html", window.location.href);
+    const currentParams = new URLSearchParams(window.location.search);
+
+    currentParams.forEach((value,key)=>{
+      target.searchParams.set(key,value);
+    });
+
+    if(
+      !target.searchParams.get("tgid") &&
+      localStorage.getItem("tgid")
+    ){
+      target.searchParams.set(
+        "tgid",
+        localStorage.getItem("tgid")
+      );
+    }
+
+    return target.href;
+  }
+
+  function isPlacesButton(element){
+    const text = normalizedText(element);
+
+    return (
+      text.includes("начать путешествовать") ||
+      text.includes("начать путешествие") ||
+      text === "все места" ||
+      text.includes("посмотреть все места") ||
+      text.includes("весь список мест") ||
+      text.includes("посмотреть весь список мест")
+    );
+  }
+
+  function connectPlacesButtons(){
+    const elements = [
+      ...document.querySelectorAll(
+        "button,a,[role='button'],input[type='button'],input[type='submit']"
+      )
+    ];
+
+    let connected = 0;
+
+    elements.forEach(element=>{
+      if(!isPlacesButton(element))return;
+
+      element.dataset.openPlaces = "true";
+
+      if(element.tagName === "A"){
+        element.href = buildPlacesUrl();
+      }
+
+      connected += 1;
+    });
+
+    console.log(
+      "[Как Местный] К places.html подключено кнопок:",
+      connected
+    );
+  }
+
+  document.addEventListener("click",event=>{
+    const button = event.target.closest?.(
+      "[data-open-places='true']"
+    );
+
+    if(!button)return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    window.location.assign(buildPlacesUrl());
+  },true);
+
+  if(document.readyState === "loading"){
+    document.addEventListener(
+      "DOMContentLoaded",
+      connectPlacesButtons,
+      {once:true}
+    );
+  }else{
+    connectPlacesButtons();
+  }
+})();
+</script>
+<!-- KM GUIDE TO PLACES V67 END -->
+
 </body>
 </html>

@@ -1,0 +1,45 @@
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Рабочая сборка и резервные копии
+/TravelAppNew/
+/TravelAppNew-backup-*/
+/before-travelappnew-sync-*/
+/publish-backup-*/
+*.bak
+*.bak.*
+*.before-*
+guidepage.html.before-*
+
+# Локальные инструменты и функции
+/catalog-functions/
+/tools/
+
+# Зависимости
+node_modules/
+**/node_modules/
+
+# Локальные отчёты
+archive-clean-candidates.txt
+
+# Резервные файлы внутри рабочих папок
+**/*backup*
+**/*.bak
+**/*.before-*
+
+# Резервные и сломанные копии
+**/*backup*
+**/*before-*
+**/*broken*
+**/*.original.*
+**/*.bak
+**/*.bak.*
+
+# Временные источники и карантин
+assets/category-circles/before-inner-ring-fix/
+assets/category-circles/category-source.png
+data/archive-quarantine-obvious-junk.js
+data/places-master.js
+js/places.original.js

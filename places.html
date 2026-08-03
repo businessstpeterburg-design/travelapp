@@ -4100,7 +4100,7 @@ font-size:24px;
   }
 }
 
-</style>
+.hero .eyebrow .dot{animation:heroLiveDot 1.6s infinite;} heroLiveDot{0%{transform:scale(.8);opacity:.45;box-shadow:0 0 0 rgba(57,210,192,.2)}50%{transform:scale(1.28);opacity:1;box-shadow:0 0 16px rgba(57,210,192,.95)}100%{transform:scale(.8);opacity:.45;box-shadow:0 0 0 rgba(57,210,192,.2)}}</style>
 <!-- v21 duplicate audit: existing Amiana card updated in-place; no duplicate cards created. Added Alibu, Diamond Bay, Mia Resort and Selectum Noa. Marriott Day Pass and Boton Blue remain separate existing locations. -->
 <!-- v22 FINAL AUDIT
 Full duplicate audit completed across all cards/sections represented by the shared places array.
@@ -4193,20 +4193,7 @@ Marina Beach renamed and fully corrected from the author's first-hand experience
   }
 
   /* Плашка — отдельно в самом верхнем левом углу фотографии */
-  .hero .eyebrow{
-    position:absolute !important;
-    top:18px !important;
-    left:18px !important;
-    z-index:15 !important;
-
-    width:max-content !important;
-    max-width:calc(100% - 36px) !important;
-
-    margin:0 !important;
-    padding:7px 10px !important;
-
-    font-size:9px !important;
-  }
+  .hero .eyebrow{position:absolute!important;top:14px!important;left:14px!important;z-index:30!important;width:max-content!important;max-width:calc(100% - 28px)!important;margin:0!important;padding:11px 18px!important;font-size:11px!important;}
 
   /* Заголовок начинается только в нижней части Hero */
   .hero .hero-copy h1{
@@ -4237,7 +4224,7 @@ Marina Beach renamed and fully corrected from the author's first-hand experience
 <body>
 <main class="app">
 <header class="top"><div class="brand"><div class="logo">КМ</div><div><strong>Как Местный</strong><small>Нячанг · персональный гид</small></div></div><button class="avatar avatar-sync" id="profileAvatar" type="button" aria-label="Профиль"><img id="profileAvatarImage" alt="" hidden><span id="profileAvatarFallback">С</span></button></header>
-<section class="hero"><div class="hero-bg"></div><div class="hero-copy"><span class="eyebrow"><i class="dot"></i>Нячанг открыт для вас</span><h1 id="heroTitle">Город, который начинается с рассвета.</h1><p id="heroText">Лучшие места, маршруты и советы без туристического шума. Нячанг таким, каким его знают местные.</p><div class="actions"><button class="btn btn-primary" data-view="list">Список мест</button><button class="btn btn-secondary" data-view="map">Открыть карту</button></div></div></section>
+<section class="hero"><div class="hero-bg"></div><span class="eyebrow"><i class="dot"></i>Нячанг открыт для вас</span><div class="hero-copy"><h1 id="heroTitle">Город, который начинается с рассвета.</h1><p id="heroText">Лучшие места, маршруты и советы без туристического шума. Нячанг таким, каким его знают местные.</p><div class="actions"><button class="btn btn-primary" data-view="list">Список мест</button><button class="btn btn-secondary" data-view="map">Открыть карту</button></div></div></section>
 
 
 
@@ -4450,7 +4437,7 @@ Marina Beach renamed and fully corrected from the author's first-hand experience
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-functions-compat.js"></script>
 <script src="js/firebase-favorites.js"></script>
 <script src="js/firebase-views.js"></script>
-<script src="js/app.js?v=100"></script>
+<script src="js/app.js?v=104"></script>
 <script src="js/map-controller.js?v=108"></script>
 
 <style id="km-one-tap-favorite">

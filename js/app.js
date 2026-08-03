@@ -1716,7 +1716,7 @@ function routeTo(id){
   !(lat===0 && lng===0)
  ){
   window.open(
-   `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${lat},${lng}`)}`,
+   `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent((p.title||p.name||'Локация')+' '+lat+','+lng)}`,
    '_blank',
    'noopener,noreferrer'
   );
@@ -1961,23 +1961,25 @@ function locateMapUser(){
     }
    ).addTo(map);
 
-   userLocationMarker=L.circleMarker(
+   const userIcon=L.divIcon({
+    className:'km-user-location-pin',
+    html:`
+      <div class="km-user-pin">
+        <div class="km-user-pin-dot"></div>
+      </div>
+    `,
+    iconSize:[28,40],
+    iconAnchor:[14,40],
+    popupAnchor:[0,-34]
+   });
+
+   userLocationMarker=L.marker(
     [lat,lng],
-    {
-     radius:9,
-     color:'#ffffff',
-     weight:3,
-     fillColor:'#39d2c0',
-     fillOpacity:1
-    }
+    {icon:userIcon}
    )
     .addTo(map)
-    .bindTooltip(
-     'Вы здесь',
-     {
-      permanent:false,
-      direction:'top'
-     }
+    .bindPopup(
+      '<strong>📍 Я здесь</strong><br>Ваше текущее местоположение'
     );
 
    const nearby=places.filter(place=>

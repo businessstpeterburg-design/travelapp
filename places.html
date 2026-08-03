@@ -4100,7 +4100,16 @@ font-size:24px;
   }
 }
 
-.hero .eyebrow .dot{animation:heroLiveDot 1.6s infinite;} heroLiveDot{0%{transform:scale(.8);opacity:.45;box-shadow:0 0 0 rgba(57,210,192,.2)}50%{transform:scale(1.28);opacity:1;box-shadow:0 0 16px rgba(57,210,192,.95)}100%{transform:scale(.8);opacity:.45;box-shadow:0 0 0 rgba(57,210,192,.2)}}</style>
+.hero .eyebrow .dot{
+display:inline-block!important;
+width:10px!important;
+height:10px!important;
+border-radius:50%!important;
+background:#39d2c0!important;
+animation:heroLiveDot 1.6s ease-in-out infinite!important;
+box-shadow:0 0 12px rgba(57,210,192,.9)!important;
+transform-origin:center;
+} heroLiveDot{0%{transform:scale(.8);opacity:.45;box-shadow:0 0 0 rgba(57,210,192,.2)}50%{transform:scale(1.28);opacity:1;box-shadow:0 0 16px rgba(57,210,192,.95)}100%{transform:scale(.8);opacity:.45;box-shadow:0 0 0 rgba(57,210,192,.2)}}</style>
 <!-- v21 duplicate audit: existing Amiana card updated in-place; no duplicate cards created. Added Alibu, Diamond Bay, Mia Resort and Selectum Noa. Marriott Day Pass and Boton Blue remain separate existing locations. -->
 <!-- v22 FINAL AUDIT
 Full duplicate audit completed across all cards/sections represented by the shared places array.

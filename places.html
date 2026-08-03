@@ -531,10 +531,10 @@ body.is-locked{overflow:hidden;touch-action:none}
 .card .rating{
   left:14px!important;
   bottom:15px!important;
-  max-width:calc(100% - 108px)!important;
+  max-width:none!important;
   white-space:nowrap!important;
-  overflow:hidden!important;
-  text-overflow:ellipsis!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
 }
 .card .body{
   display:flex!important;
@@ -6109,7 +6109,7 @@ box-shadow:
 
 
 
-<link rel="stylesheet" href="css/modal-mobile.css?v=82" id="km-mobile-modal-css-v82">
+
 
 
 
@@ -7025,7 +7025,7 @@ button.close {
     min-height:0 !important;
     max-height:2.32em !important;
 
-    margin:0 0 8px !important;
+    margin:0 0 5px !important;
     padding:0 !important;
 
     white-space:normal !important;
@@ -7046,7 +7046,7 @@ button.close {
 
   #modal .google-rating-line{
     min-width:0 !important;
-    margin:0 0 8px !important;
+    margin:0 0 3px !important;
   }
 
   #modal .modal-place-type{
@@ -7369,7 +7369,10 @@ button.close {
   #modal #modalPlaceHeader{
     grid-row:2 !important;
 
-    display:block !important;
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) 118px !important;
+    align-items:start !important;
+    column-gap:10px !important;
 
     width:100% !important;
     min-width:0 !important;
@@ -7379,7 +7382,7 @@ button.close {
     max-height:none !important;
 
     margin:0 !important;
-    padding:12px 14px 10px !important;
+    padding:8px 14px 6px !important;
 
     box-sizing:border-box !important;
 
@@ -7390,11 +7393,27 @@ button.close {
   }
 
   #modal .modal-title-main{
+    grid-column:1 !important;
+    grid-row:1 !important;
+
     display:block !important;
     width:100% !important;
     min-width:0 !important;
     max-width:100% !important;
     overflow:visible !important;
+  }
+
+  #modal #modalPlaceHeader .modal-place-type{
+    grid-column:2 !important;
+    grid-row:1 !important;
+
+    align-self:start !important;
+
+    width:118px !important;
+    min-width:118px !important;
+    max-width:118px !important;
+
+    margin:0 !important;
   }
 
   /* Оригинальное название: две строки */
@@ -7409,7 +7428,7 @@ button.close {
     min-height:0 !important;
     max-height:2.34em !important;
 
-    margin:0 0 8px !important;
+    margin:0 0 4px !important;
     padding:0 !important;
 
     white-space:normal !important;
@@ -8029,6 +8048,66 @@ button.close {
 
     object-fit:cover !important;
     object-position:center center !important;
+  }
+}
+</style>
+
+<style id="km-modal-header-compact-v1">
+@media(max-width:680px){
+  #modal #modalPlaceHeader{
+    padding:6px 14px 5px !important;
+  }
+
+  #modal #modalTitle{
+    margin:0 0 2px !important;
+  }
+
+  #modal .google-rating-line{
+    margin:0 0 1px !important;
+  }
+
+  #modalPlaceHeader .modal-social-stats{
+    margin-top:0 !important;
+  }
+
+  #modal #modalPlaceHeader .modal-place-type{
+    min-height:0 !important;
+    padding:5px 8px !important;
+    gap:4px !important;
+  }
+
+  #modal #modalPlaceHeader .modal-average-check{
+    padding-top:4px !important;
+  }
+}
+</style>
+
+<style id="km-modal-header-compact-v1">
+@media(max-width:680px){
+  #modal #modalPlaceHeader{
+    padding:6px 14px 5px !important;
+  }
+
+  #modal #modalTitle{
+    margin:0 0 2px !important;
+  }
+
+  #modal .google-rating-line{
+    margin:0 0 1px !important;
+  }
+
+  #modalPlaceHeader .modal-social-stats{
+    margin-top:0 !important;
+  }
+
+  #modal #modalPlaceHeader .modal-place-type{
+    min-height:0 !important;
+    padding:5px 8px !important;
+    gap:4px !important;
+  }
+
+  #modal #modalPlaceHeader .modal-average-check{
+    padding-top:4px !important;
   }
 }
 </style>

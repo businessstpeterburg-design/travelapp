@@ -1212,14 +1212,63 @@ function actionsHtml(p){if(!p.actions?.length)return'';return `<div class="partn
 function nearbyHtml(items){if(!items||!items.length)return'';return `<div class="nearby-list">${items.map(item=>`<div class="nearby-item"><strong>${escapeHtml(item.title||item)}</strong>${item.distance?`<span>${escapeHtml(item.distance)}</span>`:''}</div>`).join('')}</div>`}
 function detailCell(label,body,wide=false){if(!body)return'';return `<section class="detail-cell ${wide?'wide':''}"><small>${escapeHtml(label)}</small>${body}</section>`}
 function formatGoogleReviews(value){
- const count=Number(value);
+ if(value==null)return'Нет отзывов';
+
+ if(typeof value==='number'&&Number.isFinite(value)){
+  const count=Math.round(value);
+  if(count<=0)return'Нет отзывов';
+  if(count<1000)return`${count.toLocaleString('ru-RU')} отзывов`;
+
+  const thousands=count/1000;
+  const formatted=(Math.round(thousands*10)/10).toLocaleString('ru-RU',{
+   minimumFractionDigits:Number.isInteger(thousands)?0:1,
+   maximumFractionDigits:1
+  });
+
+  return`${formatted} тыс. отзывов`;
+ }
+
+ const text=String(value).trim();
+
+ if(!text)return'Нет отзывов';
+
+ const normalized=text
+  .replace(/\u00a0/g,' ')
+  .replace(/,/g,'.');
+
+ const thousandsMatch=normalized.match(/(\d+(?:\.\d+)?)\s*тыс/i);
+
+ if(thousandsMatch){
+  const thousands=Number(thousandsMatch[1]);
+
+  if(Number.isFinite(thousands)&&thousands>0){
+   return`${thousands.toLocaleString('ru-RU',{
+    minimumFractionDigits:Number.isInteger(thousands)?0:1,
+    maximumFractionDigits:1
+   })} тыс. отзывов`;
+  }
+ }
+
+ const digits=normalized.match(/\d[\d\s.]*/);
+
+ if(!digits)return'Нет отзывов';
+
+ const count=Number(
+  digits[0]
+   .replace(/\s/g,'')
+   .replace(/\./g,'')
+ );
+
  if(!Number.isFinite(count)||count<=0)return'Нет отзывов';
- if(count<1000)return`${Math.round(count).toLocaleString('ru-RU')} отзывов`;
+
+ if(count<1000)return`${count.toLocaleString('ru-RU')} отзывов`;
+
  const thousands=count/1000;
  const formatted=(Math.round(thousands*10)/10).toLocaleString('ru-RU',{
   minimumFractionDigits:Number.isInteger(thousands)?0:1,
   maximumFractionDigits:1
  });
+
  return`${formatted} тыс. отзывов`;
 }
 

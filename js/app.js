@@ -470,7 +470,7 @@ function filteredPlaces(){
    const memo=isMemoCard(p);
    const categories=p.categories?.length?p.categories:[p.category];
    const searchable=[
-     p.title,p.description,p.choiceAdvice,p.rawText,p.category,p.subcategory,p.area,
+     getPreviewTitle(p),p.description,p.choiceAdvice,p.rawText,p.category,p.subcategory,p.area,
      ...(p.subcategories||[]),...(p.tags||[]),...(p.cuisines||[]),...(p.mealTypes||[]),
      p.booking?.method,p.booking?.offerName,p.mapUrl,p.sourceStatus
    ].filter(Boolean).join(' ').toLowerCase();
@@ -488,7 +488,7 @@ function formatReviewCount(value){
   const match=text.match(/(\d[\d\s.,]*\s*(?:тыс\.?)?)/i);
   return match?match[1].trim():'—';
 }
-function cardTemplate(p){const f=isFav(p.id);const seal=p.featured?`<div class="seal" aria-label="Местный рекомендует"><span><i>КАК МЕСТНЫЙ</i><b>✓</b><strong>МЕСТНЫЙ</strong><em>РЕКОМЕНДУЕТ</em><small>★ ★ ★</small></span></div>`:'';return `<article class="card" data-action="details" data-id="${p.id}" tabindex="0" role="button" aria-label="Открыть ${escapeHtml(p.title)}"><div class="pic"><img src="${p.image||FALLBACK_IMAGE}" alt="${escapeHtml(p.title)}" loading="lazy" decoding="async" style="object-fit:${p.imageFit||'cover'};object-position:${p.imagePosition||'center'}"><span class="badge">${p.featured?'Выбор «Как Местный»':'Рекомендуем'}</span><button class="fav ${f?'active':''}" data-action="favorite" data-id="${p.id}" aria-label="Избранное">${f?'♥':'♡'}</button>${seal}<div class="rating">${p.kind==='guide'?`<span class="rating-type">ПАМЯТКА</span>`:`<span class="rating-star" aria-hidden="true">★</span><span class="rating-value">${p.rating!=null?escapeHtml(p.rating):'—'}</span><span class="rating-divider">·</span><span class="rating-reviews">Отзывов: ${escapeHtml(formatReviewCount(p.reviews))}</span>`}</div></div><div class="body"><span class="card-kicker">${escapeHtml(p.subcategory)}</span><div class="title"><h3>${escapeHtml(p.title)}</h3><div class="price">${escapeHtml(p.price)}</div></div><p class="choice-preview">${escapeHtml(p.choiceAdvice||p.description)}</p><div class="card-meta-row">${p.time?`<span class="card-meta-pill">${escapeHtml(p.time)}</span>`:''}${p.aud?`<span class="card-meta-pill">${escapeHtml(p.aud)}</span>`:''}${p.area?`<span class="card-meta-pill">${escapeHtml(p.area)}</span>`:''}</div><div class="card-actions"><button class="details" data-action="details" data-id="${p.id}">Подробнее →</button></div></div></article>`}
+function cardTemplate(p){const f=isFav(p.id);const seal=p.featured?`<div class="seal" aria-label="Местный рекомендует"><span><i>КАК МЕСТНЫЙ</i><b>✓</b><strong>МЕСТНЫЙ</strong><em>РЕКОМЕНДУЕТ</em><small>★ ★ ★</small></span></div>`:'';return `<article class="card" data-action="details" data-id="${p.id}" tabindex="0" role="button" aria-label="Открыть ${escapeHtml(getPreviewTitle(p))}"><div class="pic"><img src="${p.image||FALLBACK_IMAGE}" alt="${escapeHtml(getPreviewTitle(p))}" loading="lazy" decoding="async" style="object-fit:${p.imageFit||'cover'};object-position:${p.imagePosition||'center'}"><span class="badge">${p.featured?'Выбор «Как Местный»':'Рекомендуем'}</span><button class="fav ${f?'active':''}" data-action="favorite" data-id="${p.id}" aria-label="Избранное">${f?'♥':'♡'}</button>${seal}<div class="rating">${p.kind==='guide'?`<span class="rating-type">ПАМЯТКА</span>`:`<span class="rating-star" aria-hidden="true">★</span><span class="rating-value">${p.rating!=null?escapeHtml(p.rating):'—'}</span><span class="rating-divider">·</span><span class="rating-reviews">Отзывов: ${escapeHtml(formatReviewCount(p.reviews))}</span>`}</div></div><div class="body"><span class="card-kicker">${escapeHtml(p.subcategory)}</span><div class="title"><h3>${escapeHtml(getPreviewTitle(p))}</h3><div class="price">${escapeHtml(p.price)}</div></div><p class="choice-preview">${escapeHtml(p.choiceAdvice||p.description)}</p><div class="card-meta-row">${p.time?`<span class="card-meta-pill">${escapeHtml(p.time)}</span>`:''}${p.aud?`<span class="card-meta-pill">${escapeHtml(p.aud)}</span>`:''}${p.area?`<span class="card-meta-pill">${escapeHtml(p.area)}</span>`:''}</div><div class="card-actions"><button class="details" data-action="details" data-id="${p.id}">Подробнее →</button></div></div></article>`}
 /* KM LIVE COUNT + COMPACT FAVORITES V56 START */
 
 /*
@@ -859,15 +859,15 @@ function getPreviewTitle(place){
 function compactPlaceCard(p){
  const favorite=isFav(p.id);
 
- /* KM COMPACT CARD RATING V62 */
-
  const hasRating=Number.isFinite(Number(p.rating));
 
  const ratingText=hasRating
   ? formatGoogleRating(p.rating)
   : '—';
 
- const locationText=
+ const reviewText=formatReviewCount(p.reviews);
+
+ const areaText=
   p.area ||
   p.subcategory ||
   categoryNames[p.category] ||
@@ -882,14 +882,14 @@ function compactPlaceCard(p){
 
  return`
   <button
-   class="list-place favorite-compact-card"
+   class="list-place favorite-compact-card compact-preview-v83"
    data-action="details"
    data-id="${escapeHtml(p.id)}"
    type="button"
   >
    <img
     src="${p.image||FALLBACK_IMAGE}"
-    alt="${escapeHtml(p.title)}"
+    alt="${escapeHtml(getPreviewTitle(p))}"
     loading="lazy"
     decoding="async"
     style="
@@ -898,26 +898,40 @@ function compactPlaceCard(p){
     "
    >
 
-   <span class="favorite-compact-copy">
-    <!-- KM PREVIEW TITLES V63 -->
-    <strong>${escapeHtml(getPreviewTitle(p))}</strong>
+   <span class="favorite-compact-copy compact-preview-copy-v83">
 
-    <span class="compact-card-meta">
-     <span class="compact-card-rating">
-      <span class="compact-card-star" aria-hidden="true">★</span>
+    <strong class="compact-preview-title-v83">
+     ${escapeHtml(getPreviewTitle(p))}
+    </strong>
+
+    <span class="compact-preview-middle-v83">
+
+     <span class="compact-preview-rating-v83">
+      <span class="compact-preview-star-v83" aria-hidden="true">★</span>
       <b>${escapeHtml(ratingText)}</b>
+      ${
+       reviewText&&reviewText!=='—'
+        ? `<span class="compact-preview-reviews-v83">(${escapeHtml(reviewText)})</span>`
+        : ''
+      }
      </span>
 
-     <span class="compact-card-location">
-      ${escapeHtml(locationText)}
+     <span class="compact-preview-area-v83">
+      <span aria-hidden="true">⌖</span>
+      ${escapeHtml(areaText)}
      </span>
 
-     ${
-      priceText
-       ? `<span class="compact-card-price">${escapeHtml(priceText)}</span>`
-       : ''
-     }
     </span>
+
+    ${
+     priceText
+      ? `<span class="compact-preview-price-v83">
+          <span aria-hidden="true">₫</span>
+          ${escapeHtml(priceText)}
+         </span>`
+      : ''
+    }
+
    </span>
 
    <span
@@ -928,6 +942,7 @@ function compactPlaceCard(p){
     tabindex="0"
     aria-label="${favorite?'Удалить из избранного':'Добавить в избранное'}"
    >${favorite?'♥':'♡'}</span>
+
   </button>
  `;
 }
@@ -1192,7 +1207,7 @@ function section(label,title,body){if(!body)return'';return `<section class="pla
 function listHtml(items,className=''){if(!items||!items.length)return'';return `<ul class="place-list ${className}">${items.map(item=>`<li>${escapeHtml(item)}</li>`).join('')}</ul>`}
 function infoPanels(items){const clean=items.filter(x=>x&&x.value);if(!clean.length)return'';return `<div class="two-column">${clean.map(x=>`<div class="info-panel"><small>${escapeHtml(x.label)}</small><strong>${escapeHtml(x.value)}</strong></div>`).join('')}</div>`}
 function menuHtml(block){if(!block||!block.items||!block.items.length)return'';return `<div class="menu-list">${block.items.map(item=>typeof item==='string'?`<div class="menu-item"><strong>${escapeHtml(item)}</strong></div>`:`<div class="menu-item ${item.url?'has-link':''}" ${item.url?`data-open-url="${escapeHtml(item.url)}" role="button" tabindex="0"`:''}><strong>${escapeHtml(item.name)}</strong>${item.price?`<span>${escapeHtml(item.price)}</span>`:''}${item.note?`<small>${escapeHtml(item.note)}</small>`:''}</div>`).join('')}</div>`}
-function galleryHtml(p){if(!p.gallery?.length)return'';return `<div class="detail-gallery">${p.gallery.map((src,i)=>`<button type="button" data-gallery-src="${src}" aria-label="Открыть фото ${i+1}"><img src="${src}" alt="${escapeHtml(p.title)} — фото ${i+1}" loading="lazy"></button>`).join('')}</div>`}
+function galleryHtml(p){if(!p.gallery?.length)return'';return `<div class="detail-gallery">${p.gallery.map((src,i)=>`<button type="button" data-gallery-src="${src}" aria-label="Открыть фото ${i+1}"><img src="${src}" alt="${escapeHtml(getPreviewTitle(p))} — фото ${i+1}" loading="lazy"></button>`).join('')}</div>`}
 function actionsHtml(p){if(!p.actions?.length)return'';return `<div class="partner-actions">${p.actions.map(a=>`<a href="${escapeHtml(a.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(a.label)}</a>`).join('')}</div>`}
 function nearbyHtml(items){if(!items||!items.length)return'';return `<div class="nearby-list">${items.map(item=>`<div class="nearby-item"><strong>${escapeHtml(item.title||item)}</strong>${item.distance?`<span>${escapeHtml(item.distance)}</span>`:''}</div>`).join('')}</div>`}
 function detailCell(label,body,wide=false){if(!body)return'';return `<section class="detail-cell ${wide?'wide':''}"><small>${escapeHtml(label)}</small>${body}</section>`}
@@ -1438,16 +1453,157 @@ function unlockBody(){
  document.body.style.width='';
  window.scrollTo(0,lockedScrollY);
 }
+
+function applyMobileModalLayout(){
+ if(!window.matchMedia('(max-width:680px)').matches)return;
+
+ const modal=$('#modal');
+ const sheet=modal?.querySelector('.compact-sheet');
+ const picture=modal?.querySelector('.sheetpic');
+ const image=$('#mimg');
+ const header=$('#modalPlaceHeader');
+ const title=$('#modalTitle');
+ const content=$('#modalContent');
+ const footer=$('#modalPlaceFooter');
+
+ if(!modal||!sheet||!picture||!image||!header||!content||!footer)return;
+
+ const important=(element,property,value)=>{
+  element.style.setProperty(property,value,'important');
+ };
+
+ /* Внешний экран */
+ important(modal,'position','fixed');
+ important(modal,'inset','0');
+ important(modal,'width','100%');
+ important(modal,'height','100dvh');
+ important(modal,'padding','8px');
+ important(modal,'box-sizing','border-box');
+ important(modal,'align-items','center');
+ important(modal,'justify-content','center');
+ important(modal,'overflow','hidden');
+
+ /* Tiffany-рамка целиком внутри экрана */
+ important(sheet,'position','relative');
+ important(sheet,'display','grid');
+ important(
+  sheet,
+  'grid-template-rows',
+  'minmax(175px,24dvh) auto minmax(0,1fr) auto'
+ );
+ important(sheet,'width','100%');
+ important(sheet,'max-width','430px');
+ important(sheet,'height','calc(100dvh - 16px)');
+ important(sheet,'min-height','0');
+ important(sheet,'max-height','calc(100dvh - 16px)');
+ important(sheet,'margin','0');
+ important(sheet,'overflow','hidden');
+ important(sheet,'border','2px solid #39d2c0');
+ important(sheet,'border-radius','24px');
+ important(sheet,'background','#151819');
+ important(sheet,'transform','none');
+
+ /* Фото — полностью, без cover */
+ important(picture,'position','relative');
+ important(picture,'display','block');
+ important(picture,'width','100%');
+ important(picture,'height','100%');
+ important(picture,'min-height','0');
+ important(picture,'max-height','none');
+ important(picture,'margin','0');
+ important(picture,'padding','0');
+ important(picture,'overflow','hidden');
+ important(picture,'border-radius','22px 22px 0 0');
+ important(picture,'background','#080a0b');
+
+ important(image,'display','block');
+ important(image,'width','100%');
+ important(image,'height','100%');
+ important(image,'max-width','100%');
+ important(image,'max-height','100%');
+ important(image,'margin','0');
+ important(image,'padding','0');
+ important(image,'object-fit','contain');
+ important(image,'object-position','center center');
+ important(image,'border-radius','22px 22px 0 0');
+ important(image,'background','#080a0b');
+ important(image,'transform','none');
+
+ /* Блок названия */
+ important(header,'display','block');
+ important(header,'width','100%');
+ important(header,'min-width','0');
+ important(header,'height','auto');
+ important(header,'min-height','0');
+ important(header,'max-height','none');
+ important(header,'padding','12px 14px 10px');
+ important(header,'margin','0');
+ important(header,'overflow','visible');
+ important(header,'box-sizing','border-box');
+ important(header,'background','#151819');
+
+ /* Оригинальное название — перенос на две строки */
+ if(title){
+  important(title,'display','-webkit-box');
+  important(title,'width','100%');
+  important(title,'min-width','0');
+  important(title,'max-width','100%');
+  important(title,'height','auto');
+  important(title,'min-height','2.3em');
+  important(title,'max-height','2.3em');
+  important(title,'margin','0 0 8px');
+  important(title,'padding','0');
+  important(title,'white-space','normal');
+  important(title,'overflow','hidden');
+  important(title,'text-overflow','ellipsis');
+  important(title,'word-break','normal');
+  important(title,'overflow-wrap','anywhere');
+  important(title,'-webkit-box-orient','vertical');
+  important(title,'-webkit-line-clamp','2');
+  important(title,'font-size','22px');
+  important(title,'line-height','1.15');
+ }
+
+ /* Прокручивается только информация */
+ important(content,'display','block');
+ important(content,'width','100%');
+ important(content,'min-width','0');
+ important(content,'height','auto');
+ important(content,'min-height','0');
+ important(content,'max-height','none');
+ important(content,'margin','0');
+ important(content,'padding','4px 14px 92px');
+ important(content,'overflow-x','hidden');
+ important(content,'overflow-y','auto');
+ important(content,'overscroll-behavior','contain');
+ important(content,'-webkit-overflow-scrolling','touch');
+ important(content,'box-sizing','border-box');
+
+ /* Нижние кнопки остаются внутри рамки */
+ important(footer,'position','relative');
+ important(footer,'left','auto');
+ important(footer,'right','auto');
+ important(footer,'bottom','auto');
+ important(footer,'width','100%');
+ important(footer,'min-width','0');
+ important(footer,'margin','0');
+ important(footer,'padding','8px 12px 10px');
+ important(footer,'box-sizing','border-box');
+ important(footer,'background','#151819');
+ important(footer,'border-top','1px solid rgba(255,255,255,.08)');
+ important(footer,'z-index','70');
+}
+
 function openModal(id){
  const p=[...places,...sourceArchive].find(x=>x.id===id);if(!p)return;
  lastFocusedElement=document.activeElement;
  selectedId=id;
  const modal=$('#modal');
  $('#mimg').src=p.image||FALLBACK_IMAGE;
- $('#mimg').alt=p.title;
- $('#mimg').style.objectFit=p.imageFit||'cover';
+ $('#mimg').alt=getPreviewTitle(p);
+ $('#mimg').style.setProperty('object-fit','cover','important');
  $('#mimg').style.objectPosition=p.imagePosition||'center';
- $('#mimg').classList.toggle('contain-photo',(p.imageFit||'')==='contain');
+ $('#mimg').classList.remove('contain-photo');
  $('#modalSeal').hidden=false;
  $('#modalChoiceBadge').hidden=true;
  $('#modalPlaceHeader').innerHTML=renderPlaceHeader(p);
@@ -1515,8 +1671,142 @@ function openOverlay(type){
  el.setAttribute('aria-hidden','false');
  lockBody();
  setNav(type);
- if(type==='map'){initMap();setTimeout(()=>map.invalidateSize(),80)}
- else{catalogState={category:null,subcategory:null};renderCatalog()}
+ if(type==='map'){
+  initMap();
+
+  const refreshMobileMap=()=>{
+   if(!map)return;
+
+   map.invalidateSize(true);
+
+  
+ /* Один независимый самолётик геолокации */
+ document
+  .querySelectorAll(
+   '#kmLocationButton, .km-location-control, .km-location-button'
+  )
+  .forEach(element=>element.remove());
+
+ const mapOverlayElement=document.querySelector('#mapOverlay');
+
+ if(mapOverlayElement){
+  const locationButton=document.createElement('button');
+
+  locationButton.id='kmLocationButton';
+  locationButton.className='km-map-airplane-button';
+  locationButton.type='button';
+  locationButton.title='Моё местоположение';
+  locationButton.setAttribute(
+   'aria-label',
+   'Показать моё местоположение'
+  );
+
+  locationButton.innerHTML=`
+   <svg
+    viewBox="0 0 64 64"
+    aria-hidden="true"
+    focusable="false"
+   >
+    <path
+     class="km-plane-main"
+     d="
+      M32 2
+      C29.9 2 28.7 4.1 28.3 7.3
+      L26.3 23.8
+      L7.4 34.2
+      C5.4 35.3 4.7 37.4 5.8 39
+      C6.8 40.5 8.5 40.8 10.4 40.2
+      L25.8 35.9
+      L27.3 47.7
+      L20.2 54.3
+      C18.8 55.6 18.7 57.5 19.8 58.8
+      C20.8 60 22.7 60.1 24.1 59.2
+      L32 54.6
+      L39.9 59.2
+      C41.3 60.1 43.2 60 44.2 58.8
+      C45.3 57.5 45.2 55.6 43.8 54.3
+      L36.7 47.7
+      L38.2 35.9
+      L53.6 40.2
+      C55.5 40.8 57.2 40.5 58.2 39
+      C59.3 37.4 58.6 35.3 56.6 34.2
+      L37.7 23.8
+      L35.7 7.3
+      C35.3 4.1 34.1 2 32 2
+      Z
+     "
+    />
+    <path
+     class="km-plane-line"
+     d="
+      M32 8 L32 49
+      M26.7 31.4 L37.3 31.4
+      M28.1 49.2 L35.9 49.2
+     "
+    />
+   </svg>
+  `;
+
+  locationButton.addEventListener(
+   'click',
+   event=>{
+    event.preventDefault();
+    event.stopPropagation();
+    locateMapUser();
+   }
+  );
+
+  mapOverlayElement.appendChild(locationButton);
+ }
+
+ const mappedPlaces=places.filter(place=>
+    Number.isFinite(place.lat)&&
+    Number.isFinite(place.lng)
+   );
+
+   markers.forEach(marker=>{
+    if(marker&&!map.hasLayer(marker)){
+     marker.addTo(map);
+    }
+   });
+
+   if(mappedPlaces.length){
+    const visibleCityPlaces=mappedPlaces.filter(place=>
+     place.lat>=12.18&&
+     place.lat<=12.32&&
+     place.lng>=109.14&&
+     place.lng<=109.26
+    );
+
+    const targetPlaces=
+     visibleCityPlaces.length
+      ? visibleCityPlaces
+      : mappedPlaces;
+
+    map.fitBounds(
+     targetPlaces.map(place=>[
+      place.lat,
+      place.lng
+     ]),
+     {
+      padding:[30,30],
+      maxZoom:13
+     }
+    );
+   }
+  };
+
+  requestAnimationFrame(refreshMobileMap);
+  setTimeout(refreshMobileMap,120);
+  setTimeout(refreshMobileMap,400);
+ }
+ else{
+  catalogState={
+   category:null,
+   subcategory:null
+  };
+  renderCatalog();
+ }
  el.querySelector('.close-overlay')?.focus({preventScroll:true});
 }
 function closeOverlay(type){
@@ -1530,10 +1820,216 @@ function closeOverlay(type){
 }
 function setNav(v){$$('.nav').forEach(n=>n.classList.toggle('active',n.dataset.nav===v))}
 function markerIcon(favorite){return L.divIcon({className:'',html:`<div class="km-marker ${favorite?'favorite':''}"></div>`,iconSize:[32,32],iconAnchor:[16,31]})}
-function initMap(){if(map)return;map=L.map('map',{zoomControl:false}).setView([12.2388,109.1965],13);L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);L.control.zoom({position:'bottomright'}).addTo(map);places.filter(p=>Number.isFinite(p.lat)&&Number.isFinite(p.lng)).forEach(p=>{const m=L.marker([p.lat,p.lng],{icon:markerIcon(isFav(p.id))}).addTo(map).on('click',()=>showMapCard(p.id));markers.set(p.id,m)})}
+let userLocationMarker=null;
+let userAccuracyCircle=null;
+
+function distanceKm(lat1,lng1,lat2,lng2){
+ const earthRadiusKm=6371;
+ const toRad=value=>value*Math.PI/180;
+ const dLat=toRad(lat2-lat1);
+ const dLng=toRad(lng2-lng1);
+
+ const a=
+  Math.sin(dLat/2)*Math.sin(dLat/2)+
+  Math.cos(toRad(lat1))*
+  Math.cos(toRad(lat2))*
+  Math.sin(dLng/2)*
+  Math.sin(dLng/2);
+
+ return earthRadiusKm*2*Math.atan2(
+  Math.sqrt(a),
+  Math.sqrt(1-a)
+ );
+}
+
+function locateMapUser(){
+ if(!navigator.geolocation){
+  toast('Геолокация не поддерживается');
+  return;
+ }
+
+ 
+
+ navigator.geolocation.getCurrentPosition(
+  position=>{
+   const lat=position.coords.latitude;
+   const lng=position.coords.longitude;
+   const accuracy=Math.max(
+    Number(position.coords.accuracy)||0,
+    20
+   );
+
+   if(userLocationMarker){
+    map.removeLayer(userLocationMarker);
+   }
+
+   if(userAccuracyCircle){
+    map.removeLayer(userAccuracyCircle);
+   }
+
+   userAccuracyCircle=L.circle(
+    [lat,lng],
+    {
+     radius:accuracy,
+     color:'#39d2c0',
+     weight:1,
+     fillColor:'#39d2c0',
+     fillOpacity:.12
+    }
+   ).addTo(map);
+
+   userLocationMarker=L.circleMarker(
+    [lat,lng],
+    {
+     radius:9,
+     color:'#ffffff',
+     weight:3,
+     fillColor:'#39d2c0',
+     fillOpacity:1
+    }
+   )
+    .addTo(map)
+    .bindTooltip(
+     'Вы здесь',
+     {
+      permanent:false,
+      direction:'top'
+     }
+    );
+
+   const nearby=places.filter(place=>
+    Number.isFinite(place.lat)&&
+    Number.isFinite(place.lng)&&
+    distanceKm(lat,lng,place.lat,place.lng)<=2
+   );
+
+   if(nearby.length){
+    const bounds=L.latLngBounds([
+     [lat,lng],
+     ...nearby.map(place=>[place.lat,place.lng])
+    ]);
+
+    map.flyToBounds(
+     bounds.pad(.2),
+     {
+      maxZoom:15,
+      duration:1.1
+     }
+    );
+
+    toast(
+     `Рядом найдено: ${nearby.length} ${
+      nearby.length===1?'место':'мест'
+     }`
+    );
+   }else{
+    map.flyTo(
+     [lat,lng],
+     15,
+     {
+      animate:true,
+      duration:1.1
+     }
+    );
+
+    toast('Показываем район рядом с вами');
+   }
+  },
+  error=>{
+   const messages={
+    1:'',
+    2:'Не удалось определить местоположение',
+    3:'Определение местоположения заняло слишком много времени'
+   };
+
+   const message=messages[error.code]||'Ошибка определения местоположения';
+   if(message)toast(message);
+  },
+  {
+   enableHighAccuracy:true,
+   timeout:12000,
+   maximumAge:60000
+  }
+ );
+}
+
+function initMap(){
+ if(map)return;
+
+ map=L.map(
+  'map',
+  {
+   zoomControl:false
+  }
+ ).setView(
+  [12.2388,109.1965],
+  13
+ );
+
+ L.tileLayer(
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {
+   maxZoom:19,
+   attribution:'© OpenStreetMap'
+  }
+ ).addTo(map);
+
+ L.control.zoom({
+  position:'bottomright'
+ }).addTo(map);
+
+ /* Один контрол геолокации без дублей */
+ document
+  .querySelectorAll('.km-location-control')
+  .forEach(element=>element.remove());
+
+
+ const mappedPlaces=places.filter(place=>
+  Number.isFinite(place.lat)&&
+  Number.isFinite(place.lng)
+ );
+
+ mappedPlaces.forEach(place=>{
+  const marker=L.marker(
+   [place.lat,place.lng],
+   {
+    icon:markerIcon(isFav(place.id))
+   }
+  )
+   .addTo(map)
+   .on(
+    'click',
+    ()=>showMapCard(place.id)
+   );
+
+  markers.set(place.id,marker);
+ });
+
+ if(mappedPlaces.length){
+  const cityPlaces=mappedPlaces.filter(place=>
+   place.lat>=12.18&&
+   place.lat<=12.32&&
+   place.lng>=109.14&&
+   place.lng<=109.26
+  );
+
+  if(cityPlaces.length){
+   map.fitBounds(
+    cityPlaces.map(place=>[
+     place.lat,
+     place.lng
+    ]),
+    {
+     padding:[35,35],
+     maxZoom:13
+    }
+   );
+  }
+ }
+}
 function updateMapMarkers(){markers.forEach((m,id)=>m.setIcon(markerIcon(isFav(id))))}
 function showMapCard(id){selectedId=id;updateMapCard();$('#mapCard').classList.add('open');const p=places.find(x=>x.id===id);map.panTo([p.lat,p.lng],{animate:true})}
-function updateMapCard(){const p=[...places,...sourceArchive].find(x=>x.id===selectedId);if(!p)return;$('#mapCardImage').src=p.image||FALLBACK_IMAGE;$('#mapCardTitle').textContent=p.title;$('#mapCardDesc').textContent=p.description;$('#mapCardRating').textContent=`★ ${p.rating}`;$('#mapCardArea').textContent=p.area;$('#mapFav').textContent=isFav(p.id)?'♥':'♡';$('#mapFav').classList.toggle('active',isFav(p.id))}
+function updateMapCard(){const p=[...places,...sourceArchive].find(x=>x.id===selectedId);if(!p)return;$('#mapCardImage').src=p.image||FALLBACK_IMAGE;$('#mapCardTitle').textContent=getPreviewTitle(p);$('#mapCardDesc').textContent=p.description;$('#mapCardRating').textContent=`★ ${p.rating}`;$('#mapCardArea').textContent=p.area;$('#mapFav').textContent=isFav(p.id)?'♥':'♡';$('#mapFav').classList.toggle('active',isFav(p.id))}
 
 let catalogState={category:null,subcategory:null};
 function catalogGroups(){
@@ -1633,6 +2129,19 @@ function catalogGroups(){
  });
 
  return groups;
+ const mapCard=$('#mapCard');
+
+ mapCard.onclick=event=>{
+  if(
+   event.target.closest('#mapRoute')||
+   event.target.closest('#mapFav')||
+   event.target.closest('#mapDetails')
+  ){
+   return;
+  }
+
+  openModal(id);
+ };
 }
 function renderCatalog(){const groups=catalogGroups();const root=$('#catalog');
  if(!catalogState.category){
@@ -1720,7 +2229,7 @@ if(catalogState.category==='family'){
 
     const t=[
       p.id,
-      p.title,
+      getPreviewTitle(p),
       p.name,
       p.category,
       p.subcategory,
@@ -1771,7 +2280,7 @@ if(catalogState.category==='family'){
 
   const searchable=p=>[
     p.id,
-    p.title,
+    getPreviewTitle(p),
     p.name,
     p.category,
     p.subcategory,
@@ -1988,7 +2497,7 @@ if(catalogState.category==='views'){
 
     const t=[
       p.id,
-      p.title,
+      getPreviewTitle(p),
       p.name,
       p.category,
       p.subcategory,
@@ -2038,7 +2547,7 @@ if(catalogState.category==='views'){
 
   const searchable=p=>[
     p.id,
-    p.title,
+    getPreviewTitle(p),
     p.name,
     p.category,
     p.subcategory,
@@ -2209,7 +2718,7 @@ if(catalogState.category==='entertainment'){
 
     const t=[
       p.id,
-      p.title,
+      getPreviewTitle(p),
       p.name,
       p.category,
       p.subcategory,
@@ -2263,7 +2772,7 @@ if(catalogState.category==='entertainment'){
 
   const searchable=p=>[
     p.id,
-    p.title,
+    getPreviewTitle(p),
     p.name,
     p.category,
     p.subcategory,
@@ -2470,7 +2979,7 @@ if(p.kind==="archive")return false;
 
 const t=(
 
-(p.title||"")+" "+
+(getPreviewTitle(p)||"")+" "+
 (p.description||"")+" "+
 (p.subcategory||"")+" "+
 (p.category||"")+" "+
@@ -2497,7 +3006,7 @@ spaPlaces.forEach(p=>{
 
 const t=(
 
-(p.title||"")+" "+
+(getPreviewTitle(p)||"")+" "+
 (p.description||"")+" "+
 (p.subcategory||"")+" "+
 ((p.categories||[]).join(" "))+" "+
@@ -2603,7 +3112,7 @@ if(catalogState.category==='beach'){
     );
 
     const textValue=[
-      p.title,
+      getPreviewTitle(p),
       p.name,
       p.category,
       p.subcategory,
@@ -2642,7 +3151,7 @@ if(catalogState.category==='beach'){
 
   beachPlaces.forEach(p=>{
     const t=[
-      p.title,
+      getPreviewTitle(p),
       p.name,
       p.category,
       p.subcategory,
@@ -2815,7 +3324,7 @@ if(catalogState.category==='food'){
     );
 
     const basicText=[
-      p.title,
+      getPreviewTitle(p),
       p.name,
       p.category,
       p.subcategory,
@@ -2853,7 +3362,7 @@ if(catalogState.category==='food'){
 
   foodPlaces.forEach(p=>{
     const t=[
-      p.title,
+      getPreviewTitle(p),
       p.name,
       p.category,
       p.subcategory,
@@ -3050,7 +3559,7 @@ if(catalogState.category==='night'){
   );
 
   all.forEach(p=>{
-    const t=((p.title||'')+' '+(p.description||'')+' '+(p.subcategory||'')+' '+(p.category||'')+' '+((p.categories||[]).join(' '))+' '+((p.tags||[]).join(' '))).toLowerCase();
+    const t=((getPreviewTitle(p)||'')+' '+(p.description||'')+' '+(p.subcategory||'')+' '+(p.category||'')+' '+((p.categories||[]).join(' '))+' '+((p.tags||[]).join(' '))).toLowerCase();
 
     if(/rooftop|sky|roof|панорам|видов/i.test(t))
       semantic['Бары на крышах'].push(p);
@@ -3123,7 +3632,7 @@ root.innerHTML=`
         <img src="${p.image||FALLBACK_IMAGE}" alt="" loading="lazy">
 
         <span>
-          <strong>${escapeHtml(p.title)}</strong>
+          <strong>${escapeHtml(getPreviewTitle(p))}</strong>
           <small>
             ${escapeHtml(p.area)} · ★ ${escapeHtml(p.rating)} · ${escapeHtml(p.price)}
           </small>
@@ -3540,3 +4049,146 @@ renderCards();
 renderCatalog();
 loadGlobalFavorites();
 loadGlobalViews();
+
+
+/* ===== KM SINGLE GEO POINTER V100 ===== */
+(function installSingleGeoPointerV100(){
+
+  function removeOldGeoButtons(){
+    document.querySelectorAll(
+      [
+        '#kmLocationControl',
+        '.km-location-control',
+        '.km-location-button',
+        '.km-map-airplane-button',
+        '#kmLocationButton',
+        '[title="Моё местоположение"]:not(#kmGeoPointerV100)',
+        '[aria-label="Показать моё местоположение"]:not(#kmGeoPointerV100)'
+      ].join(',')
+    ).forEach(element=>{
+      if(element.id !== 'kmGeoPointerV100'){
+        element.remove();
+      }
+    });
+  }
+
+  function createGeoPointer(){
+    const overlay=document.querySelector('#mapOverlay');
+
+    if(!overlay){
+      return;
+    }
+
+    removeOldGeoButtons();
+
+    let button=document.querySelector('#kmGeoPointerV100');
+
+    if(button){
+      return;
+    }
+
+    button=document.createElement('button');
+    button.id='kmGeoPointerV100';
+    button.type='button';
+    button.title='Моё местоположение';
+    button.setAttribute(
+      'aria-label',
+      'Показать моё местоположение'
+    );
+
+    /* Стандартная навигационная стрелка, НЕ самолёт */
+    button.innerHTML=`
+      <svg
+        viewBox="0 0 48 48"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path
+          d="
+            M39.8 7.5
+            5.8 21.2
+            C4.3 21.8 4.2 23.9 5.7 24.6
+            L19.1 30.5
+            L25 43.8
+            C25.7 45.3 27.8 45.2 28.4 43.7
+            L42.2 9.8
+            C42.8 8.2 41.3 6.8 39.8 7.5
+            Z
+          "
+        />
+        <path
+          class="km-geo-pointer-detail"
+          d="M20 29 L39 10"
+        />
+      </svg>
+    `;
+
+    button.addEventListener('click',event=>{
+      event.preventDefault();
+      event.stopPropagation();
+
+      if(typeof locateMapUser === 'function'){
+        locateMapUser();
+      }
+    });
+
+    overlay.appendChild(button);
+  }
+
+  function refreshGeoPointer(){
+    createGeoPointer();
+
+    requestAnimationFrame(()=>{
+      removeOldGeoButtons();
+      createGeoPointer();
+    });
+
+    setTimeout(()=>{
+      removeOldGeoButtons();
+      createGeoPointer();
+    },150);
+
+    setTimeout(()=>{
+      removeOldGeoButtons();
+      createGeoPointer();
+    },500);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener(
+      'DOMContentLoaded',
+      refreshGeoPointer,
+      {once:true}
+    );
+  }else{
+    refreshGeoPointer();
+  }
+
+  document.addEventListener('click',event=>{
+    if(
+      event.target.closest('[data-view="map"]') ||
+      event.target.closest('[data-nav="map"]')
+    ){
+      refreshGeoPointer();
+    }
+  });
+
+  /*
+    Если старый Leaflet-контрол попробует появиться позже,
+    удаляем его и оставляем только нашу нижнюю стрелку.
+  */
+  const observer=new MutationObserver(()=>{
+    removeOldGeoButtons();
+    createGeoPointer();
+  });
+
+  observer.observe(document.documentElement,{
+    childList:true,
+    subtree:true
+  });
+
+})();
+
+
+
+

@@ -3916,6 +3916,190 @@ font-size:24px;
 /* KM_ORIGINAL_COMMUNITY_BAR_END */
 
 
+
+/* ===== Mobile title fix v87 ===== */
+.compact-preview-title-v83,
+.compact-preview-title,
+.place-card-title,
+.card-title{
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+  overflow:hidden;
+  white-space:normal;
+  text-overflow:ellipsis;
+  line-height:1.25;
+  min-height:2.5em;
+  word-break:break-word;
+  overflow-wrap:anywhere;
+  font-weight:700;
+}
+
+@media (max-width: 600px){
+  .compact-preview-title-v83{
+    font-size:16px;
+    line-height:1.2;
+    min-height:2.4em;
+    max-height:2.4em;
+    padding-right:4px;
+  }
+}
+
+
+/* ===== Full mobile card adaptation v89 ===== */
+@media (max-width:600px){
+
+  /* Полноэкранное мобильное окно */
+  #modal.modal{
+    align-items:stretch;
+    justify-content:stretch;
+    padding:0;
+    background:#0c0e0f;
+  }
+
+  #modal .sheet{
+    width:100%;
+    height:100dvh;
+    min-height:100dvh;
+    max-height:100dvh;
+    margin:0;
+    border:0;
+    border-radius:0;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    background:#16191a;
+  }
+
+  /* Фото больше не обрезается */
+  #modal .sheetpic{
+    position:relative;
+    width:100%;
+    height:min(34dvh,280px);
+    min-height:190px;
+    flex:0 0 auto;
+    overflow:hidden;
+    background:#090b0c;
+    padding-top:env(safe-area-inset-top);
+  }
+
+  #modal .sheetpic img{
+    width:100%;
+    height:100%;
+    border-radius:0;
+    object-fit:contain !important;
+    object-position:center center !important;
+    background:#090b0c;
+  }
+
+  /* Затемнение только по низу фотографии */
+  #modal .sheetpic::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:54px;
+    pointer-events:none;
+    background:linear-gradient(
+      180deg,
+      transparent,
+      rgba(9,11,12,.72)
+    );
+  }
+
+  #modal .close{
+    position:absolute;
+    z-index:20;
+    top:max(12px,env(safe-area-inset-top));
+    right:12px;
+    width:44px;
+    height:44px;
+    border-radius:15px;
+  }
+
+  /* Прокрутка только текстовой части */
+  #modal .sheetbody{
+    flex:1 1 auto;
+    min-height:0;
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    -webkit-overflow-scrolling:touch;
+    padding:
+      18px
+      16px
+      calc(104px + env(safe-area-inset-bottom));
+  }
+
+  /* Оригинальное полное название */
+  #modal .place-title,
+  #modal .sheetbody h2{
+    display:block;
+    width:100%;
+    margin:10px 0 12px;
+    font-size:clamp(23px,7vw,30px);
+    line-height:1.12;
+    min-height:0;
+    max-height:none;
+    white-space:normal;
+    overflow:visible;
+    text-overflow:clip;
+    word-break:normal;
+    overflow-wrap:anywhere;
+    -webkit-line-clamp:unset;
+  }
+
+  #modal .sheetbody > p{
+    font-size:14px;
+    line-height:1.65;
+  }
+
+  #modal .facts{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin:15px 0;
+  }
+
+  #modal .fact{
+    min-width:0;
+    padding:12px;
+  }
+
+  #modal .fact strong{
+    display:block;
+    line-height:1.35;
+    overflow-wrap:anywhere;
+  }
+
+  #modal .detail-gallery{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  #modal .detail-gallery img{
+    width:100%;
+    height:auto;
+    aspect-ratio:3/2;
+    object-fit:cover;
+  }
+
+  #modal .partner-actions{
+    display:grid;
+    grid-template-columns:1fr;
+  }
+}
+
+/* Невысокие телефоны */
+@media (max-width:600px) and (max-height:740px){
+  #modal .sheetpic{
+    height:30dvh;
+    min-height:165px;
+  }
+
+  #modal .sheetbody{
+    padding-top:14px;
+  }
+}
+
 </style>
 <!-- v21 duplicate audit: existing Amiana card updated in-place; no duplicate cards created. Added Alibu, Diamond Bay, Mia Resort and Selectum Noa. Marriott Day Pass and Boton Blue remain separate existing locations. -->
 <!-- v22 FINAL AUDIT
@@ -3925,6 +4109,9 @@ Updated cover images: Central Beach, Dốc Lết, Marina Beach, Amiana Resort, G
 Marina Beach renamed and fully corrected from the author's first-hand experience.
 -->
 <!-- v22.2: Diamond Bay and Selectum Noa covers replaced; Marriott cover fills the frame; Mia Resort title shortened; review labels normalized; card/button/badge geometry unified. -->
+
+
+
 </head>
 <body>
 <main class="app">
@@ -4111,7 +4298,14 @@ Marina Beach renamed and fully corrected from the author's first-hand experience
 </main>
 <nav class="bottom"><button class="nav active" data-nav="home"><strong>⌂</strong><span>Главная</span></button><button class="nav" data-view="list" data-nav="list"><strong>▤</strong><span>Все места</span></button><button class="nav" data-view="map" data-nav="map"><strong>⌖</strong><span>Карта</span></button><button class="nav" data-nav="favorites"><strong>♡</strong><span>Избранное</span></button></nav>
 
-<section class="overlay" id="mapOverlay" aria-hidden="true"><div class="overlay-head"><div class="overlay-title"><strong>Карта Нячанга</strong><small>Все рекомендации в одном месте</small></div><button class="close-overlay" data-close="map">×</button></div><div class="map-canvas" id="map"></div><article class="map-card" id="mapCard"><img id="mapCardImage" alt=""><div class="map-card-body"><button class="map-fav" id="mapFav">♡</button><h3 id="mapCardTitle"></h3><p id="mapCardDesc"></p><div class="map-card-meta"><span id="mapCardRating"></span><span id="mapCardArea"></span></div><div class="map-card-actions"><button class="details" id="mapDetails">Подробнее →</button><button class="route" id="mapRoute">↗</button></div></div></article></section>
+<section class="overlay" id="mapOverlay" aria-hidden="true"><div class="overlay-head"><div class="overlay-title"><strong>Карта Нячанга</strong><small>Все рекомендации в одном месте</small></div><button class="close-overlay" data-close="map">×</button></div><div class="map-canvas" id="map"></div>
+<button
+  type="button"
+  class="map-locate-button"
+  id="mapLocateButton"
+  aria-label="Показать моё местоположение"
+  title="Моё местоположение"
+>➤</button><article class="map-card" id="mapCard"><img id="mapCardImage" alt=""><div class="map-card-body"><button class="map-fav" id="mapFav">♡</button><h3 id="mapCardTitle"></h3><p id="mapCardDesc"></p><div class="map-card-meta"><span id="mapCardRating"></span><span id="mapCardArea"></span></div><div class="map-card-actions"><button class="details" id="mapDetails">Подробнее →</button><button class="route" id="mapRoute">Проложить маршрут</button></div></div></article></section>
 <section class="overlay list-overlay" id="listOverlay" aria-hidden="true"><div class="overlay-head"><div class="overlay-title"><strong>Все места</strong><small>Разделы и подразделы</small></div><button class="close-overlay" data-close="list">×</button></div><div class="catalog" id="catalog"></div></section>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle"><div class="sheet compact-sheet" tabindex="-1"><div class="sheetpic"><img id="mimg" alt=""><button class="close" id="closeModal">×</button><div class="modal-choice-badge" id="modalChoiceBadge" hidden>Выбор «Как Местный»</div><div class="seal modal-seal" id="modalSeal" hidden aria-label="Местный рекомендует">
   <span>
@@ -4126,7 +4320,7 @@ Marina Beach renamed and fully corrected from the author's first-hand experience
 <div class="modal-fixed-footer" id="modalPlaceFooter"></div></div></div>
 <div class="toast" id="toast">Сохранено в избранное</div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-<script src="data/01-places.js"></script>
+<script src="data/01-places.js?v=97"></script>
 <script src="data/02-pending.js"></script>
 <script src="data/03-published-batch-v16.js"></script>
 <script src="data/04-source-archive.js"></script>
@@ -4135,7 +4329,8 @@ Marina Beach renamed and fully corrected from the author's first-hand experience
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-functions-compat.js"></script>
 <script src="js/firebase-favorites.js"></script>
 <script src="js/firebase-views.js"></script>
-<script src="js/app.js"></script>
+<script src="js/app.js?v=97"></script>
+<script src="js/map-controller.js?v=107"></script>
 
 <style id="km-one-tap-favorite">
 /* Вся площадь кнопки является активной зоной */
@@ -5910,6 +6105,634 @@ box-shadow:
 }
 </style>
 
+
+
+
+
+<link rel="stylesheet" href="css/modal-mobile.css?v=82" id="km-mobile-modal-css-v82">
+
+
+
+
+<!-- KM SIMPLE MOBILE FIX V82 START -->
+<style id="km-simple-mobile-fix-v82">
+
+@media (max-width: 900px) {
+
+  #modal.modal {
+    padding: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    align-items: flex-start !important;
+    background: #16191a !important;
+  }
+
+  #modal.modal.open {
+    display: block !important;
+  }
+
+  #modal .compact-sheet {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+
+    height: auto !important;
+    min-height: 100dvh !important;
+    max-height: none !important;
+
+    margin: 0 !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+  }
+
+  #modal .sheetpic {
+    display: block !important;
+    width: 100% !important;
+
+    height: 210px !important;
+    min-height: 210px !important;
+    max-height: 210px !important;
+
+    overflow: hidden !important;
+  }
+
+  #modal .sheetpic img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 0 !important;
+  }
+
+  #modalPlaceHeader {
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    padding: 17px 14px 14px !important;
+    overflow: visible !important;
+  }
+
+  #modalPlaceHeader h2 {
+    display: block !important;
+    height: auto !important;
+    max-height: none !important;
+
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+
+    -webkit-line-clamp: unset !important;
+  }
+
+  #modalContent {
+    display: block !important;
+
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    padding: 12px 12px 24px !important;
+
+    overflow: visible !important;
+  }
+
+  #modalContent .detail-grid {
+    display: block !important;
+
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    overflow: visible !important;
+  }
+
+  #modalContent .detail-cell {
+    display: block !important;
+
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    margin-bottom: 10px !important;
+    overflow: visible !important;
+  }
+
+  #modalContent p,
+  #modalContent ul,
+  #modalContent li,
+  #modalContent .menu-list,
+  #modalContent .menu-item,
+  #modalContent .info-panel {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+
+    -webkit-line-clamp: unset !important;
+  }
+
+  #modalPlaceFooter {
+    position: sticky !important;
+    bottom: 0 !important;
+    z-index: 100 !important;
+
+    display: block !important;
+
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    padding:
+      10px
+      12px
+      calc(10px + env(safe-area-inset-bottom)) !important;
+
+    background: rgba(22,25,26,.98) !important;
+    border-top: 1px solid rgba(255,255,255,.08) !important;
+  }
+
+  #modalPlaceFooter .modal-fixed-actions {
+    display: grid !important;
+    grid-template-columns: 1fr 56px !important;
+    gap: 8px !important;
+
+    position: static !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    background: none !important;
+  }
+
+  #modalPlaceFooter .modal-route-button {
+    height: 54px !important;
+  }
+
+  #modalPlaceFooter .modal-fav {
+    width: 56px !important;
+    height: 54px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  #modal .sheetpic {
+    height: 175px !important;
+    min-height: 175px !important;
+    max-height: 175px !important;
+  }
+}
+
+</style>
+<!-- KM SIMPLE MOBILE FIX V82 END -->
+
+
+<!-- KM COMPACT PREVIEW META V83 START -->
+<style id="km-compact-preview-meta-v83">
+
+.compact-preview-v83{
+  grid-template-columns:68px minmax(0,1fr) 34px !important;
+  gap:12px !important;
+  min-height:96px !important;
+  padding:12px 0 !important;
+  align-items:center !important;
+}
+
+.compact-preview-v83 > img{
+  width:68px !important;
+  height:68px !important;
+  border-radius:14px !important;
+  object-fit:cover !important;
+}
+
+.compact-preview-copy-v83{
+  display:block !important;
+  min-width:0 !important;
+}
+
+.compact-preview-title-v83{
+  display:-webkit-box !important;
+  -webkit-box-orient:vertical !important;
+  -webkit-line-clamp:2 !important;
+
+  margin:0 0 7px !important;
+
+  color:#f6f6f2 !important;
+  font-size:14px !important;
+  font-weight:800 !important;
+  line-height:1.25 !important;
+
+  white-space:normal !important;
+  overflow:hidden !important;
+  overflow-wrap:anywhere !important;
+}
+
+.compact-preview-middle-v83{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:8px !important;
+
+  width:100% !important;
+  min-width:0 !important;
+}
+
+.compact-preview-rating-v83{
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:4px !important;
+
+  flex:0 0 auto !important;
+  white-space:nowrap !important;
+
+  color:#f3f4f2 !important;
+  font-size:12px !important;
+  line-height:1 !important;
+}
+
+.compact-preview-star-v83{
+  color:#fbbc04 !important;
+  font-size:19px !important;
+  line-height:1 !important;
+}
+
+.compact-preview-rating-v83 b{
+  color:#f6f6f2 !important;
+  font-size:13px !important;
+  font-weight:800 !important;
+}
+
+.compact-preview-reviews-v83{
+  color:#92999b !important;
+  font-size:10px !important;
+  font-weight:600 !important;
+}
+
+.compact-preview-area-v83{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  gap:3px !important;
+
+  min-width:0 !important;
+  max-width:52% !important;
+
+  color:#a2a8aa !important;
+  font-size:10px !important;
+  line-height:1.2 !important;
+  text-align:right !important;
+
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+
+.compact-preview-area-v83 > span{
+  color:#39d2c0 !important;
+  flex:0 0 auto !important;
+}
+
+.compact-preview-price-v83{
+  display:flex !important;
+  align-items:center !important;
+  gap:4px !important;
+
+  margin-top:6px !important;
+
+  color:#c5cacc !important;
+  font-size:11px !important;
+  font-weight:700 !important;
+  line-height:1.25 !important;
+
+  white-space:normal !important;
+  overflow-wrap:anywhere !important;
+}
+
+.compact-preview-price-v83 > span{
+  color:#d9b15f !important;
+  font-weight:900 !important;
+}
+
+.compact-preview-v83 > .list-heart{
+  align-self:center !important;
+  justify-self:end !important;
+
+  width:34px !important;
+  min-width:34px !important;
+
+  font-size:23px !important;
+  line-height:1 !important;
+  text-align:center !important;
+}
+
+@media(max-width:380px){
+
+  .compact-preview-v83{
+    grid-template-columns:62px minmax(0,1fr) 30px !important;
+    gap:9px !important;
+  }
+
+  .compact-preview-v83 > img{
+    width:62px !important;
+    height:62px !important;
+  }
+
+  .compact-preview-area-v83{
+    max-width:46% !important;
+    font-size:9px !important;
+  }
+
+  .compact-preview-reviews-v83{
+    font-size:9px !important;
+  }
+}
+
+</style>
+<!-- KM COMPACT PREVIEW META V83 END -->
+
+
+<style id="km-iphone14-full-card-v90">
+/* Полная карточка: мобильный экран, iPhone 14 Pro и другие телефоны */
+@media (max-width: 680px) {
+
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  #modal.modal {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 1200 !important;
+
+    display: none;
+    align-items: center !important;
+    justify-content: center !important;
+
+    box-sizing: border-box !important;
+
+    padding:
+      max(8px, env(safe-area-inset-top))
+      8px
+      max(8px, env(safe-area-inset-bottom)) !important;
+
+    background: rgba(0,0,0,.84) !important;
+    overflow: hidden !important;
+  }
+
+  #modal.modal.open {
+    display: flex !important;
+  }
+
+  /* Вся Tiffany-рамка целиком помещается в экран */
+  #modal .compact-sheet {
+    position: relative !important;
+
+    width: 100% !important;
+    max-width: 430px !important;
+
+    height: calc(
+      100dvh
+      - max(8px, env(safe-area-inset-top))
+      - max(8px, env(safe-area-inset-bottom))
+      - 4px
+    ) !important;
+
+    max-height: calc(
+      100dvh
+      - max(8px, env(safe-area-inset-top))
+      - max(8px, env(safe-area-inset-bottom))
+      - 4px
+    ) !important;
+
+    min-height: 0 !important;
+    margin: 0 auto !important;
+
+    display: grid !important;
+    grid-template-rows:
+      auto
+      auto
+      minmax(0, 1fr)
+      auto !important;
+
+    overflow: hidden !important;
+
+    border: 1.5px solid #39d2c0 !important;
+    border-radius: 24px !important;
+
+    background: #151819 !important;
+
+    box-shadow:
+      0 0 0 1px rgba(57,210,192,.13),
+      0 24px 70px rgba(0,0,0,.68) !important;
+
+    transform: none !important;
+  }
+
+  /* Фотография полностью видна — без обрезания сверху */
+  #modal .sheetpic {
+    position: relative !important;
+
+    width: 100% !important;
+    height: clamp(160px, 26dvh, 225px) !important;
+    min-height: 160px !important;
+    max-height: 225px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+
+    border-radius: 22px 22px 0 0 !important;
+    background: #080a0b !important;
+  }
+
+  #modal .sheetpic > img,
+  #modal #mimg {
+    display: block !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    object-fit: contain !important;
+    object-position: center center !important;
+
+    border-radius: 22px 22px 0 0 !important;
+    background: #080a0b !important;
+
+    transform: none !important;
+  }
+
+  /* Убираем старые псевдоэлементы, которые могут закрывать фотографию */
+  #modal .sheetpic::before,
+  #modal .sheetpic::after {
+    pointer-events: none !important;
+  }
+
+  /* Крестик всегда виден внутри рамки */
+  #modal .close {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    z-index: 50 !important;
+
+    width: 42px !important;
+    height: 42px !important;
+
+    margin: 0 !important;
+    border-radius: 14px !important;
+  }
+
+  /* Печать остаётся внутри фотографии и не выталкивает её вверх */
+  #modal .modal-seal {
+    position: absolute !important;
+    right: 12px !important;
+    bottom: 10px !important;
+    z-index: 20 !important;
+    transform: rotate(-9deg) scale(.82) !important;
+    transform-origin: right bottom !important;
+  }
+
+  #modal .modal-choice-badge {
+    position: absolute !important;
+    left: 12px !important;
+    bottom: 12px !important;
+    z-index: 21 !important;
+    max-width: calc(100% - 110px) !important;
+  }
+
+  /* Отдельная область оригинального названия */
+  #modal .modal-place-header {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+
+    padding: 14px 16px 10px !important;
+    margin: 0 !important;
+
+    overflow: visible !important;
+    background: #151819 !important;
+  }
+
+  /* Длинное оригинальное название переносится на две строки */
+  #modal .modal-place-header .place-title,
+  #modal .modal-place-header h1,
+  #modal .modal-place-header h2,
+  #modal .modal-place-header h3,
+  #modal #modalTitle {
+    box-sizing: border-box !important;
+
+    display: -webkit-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+
+    white-space: normal !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+
+    font-size: clamp(21px, 6.2vw, 27px) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -.035em !important;
+
+    min-height: 2.3em !important;
+    max-height: 2.3em !important;
+
+    word-break: normal !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  /* Только эта часть прокручивается */
+  #modal .modal-scroll-content {
+    box-sizing: border-box !important;
+
+    min-width: 0 !important;
+    min-height: 0 !important;
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 4px 16px 18px !important;
+
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  #modal .modal-scroll-content img {
+    max-width: 100% !important;
+  }
+
+  /* Нижние кнопки всегда остаются внутри Tiffany-рамки */
+  #modal .modal-fixed-footer {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+
+    box-sizing: border-box !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+
+    margin: 0 !important;
+    padding:
+      10px
+      12px
+      max(10px, env(safe-area-inset-bottom)) !important;
+
+    flex: 0 0 auto !important;
+
+    border-top: 1px solid rgba(255,255,255,.08) !important;
+    background: rgba(21,24,25,.98) !important;
+    backdrop-filter: blur(18px) !important;
+  }
+
+  #modal .modal-fixed-actions {
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+/* Невысокие телефоны */
+@media (max-width: 680px) and (max-height: 750px) {
+  #modal .sheetpic {
+    height: clamp(145px, 23dvh, 185px) !important;
+    min-height: 145px !important;
+    max-height: 185px !important;
+  }
+
+  #modal .modal-place-header {
+    padding-top: 11px !important;
+    padding-bottom: 8px !important;
+  }
+
+  #modal .modal-place-header .place-title,
+  #modal .modal-place-header h1,
+  #modal .modal-place-header h2,
+  #modal .modal-place-header h3,
+  #modal #modalTitle {
+    font-size: 21px !important;
+  }
+}
+</style>
+
 </body>
 </html>
 <style id="km-instant-interactions">
@@ -5959,6 +6782,1253 @@ button.close {
   .community-stat strong{
     margin:0 !important;
     line-height:1 !important;
+  }
+}
+</style>
+
+<style id="km-final-mobile-modal-map-v92">
+
+/* ========================================================
+   ЕДИНСТВЕННАЯ ФИНАЛЬНАЯ МОБИЛЬНАЯ КОМПОНОВКА ПОЛНОЙ КАРТОЧКИ
+   ======================================================== */
+
+@media (max-width:680px){
+
+  #modal.modal{
+    position:fixed !important;
+    inset:0 !important;
+    z-index:99999 !important;
+
+    width:100vw !important;
+    height:100dvh !important;
+
+    padding:
+      max(7px,env(safe-area-inset-top))
+      7px
+      max(7px,env(safe-area-inset-bottom)) !important;
+
+    box-sizing:border-box !important;
+
+    align-items:center !important;
+    justify-content:center !important;
+
+    overflow:hidden !important;
+    background:rgba(0,0,0,.90) !important;
+  }
+
+  #modal.modal.open{
+    display:flex !important;
+  }
+
+  /*
+    Вся Tiffany-рамка помещается внутри видимого экрана.
+    Никаких 100dvh + внешних отступов и вертикальных сдвигов.
+  */
+  #modal .sheet.compact-sheet{
+    position:relative !important;
+
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    grid-template-rows:
+      220px
+      auto
+      minmax(0,1fr)
+      auto !important;
+
+    width:100% !important;
+    max-width:430px !important;
+
+    height:calc(
+      100dvh
+      - max(14px,env(safe-area-inset-top))
+      - max(14px,env(safe-area-inset-bottom))
+    ) !important;
+
+    min-height:0 !important;
+
+    max-height:calc(
+      100dvh
+      - max(14px,env(safe-area-inset-top))
+      - max(14px,env(safe-area-inset-bottom))
+    ) !important;
+
+    margin:0 auto !important;
+    padding:0 !important;
+
+    overflow:hidden !important;
+
+    border:2px solid #39d2c0 !important;
+    border-radius:23px !important;
+
+    background:#151819 !important;
+
+    transform:none !important;
+    opacity:1 !important;
+
+    box-shadow:
+      0 0 0 1px rgba(57,210,192,.14),
+      0 24px 65px rgba(0,0,0,.74) !important;
+  }
+
+  #modal.open .sheet.compact-sheet{
+    transform:none !important;
+  }
+
+  /* --------------------------------------------------------
+     ФОТОГРАФИЯ: показываем ВСЮ, а не только центр/низ
+     -------------------------------------------------------- */
+
+  #modal .compact-sheet > .sheetpic{
+    grid-row:1 !important;
+
+    position:relative !important;
+
+    display:block !important;
+
+    width:100% !important;
+    height:220px !important;
+
+    min-height:220px !important;
+    max-height:220px !important;
+
+    margin:0 !important;
+    padding:0 !important;
+
+    overflow:hidden !important;
+
+    border-radius:21px 21px 0 0 !important;
+    background:#080a0b !important;
+
+    flex:none !important;
+    transform:none !important;
+  }
+
+  #modal .compact-sheet > .sheetpic > #mimg,
+  #modal .compact-sheet > .sheetpic > img{
+    position:static !important;
+
+    display:block !important;
+
+    width:100% !important;
+    height:100% !important;
+
+    min-width:0 !important;
+    min-height:0 !important;
+
+    max-width:100% !important;
+    max-height:100% !important;
+
+    margin:0 !important;
+    padding:0 !important;
+
+    object-fit:contain !important;
+    object-position:center center !important;
+
+    border-radius:21px 21px 0 0 !important;
+    background:#080a0b !important;
+
+    transform:none !important;
+    scale:none !important;
+  }
+
+  /* Градиент не закрывает фотографию */
+  #modal .sheetpic::after{
+    inset:auto 0 0 !important;
+    height:54px !important;
+    background:linear-gradient(
+      180deg,
+      transparent,
+      rgba(0,0,0,.46)
+    ) !important;
+  }
+
+  #modal .close{
+    position:absolute !important;
+    top:9px !important;
+    right:9px !important;
+    z-index:100 !important;
+
+    width:42px !important;
+    height:42px !important;
+
+    margin:0 !important;
+  }
+
+  #modal .modal-seal{
+    position:absolute !important;
+    right:8px !important;
+    bottom:7px !important;
+    z-index:30 !important;
+
+    transform:
+      rotate(-9deg)
+      scale(.74) !important;
+
+    transform-origin:right bottom !important;
+  }
+
+  /* --------------------------------------------------------
+     ШАПКА И ОРИГИНАЛЬНОЕ НАЗВАНИЕ
+     -------------------------------------------------------- */
+
+  #modal #modalPlaceHeader,
+  #modal .modal-place-header{
+    grid-row:2 !important;
+
+    position:relative !important;
+
+    display:block !important;
+
+    width:100% !important;
+    min-width:0 !important;
+
+    height:auto !important;
+    min-height:0 !important;
+    max-height:none !important;
+
+    margin:0 !important;
+    padding:13px 14px 10px !important;
+
+    box-sizing:border-box !important;
+
+    overflow:visible !important;
+
+    border-bottom:1px solid rgba(255,255,255,.08) !important;
+    background:#151819 !important;
+  }
+
+  #modal .modal-title-main{
+    display:block !important;
+
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+
+    margin:0 !important;
+    padding:0 !important;
+
+    overflow:visible !important;
+  }
+
+  /*
+    Название теперь физически не может остаться nowrap.
+    Разрешаем нормальный перенос максимум на две строки.
+  */
+  #modal #modalTitle{
+    display:-webkit-box !important;
+
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+
+    height:auto !important;
+    min-height:0 !important;
+    max-height:2.32em !important;
+
+    margin:0 0 8px !important;
+    padding:0 !important;
+
+    white-space:normal !important;
+
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+
+    word-break:normal !important;
+    overflow-wrap:anywhere !important;
+
+    -webkit-box-orient:vertical !important;
+    -webkit-line-clamp:2 !important;
+
+    font-size:22px !important;
+    line-height:1.16 !important;
+    letter-spacing:-.035em !important;
+  }
+
+  #modal .google-rating-line{
+    min-width:0 !important;
+    margin:0 0 8px !important;
+  }
+
+  #modal .modal-place-type{
+    min-width:0 !important;
+  }
+
+  /* --------------------------------------------------------
+     ПРОКРУЧИВАЕТСЯ ТОЛЬКО ИНФОРМАЦИЯ
+     -------------------------------------------------------- */
+
+  #modal #modalContent,
+  #modal .modal-scroll-content{
+    grid-row:3 !important;
+
+    position:relative !important;
+
+    display:block !important;
+
+    width:100% !important;
+    min-width:0 !important;
+
+    height:auto !important;
+    min-height:0 !important;
+    max-height:none !important;
+
+    margin:0 !important;
+    padding:10px 13px 22px !important;
+
+    box-sizing:border-box !important;
+
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+
+    overscroll-behavior:contain !important;
+    -webkit-overflow-scrolling:touch !important;
+
+    background:#151819 !important;
+  }
+
+  /* --------------------------------------------------------
+     НИЖНИЕ КНОПКИ ВНУТРИ TIFFANY-РАМКИ
+     -------------------------------------------------------- */
+
+  #modal #modalPlaceFooter,
+  #modal .modal-fixed-footer{
+    grid-row:4 !important;
+
+    position:relative !important;
+
+    left:auto !important;
+    right:auto !important;
+    top:auto !important;
+    bottom:auto !important;
+
+    display:block !important;
+
+    width:100% !important;
+    min-width:0 !important;
+
+    height:auto !important;
+
+    margin:0 !important;
+    padding:
+      9px
+      11px
+      max(9px,env(safe-area-inset-bottom)) !important;
+
+    box-sizing:border-box !important;
+
+    pointer-events:auto !important;
+
+    border-top:1px solid rgba(255,255,255,.08) !important;
+    background:#151819 !important;
+
+    box-shadow:none !important;
+    backdrop-filter:none !important;
+
+    z-index:50 !important;
+  }
+
+  #modal .modal-fixed-actions{
+    position:static !important;
+    inset:auto !important;
+
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) 56px !important;
+    gap:8px !important;
+
+    width:100% !important;
+
+    margin:0 !important;
+    padding:0 !important;
+
+    background:transparent !important;
+  }
+
+  #modal .modal-fixed-actions .modal-route-button,
+  #modal .modal-fixed-actions .btn-primary{
+    height:54px !important;
+  }
+
+  #modal .modal-fixed-actions .modal-fav{
+    width:56px !important;
+    height:54px !important;
+  }
+
+  /* ========================================================
+     МОБИЛЬНАЯ КАРТА
+     ======================================================== */
+
+  #mapOverlay.overlay.open{
+    display:flex !important;
+    flex-direction:column !important;
+
+    width:100vw !important;
+    height:100dvh !important;
+
+    overflow:hidden !important;
+  }
+
+  #mapOverlay .overlay-head{
+    flex:0 0 auto !important;
+    z-index:1001 !important;
+  }
+
+  #mapOverlay #map,
+  #mapOverlay .map-canvas{
+    position:relative !important;
+
+    display:block !important;
+
+    flex:1 1 auto !important;
+
+    width:100% !important;
+    height:auto !important;
+
+    min-width:0 !important;
+    min-height:300px !important;
+
+    overflow:hidden !important;
+
+    z-index:1 !important;
+  }
+
+  /* Маркеры на телефоне не могут быть скрыты стилями карточек */
+  #mapOverlay .leaflet-marker-pane,
+  #mapOverlay .leaflet-shadow-pane{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+  }
+
+  #mapOverlay .leaflet-marker-icon,
+  #mapOverlay .km-marker{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+  }
+
+  #mapOverlay .leaflet-marker-pane{
+    z-index:600 !important;
+  }
+
+  #mapOverlay .leaflet-control-container{
+    position:relative !important;
+    z-index:1000 !important;
+  }
+}
+
+/* Чуть меньше фото на низких телефонах */
+@media (max-width:680px) and (max-height:760px){
+
+  #modal .sheet.compact-sheet{
+    grid-template-rows:
+      178px
+      auto
+      minmax(0,1fr)
+      auto !important;
+  }
+
+  #modal .compact-sheet > .sheetpic{
+    height:178px !important;
+    min-height:178px !important;
+    max-height:178px !important;
+  }
+
+  #modal #modalTitle{
+    font-size:20px !important;
+  }
+}
+
+</style>
+
+<style id="km-real-iphone-modal-v93">
+@media (max-width:680px){
+
+  #modal.modal{
+    position:fixed !important;
+    inset:0 !important;
+    z-index:999999 !important;
+
+    display:none !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    width:100vw !important;
+    height:100svh !important;
+
+    margin:0 !important;
+    padding:6px !important;
+    box-sizing:border-box !important;
+
+    overflow:hidden !important;
+    background:rgba(0,0,0,.92) !important;
+  }
+
+  #modal.modal.open{
+    display:flex !important;
+  }
+
+  #modal .sheet.compact-sheet{
+    position:relative !important;
+
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    grid-template-rows:
+      220px
+      auto
+      minmax(0,1fr)
+      auto !important;
+
+    width:100% !important;
+    max-width:430px !important;
+
+    height:calc(100svh - 12px) !important;
+    min-height:0 !important;
+    max-height:calc(100svh - 12px) !important;
+
+    margin:0 !important;
+    padding:0 !important;
+
+    overflow:hidden !important;
+
+    border:2px solid #39d2c0 !important;
+    border-radius:23px !important;
+
+    background:#151819 !important;
+
+    transform:none !important;
+    opacity:1 !important;
+
+    box-shadow:0 20px 60px rgba(0,0,0,.72) !important;
+  }
+
+  /* Фото заполняет всю широкую зону */
+  #modal .compact-sheet > .sheetpic{
+    grid-row:1 !important;
+
+    position:relative !important;
+
+    display:block !important;
+
+    width:100% !important;
+    height:220px !important;
+    min-height:220px !important;
+    max-height:220px !important;
+
+    margin:0 !important;
+    padding:0 !important;
+
+    overflow:hidden !important;
+
+    border-radius:21px 21px 0 0 !important;
+    background:#080a0b !important;
+  }
+
+  #modal .compact-sheet > .sheetpic > #mimg{
+    position:absolute !important;
+    inset:0 !important;
+
+    display:block !important;
+
+    width:100% !important;
+    height:100% !important;
+
+    margin:0 !important;
+    padding:0 !important;
+
+    object-fit:cover !important;
+    object-position:center center !important;
+
+    border-radius:21px 21px 0 0 !important;
+
+    transform:none !important;
+  }
+
+  #modal .sheetpic::after{
+    inset:auto 0 0 !important;
+    height:55px !important;
+    background:linear-gradient(
+      180deg,
+      transparent,
+      rgba(0,0,0,.48)
+    ) !important;
+  }
+
+  #modal .close{
+    top:9px !important;
+    right:9px !important;
+    z-index:100 !important;
+  }
+
+  #modal .modal-seal{
+    right:8px !important;
+    bottom:7px !important;
+    transform:rotate(-9deg) scale(.76) !important;
+    transform-origin:right bottom !important;
+  }
+
+  #modal #modalPlaceHeader{
+    grid-row:2 !important;
+
+    display:block !important;
+
+    width:100% !important;
+    min-width:0 !important;
+
+    height:auto !important;
+    min-height:0 !important;
+    max-height:none !important;
+
+    margin:0 !important;
+    padding:12px 14px 10px !important;
+
+    box-sizing:border-box !important;
+
+    overflow:visible !important;
+
+    background:#151819 !important;
+    border-bottom:1px solid rgba(255,255,255,.08) !important;
+  }
+
+  #modal .modal-title-main{
+    display:block !important;
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    overflow:visible !important;
+  }
+
+  /* Оригинальное название: две строки */
+  #modal #modalTitle{
+    display:-webkit-box !important;
+
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+
+    height:auto !important;
+    min-height:0 !important;
+    max-height:2.34em !important;
+
+    margin:0 0 8px !important;
+    padding:0 !important;
+
+    white-space:normal !important;
+
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+
+    word-break:normal !important;
+    overflow-wrap:anywhere !important;
+
+    -webkit-box-orient:vertical !important;
+    -webkit-line-clamp:2 !important;
+
+    font-size:22px !important;
+    line-height:1.17 !important;
+    letter-spacing:-.035em !important;
+  }
+
+  #modal #modalContent{
+    grid-row:3 !important;
+
+    position:relative !important;
+
+    display:block !important;
+
+    width:100% !important;
+    min-width:0 !important;
+
+    height:auto !important;
+    min-height:0 !important;
+    max-height:none !important;
+
+    margin:0 !important;
+    padding:10px 13px 20px !important;
+
+    box-sizing:border-box !important;
+
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+
+    -webkit-overflow-scrolling:touch !important;
+
+    background:#151819 !important;
+  }
+
+  #modal #modalPlaceFooter{
+    grid-row:4 !important;
+
+    position:relative !important;
+    inset:auto !important;
+
+    display:block !important;
+
+    width:100% !important;
+    min-width:0 !important;
+
+    margin:0 !important;
+    padding:
+      8px
+      11px
+      max(8px,env(safe-area-inset-bottom)) !important;
+
+    box-sizing:border-box !important;
+
+    background:#151819 !important;
+    border-top:1px solid rgba(255,255,255,.08) !important;
+
+    pointer-events:auto !important;
+  }
+
+  #modal .modal-fixed-actions{
+    position:static !important;
+    inset:auto !important;
+
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) 56px !important;
+    gap:8px !important;
+
+    width:100% !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+
+  /* Мобильная карта */
+  #mapOverlay.overlay.open{
+    display:flex !important;
+    flex-direction:column !important;
+
+    width:100vw !important;
+    height:100svh !important;
+
+    overflow:hidden !important;
+  }
+
+  #mapOverlay #map{
+    display:block !important;
+
+    flex:1 1 auto !important;
+
+    width:100% !important;
+    height:auto !important;
+
+    min-height:300px !important;
+
+    visibility:visible !important;
+    opacity:1 !important;
+  }
+
+  #mapOverlay .leaflet-marker-pane,
+  #mapOverlay .leaflet-marker-icon,
+  #mapOverlay .km-marker{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+  }
+}
+
+@media (max-width:680px) and (max-height:760px){
+
+  #modal .sheet.compact-sheet{
+    grid-template-rows:
+      180px
+      auto
+      minmax(0,1fr)
+      auto !important;
+  }
+
+  #modal .compact-sheet > .sheetpic{
+    height:180px !important;
+    min-height:180px !important;
+    max-height:180px !important;
+  }
+
+  #modal #modalTitle{
+    font-size:20px !important;
+  }
+}
+</style>
+
+
+
+
+
+
+
+
+
+<style id="km-single-geo-pointer-v100">
+
+/* Все прежние геолокационные элементы скрыты окончательно */
+#mapOverlay #kmLocationControl,
+#mapOverlay .km-location-control,
+#mapOverlay .km-location-button,
+#mapOverlay .km-map-airplane-button,
+#mapOverlay #kmLocationButton{
+  display:none !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
+
+/* Единственная навигационная стрелка */
+#mapOverlay #kmGeoPointerV100{
+  position:absolute !important;
+  right:18px !important;
+  bottom:22px !important;
+  z-index:20000 !important;
+
+  display:block !important;
+
+  width:54px !important;
+  height:54px !important;
+
+  margin:0 !important;
+  padding:0 !important;
+
+  border:0 !important;
+  outline:0 !important;
+  border-radius:0 !important;
+
+  background:transparent !important;
+  box-shadow:none !important;
+
+  appearance:none !important;
+  -webkit-appearance:none !important;
+
+  cursor:pointer !important;
+  touch-action:manipulation !important;
+  -webkit-tap-highlight-color:transparent !important;
+}
+
+/*
+  Когда открыт мини-предпросмотр, стрелка остаётся
+  справа над карточкой, а не уезжает наверх карты.
+*/
+#mapOverlay:has(#mapCard.open) #kmGeoPointerV100{
+  bottom:158px !important;
+}
+
+#mapOverlay #kmGeoPointerV100 svg{
+  display:block !important;
+
+  width:54px !important;
+  height:54px !important;
+
+  margin:0 !important;
+
+  /* Исходная стрелка направлена вправо-вверх.
+     Поворачиваем острым концом вертикально вверх. */
+  transform:rotate(-45deg) !important;
+  transform-origin:center !important;
+
+  overflow:visible !important;
+
+  filter:
+    drop-shadow(0 3px 3px rgba(0,0,0,.72))
+    drop-shadow(0 0 6px rgba(57,210,192,.48)) !important;
+}
+
+#mapOverlay #kmGeoPointerV100 path:first-child{
+  fill:#39d2c0 !important;
+  stroke:#d8fffa !important;
+  stroke-width:1.7 !important;
+  stroke-linejoin:round !important;
+}
+
+#mapOverlay #kmGeoPointerV100 .km-geo-pointer-detail{
+  fill:none !important;
+  stroke:rgba(5,48,44,.72) !important;
+  stroke-width:1.5 !important;
+  stroke-linecap:round !important;
+}
+
+#mapOverlay #kmGeoPointerV100:active{
+  transform:scale(.88) !important;
+}
+
+@media(max-width:680px){
+  #mapOverlay #kmGeoPointerV100{
+    right:16px !important;
+    bottom:20px !important;
+  }
+
+  #mapOverlay:has(#mapCard.open) #kmGeoPointerV100{
+    bottom:158px !important;
+  }
+}
+
+</style>
+
+
+<style id="km-compact-premium-map-preview-v98">
+
+@media (max-width:680px){
+
+  #mapOverlay #mapCard{
+    position:absolute !important;
+
+    left:50% !important;
+    right:auto !important;
+    bottom:13px !important;
+
+    transform:translateX(-50%) !important;
+
+    display:block !important;
+
+    width:min(286px,calc(100vw - 42px)) !important;
+    height:auto !important;
+    min-height:0 !important;
+    max-height:calc(100svh - 145px) !important;
+
+    margin:0 !important;
+    padding:0 !important;
+
+    overflow:hidden !important;
+
+    border:1px solid rgba(57,210,192,.78) !important;
+    border-radius:18px !important;
+
+    background:rgba(17,20,21,.975) !important;
+
+    box-shadow:
+      0 16px 44px rgba(0,0,0,.54),
+      0 0 0 1px rgba(57,210,192,.07),
+      inset 0 1px 0 rgba(255,255,255,.05) !important;
+
+    backdrop-filter:blur(18px) !important;
+    -webkit-backdrop-filter:blur(18px) !important;
+
+    cursor:pointer !important;
+    z-index:2600 !important;
+  }
+
+  #mapOverlay #mapCard:not(.open){
+    display:none !important;
+  }
+
+  /* Горизонтальное фото 3:2 */
+  #mapOverlay #mapCardImage{
+    display:block !important;
+
+    width:100% !important;
+    height:auto !important;
+    aspect-ratio:3/2 !important;
+
+    margin:0 !important;
+    padding:0 !important;
+
+    object-fit:cover !important;
+    object-position:center !important;
+
+    border-radius:17px 17px 0 0 !important;
+    background:#090b0c !important;
+  }
+
+  #mapOverlay .map-card-body{
+    position:relative !important;
+
+    display:flex !important;
+    flex-direction:column !important;
+
+    width:100% !important;
+    min-width:0 !important;
+
+    margin:0 !important;
+    padding:10px 11px 11px !important;
+
+    box-sizing:border-box !important;
+  }
+
+  /* Рейтинг идёт первым */
+  #mapOverlay .map-card-meta{
+    order:1 !important;
+
+    display:block !important;
+
+    width:calc(100% - 37px) !important;
+
+    margin:0 0 5px !important;
+    padding:0 !important;
+  }
+
+  #mapOverlay #mapCardRating{
+    display:block !important;
+
+    color:#f1d16f !important;
+
+    white-space:normal !important;
+
+    font-size:10.5px !important;
+    line-height:1.25 !important;
+    font-weight:850 !important;
+  }
+
+  #mapOverlay #mapCardArea{
+    display:none !important;
+  }
+
+  /* Русское название */
+  #mapOverlay #mapCardTitle{
+    order:2 !important;
+
+    display:block !important;
+
+    width:calc(100% - 37px) !important;
+    height:auto !important;
+    min-height:0 !important;
+    max-height:none !important;
+
+    margin:0 0 5px !important;
+    padding:0 !important;
+
+    overflow:visible !important;
+
+    white-space:normal !important;
+    text-overflow:clip !important;
+
+    word-break:normal !important;
+    overflow-wrap:anywhere !important;
+
+    font-size:16px !important;
+    line-height:1.16 !important;
+    font-weight:900 !important;
+    letter-spacing:-.025em !important;
+
+    -webkit-line-clamp:unset !important;
+  }
+
+  /* Одно законченное предложение */
+  #mapOverlay #mapCardDesc{
+    order:3 !important;
+
+    display:block !important;
+
+    width:100% !important;
+    height:auto !important;
+    min-height:0 !important;
+    max-height:none !important;
+
+    margin:0 0 9px !important;
+    padding:0 !important;
+
+    overflow:visible !important;
+
+    white-space:normal !important;
+    text-overflow:clip !important;
+
+    color:#c5caca !important;
+
+    font-size:11.5px !important;
+    line-height:1.36 !important;
+    font-weight:500 !important;
+
+    -webkit-line-clamp:unset !important;
+    line-clamp:unset !important;
+  }
+
+  /* Сердечко остаётся отдельной кнопкой */
+  #mapOverlay .map-fav{
+    position:absolute !important;
+
+    top:8px !important;
+    right:8px !important;
+
+    width:34px !important;
+    height:34px !important;
+    min-width:34px !important;
+    min-height:34px !important;
+
+    margin:0 !important;
+    padding:0 !important;
+
+    border-radius:11px !important;
+
+    z-index:20 !important;
+  }
+
+  #mapOverlay .map-card-actions{
+    order:4 !important;
+
+    display:block !important;
+
+    width:100% !important;
+
+    margin:0 !important;
+    padding:0 !important;
+  }
+
+  #mapOverlay #mapDetails{
+    display:none !important;
+  }
+
+  #mapOverlay #mapRoute{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    width:100% !important;
+    height:39px !important;
+    min-height:39px !important;
+
+    margin:0 !important;
+    padding:0 12px !important;
+
+    border:0 !important;
+    border-radius:12px !important;
+
+    background:linear-gradient(
+      135deg,
+      #4ce0d0,
+      #39d2c0
+    ) !important;
+
+    color:#071412 !important;
+
+    font-size:12.5px !important;
+    line-height:1 !important;
+    font-weight:950 !important;
+
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.28),
+      0 7px 18px rgba(57,210,192,.15) !important;
+  }
+
+  #mapOverlay #mapRoute:active{
+    transform:scale(.98) !important;
+  }
+
+  /*
+    Самолётик остаётся над открытым предпросмотром,
+    чтобы элементы не перекрывались.
+  */
+  #mapOverlay:has(#mapCard.open)
+  .leaflet-bottom.leaflet-right{
+    bottom:345px !important;
+  }
+}
+
+/* Низкие экраны */
+@media (max-width:680px) and (max-height:760px){
+
+  #mapOverlay #mapCard{
+    width:min(270px,calc(100vw - 48px)) !important;
+  }
+
+  #mapOverlay .map-card-body{
+    padding:9px 10px 10px !important;
+  }
+
+  #mapOverlay #mapCardTitle{
+    font-size:15px !important;
+  }
+
+  #mapOverlay #mapCardDesc{
+    font-size:11px !important;
+  }
+
+  #mapOverlay:has(#mapCard.open)
+  .leaflet-bottom.leaflet-right{
+    bottom:322px !important;
+  }
+}
+
+</style>
+
+
+<style id="km-clean-map-controller-v107">
+@media (max-width:680px) {
+
+  /*
+   * Рейтинг в точном формате:
+   * жёлтая звезда, белый рейтинг, серые отзывы.
+   */
+  #mapOverlay #mapCardRating {
+    display:flex !important;
+    align-items:center !important;
+    flex-wrap:nowrap !important;
+    gap:5px !important;
+
+    width:100% !important;
+
+    color:#909899 !important;
+
+    font-size:11px !important;
+    line-height:1.2 !important;
+  }
+
+  #mapOverlay .km-map-rating-star-v107 {
+    color:#ffd46e !important;
+    font-size:14px !important;
+    line-height:1 !important;
+    font-weight:900 !important;
+  }
+
+  #mapOverlay .km-map-rating-value-v107 {
+    color:#f2f5f5 !important;
+    font-weight:850 !important;
+  }
+
+  #mapOverlay .km-map-rating-reviews-v107 {
+    color:#858e90 !important;
+    font-weight:700 !important;
+  }
+
+  /*
+   * Сердечко полностью независимо от тела карточки.
+   */
+  #mapOverlay #mapFav {
+    pointer-events:auto !important;
+    touch-action:manipulation !important;
+
+    display:grid !important;
+    place-items:center !important;
+
+    cursor:pointer !important;
+
+    user-select:none !important;
+    -webkit-user-select:none !important;
+    -webkit-tap-highlight-color:transparent !important;
+
+    z-index:500 !important;
+  }
+
+  #mapOverlay #mapFav.active {
+    color:#ff4966 !important;
+    background:rgba(255,73,102,.14) !important;
+    border-color:rgba(255,73,102,.64) !important;
+
+    box-shadow:
+      0 7px 20px rgba(255,73,102,.18),
+      inset 0 1px 0 rgba(255,255,255,.09) !important;
+  }
+
+  /*
+   * Описание не обрывается на случайном слове.
+   * JS передаёт одно или два законченных предложения.
+   */
+  #mapOverlay #mapCardDesc {
+    white-space:normal !important;
+    overflow:visible !important;
+    text-overflow:clip !important;
+
+    height:auto !important;
+    max-height:none !important;
+
+    -webkit-line-clamp:unset !important;
+    line-clamp:unset !important;
+  }
+
+  /*
+   * Фото сохраняет горизонтальное соотношение 3:2
+   * и заполняет выделенную область без деформации.
+   */
+  #mapOverlay #mapCardImage {
+    width:100% !important;
+    height:auto !important;
+    aspect-ratio:3/2 !important;
+
+    object-fit:cover !important;
+    object-position:center center !important;
   }
 }
 </style>

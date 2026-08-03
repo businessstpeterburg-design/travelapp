@@ -1699,11 +1699,29 @@ function closeModal(){
  });
 }
 function routeTo(id){
- const p=[...places,...sourceArchive].find(x=>x.id===id);
- if(!p){toast('Локация не найдена');return}
+ const p=[...places,...sourceArchive].find(x=>String(x.id)===String(id));
+
+ if(!p){
+  toast('Локация не найдена');
+  return;
+ }
 
  if(p.mapPoints?.length){
   openGroupMap(p);
+  return;
+ }
+
+ /*
+  * Открываем точную карточку Google Maps.
+  * Так Google показывает название заведения и настоящий пин,
+  * а не безымянную точку «Маркер».
+  */
+ if(p.mapUrl){
+  window.open(
+   p.mapUrl,
+   '_blank',
+   'noopener,noreferrer'
+  );
   return;
  }
 
@@ -1715,28 +1733,15 @@ function routeTo(id){
   Number.isFinite(lng) &&
   !(lat===0 && lng===0)
  ){
-  const destination=[
-   p.title||p.name,
-   p.address,
-   'Nha Trang'
-  ]
-   .filter(Boolean)
-   .join(', ');
-
   window.open(
-   `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}&travelmode=driving`,
+   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${lat},${lng}`)}`,
    '_blank',
    'noopener,noreferrer'
   );
   return;
  }
 
- if(p.mapUrl){
-  window.open(p.mapUrl,'_blank','noopener,noreferrer');
-  return;
- }
-
- toast('Маршрут пока не добавлен');
+ toast('Локация пока не добавлена в Google Maps');
 }
 function openGroupMap(p){
  closeModal();openOverlay('map');initMap();

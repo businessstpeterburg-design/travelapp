@@ -4305,7 +4305,7 @@ Marina Beach renamed and fully corrected from the author's first-hand experience
   id="mapLocateButton"
   aria-label="Показать моё местоположение"
   title="Моё местоположение"
->➤</button><article class="map-card" id="mapCard"><img id="mapCardImage" alt=""><div class="map-card-body"><button class="map-fav" id="mapFav">♡</button><h3 id="mapCardTitle"></h3><p id="mapCardDesc"></p><div class="map-card-meta"><span id="mapCardRating"></span><span id="mapCardArea"></span></div><div class="map-card-actions"><button class="details" id="mapDetails">Подробнее →</button><button class="route" id="mapRoute">Проложить маршрут</button></div></div></article></section>
+>➤</button><article class="map-card" id="mapCard"><button type="button" id="mapCardClose" class="map-card-close" aria-label="Закрыть">×</button><img id="mapCardImage" alt=""><div class="map-card-body"><button class="map-fav" id="mapFav">♡</button><h3 id="mapCardTitle"></h3><p id="mapCardDesc"></p><div class="map-card-meta"><span id="mapCardRating"></span><span id="mapCardArea"></span></div><div class="map-card-actions"><button class="details" id="mapDetails">Подробнее →</button><button class="route" id="mapRoute">Проложить маршрут</button></div></div></article></section>
 <section class="overlay list-overlay" id="listOverlay" aria-hidden="true"><div class="overlay-head"><div class="overlay-title"><strong>Все места</strong><small>Разделы и подразделы</small></div><button class="close-overlay" data-close="list">×</button></div><div class="catalog" id="catalog"></div></section>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle"><div class="sheet compact-sheet" tabindex="-1"><div class="sheetpic"><img id="mimg" alt=""><button class="close" id="closeModal">×</button><div class="modal-choice-badge" id="modalChoiceBadge" hidden>Выбор «Как Местный»</div><div class="seal modal-seal" id="modalSeal" hidden aria-label="Местный рекомендует">
   <span>
@@ -6732,6 +6732,49 @@ box-shadow:
   }
 }
 </style>
+
+
+
+<style id="km-map-card-close-v1">
+#mapCard{
+  position:relative!important;
+}
+
+#mapCardClose{
+  position:absolute!important;
+  top:10px!important;
+  right:10px!important;
+  width:38px!important;
+  height:38px!important;
+  border:none!important;
+  border-radius:50%!important;
+  background:rgba(15,18,20,.82)!important;
+  backdrop-filter:blur(10px)!important;
+  color:#fff!important;
+  font-size:26px!important;
+  line-height:1!important;
+  cursor:pointer!important;
+  z-index:999!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.35)!important;
+}
+
+#mapCardClose:active{
+  transform:scale(.93)!important;
+}
+</style>
+
+<script>
+document.addEventListener("click",function(e){
+  if(e.target&&e.target.id==="mapCardClose"){
+    e.preventDefault();
+    e.stopPropagation();
+    document.getElementById("mapCard")?.classList.remove("open");
+  }
+},true);
+</script>
 
 </body>
 </html>

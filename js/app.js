@@ -1716,7 +1716,7 @@ function routeTo(id){
   !(lat===0 && lng===0)
  ){
   window.open(
-   `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent((p.title||p.name||'Локация')+' '+lat+','+lng)}`,
+   `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${lat},${lng}`)}`,
    '_blank',
    'noopener,noreferrer'
   );

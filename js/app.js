@@ -1701,10 +1701,34 @@ function closeModal(){
 function routeTo(id){
  const p=[...places,...sourceArchive].find(x=>x.id===id);
  if(!p){toast('Локация не найдена');return}
- if(p.mapPoints?.length){openGroupMap(p);return}
- if(p.mapUrl){window.open(p.mapUrl,'_blank','noopener,noreferrer');return}
- if(!Number.isFinite(p.lat)||!Number.isFinite(p.lng)){toast('Маршрут пока не добавлен');return}
- window.open(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${p.lat},${p.lng}`)}`,'_blank','noopener,noreferrer');
+
+ if(p.mapPoints?.length){
+  openGroupMap(p);
+  return;
+ }
+
+ const lat=Number(p.lat);
+ const lng=Number(p.lng);
+
+ if(
+  Number.isFinite(lat) &&
+  Number.isFinite(lng) &&
+  !(lat===0 && lng===0)
+ ){
+  window.open(
+   `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${lat},${lng}`)}`,
+   '_blank',
+   'noopener,noreferrer'
+  );
+  return;
+ }
+
+ if(p.mapUrl){
+  window.open(p.mapUrl,'_blank','noopener,noreferrer');
+  return;
+ }
+
+ toast('Маршрут пока не добавлен');
 }
 function openGroupMap(p){
  closeModal();openOverlay('map');initMap();
@@ -1715,6 +1739,16 @@ function openGroupMap(p){
 }
 function openOverlay(type){
  const el=type==='map'?$('#mapOverlay'):$('#listOverlay');
+
+ if(type==='map'){
+  selectedId=null;
+
+  const card=$('#mapCard');
+  if(card){
+   card.classList.remove('open');
+   card.dataset.placeId='';
+  }
+ }
  lastFocusedElement=document.activeElement;
  el.classList.add('open');
  el.setAttribute('aria-hidden','false');

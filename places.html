@@ -4112,6 +4112,53 @@ Marina Beach renamed and fully corrected from the author's first-hand experience
 
 
 
+
+<style id="km-map-card-close-v108">
+#mapCard{
+  position:absolute !important;
+}
+
+#mapCard .map-card-close{
+  position:absolute !important;
+  top:10px !important;
+  right:10px !important;
+  z-index:1015 !important;
+
+  display:grid !important;
+  place-items:center !important;
+
+  width:36px !important;
+  height:36px !important;
+
+  margin:0 !important;
+  padding:0 0 2px !important;
+
+  border:1px solid rgba(255,255,255,.18) !important;
+  border-radius:12px !important;
+
+  background:rgba(8,10,11,.78) !important;
+  backdrop-filter:blur(12px) !important;
+  -webkit-backdrop-filter:blur(12px) !important;
+
+  color:#fff !important;
+  font-size:25px !important;
+  font-weight:400 !important;
+  line-height:1 !important;
+
+  box-shadow:0 5px 16px rgba(0,0,0,.38) !important;
+}
+
+#mapCard .map-card-close:active{
+  transform:scale(.94) !important;
+}
+
+/* Сердечко ниже крестика — кнопки не перекрываются */
+#mapCard .map-fav{
+  top:54px !important;
+  right:10px !important;
+}
+</style>
+
 </head>
 <body>
 <main class="app">
@@ -4329,8 +4376,8 @@ Marina Beach renamed and fully corrected from the author's first-hand experience
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-functions-compat.js"></script>
 <script src="js/firebase-favorites.js"></script>
 <script src="js/firebase-views.js"></script>
-<script src="js/app.js?v=98"></script>
-<script src="js/map-controller.js?v=107"></script>
+<script src="js/app.js?v=99"></script>
+<script src="js/map-controller.js?v=108"></script>
 
 <style id="km-one-tap-favorite">
 /* Вся площадь кнопки является активной зоной */

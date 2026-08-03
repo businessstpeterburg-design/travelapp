@@ -1715,8 +1715,16 @@ function routeTo(id){
   Number.isFinite(lng) &&
   !(lat===0 && lng===0)
  ){
+  const destination=[
+   p.title||p.name,
+   p.address,
+   'Nha Trang'
+  ]
+   .filter(Boolean)
+   .join(', ');
+
   window.open(
-   `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${lat},${lng}`)}`,
+   `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}&travelmode=driving`,
    '_blank',
    'noopener,noreferrer'
   );

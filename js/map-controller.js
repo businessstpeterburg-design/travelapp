@@ -148,6 +148,29 @@
       return;
     }
 
+    let closeButton=document.getElementById('mapCardClose');
+
+    if(!closeButton){
+      closeButton=document.createElement('button');
+      closeButton.id='mapCardClose';
+      closeButton.className='map-card-close';
+      closeButton.type='button';
+      closeButton.innerHTML='×';
+      closeButton.setAttribute(
+        'aria-label',
+        'Закрыть предпросмотр локации'
+      );
+
+      closeButton.addEventListener('click',event=>{
+        event.preventDefault();
+        event.stopPropagation();
+        event.stopImmediatePropagation();
+        closeMapPreview();
+      });
+
+      card.appendChild(closeButton);
+    }
+
     selectedId = place.id;
     card.dataset.placeId = String(place.id);
 
@@ -223,9 +246,14 @@
   };
 
   function closeMapPreview() {
-    document
-      .getElementById('mapCard')
-      ?.classList.remove('open');
+    const card=document.getElementById('mapCard');
+
+    if(card){
+      card.classList.remove('open');
+      card.dataset.placeId='';
+    }
+
+    selectedId=null;
   }
 
   function bindLeafletDismiss() {

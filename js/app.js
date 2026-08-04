@@ -1975,25 +1975,30 @@ function locateMapUser(){
    ).addTo(map);
 
    const userIcon=L.divIcon({
-    className:'km-user-location-pin',
+    className:'km-user-location-marker-v110',
     html:`
-      <div class="km-user-pin">
-        <div class="km-user-pin-dot"></div>
+      <div class="km-user-location-radar-v110">
+        <span class="km-user-location-pulse-v110"></span>
+        <span class="km-user-location-dot-v110"></span>
       </div>
     `,
-    iconSize:[28,40],
-    iconAnchor:[14,40],
-    popupAnchor:[0,-34]
+    iconSize:[34,34],
+    iconAnchor:[17,17],
+    popupAnchor:[0,-18]
    });
 
    userLocationMarker=L.marker(
     [lat,lng],
-    {icon:userIcon}
+    {
+     icon:userIcon,
+     zIndexOffset:2000
+    }
    )
     .addTo(map)
     .bindPopup(
-      '<strong>📍 Я здесь</strong><br>Ваше текущее местоположение'
-    );
+     '<strong>Вы здесь</strong><br>Ваше текущее местоположение'
+    )
+    .openPopup();
 
    const nearby=places.filter(place=>
     Number.isFinite(place.lat)&&

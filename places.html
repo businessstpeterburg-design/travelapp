@@ -4446,7 +4446,7 @@ Marina Beach renamed and fully corrected from the author's first-hand experience
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-functions-compat.js"></script>
 <script src="js/firebase-favorites.js"></script>
 <script src="js/firebase-views.js"></script>
-<script src="js/app.js?v=105"></script>
+<script src="js/app.js?v=106"></script>
 <script src="js/map-controller.js?v=108"></script>
 
 <style id="km-one-tap-favorite">
@@ -7736,103 +7736,135 @@ button.close {
 
 
 
-<style id="km-single-geo-pointer-v100">
+<style id="km-map-tools-v106">
 
-/* Все прежние геолокационные элементы скрыты окончательно */
 #mapOverlay #kmLocationControl,
+#mapOverlay #kmLocationButton,
+#mapOverlay #kmGeoPointerV100,
 #mapOverlay .km-location-control,
 #mapOverlay .km-location-button,
-#mapOverlay .km-map-airplane-button,
-#mapOverlay #kmLocationButton{
+#mapOverlay .km-map-airplane-button{
   display:none !important;
-  visibility:hidden !important;
-  pointer-events:none !important;
 }
 
-/* Единственная навигационная стрелка */
-#mapOverlay #kmGeoPointerV100{
+#mapOverlay #kmMapToolsV106{
   position:absolute !important;
-  right:18px !important;
-  bottom:22px !important;
+  top:max(92px,calc(env(safe-area-inset-top) + 72px)) !important;
+  right:14px !important;
   z-index:20000 !important;
 
-  display:block !important;
-
-  width:54px !important;
-  height:54px !important;
+  display:grid !important;
+  grid-template-columns:46px !important;
+  gap:9px !important;
 
   margin:0 !important;
   padding:0 !important;
 
-  border:0 !important;
-  outline:0 !important;
-  border-radius:0 !important;
+  pointer-events:auto !important;
+}
 
-  background:transparent !important;
-  box-shadow:none !important;
+#mapOverlay #kmMapToolsV106 .km-map-tool-button{
+  position:relative !important;
+
+  display:grid !important;
+  place-items:center !important;
+
+  width:46px !important;
+  height:46px !important;
+
+  margin:0 !important;
+  padding:0 !important;
+
+  border:1px solid rgba(40,46,48,.16) !important;
+  border-radius:14px !important;
+
+  background:rgba(255,255,255,.96) !important;
+  color:#343a3c !important;
+
+  box-shadow:
+    0 3px 8px rgba(0,0,0,.18),
+    0 10px 30px rgba(0,0,0,.14) !important;
+
+  backdrop-filter:blur(14px) !important;
+  -webkit-backdrop-filter:blur(14px) !important;
 
   appearance:none !important;
   -webkit-appearance:none !important;
 
-  cursor:pointer !important;
   touch-action:manipulation !important;
   -webkit-tap-highlight-color:transparent !important;
 }
 
-/*
-  Когда открыт мини-предпросмотр, стрелка остаётся
-  справа над карточкой, а не уезжает наверх карты.
-*/
-#mapOverlay:has(#mapCard.open) #kmGeoPointerV100{
-  bottom:158px !important;
-}
+#mapOverlay #kmMapToolsV106 .km-map-tool-button svg{
+  width:25px !important;
+  height:25px !important;
 
-#mapOverlay #kmGeoPointerV100 svg{
-  display:block !important;
-
-  width:54px !important;
-  height:54px !important;
-
-  margin:0 !important;
-
-  /* Исходная стрелка направлена вправо-вверх.
-     Поворачиваем острым концом вертикально вверх. */
-  transform:rotate(-45deg) !important;
-  transform-origin:center !important;
-
-  overflow:visible !important;
-
-  filter:
-    drop-shadow(0 3px 3px rgba(0,0,0,.72))
-    drop-shadow(0 0 6px rgba(57,210,192,.48)) !important;
-}
-
-#mapOverlay #kmGeoPointerV100 path:first-child{
-  fill:#39d2c0 !important;
-  stroke:#d8fffa !important;
-  stroke-width:1.7 !important;
+  fill:none !important;
+  stroke:currentColor !important;
+  stroke-width:1.8 !important;
+  stroke-linecap:round !important;
   stroke-linejoin:round !important;
 }
 
-#mapOverlay #kmGeoPointerV100 .km-geo-pointer-detail{
+#mapOverlay #kmMapToolsV106 .km-map-tool-button .detail{
   fill:none !important;
-  stroke:rgba(5,48,44,.72) !important;
-  stroke-width:1.5 !important;
-  stroke-linecap:round !important;
+  stroke:currentColor !important;
 }
 
-#mapOverlay #kmGeoPointerV100:active{
-  transform:scale(.88) !important;
+#mapOverlay #kmMapToolsV106 .km-map-tool-button.active{
+  background:#eef8f6 !important;
+  color:#168f81 !important;
+  border-color:rgba(22,143,129,.32) !important;
+}
+
+#mapOverlay #kmMapToolsV106 .km-map-tool-button:active{
+  transform:scale(.92) !important;
+}
+
+#mapOverlay #kmMapLocateButtonV106.loading::after{
+  content:"" !important;
+
+  position:absolute !important;
+  inset:4px !important;
+
+  border:2px solid transparent !important;
+  border-top-color:#168f81 !important;
+  border-radius:50% !important;
+
+  animation:kmMapToolSpin .8s linear infinite !important;
+}
+
+#mapOverlay #kmMapCompassButtonV106 .compass-north{
+  fill:#e85858 !important;
+  stroke:#e85858 !important;
+}
+
+#mapOverlay:has(#mapCard.open) #kmMapToolsV106{
+  top:max(92px,calc(env(safe-area-inset-top) + 72px)) !important;
+}
+
+@keyframes kmMapToolSpin{
+  to{
+    transform:rotate(360deg);
+  }
 }
 
 @media(max-width:680px){
-  #mapOverlay #kmGeoPointerV100{
-    right:16px !important;
-    bottom:20px !important;
+  #mapOverlay #kmMapToolsV106{
+    right:12px !important;
+    grid-template-columns:44px !important;
+    gap:8px !important;
   }
 
-  #mapOverlay:has(#mapCard.open) #kmGeoPointerV100{
-    bottom:158px !important;
+  #mapOverlay #kmMapToolsV106 .km-map-tool-button{
+    width:44px !important;
+    height:44px !important;
+    border-radius:13px !important;
+  }
+
+  #mapOverlay #kmMapToolsV106 .km-map-tool-button svg{
+    width:24px !important;
+    height:24px !important;
   }
 }
 

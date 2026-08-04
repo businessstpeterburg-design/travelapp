@@ -4149,117 +4149,272 @@ loadGlobalFavorites();
 loadGlobalViews();
 
 
-/* ===== KM SINGLE GEO POINTER V100 ===== */
-(function installSingleGeoPointerV100(){
+/* ===== KM MAP TOOLS V106 ===== */
+(function installMapToolsV106(){
 
-  function removeOldGeoButtons(){
+  let streetLayerV106=null;
+  let satelliteLayerV106=null;
+  let satelliteModeV106=false;
+
+  function removeOldMapTools(){
     document.querySelectorAll(
       [
+        '#kmGeoPointerV100',
         '#kmLocationControl',
+        '#kmLocationButton',
         '.km-location-control',
         '.km-location-button',
-        '.km-map-airplane-button',
-        '#kmLocationButton',
-        '[title="Моё местоположение"]:not(#kmGeoPointerV100)',
-        '[aria-label="Показать моё местоположение"]:not(#kmGeoPointerV100)'
+        '.km-map-airplane-button'
       ].join(',')
-    ).forEach(element=>{
-      if(element.id !== 'kmGeoPointerV100'){
-        element.remove();
-      }
-    });
+    ).forEach(element=>element.remove());
   }
 
-  function createGeoPointer(){
+  function ensureMapLayers(){
+    if(!map || typeof L==='undefined'){
+      return false;
+    }
+
+    if(!streetLayerV106){
+      map.eachLayer(layer=>{
+        if(
+          !streetLayerV106 &&
+          layer instanceof L.TileLayer
+        ){
+          streetLayerV106=layer;
+        }
+      });
+    }
+
+    if(!streetLayerV106){
+      streetLayerV106=L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        {
+          maxZoom:19,
+          attribution:'© OpenStreetMap'
+        }
+      );
+    }
+
+    if(!satelliteLayerV106){
+      satelliteLayerV106=L.tileLayer(
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        {
+          maxZoom:19,
+          attribution:'Tiles © Esri'
+        }
+      );
+    }
+
+    return true;
+  }
+
+  function switchMapLayer(button){
+    if(!ensureMapLayers()){
+      return;
+    }
+
+    satelliteModeV106=!satelliteModeV106;
+
+    if(satelliteModeV106){
+      if(map.hasLayer(streetLayerV106)){
+        map.removeLayer(streetLayerV106);
+      }
+
+      satelliteLayerV106.addTo(map);
+
+      button.classList.add('active');
+      button.title='Обычная карта';
+      button.setAttribute('aria-label','Включить обычную карту');
+
+      toast('Спутниковый режим');
+    }else{
+      if(map.hasLayer(satelliteLayerV106)){
+        map.removeLayer(satelliteLayerV106);
+      }
+
+      streetLayerV106.addTo(map);
+
+      button.classList.remove('active');
+      button.title='Спутник';
+      button.setAttribute('aria-label','Включить спутниковую карту');
+
+      toast('Обычная карта');
+    }
+
+    setTimeout(()=>{
+      map.invalidateSize(true);
+    },100);
+  }
+
+  function locateUser(button){
+    if(typeof locateMapUser!=='function'){
+      toast('Геолокация недоступна');
+      return;
+    }
+
+    button.classList.add('loading');
+    locateMapUser();
+
+    setTimeout(()=>{
+      button.classList.remove('loading');
+    },12000);
+  }
+
+  function resetCompass(){
+    if(!map){
+      return;
+    }
+
+    if(typeof map.setBearing==='function'){
+      map.setBearing(0);
+    }
+
+    const mappedPlaces=places.filter(place=>
+      Number.isFinite(Number(place.lat)) &&
+      Number.isFinite(Number(place.lng)) &&
+      !(Number(place.lat)===0 && Number(place.lng)===0)
+    );
+
+    const cityPlaces=mappedPlaces.filter(place=>
+      Number(place.lat)>=12.18 &&
+      Number(place.lat)<=12.32 &&
+      Number(place.lng)>=109.14 &&
+      Number(place.lng)<=109.26
+    );
+
+    if(cityPlaces.length){
+      map.fitBounds(
+        cityPlaces.map(place=>[
+          Number(place.lat),
+          Number(place.lng)
+        ]),
+        {
+          padding:[35,35],
+          maxZoom:13,
+          animate:true
+        }
+      );
+    }else{
+      map.setView(
+        [12.2388,109.1965],
+        13,
+        {animate:true}
+      );
+    }
+
+    toast('Север наверху');
+  }
+
+  function toolButton(id,title,icon){
+    const button=document.createElement('button');
+
+    button.id=id;
+    button.className='km-map-tool-button';
+    button.type='button';
+    button.title=title;
+    button.setAttribute('aria-label',title);
+    button.innerHTML=icon;
+
+    return button;
+  }
+
+  function createMapTools(){
     const overlay=document.querySelector('#mapOverlay');
 
     if(!overlay){
       return;
     }
 
-    removeOldGeoButtons();
+    removeOldMapTools();
 
-    let button=document.querySelector('#kmGeoPointerV100');
+    let tools=document.querySelector('#kmMapToolsV106');
 
-    if(button){
+    if(tools){
       return;
     }
 
-    button=document.createElement('button');
-    button.id='kmGeoPointerV100';
-    button.type='button';
-    button.title='Моё местоположение';
-    button.setAttribute(
-      'aria-label',
-      'Показать моё местоположение'
+    tools=document.createElement('div');
+    tools.id='kmMapToolsV106';
+    tools.className='km-map-tools-v106';
+
+    const layerButton=toolButton(
+      'kmMapLayerButtonV106',
+      'Спутник',
+      `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3 3.5 7.7 12 12.4l8.5-4.7L12 3Z"/>
+          <path d="m3.5 12 8.5 4.7 8.5-4.7"/>
+          <path d="m3.5 16.3 8.5 4.7 8.5-4.7"/>
+        </svg>
+      `
     );
 
-    /* Стандартная навигационная стрелка, НЕ самолёт */
-    button.innerHTML=`
-      <svg
-        viewBox="0 0 48 48"
-        aria-hidden="true"
-        focusable="false"
-      >
-        <path
-          d="
-            M39.8 7.5
-            5.8 21.2
-            C4.3 21.8 4.2 23.9 5.7 24.6
-            L19.1 30.5
-            L25 43.8
-            C25.7 45.3 27.8 45.2 28.4 43.7
-            L42.2 9.8
-            C42.8 8.2 41.3 6.8 39.8 7.5
-            Z
-          "
-        />
-        <path
-          class="km-geo-pointer-detail"
-          d="M20 29 L39 10"
-        />
-      </svg>
-    `;
+    const locationButton=toolButton(
+      'kmMapLocateButtonV106',
+      'Моё местоположение',
+      `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.2 3.8 4.4 10.1c-.9.4-.9 1.7.1 2l6 2.3 2.3 6c.3 1 1.7 1 2.1.1l6.3-15.8c.3-.7-.3-1.3-1-1Z"/>
+          <path class="detail" d="m10.6 14.3 9.3-9.3"/>
+        </svg>
+      `
+    );
 
-    button.addEventListener('click',event=>{
+    const compassButton=toolButton(
+      'kmMapCompassButtonV106',
+      'Север',
+      `
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="8.5"/>
+          <path class="compass-north" d="m15.7 8.3-2.2 5.2-5.2 2.2 2.2-5.2 5.2-2.2Z"/>
+          <path class="detail" d="M12 1.8v2.1"/>
+        </svg>
+      `
+    );
+
+    layerButton.addEventListener('click',event=>{
       event.preventDefault();
       event.stopPropagation();
-
-      if(typeof locateMapUser === 'function'){
-        locateMapUser();
-      }
+      switchMapLayer(layerButton);
     });
 
-    overlay.appendChild(button);
-  }
-
-  function refreshGeoPointer(){
-    createGeoPointer();
-
-    requestAnimationFrame(()=>{
-      removeOldGeoButtons();
-      createGeoPointer();
+    locationButton.addEventListener('click',event=>{
+      event.preventDefault();
+      event.stopPropagation();
+      locateUser(locationButton);
     });
 
-    setTimeout(()=>{
-      removeOldGeoButtons();
-      createGeoPointer();
-    },150);
+    compassButton.addEventListener('click',event=>{
+      event.preventDefault();
+      event.stopPropagation();
+      resetCompass();
+    });
 
-    setTimeout(()=>{
-      removeOldGeoButtons();
-      createGeoPointer();
-    },500);
+    tools.append(
+      layerButton,
+      locationButton,
+      compassButton
+    );
+
+    overlay.appendChild(tools);
   }
 
-  if(document.readyState === 'loading'){
+  function refreshMapTools(){
+    createMapTools();
+
+    requestAnimationFrame(createMapTools);
+    setTimeout(createMapTools,150);
+    setTimeout(createMapTools,500);
+  }
+
+  if(document.readyState==='loading'){
     document.addEventListener(
       'DOMContentLoaded',
-      refreshGeoPointer,
+      refreshMapTools,
       {once:true}
     );
   }else{
-    refreshGeoPointer();
+    refreshMapTools();
   }
 
   document.addEventListener('click',event=>{
@@ -4267,22 +4422,8 @@ loadGlobalViews();
       event.target.closest('[data-view="map"]') ||
       event.target.closest('[data-nav="map"]')
     ){
-      refreshGeoPointer();
+      refreshMapTools();
     }
-  });
-
-  /*
-    Если старый Leaflet-контрол попробует появиться позже,
-    удаляем его и оставляем только нашу нижнюю стрелку.
-  */
-  const observer=new MutationObserver(()=>{
-    removeOldGeoButtons();
-    createGeoPointer();
-  });
-
-  observer.observe(document.documentElement,{
-    childList:true,
-    subtree:true
   });
 
 })();

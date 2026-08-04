@@ -4247,6 +4247,11 @@ loadGlobalViews();
   }
 
   function locateUser(button){
+    if(typeof requestMapLocationPermissionV109==='function'){
+      requestMapLocationPermissionV109(button);
+      return;
+    }
+
     if(typeof locateMapUser!=='function'){
       toast('Геолокация недоступна');
       return;
@@ -4836,6 +4841,28 @@ loadGlobalViews();
       'Категории мест на карте'
     );
 
+    const allButton=document.createElement('button');
+
+    allButton.type='button';
+    allButton.className=
+      'km-map-category-line km-map-category-all active';
+    allButton.dataset.mapCategory='all';
+    allButton.textContent='Все места';
+
+    allButton.setAttribute(
+      'aria-label',
+      'Показать на карте все места'
+    );
+
+    allButton.addEventListener('click',event=>{
+      event.preventDefault();
+      event.stopPropagation();
+
+      applyCategory('all');
+    });
+
+    panel.appendChild(allButton);
+
     definitions.forEach(definition=>{
       panel.appendChild(
         makeButton(definition)
@@ -4874,3 +4901,123 @@ loadGlobalViews();
 
 })();
 /* ===== END KM MAP CATEGORY FILTERS V108 ===== */
+
+/* ===== KM GEO PERMISSION DIALOG V109 ===== */
+window.requestMapLocationPermissionV109=function(button){
+
+  const existing=document.querySelector(
+    '#kmGeoPermissionDialogV109'
+  );
+
+  if(existing){
+    return;
+  }
+
+  const dialog=document.createElement('div');
+
+  dialog.id='kmGeoPermissionDialogV109';
+  dialog.className='km-geo-permission-dialog-v109';
+
+  dialog.innerHTML=`
+    <div
+      class="km-geo-permission-backdrop"
+      data-geo-close
+    ></div>
+
+    <section
+      class="km-geo-permission-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="kmGeoPermissionTitleV109"
+    >
+      <div class="km-geo-permission-icon">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 21s6-5.3 6-11a6 6 0 1 0-12 0c0 5.7 6 11 6 11Z"
+          />
+          <circle cx="12" cy="10" r="2.2"/>
+        </svg>
+      </div>
+
+      <h3 id="kmGeoPermissionTitleV109">
+        Показать ваше местоположение?
+      </h3>
+
+      <p>
+        Разрешите определить текущее местоположение,
+        чтобы показать вас на карте и найти места рядом.
+      </p>
+
+      <div class="km-geo-permission-actions">
+        <button
+          type="button"
+          class="km-geo-permission-cancel"
+          data-geo-close
+        >
+          Не сейчас
+        </button>
+
+        <button
+          type="button"
+          class="km-geo-permission-allow"
+          data-geo-allow
+        >
+          Разрешить
+        </button>
+      </div>
+    </section>
+  `;
+
+  function closeDialog(){
+    dialog.classList.remove('open');
+
+    setTimeout(()=>{
+      dialog.remove();
+    },220);
+  }
+
+  dialog
+    .querySelectorAll('[data-geo-close]')
+    .forEach(element=>{
+      element.addEventListener('click',event=>{
+        event.preventDefault();
+        event.stopPropagation();
+        closeDialog();
+      });
+    });
+
+  dialog
+    .querySelector('[data-geo-allow]')
+    ?.addEventListener('click',event=>{
+      event.preventDefault();
+      event.stopPropagation();
+
+      closeDialog();
+
+      if(typeof locateMapUser!=='function'){
+        toast('Геолокация недоступна');
+        return;
+      }
+
+      if(button){
+        button.classList.add('loading');
+      }
+
+      /*
+       * Здесь Safari покажет собственный системный запрос,
+       * если разрешение для сайта ещё не было выбрано.
+       */
+      locateMapUser();
+
+      setTimeout(()=>{
+        button?.classList.remove('loading');
+      },12000);
+    });
+
+  document.body.appendChild(dialog);
+
+  requestAnimationFrame(()=>{
+    dialog.classList.add('open');
+  });
+};
+/* ===== END KM GEO PERMISSION DIALOG V109 ===== */

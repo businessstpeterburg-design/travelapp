@@ -4362,6 +4362,189 @@ Marina Beach renamed and fully corrected from the author's first-hand experience
 
 </style>
 
+
+<style id="km-all-places-geo-v109">
+
+/* Кнопка «Все места» — по центру над двумя колонками */
+#mapOverlay
+#kmMapCategoryFiltersV108
+.km-map-category-all{
+  grid-column:1 / -1 !important;
+  justify-self:center !important;
+
+  width:calc(50% - 3px) !important;
+  max-width:260px !important;
+}
+
+/* Диалог разрешения геолокации */
+#kmGeoPermissionDialogV109{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:50000 !important;
+
+  display:grid !important;
+  place-items:center !important;
+
+  padding:
+    max(18px,env(safe-area-inset-top))
+    18px
+    max(18px,env(safe-area-inset-bottom)) !important;
+
+  opacity:0 !important;
+  visibility:hidden !important;
+
+  transition:
+    opacity .2s ease,
+    visibility .2s ease !important;
+}
+
+#kmGeoPermissionDialogV109.open{
+  opacity:1 !important;
+  visibility:visible !important;
+}
+
+#kmGeoPermissionDialogV109
+.km-geo-permission-backdrop{
+  position:absolute !important;
+  inset:0 !important;
+
+  background:rgba(0,0,0,.62) !important;
+
+  backdrop-filter:blur(8px) !important;
+  -webkit-backdrop-filter:blur(8px) !important;
+}
+
+#kmGeoPermissionDialogV109
+.km-geo-permission-card{
+  position:relative !important;
+  z-index:2 !important;
+
+  width:min(100%,360px) !important;
+
+  margin:0 !important;
+  padding:22px 20px 18px !important;
+
+  border:1px solid rgba(255,255,255,.15) !important;
+  border-radius:24px !important;
+
+  background:rgba(22,25,26,.97) !important;
+  color:#fff !important;
+
+  text-align:center !important;
+
+  box-shadow:
+    0 24px 70px rgba(0,0,0,.52),
+    inset 0 1px 0 rgba(255,255,255,.06) !important;
+
+  transform:translateY(16px) scale(.97) !important;
+
+  transition:
+    transform .24s cubic-bezier(.16,1,.3,1) !important;
+}
+
+#kmGeoPermissionDialogV109.open
+.km-geo-permission-card{
+  transform:translateY(0) scale(1) !important;
+}
+
+#kmGeoPermissionDialogV109
+.km-geo-permission-icon{
+  display:grid !important;
+  place-items:center !important;
+
+  width:54px !important;
+  height:54px !important;
+
+  margin:0 auto 14px !important;
+
+  border-radius:18px !important;
+
+  background:rgba(57,210,192,.13) !important;
+  color:#39d2c0 !important;
+}
+
+#kmGeoPermissionDialogV109
+.km-geo-permission-icon svg{
+  width:29px !important;
+  height:29px !important;
+
+  fill:none !important;
+  stroke:currentColor !important;
+  stroke-width:1.8 !important;
+  stroke-linecap:round !important;
+  stroke-linejoin:round !important;
+}
+
+#kmGeoPermissionDialogV109 h3{
+  margin:0 0 10px !important;
+
+  color:#fff !important;
+  font-size:21px !important;
+  font-weight:850 !important;
+  line-height:1.15 !important;
+}
+
+#kmGeoPermissionDialogV109 p{
+  margin:0 !important;
+
+  color:rgba(255,255,255,.68) !important;
+  font-size:14px !important;
+  line-height:1.45 !important;
+}
+
+#kmGeoPermissionDialogV109
+.km-geo-permission-actions{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:9px !important;
+
+  margin-top:20px !important;
+}
+
+#kmGeoPermissionDialogV109
+.km-geo-permission-actions button{
+  min-height:45px !important;
+
+  margin:0 !important;
+  padding:0 12px !important;
+
+  border-radius:14px !important;
+
+  font-size:14px !important;
+  font-weight:800 !important;
+
+  appearance:none !important;
+  -webkit-appearance:none !important;
+
+  touch-action:manipulation !important;
+}
+
+#kmGeoPermissionDialogV109
+.km-geo-permission-cancel{
+  border:1px solid rgba(255,255,255,.13) !important;
+
+  background:rgba(255,255,255,.07) !important;
+  color:#fff !important;
+}
+
+#kmGeoPermissionDialogV109
+.km-geo-permission-allow{
+  border:1px solid #39d2c0 !important;
+
+  background:#39d2c0 !important;
+  color:#071311 !important;
+
+  box-shadow:
+    0 8px 24px rgba(57,210,192,.18) !important;
+}
+
+#kmGeoPermissionDialogV109
+.km-geo-permission-actions button:active{
+  transform:scale(.97) !important;
+}
+
+</style>
+
 </head>
 <body>
 <main class="app">
@@ -4579,7 +4762,7 @@ Marina Beach renamed and fully corrected from the author's first-hand experience
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-functions-compat.js"></script>
 <script src="js/firebase-favorites.js"></script>
 <script src="js/firebase-views.js"></script>
-<script src="js/app.js?v=108"></script>
+<script src="js/app.js?v=109"></script>
 <script src="js/map-controller.js?v=108"></script>
 
 <style id="km-one-tap-favorite">

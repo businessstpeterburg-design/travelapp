@@ -4230,184 +4230,133 @@ Marina Beach renamed and fully corrected from the author's first-hand experience
 </style>
 
 
-<style id="km-map-category-filters-v107">
+<style id="km-map-category-filters-v108">
 
 #mapOverlay #kmMapCategoryFiltersV107{
+  display:none !important;
+}
+
+#mapOverlay #kmMapCategoryFiltersV108{
   position:absolute !important;
-  top:max(76px,calc(env(safe-area-inset-top) + 60px)) !important;
-  left:10px !important;
-  right:70px !important;
+
+  left:8px !important;
+  right:8px !important;
+  bottom:
+    max(
+      6px,
+      env(safe-area-inset-bottom)
+    ) !important;
+
   z-index:19000 !important;
 
-  display:block !important;
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  grid-auto-flow:row !important;
+  gap:4px 6px !important;
 
-  margin:0 !important;
-  padding:8px !important;
+  width:auto !important;
+  max-width:560px !important;
 
-  border:1px solid rgba(255,255,255,.20) !important;
-  border-radius:18px !important;
+  margin:0 auto !important;
+  padding:6px !important;
 
-  background:rgba(22,25,26,.80) !important;
+  border:1px solid rgba(255,255,255,.15) !important;
+  border-radius:15px !important;
+
+  background:rgba(21,24,25,.88) !important;
+
   backdrop-filter:blur(18px) !important;
   -webkit-backdrop-filter:blur(18px) !important;
 
   box-shadow:
-    0 8px 28px rgba(0,0,0,.30),
-    inset 0 1px 0 rgba(255,255,255,.06) !important;
+    0 -4px 24px rgba(0,0,0,.32),
+    inset 0 1px 0 rgba(255,255,255,.05) !important;
 
   pointer-events:auto !important;
 }
 
-#mapOverlay #kmMapCategoryFiltersV107 button{
+#mapOverlay #kmMapCategoryFiltersV108 .km-map-category-line{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  min-width:0 !important;
+  width:100% !important;
+  height:28px !important;
+  min-height:28px !important;
+
+  margin:0 !important;
+  padding:0 7px !important;
+
+  overflow:hidden !important;
+
+  border:1px solid rgba(255,255,255,.11) !important;
+  border-radius:9px !important;
+
+  background:rgba(255,255,255,.065) !important;
+  color:#f1f3f3 !important;
+
+  font-size:9px !important;
+  font-weight:800 !important;
+  line-height:1 !important;
+  letter-spacing:-.01em !important;
+
+  text-align:center !important;
+  white-space:nowrap !important;
+  text-overflow:ellipsis !important;
+
   appearance:none !important;
   -webkit-appearance:none !important;
+
+  box-shadow:none !important;
+
   touch-action:manipulation !important;
   -webkit-tap-highlight-color:transparent !important;
 }
 
-#mapOverlay .km-map-filter-all{
-  display:flex !important;
-  align-items:center !important;
-  justify-content:space-between !important;
-
-  width:100% !important;
-  min-height:34px !important;
-
-  margin:0 0 7px !important;
-  padding:6px 11px !important;
-
-  border:1px solid rgba(255,255,255,.12) !important;
-  border-radius:11px !important;
-
-  background:rgba(255,255,255,.08) !important;
-  color:#f4f6f6 !important;
-
-  font-size:11px !important;
-  font-weight:800 !important;
-}
-
-#mapOverlay .km-map-filter-grid{
-  display:grid !important;
-  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
-  gap:6px !important;
-}
-
-#mapOverlay .km-map-filter-button{
-  position:relative !important;
-
-  display:grid !important;
-  grid-template-columns:20px minmax(0,1fr) auto !important;
-  align-items:center !important;
-  gap:4px !important;
-
-  min-width:0 !important;
-  min-height:38px !important;
-
-  margin:0 !important;
-  padding:5px 6px !important;
-
-  border:1px solid rgba(255,255,255,.11) !important;
-  border-radius:11px !important;
-
-  background:rgba(255,255,255,.07) !important;
-  color:#edf1f1 !important;
-
-  text-align:left !important;
-  box-shadow:none !important;
-}
-
-#mapOverlay .km-map-filter-icon{
-  display:block !important;
-  font-size:15px !important;
-  line-height:1 !important;
-}
-
-#mapOverlay .km-map-filter-label{
-  min-width:0 !important;
-  overflow:hidden !important;
-  text-overflow:ellipsis !important;
-  white-space:nowrap !important;
-
-  font-size:9px !important;
-  font-weight:800 !important;
-  line-height:1.1 !important;
-}
-
-#mapOverlay .km-map-filter-count{
-  display:grid !important;
-  place-items:center !important;
-
-  min-width:20px !important;
-  height:20px !important;
-
-  padding:0 4px !important;
-
-  border-radius:999px !important;
-  background:rgba(255,255,255,.10) !important;
-
-  color:#cbd1d1 !important;
-  font-size:8px !important;
-  font-weight:800 !important;
-}
-
-#mapOverlay .km-map-filter-button.active,
-#mapOverlay .km-map-filter-all.active{
+#mapOverlay #kmMapCategoryFiltersV108 .km-map-category-line.active{
   border-color:#39d2c0 !important;
   background:#39d2c0 !important;
   color:#071311 !important;
 
   box-shadow:
-    0 7px 20px rgba(57,210,192,.20) !important;
+    0 5px 16px rgba(57,210,192,.19) !important;
 }
 
-#mapOverlay .km-map-filter-button.active .km-map-filter-count,
-#mapOverlay .km-map-filter-all.active .km-map-filter-count{
-  background:rgba(7,19,17,.14) !important;
-  color:#071311 !important;
+#mapOverlay #kmMapCategoryFiltersV108 .km-map-category-line:active{
+  transform:scale(.975) !important;
 }
 
-#mapOverlay .km-map-filter-button:active,
-#mapOverlay .km-map-filter-all:active{
-  transform:scale(.97) !important;
+/*
+ * При открытии предпросмотра панель плавно скрывается,
+ * чтобы не закрывать карточку выбранного места.
+ */
+#mapOverlay:has(#mapCard.open) #kmMapCategoryFiltersV108{
+  opacity:0 !important;
+  transform:translateY(120%) !important;
+  pointer-events:none !important;
 }
 
-@media(max-width:430px){
-  #mapOverlay #kmMapCategoryFiltersV107{
-    top:max(72px,calc(env(safe-area-inset-top) + 56px)) !important;
-    left:8px !important;
-    right:64px !important;
-    padding:7px !important;
-    border-radius:16px !important;
-  }
+#mapOverlay #kmMapCategoryFiltersV108{
+  transition:
+    opacity .22s ease,
+    transform .28s cubic-bezier(.16,1,.3,1) !important;
+}
 
-  #mapOverlay .km-map-filter-grid{
-    gap:5px !important;
-  }
-
-  #mapOverlay .km-map-filter-button{
-    grid-template-columns:17px minmax(0,1fr) !important;
-    gap:3px !important;
-    min-height:39px !important;
+@media(max-width:390px){
+  #mapOverlay #kmMapCategoryFiltersV108{
+    left:6px !important;
+    right:6px !important;
+    gap:3px 5px !important;
     padding:5px !important;
+    border-radius:14px !important;
   }
 
-  #mapOverlay .km-map-filter-icon{
-    font-size:14px !important;
-  }
-
-  #mapOverlay .km-map-filter-label{
+  #mapOverlay #kmMapCategoryFiltersV108 .km-map-category-line{
+    height:27px !important;
+    min-height:27px !important;
+    padding:0 5px !important;
     font-size:8px !important;
-  }
-
-  #mapOverlay .km-map-filter-button .km-map-filter-count{
-    position:absolute !important;
-    top:2px !important;
-    right:3px !important;
-
-    min-width:16px !important;
-    height:16px !important;
-
-    font-size:7px !important;
   }
 }
 
@@ -4630,7 +4579,7 @@ Marina Beach renamed and fully corrected from the author's first-hand experience
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-functions-compat.js"></script>
 <script src="js/firebase-favorites.js"></script>
 <script src="js/firebase-views.js"></script>
-<script src="js/app.js?v=107"></script>
+<script src="js/app.js?v=108"></script>
 <script src="js/map-controller.js?v=108"></script>
 
 <style id="km-one-tap-favorite">

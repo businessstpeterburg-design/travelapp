@@ -4428,6 +4428,472 @@ loadGlobalViews();
 
 })();
 
+/* ===== KM MAP CATEGORY FILTERS V107 ===== */
+(function installMapCategoryFiltersV107(){
 
+  const filterDefinitions=[
+    {
+      id:'food',
+      icon:'🍜',
+      label:'Еда'
+    },
+    {
+      id:'beach',
+      icon:'🏖',
+      label:'Пляжи'
+    },
+    {
+      id:'locations',
+      icon:'🏛',
+      label:'Локации'
+    },
+    {
+      id:'family',
+      icon:'👨‍👩‍👧',
+      label:'Для детей'
+    },
+    {
+      id:'spa',
+      icon:'💆',
+      label:'SPA'
+    },
+    {
+      id:'bars',
+      icon:'🍸',
+      label:'Бары'
+    },
+    {
+      id:'entertainment',
+      icon:'🎉',
+      label:'Развлечения'
+    },
+    {
+      id:'bikes',
+      icon:'🛵',
+      label:'Байки'
+    }
+  ];
 
+  let activeMapCategoryV107='all';
 
+  function normalizeMapPlaceText(place){
+    return [
+      place.category,
+      place.subcategory,
+      ...(Array.isArray(place.categories)
+        ? place.categories
+        : []),
+      ...(Array.isArray(place.tags)
+        ? place.tags
+        : []),
+      place.title,
+      place.name,
+      place.description,
+      place.type
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .toLocaleLowerCase('ru-RU');
+  }
+
+  function containsAny(text,words){
+    return words.some(word=>text.includes(word));
+  }
+
+  function matchesMapCategory(place,category){
+    if(category==='all'){
+      return true;
+    }
+
+    const text=normalizeMapPlaceText(place);
+
+    const isFood=containsAny(text,[
+      'food',
+      'еда',
+      'ресторан',
+      'кухн',
+      'кафе',
+      'coffee',
+      'кофе',
+      'кофейн',
+      'десерт',
+      'морожен',
+      'завтрак',
+      'бранч',
+      'bakery',
+      'пицц',
+      'суши',
+      'морепродукт'
+    ]);
+
+    const isBeach=containsAny(text,[
+      'beach',
+      'пляж',
+      'day pass',
+      'дэй пасс',
+      'бассейн',
+      'резорт'
+    ]);
+
+    const isSpa=containsAny(text,[
+      'spa',
+      'спа',
+      'массаж',
+      'восстановлен',
+      'beauty'
+    ]);
+
+    const isBars=containsAny(text,[
+      'night',
+      'бар',
+      'bar',
+      'клуб',
+      'club',
+      'караоке',
+      'кальян',
+      'hookah',
+      'rooftop'
+    ]);
+
+    const isEntertainment=containsAny(text,[
+      'entertainment',
+      'развлеч',
+      'дайвинг',
+      'снорклинг',
+      'экстрим',
+      'параглайдинг',
+      'полет',
+      'полёт',
+      'яхт',
+      'рыбалк',
+      'аквапарк',
+      'парк приключений',
+      'серфинг',
+      'квадроцикл',
+      'zipline',
+      'зиплайн'
+    ]);
+
+    const isFamily=containsAny(text,[
+      'family',
+      'для детей',
+      'детск',
+      'семейн',
+      'ребен',
+      'ребён',
+      'игров',
+      'аквариум',
+      'capybara'
+    ]);
+
+    const isBikes=containsAny(text,[
+      'байк',
+      'bike',
+      'motorbike',
+      'мото',
+      'скутер',
+      'scooter',
+      'аренда транспорта'
+    ]);
+
+    const isLocation=containsAny(text,[
+      'views',
+      'достопримеч',
+      'локаци',
+      'храм',
+      'пагод',
+      'музей',
+      'аквариум',
+      'башня',
+      'символ города',
+      'необычные места',
+      'рассвет',
+      'панорам',
+      'парк',
+      'лабиринт',
+      'океанограф'
+    ]) && !isFood && !isBeach && !isSpa && !isBars;
+
+    const map={
+      food:isFood,
+      beach:isBeach,
+      locations:isLocation,
+      family:isFamily,
+      spa:isSpa,
+      bars:isBars,
+      entertainment:isEntertainment,
+      bikes:isBikes
+    };
+
+    return Boolean(map[category]);
+  }
+
+  function mappedPlacesV107(){
+    return places.filter(place=>
+      Number.isFinite(Number(place.lat)) &&
+      Number.isFinite(Number(place.lng)) &&
+      !(
+        Number(place.lat)===0 &&
+        Number(place.lng)===0
+      )
+    );
+  }
+
+  function matchingPlacesV107(category){
+    return mappedPlacesV107().filter(place=>
+      matchesMapCategory(place,category)
+    );
+  }
+
+  function updateFilterCountsV107(){
+    const panel=document.querySelector('#kmMapCategoryFiltersV107');
+
+    if(!panel){
+      return;
+    }
+
+    const allCount=mappedPlacesV107().length;
+    const allCounter=panel.querySelector(
+      '[data-map-category="all"] .km-map-filter-count'
+    );
+
+    if(allCounter){
+      allCounter.textContent=String(allCount);
+    }
+
+    filterDefinitions.forEach(definition=>{
+      const counter=panel.querySelector(
+        `[data-map-category="${definition.id}"] `+
+        '.km-map-filter-count'
+      );
+
+      if(counter){
+        counter.textContent=String(
+          matchingPlacesV107(definition.id).length
+        );
+      }
+    });
+  }
+
+  function fitVisibleMarkersV107(visiblePlaces){
+    if(!map || !visiblePlaces.length){
+      return;
+    }
+
+    if(visiblePlaces.length===1){
+      map.flyTo(
+        [
+          Number(visiblePlaces[0].lat),
+          Number(visiblePlaces[0].lng)
+        ],
+        15,
+        {
+          animate:true,
+          duration:.7
+        }
+      );
+      return;
+    }
+
+    map.fitBounds(
+      visiblePlaces.map(place=>[
+        Number(place.lat),
+        Number(place.lng)
+      ]),
+      {
+        padding:[62,62],
+        maxZoom:14,
+        animate:true
+      }
+    );
+  }
+
+  function applyMapCategoryV107(category){
+    if(!map){
+      return;
+    }
+
+    activeMapCategoryV107=category;
+
+    const visiblePlaces=matchingPlacesV107(category);
+    const visibleIds=new Set(
+      visiblePlaces.map(place=>String(place.id))
+    );
+
+    markers.forEach((marker,id)=>{
+      const shouldShow=
+        category==='all' ||
+        visibleIds.has(String(id));
+
+      if(shouldShow){
+        if(!map.hasLayer(marker)){
+          marker.addTo(map);
+        }
+      }else if(map.hasLayer(marker)){
+        map.removeLayer(marker);
+      }
+    });
+
+    const card=document.querySelector('#mapCard');
+
+    if(card){
+      card.classList.remove('open');
+      card.dataset.placeId='';
+    }
+
+    selectedId=null;
+
+    document
+      .querySelectorAll(
+        '#kmMapCategoryFiltersV107 [data-map-category]'
+      )
+      .forEach(button=>{
+        button.classList.toggle(
+          'active',
+          button.dataset.mapCategory===category
+        );
+      });
+
+    fitVisibleMarkersV107(visiblePlaces);
+
+    const definition=filterDefinitions.find(
+      item=>item.id===category
+    );
+
+    if(category==='all'){
+      toast(`Все места: ${visiblePlaces.length}`);
+    }else{
+      toast(
+        `${definition?.label||'Категория'}: `+
+        `${visiblePlaces.length} мест`
+      );
+    }
+  }
+
+  function createFilterButtonV107(definition){
+    const button=document.createElement('button');
+
+    button.type='button';
+    button.className='km-map-filter-button';
+    button.dataset.mapCategory=definition.id;
+    button.setAttribute(
+      'aria-label',
+      `Показать на карте: ${definition.label}`
+    );
+
+    button.innerHTML=`
+      <span class="km-map-filter-icon">
+        ${definition.icon}
+      </span>
+      <span class="km-map-filter-label">
+        ${definition.label}
+      </span>
+      <span class="km-map-filter-count">0</span>
+    `;
+
+    button.addEventListener('click',event=>{
+      event.preventDefault();
+      event.stopPropagation();
+
+      const nextCategory=
+        activeMapCategoryV107===definition.id
+          ? 'all'
+          : definition.id;
+
+      applyMapCategoryV107(nextCategory);
+    });
+
+    return button;
+  }
+
+  function createMapCategoryFiltersV107(){
+    const overlay=document.querySelector('#mapOverlay');
+
+    if(!overlay){
+      return;
+    }
+
+    let panel=document.querySelector(
+      '#kmMapCategoryFiltersV107'
+    );
+
+    if(panel){
+      updateFilterCountsV107();
+      return;
+    }
+
+    panel=document.createElement('section');
+    panel.id='kmMapCategoryFiltersV107';
+    panel.className='km-map-category-filters-v107';
+    panel.setAttribute(
+      'aria-label',
+      'Фильтры категорий на карте'
+    );
+
+    const allButton=document.createElement('button');
+
+    allButton.type='button';
+    allButton.className=
+      'km-map-filter-all active';
+    allButton.dataset.mapCategory='all';
+    allButton.innerHTML=`
+      <span>✨ Все места</span>
+      <span class="km-map-filter-count">0</span>
+    `;
+
+    allButton.addEventListener('click',event=>{
+      event.preventDefault();
+      event.stopPropagation();
+      applyMapCategoryV107('all');
+    });
+
+    const grid=document.createElement('div');
+    grid.className='km-map-filter-grid';
+
+    filterDefinitions.forEach(definition=>{
+      grid.appendChild(
+        createFilterButtonV107(definition)
+      );
+    });
+
+    panel.append(allButton,grid);
+    overlay.appendChild(panel);
+
+    updateFilterCountsV107();
+  }
+
+  function refreshMapCategoryFiltersV107(){
+    createMapCategoryFiltersV107();
+
+    requestAnimationFrame(()=>{
+      createMapCategoryFiltersV107();
+      updateFilterCountsV107();
+    });
+
+    setTimeout(()=>{
+      createMapCategoryFiltersV107();
+      updateFilterCountsV107();
+    },180);
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener(
+      'DOMContentLoaded',
+      refreshMapCategoryFiltersV107,
+      {once:true}
+    );
+  }else{
+    refreshMapCategoryFiltersV107();
+  }
+
+  document.addEventListener('click',event=>{
+    if(
+      event.target.closest('[data-view="map"]') ||
+      event.target.closest('[data-nav="map"]')
+    ){
+      refreshMapCategoryFiltersV107();
+    }
+  });
+
+})();
+/* ===== END KM MAP CATEGORY FILTERS V107 ===== */
